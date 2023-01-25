@@ -38,7 +38,6 @@ function ResidentCreate() {
   const [manages, setManages] = useState<ManageInterface[]>([]);
   const [residents, setResidents] = useState<Partial<ResidentInterface>>({});
   const [bail, setBail] = useState<String>("5000");
-  // const [leasetime, setLeaseTime] = useState<String>("");
 
 
   const [success, setSuccess] = useState(false);
