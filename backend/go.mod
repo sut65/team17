@@ -1,4 +1,4 @@
-module github.com/jacker1342/team17
+module github.com/sut65/team17
 
 go 1.19
 
