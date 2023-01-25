@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/jacker1342/se-65/controller"
-	"github.com/jacker1342/se-65/entity"
-	"github.com/jacker1342/se-65/middlewares"
+	"github.com/sut65/team17/controller"
+	"github.com/sut65/team17/entity"
+	"github.com/sut65/team17/middlewares"
 
 	"github.com/gin-gonic/gin"
 )
