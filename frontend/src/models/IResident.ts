@@ -3,7 +3,6 @@ import { UserInterface } from "./IUser";
 import { LeaseInterface } from "./ILease";
 
 export interface ResidentInterface {
-
   ID:           number,
   Bail:         string,
   LeaseTime:    Date,
