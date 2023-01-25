@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	
 
 	"github.com/sut65/team17/entity"
 )
@@ -41,32 +42,32 @@ func GetReason(c *gin.Context) {
 
 }
 
-// GET /categories
-// เป็นการ list รายการของ Category ออกมา
-func ListCategories(c *gin.Context) {
+// GET /reasons
+// เป็นการ list รายการของ Reason ออกมา
+func ListReasons(c *gin.Context) {
 
-	var categories []entity.Category
+	var reasons []entity.Reason
 
-	if err := entity.DB().Raw("SELECT * FROM categories").Scan(&categories).Error; err != nil {
+	if err := entity.DB().Raw("SELECT * FROM categories").Scan(&reasons).Error; err != nil {
 
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 
 		return
 
 	}
-	c.JSON(http.StatusOK, gin.H{"data": categories})
+	c.JSON(http.StatusOK, gin.H{"data": reasons})
 
 }
 
-// DELETE /categories/:id
-// เป็น function สำหรับลบ category ด้วย ID
-func DeleteCategory(c *gin.Context) {
+// DELETE /reasons/:id
+// เป็น function สำหรับลบ reason ด้วย ID
+func DeleteReason(c *gin.Context) {
 
 	id := c.Param("id")
 
-	if tx := entity.DB().Exec("DELETE FROM categories WHERE id = ?", id); tx.RowsAffected == 0 {
+	if tx := entity.DB().Exec("DELETE FROM reasons WHERE id = ?", id); tx.RowsAffected == 0 {
 
-		c.JSON(http.StatusBadRequest, gin.H{"error": "category not found"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "reson not found"})
 
 		return
 
@@ -76,22 +77,22 @@ func DeleteCategory(c *gin.Context) {
 
 }
 
-// PATCH /categories
+// PATCH /reasons
 
-func UpdateCategory(c *gin.Context) {
+func UpdateReason(c *gin.Context) {
 
-	var category entity.Category
-	if err := c.ShouldBindJSON(&category); err != nil {
+	var reason entity.Reason
+	if err := c.ShouldBindJSON(&reason); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	if tx := entity.DB().Where("id = ?", category.ID).First(&category); tx.RowsAffected == 0 {
+	if tx := entity.DB().Where("id = ?", reason.ID).First(&reason); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "category not found"})
 		return
 	}
-	if err := entity.DB().Save(&category).Error; err != nil {
+	if err := entity.DB().Save(&reason).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{"data": category})
+	c.JSON(http.StatusOK, gin.H{"data": reason})
 }
