@@ -6,20 +6,19 @@ import (
 
 type Manage struct {
 	gorm.Model
+	Stetus string
+	Price  string
+	Detail string
 
-	Stetus				string
-	Price				string
-	Detail				string
+	//Entity Room
+	RoomID *uint
+	Room   Room
 
-	RoomID				*uint
-	Room					Room
+	CategoryID *uint
+	Category   Category
 
-	CategoryID			*uint
-	Category				Category
+	SizeID *uint
+	Size   Size
 
-	SizeID				*uint
-	Size					Size
-
-	Residents				[]Resident				`gorm:"foreignKey:ManageID"`
-				
+	Residents []Resident `gorm:"foreignKey:ManageID"`
 }
