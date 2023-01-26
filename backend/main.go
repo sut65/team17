@@ -66,6 +66,24 @@ func main() {
 			protected.PATCH("/rooms", controller.UpdateRoom)
 			protected.DELETE("/rooms/:id", controller.DeleteRoom)
 
+
+
+			// Requestout Routes
+			protected.GET("/requestouts", controller.ListRequestouts)
+			protected.GET("/requestout/:id", controller.GetRequestout)
+			protected.POST("/requestouts", controller.CreateRequestout)
+			protected.PATCH("/requestouts", controller.UpdateRequestout)
+			protected.DELETE("/requestouts/:id", controller.DeleteRequestout)
+
+
+			// Reason Routes
+			protected.GET("/reasons", controller.ListReasons)
+			protected.GET("/reason/:id", controller.GetReason)
+			protected.POST("/reasons", controller.CreateReason)
+			protected.PATCH("/reaons", controller.UpdateReason)
+			protected.DELETE("/reasons/:id", controller.DeleteReason)
+			
+
 			
 		}
 	}

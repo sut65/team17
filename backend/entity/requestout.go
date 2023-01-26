@@ -9,6 +9,7 @@ import (
 type Requestout struct {
 	gorm.Model
 	
+	Detail		string
 	
 	ReasonID 	*uint
 	Reason   	Reason
