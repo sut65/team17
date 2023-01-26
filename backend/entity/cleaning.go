@@ -18,8 +18,8 @@ type Cleaning struct {
 	RoomID				*uint
 	Room				Room
 
-	CategoryID			*uint
-	Category			Category
+	KindID				*uint
+	Kind				Kind
 
 	AreaID				*uint
 	Area				Area
