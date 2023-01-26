@@ -4,10 +4,10 @@ import (
 	"gorm.io/gorm"
 )
 
-type kind struct {
+type Kind struct {
 	gorm.Model
 		
-	kind				string
+	Kind				string
 	Cleanings			[]Cleaning 			`gorm:"foreignKey:CategoryID"`
 	
 }
