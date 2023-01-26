@@ -49,6 +49,7 @@ func CreateRequestout(c *gin.Context) {
 		Reason:		reason,					// โยงความสัมพันธ์กับ Entity Size
 		User:		user,               // โยงความสัมพันธ์กับ Entity Category
 		Outtime:	requestout.Outtime,
+		Detail:     requestout.Detail,	
 	}
 
 	// ขั้นตอนการ validate ที่นำมาจาก unit test

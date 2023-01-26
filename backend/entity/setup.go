@@ -29,7 +29,7 @@ func SetupDatabase() {
 	// Migrate the schema
 
 	database.AutoMigrate(
-		&User{}, &Room{}, &Category{}, &Size{}, &Lease{}, &Manage{}, &Resident{},
+		&User{}, &Room{}, &Category{}, &Size{}, &Lease{}, &Manage{}, &Resident{}, &Reason{}, &Requestout{},
 	)
 
 	db = database
@@ -154,6 +154,40 @@ func SetupDatabase() {
 		Lease: "1ปี",
 	}
 	db.Model(&Lease{}).Create(&lease3)
+
+
+
+
+
+
+
+	// Reason Data
+
+	Reason1 := Reason{
+		Reason: "ต้องการย้ายหอพัก",
+	}
+	db.Model(&Reason{}).Create(&Reason1)
+
+
+
+	Reason2 := Reason{
+		Reason: "มีปัญหาส่วนตัว",
+	}
+	db.Model(&Reason{}).Create(&Reason2)
+
+
+	Reason3 := Reason{
+		Reason: "ห้องพักมีปัญหา",
+	}
+	db.Model(&Reason{}).Create(&Reason3)
+
+
+
+	Reason4 := Reason{
+		Reason: "อื่นๆ",
+	}
+	db.Model(&Reason{}).Create(&Reason4)
+	
 	
 
 }
