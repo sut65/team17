@@ -29,7 +29,7 @@ func SetupDatabase() {
 	// Migrate the schema
 
 	database.AutoMigrate(
-		&User{}, &Room{}, &Category{}, &Size{}, &Lease{}, &Manage{}, &Resident{}, &Reason{}, &Requestout{},
+		&User{}, &Room{}, &Category{}, &Size{}, &Lease{}, &Manage{}, &Resident{}, &Reason{}, &Requestout{},&Kind{}, &Area{}, &Cleaning{},
 	)
 
 	db = database
@@ -189,5 +189,75 @@ func SetupDatabase() {
 	db.Model(&Reason{}).Create(&Reason4)
 	
 	
+
+
+	// Kind Data
+
+	kind01 := Kind{
+		Kind: "ดูดฝุ่น",
+	}
+	db.Model(&Kind{}).Create(&kind01)
+
+	kind02 := Kind{
+		Kind: "กวาด",
+	}
+	db.Model(&Kind{}).Create(&kind02)
+
+	kind03 := Kind{
+		Kind: "กวาด/ถู",
+	}
+	db.Model(&Kind{}).Create(&kind03)
+
+	kind04 := Kind{
+		Kind: "ดูดฝุ่น",
+	}
+	db.Model(&Kind{}).Create(&kind04)
+
+	kind05 := Kind{
+		Kind: "เก็บขยะ/เก็บของ",
+	}
+	db.Model(&Kind{}).Create(&kind05)
+
+	kind06 := Kind{
+		Kind: "จัดห้อง",
+	}
+	db.Model(&Kind{}).Create(&kind06)
+
+	kind07 := Kind{
+		Kind: "ล้าง",
+	}
+	db.Model(&Kind{}).Create(&kind07)
+
+	kind08 := Kind{
+		Kind: "ปัดหยากไย่",
+	}
+	db.Model(&Kind{}).Create(&kind08)
+
+	// Area Data
+
+	area01 := Area{
+		Area: "ห้องนอน",
+	}
+	db.Model(&Area{}).Create(&area01)
+
+	area02 := Area{
+		Area: "ห้องโถง",
+	}
+	db.Model(&Area{}).Create(&area02)
+
+	area03 := Area{
+		Area: "ห้องน้ำ",
+	}
+	db.Model(&Area{}).Create(&area03)
+
+	area04 := Area{
+		Area: "ระเบียง",
+	}
+	db.Model(&Area{}).Create(&area04)
+
+	area05 := Area{
+		Area: "ทั้งห้อง",
+	}
+	db.Model(&Area{}).Create(&area05)
 
 }
