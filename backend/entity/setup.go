@@ -31,7 +31,7 @@ func SetupDatabase() {
 	database.AutoMigrate(
 		&User{}, &Room{}, &Category{}, &Size{}, &Lease{}, &Manage{}, &Resident{}, &Reason{}, &Requestout{},&Kind{}, &Area{}, &Cleaning{},
 		&Banking{}, &Bill{}, &Payment{}, &Method{}, &Title{}, &Gender{}, &Status{}, &Amount{}, &Equipment{}, &Furniture{},
-		&admin{}, &Meter{}, &Bill{},
+		&Admin{}, &Meter{}, &Bill{}, &Object{}, &Emergencytype{}, &Repair{}, &Emergency{},
 	)
 
 	db = database
@@ -485,5 +485,29 @@ func SetupDatabase() {
 		Amount: "3",
 	}
 	db.Model(&Amount{}).Create(&am03)
+
+	C := Object{
+		Name: "Tv",
+	}
+	db.Model(&Object{}).Create(&C)
+
+	D := Object{
+
+		Name: "Microwave",
+	}
+
+	db.Model(&Object{}).Create(&D)
+
+	//Emergency
+
+	E := Emergencytype{
+		Name: "อัคคีภัย",
+	}
+	db.Model(&Emergencytype{}).Create(&E)
+
+	F := Emergencytype{
+		Name: "คนแปลกหน้า",
+	}
+	db.Model(&Emergencytype{}).Create(&F)
 
 }
