@@ -272,27 +272,6 @@ func SetupDatabase() {
 	db.Model(&Area{}).Create(&area05)
 
 
-	//---Bill Data
-	b1 := Bill{
-		Room: "A101",
-		Price: "3,500",
-		Water: "100",
-		Electic: "1,500",
-		Furniture: "1,000",
-		
-	}
-	db.Model(&Bill{}).Create(&b1)
-
-	b2 := Bill{
-		Room: "A102",
-		Price: "3,000",
-		Water: "100",
-		Electic: "1,00",
-		Furniture: "500",
-		
-	}
-	db.Model(&Bill{}).Create(&b2)
-
 	//---Banking Data
 	Bangkok := Banking{
 		Name: "ธนาคารกรุงเทพ",
@@ -371,6 +350,28 @@ func SetupDatabase() {
 	}
 	db.Model(&Status{}).Create(&Separated)
 
+	//---Bill Data
+	b1 := Bill{
+		Room: "A101",
+		Price: "3,500",
+		Water: "100",
+		Electic: "1,500",
+		Furniture: "1,000",
+		
+	}
+	db.Model(&Bill{}).Create(&b1)
+
+	b2 := Bill{
+		Room: "A102",
+		Price: "3,000",
+		Water: "100",
+		Electic: "1,00",
+		Furniture: "500",
+		
+	}
+	db.Model(&Bill{}).Create(&b2)
+
+	
 	//---Title Data
 	Mr := Title{
 		Name: "นาย",

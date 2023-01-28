@@ -83,6 +83,7 @@ func main() {
 			protected.PATCH("/reaons", controller.UpdateReason)
 			protected.DELETE("/reasons/:id", controller.DeleteReason)
 			
+			//fah
 			// Banking Routes
 			protected.GET("/bankings", controller.ListBankings)
 			protected.GET("/banking/:id", controller.GetBanking)
@@ -124,7 +125,7 @@ func main() {
 			protected.POST("/statuses", controller.CreateStatus)
 			protected.PATCH("/statuses", controller.UpdateStatus)
 			protected.DELETE("/statuses/:id", controller.DeleteStatus)
-
+			
 			
 		}
 	}
