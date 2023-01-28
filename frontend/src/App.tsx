@@ -26,6 +26,7 @@ import AddToQueueIcon from '@mui/icons-material/AddToQueue';
 import ChairOutlinedIcon from '@mui/icons-material/ChairOutlined';
 import ConstructionIcon from '@mui/icons-material/Construction';
 import CampaignIcon from '@mui/icons-material/Campaign';
+import ContactPageIcon from '@mui/icons-material/ContactPage';
 
 import Home from "./components/Home";
 import Manages from "./components/Manages";
@@ -111,8 +112,8 @@ const menu = [
   { name: "หน้าแรก", icon: <HomeIcon />, path: "/", role : 'admin'},
   { name: "จัดการห้องพัก", icon: <RoomPreferencesIcon />, path: "/manages", role: 'user'},
   { name: "จัดการห้องพัก", icon: <RoomPreferencesIcon />, path: "/manages", role: 'admin'},
-  { name: "สัญญาเช่า", icon: <StickyNote2OutlinedIcon />, path: "/residents", role: 'user'},
-  { name: "สัญญาเช่า", icon: <StickyNote2OutlinedIcon />, path: "/residents", role: 'admin'},
+  { name: "สัญญาเช่า", icon: <ContactPageIcon />, path: "/residents", role: 'user'},
+  { name: "สัญญาเช่า", icon: <ContactPageIcon />, path: "/residents", role: 'admin'},
   { name: "แจ้งออก", icon: <RemoveCircleOutlineIcon />, path: "/requestouts", role : 'user'},
   { name: "จองทำความสะอาด", icon: <AddToQueueIcon />, path: "/cleanings", role: 'user'},
   { name: "จองทำความสะอาด", icon: <AddToQueueIcon />, path: "/cleanings", role: 'admin'},
