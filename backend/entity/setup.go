@@ -31,12 +31,36 @@ func SetupDatabase() {
 	database.AutoMigrate(
 		&User{}, &Room{}, &Category{}, &Size{}, &Lease{}, &Manage{}, &Resident{}, &Reason{}, &Requestout{},&Kind{}, &Area{}, &Cleaning{},
 		&Banking{}, &Bill{}, &Payment{}, &Method{}, &Title{}, &Gender{}, &Status{}, &Amount{}, &Equipment{}, &Furniture{},
+		&admin{}, &Meter{}, &Bill{},
 	)
 
 	db = database
 
 
 	password, err := bcrypt.GenerateFromPassword([]byte("123456"), 14)
+
+	db.Model(&Admin{}).Create(&Admin{
+		Name:     	"Promporn Phinitphong",
+		Email:    	"Promporn@gmail.com",
+		Tel:      	"0932941944",
+		Password: 	string(password),
+		Role:		"admin",
+	})
+
+	db.Model(&Admin{}).Create(&Admin{
+		Name:     	"Noppong Phinitphong",
+		Email:    	"Noppong.1999@gmail.com",
+		Tel: 		"0857798727",
+		Password: 	string(password),
+		Role:     	"admin",
+	})
+
+	var promporn		Admin
+	db.Raw("SELECT * FROM Admins WHERE email = ?", "promporn@gmail.com").Scan(&promporn)
+
+	var noppong  	Admin
+	db.Raw("SELECT * FROM Admins WHERE email = ?", "noppong@gmail.com").Scan(&noppong)
+
 
 	db.Model(&User{}).Create(&User{
 		Name:     	"Jakkrit Chaiwan",
