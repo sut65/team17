@@ -22,6 +22,7 @@ import RoomPreferencesIcon from '@mui/icons-material/RoomPreferences';
 import StickyNote2OutlinedIcon from '@mui/icons-material/StickyNote2Outlined';
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
+import AddToQueueIcon from '@mui/icons-material/AddToQueue';
 
 import Home from "./components/Home";
 import Manages from "./components/Manages";
@@ -30,6 +31,8 @@ import Residents from "./components/Residents";
 import ResidentCreate from "./components/ResidentCreate";
 import Requestout from "./components/Requestout";
 import RequestoutCreate from "./components/RequestoutCreate";
+import Cleanings from "./components/Cleanings";
+import CleaningCreate from "./components/CleaningCreate";
 
 import SignIn from "./components/SignIn";
 
