@@ -30,6 +30,7 @@ func SetupDatabase() {
 
 	database.AutoMigrate(
 		&User{}, &Room{}, &Category{}, &Size{}, &Lease{}, &Manage{}, &Resident{}, &Reason{}, &Requestout{},&Kind{}, &Area{}, &Cleaning{},
+		&Banking{}, &Bill{}, &Payment{}, &Method{}, &Title{}, &Gender{}, &Status{},
 	)
 
 	db = database
@@ -53,12 +54,22 @@ func SetupDatabase() {
 		Role:     	"admin",
 	})
 
+	db.Model(&User{}).Create(&User{
+		Name:  "Panadda Srisawat",
+		Email: "panadda@gmail.com",
+
+		Password: string(password),
+		Role:     "user",
+	})
+
 	var jakkrit		User
 	db.Raw("SELECT * FROM users WHERE email = ?", "jackerchaiwan@gmail.com").Scan(&jakkrit)
 
 	var wallaya  	User
 	db.Raw("SELECT * FROM users WHERE email = ?", "wallaya@gmail.com").Scan(&wallaya)
 
+	var panadda User
+	db.Raw("SELECT * FROM users WHERE email = ?", "panadda@gmail.com").Scan(&panadda)
 
 	// Room Data
 	Room101 := Room{
@@ -260,4 +271,131 @@ func SetupDatabase() {
 	}
 	db.Model(&Area{}).Create(&area05)
 
+
+	//---Bill Data
+	b1 := Bill{
+		Room: "A101",
+		Price: "3,500",
+		Water: "100",
+		Electic: "1,500",
+		Furniture: "1,000",
+		
+	}
+	db.Model(&Bill{}).Create(&b1)
+
+	b2 := Bill{
+		Room: "A102",
+		Price: "3,000",
+		Water: "100",
+		Electic: "1,00",
+		Furniture: "500",
+		
+	}
+	db.Model(&Bill{}).Create(&b2)
+
+	//---Banking Data
+	Bangkok := Banking{
+		Name: "ธนาคารกรุงเทพ",
+	}
+	db.Model(&Banking{}).Create(&Bangkok)
+
+	Krungthai := Banking{
+		Name: "ธนาคารกรุงไทย",
+	}
+	db.Model(&Banking{}).Create(&Krungthai)
+
+	Krungsri := Banking{
+		Name: "ธนาคารกรุงศรีอยุธยา",
+	}
+	db.Model(&Banking{}).Create(&Krungsri)
+
+	Kasikorn := Banking{
+		Name: "ธนาคารกสิกรไทย",
+	}
+	db.Model(&Banking{}).Create(&Kasikorn)
+
+	SCB := Banking{
+		Name: "ธนาคารไทยพาณิชย์",
+	}
+	db.Model(&Banking{}).Create(&SCB)
+
+	//---Method Data
+	ATM := Method{
+		Name: "ATM (โอนจากตู้กดเงินสด)",
+	}
+	db.Model(&Method{}).Create(&ATM)
+
+	CDM := Method{
+		Name: "CDM (ฝากผ่านตู้ฝากเงินสด)",
+	}
+	db.Model(&Method{}).Create(&CDM)
+
+	Counter_Cashier := Method{
+		Name: "Counter Cashier (โอนเงินผ่านหน้าเว็บไซต์)",
+	}
+	db.Model(&Method{}).Create(&Counter_Cashier)
+
+	Internet_Banking := Method{
+		Name: "Internet Banking (โอนเงินผ่านหน้าเว็บไซต์)",
+	}
+	db.Model(&Method{}).Create(&Internet_Banking)
+
+	Mobile_Banking := Method{
+		Name: "Mobile Banking (โอนเงินผ่านแอพมือถือ)",
+	}
+	db.Model(&Method{}).Create(&Mobile_Banking)
+
+	//---Status Data
+	Single := Status{
+		Name: "โสด",
+	}
+	db.Model(&Status{}).Create(&Single)
+
+	Married := Status{
+		Name: "สมรส ",
+	}
+	db.Model(&Status{}).Create(&Married)
+
+	Widowed := Status{
+		Name: "หม้าย ",
+	}
+	db.Model(&Status{}).Create(&Widowed)
+
+	Divorce := Status{
+		Name: "หย่า ",
+	}
+	db.Model(&Status{}).Create(&Divorce)
+
+	Separated := Status{
+		Name: "แยกกันอยู่",
+	}
+	db.Model(&Status{}).Create(&Separated)
+
+	//---Title Data
+	Mr := Title{
+		Name: "นาย",
+	}
+	db.Model(&Title{}).Create(&Mr)
+
+	Mrs := Title{
+		Name: "นาง",
+	}
+	db.Model(&Title{}).Create(&Mrs)
+
+	Miss := Title{
+		Name: "นางสาว",
+	}
+	db.Model(&Title{}).Create(&Miss)
+
+	//---Gender Data
+	Male := Gender{
+		Name: "ชาย",
+	}
+	db.Model(&Gender{}).Create(&Male)
+
+	Female := Gender{
+		Name: "หญิง",
+	}
+	db.Model(&Gender{}).Create(&Female)
+	
 }
