@@ -80,6 +80,53 @@ func main() {
 			protected.PATCH("/reaons", controller.UpdateReason)
 			protected.DELETE("/reasons/:id", controller.DeleteReason)
 
+			
+			//fah
+			// Banking Routes
+			protected.GET("/bankings", controller.ListBankings)
+			protected.GET("/banking/:id", controller.GetBanking)
+			protected.POST("/bankings", controller.CreateBanking)
+			protected.PATCH("/bankings", controller.UpdateBanking)
+			protected.DELETE("/bankings/:id", controller.DeleteBanking)
+
+			// Method Routes
+			protected.GET("/methods", controller.ListMethods)
+			protected.GET("/method/:id", controller.GetMethod)
+			protected.POST("/methods", controller.CreateMethod)
+			protected.PATCH("/methods", controller.UpdateMethod)
+			protected.DELETE("/methods/:id", controller.DeleteMethod)
+
+			// Payment Routes
+			protected.GET("/payments", controller.ListPayments)
+			protected.GET("/payment/:id", controller.GetPayment)
+			protected.POST("/payments", controller.CreatePayment)
+			protected.PATCH("/payments", controller.UpdatePayment)
+			protected.DELETE("/payments/:id", controller.DeletePayment)
+
+			// Title Routes
+			protected.GET("/titles", controller.ListTitles)
+			protected.GET("/title/:id", controller.GetTitle)
+			protected.POST("/titles", controller.CreateTitle)
+			protected.PATCH("/titles", controller.UpdateTitle)
+			protected.DELETE("/titles/:id", controller.DeleteTitle)
+
+			// Gender Routes
+			protected.GET("/genders", controller.ListGenders)
+			protected.GET("/gender/:id", controller.GetGender)
+			protected.POST("/genders", controller.CreateGender)
+			protected.PATCH("/genders", controller.UpdateGender)
+			protected.DELETE("/genders/:id", controller.DeleteGender)
+
+			// Status Routes
+			protected.GET("/statuses", controller.ListStatus)
+			protected.GET("/statuses/:id", controller.GetStatus)
+			protected.POST("/statuses", controller.CreateStatus)
+			protected.PATCH("/statuses", controller.UpdateStatus)
+			protected.DELETE("/statuses/:id", controller.DeleteStatus)
+			
+			
+
+
 			// Kind Routes
 			protected.GET("/kinds", controller.ListKinds)
 			protected.GET("/kind/:id", controller.GetKind)

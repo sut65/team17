@@ -30,6 +30,7 @@ func SetupDatabase() {
 
 	database.AutoMigrate(
 		&User{}, &Room{}, &Category{}, &Size{}, &Lease{}, &Manage{}, &Resident{}, &Reason{}, &Requestout{},&Kind{}, &Area{}, &Cleaning{},
+		&Banking{}, &Bill{}, &Payment{}, &Method{}, &Title{}, &Gender{}, &Status{}, &Amount{}, &Equipment{}, &Furniture{},
 	)
 
 	db = database
@@ -53,12 +54,22 @@ func SetupDatabase() {
 		Role:     	"admin",
 	})
 
+	db.Model(&User{}).Create(&User{
+		Name:  "Panadda Srisawat",
+		Email: "panadda@gmail.com",
+
+		Password: string(password),
+		Role:     "user",
+	})
+
 	var jakkrit		User
 	db.Raw("SELECT * FROM users WHERE email = ?", "jackerchaiwan@gmail.com").Scan(&jakkrit)
 
 	var wallaya  	User
 	db.Raw("SELECT * FROM users WHERE email = ?", "wallaya@gmail.com").Scan(&wallaya)
 
+	var panadda User
+	db.Raw("SELECT * FROM users WHERE email = ?", "panadda@gmail.com").Scan(&panadda)
 
 	// Room Data
 	Room101 := Room{
@@ -191,74 +202,200 @@ func SetupDatabase() {
 	
 
 
-	// Kind Data
-
-	kind01 := Kind{
-		Kind: "ดูดฝุ่น",
+	// Equipment Data
+	eq01 := Equipment{
+		Equipment: "ทีวี",
+		Price:     200,
 	}
-	db.Model(&Kind{}).Create(&kind01)
+	db.Model(&Equipment{}).Create(&eq01)
 
-	kind02 := Kind{
-		Kind: "กวาด",
+	eq02 := Equipment{
+		Equipment: "ตู้เย็น",
+		Price:     300,
 	}
-	db.Model(&Kind{}).Create(&kind02)
+	db.Model(&Equipment{}).Create(&eq02)
 
-	kind03 := Kind{
-		Kind: "กวาด/ถู",
+	eq03 := Equipment{
+		Equipment: "พัดลม",
+		Price:     100,
 	}
-	db.Model(&Kind{}).Create(&kind03)
+	db.Model(&Equipment{}).Create(&eq03)
 
-	kind04 := Kind{
-		Kind: "ดูดฝุ่น",
+	eq04 := Equipment{
+		Equipment: "ไมโครเวฟ",
+		Price:     100,
 	}
-	db.Model(&Kind{}).Create(&kind04)
+	db.Model(&Equipment{}).Create(&eq04)
 
-	kind05 := Kind{
-		Kind: "เก็บขยะ/เก็บของ",
+	eq05 := Equipment{
+		Equipment: "เตาไฟฟ้า",
+		Price:     100,
 	}
-	db.Model(&Kind{}).Create(&kind05)
+	db.Model(&Equipment{}).Create(&eq05)
 
-	kind06 := Kind{
-		Kind: "จัดห้อง",
+	eq06 := Equipment{
+		Equipment: "กระติกน้ำร้อน",
+		Price:     100,
 	}
-	db.Model(&Kind{}).Create(&kind06)
+	db.Model(&Equipment{}).Create(&eq06)
 
-	kind07 := Kind{
-		Kind: "ล้าง",
+	eq07 := Equipment{
+		Equipment: "เครื่องฟอกอากาศ",
+		Price:     400,
 	}
-	db.Model(&Kind{}).Create(&kind07)
+	db.Model(&Equipment{}).Create(&eq07)
 
-	kind08 := Kind{
-		Kind: "ปัดหยากไย่",
+	eq08 := Equipment{
+		Equipment: "เครื่องดูดฝุ่น",
+		Price:     200,
 	}
-	db.Model(&Kind{}).Create(&kind08)
+	db.Model(&Equipment{}).Create(&eq08)
 
-	// Area Data
-
-	area01 := Area{
-		Area: "ห้องนอน",
+	// Amount Data
+	am01 := Amount{
+		Amount: "1",
 	}
-	db.Model(&Area{}).Create(&area01)
+	db.Model(&Amount{}).Create(&am01)
 
-	area02 := Area{
-		Area: "ห้องโถง",
+	am02 := Amount{
+		Amount: "2",
 	}
-	db.Model(&Area{}).Create(&area02)
+	db.Model(&Amount{}).Create(&am02)
 
-	area03 := Area{
-		Area: "ห้องน้ำ",
+	am03 := Amount{
+		Amount: "3",
 	}
-	db.Model(&Area{}).Create(&area03)
+	db.Model(&Amount{}).Create(&am03)
 
-	area04 := Area{
-		Area: "ระเบียง",
-	}
-	db.Model(&Area{}).Create(&area04)
 
-	area05 := Area{
-		Area: "ทั้งห้อง",
+
+	//---Banking Data
+	Bangkok := Banking{
+		Name: "ธนาคารกรุงเทพ",
 	}
-	db.Model(&Area{}).Create(&area05)
+	db.Model(&Banking{}).Create(&Bangkok)
+
+	Krungthai := Banking{
+		Name: "ธนาคารกรุงไทย",
+	}
+	db.Model(&Banking{}).Create(&Krungthai)
+
+	Krungsri := Banking{
+		Name: "ธนาคารกรุงศรีอยุธยา",
+	}
+	db.Model(&Banking{}).Create(&Krungsri)
+
+	Kasikorn := Banking{
+		Name: "ธนาคารกสิกรไทย",
+	}
+	db.Model(&Banking{}).Create(&Kasikorn)
+
+	SCB := Banking{
+		Name: "ธนาคารไทยพาณิชย์",
+	}
+	db.Model(&Banking{}).Create(&SCB)
+
+	//---Method Data
+	ATM := Method{
+		Name: "ATM (โอนจากตู้กดเงินสด)",
+	}
+	db.Model(&Method{}).Create(&ATM)
+
+	CDM := Method{
+		Name: "CDM (ฝากผ่านตู้ฝากเงินสด)",
+	}
+	db.Model(&Method{}).Create(&CDM)
+
+	Counter_Cashier := Method{
+		Name: "Counter Cashier (โอนเงินผ่านหน้าเว็บไซต์)",
+	}
+	db.Model(&Method{}).Create(&Counter_Cashier)
+
+	Internet_Banking := Method{
+		Name: "Internet Banking (โอนเงินผ่านหน้าเว็บไซต์)",
+	}
+	db.Model(&Method{}).Create(&Internet_Banking)
+
+	Mobile_Banking := Method{
+		Name: "Mobile Banking (โอนเงินผ่านแอพมือถือ)",
+	}
+	db.Model(&Method{}).Create(&Mobile_Banking)
+
+	//---Status Data
+	Single := Status{
+		Name: "โสด",
+	}
+	db.Model(&Status{}).Create(&Single)
+
+	Married := Status{
+		Name: "สมรส ",
+	}
+	db.Model(&Status{}).Create(&Married)
+
+	Widowed := Status{
+		Name: "หม้าย ",
+	}
+	db.Model(&Status{}).Create(&Widowed)
+
+	Divorce := Status{
+		Name: "หย่า ",
+	}
+	db.Model(&Status{}).Create(&Divorce)
+
+	Separated := Status{
+		Name: "แยกกันอยู่",
+	}
+	db.Model(&Status{}).Create(&Separated)
+
+	//---Bill Data
+	b1 := Bill{
+		Room: "A101",
+		Price: "3,500",
+		Water: "100",
+		Electic: "1,500",
+		Furniture: "1,000",
+		
+	}
+	db.Model(&Bill{}).Create(&b1)
+
+	b2 := Bill{
+		Room: "A102",
+		Price: "3,000",
+		Water: "100",
+		Electic: "1,00",
+		Furniture: "500",
+		
+	}
+	db.Model(&Bill{}).Create(&b2)
+
+	
+	//---Title Data
+	Mr := Title{
+		Name: "นาย",
+	}
+	db.Model(&Title{}).Create(&Mr)
+
+	Mrs := Title{
+		Name: "นาง",
+	}
+	db.Model(&Title{}).Create(&Mrs)
+
+	Miss := Title{
+		Name: "นางสาว",
+	}
+	db.Model(&Title{}).Create(&Miss)
+
+	//---Gender Data
+	Male := Gender{
+		Name: "ชาย",
+	}
+	db.Model(&Gender{}).Create(&Male)
+
+	Female := Gender{
+		Name: "หญิง",
+	}
+	db.Model(&Gender{}).Create(&Female)
+	
 
 	// Equipment Data
 	eq01 := Equipment{
