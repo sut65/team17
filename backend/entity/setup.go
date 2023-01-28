@@ -272,6 +272,7 @@ func SetupDatabase() {
 	db.Model(&Area{}).Create(&area05)
 
 
+
 	//---Banking Data
 	Bangkok := Banking{
 		Name: "ธนาคารกรุงเทพ",
@@ -399,6 +400,7 @@ func SetupDatabase() {
 	}
 	db.Model(&Gender{}).Create(&Female)
 	
+
 	// Equipment Data
 	eq01 := Equipment{
 		Equipment: "ทีวี",

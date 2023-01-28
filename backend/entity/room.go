@@ -9,5 +9,5 @@ type Room struct {
 	
 	Number				string
 	Manages				[]Manage				`gorm:"foreignKey:RoomID"`
-
+	Requestouts				[]Requestout				`gorm:"foreignKey:RoomID"`
 }

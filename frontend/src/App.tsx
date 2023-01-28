@@ -21,13 +21,18 @@ import HomeIcon from "@mui/icons-material/Home";
 import RoomPreferencesIcon from '@mui/icons-material/RoomPreferences';
 import StickyNote2OutlinedIcon from '@mui/icons-material/StickyNote2Outlined';
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-
+import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
+import AddToQueueIcon from '@mui/icons-material/AddToQueue';
 
 import Home from "./components/Home";
 import Manages from "./components/Manages";
 import ManageCreate from "./components/ManageCreate";
 import Residents from "./components/Residents";
 import ResidentCreate from "./components/ResidentCreate";
+import Requestout from "./components/Requestout";
+import RequestoutCreate from "./components/RequestoutCreate";
+import Cleanings from "./components/Cleanings";
+import CleaningCreate from "./components/CleaningCreate";
 
 import SignIn from "./components/SignIn";
 
@@ -91,6 +96,9 @@ const menu = [
   { name: "จัดการห้องพัก", icon: <RoomPreferencesIcon />, path: "/manages", role: 'admin'},
   { name: "สัญญาเช่า", icon: <StickyNote2OutlinedIcon />, path: "/residents", role: 'user'},
   { name: "สัญญาเช่า", icon: <StickyNote2OutlinedIcon />, path: "/residents", role: 'admin'},
+  { name: "แจ้งออก", icon: <RemoveCircleOutlineIcon />, path: "/requestouts", role : 'user'},
+  { name: "จองทำความสะอาด", icon: <AddToQueueIcon />, path: "/cleanings", role: 'user'},
+  { name: "จองทำความสะอาด", icon: <AddToQueueIcon />, path: "/cleanings", role: 'admin'},
   
 
 ];
@@ -213,6 +221,10 @@ function App() {
                 <Route path="/manage/create" element={<ManageCreate />} />
                 <Route path="/residents" element={<Residents />} />
                 <Route path="/resident/create" element={<ResidentCreate />} />
+                <Route path="/requestouts" element={< Requestout />} />
+                <Route path="/requestout/create" element={<RequestoutCreate />} />
+                <Route path="/cleanings" element={<Cleanings />} />
+                <Route path="/cleaning/create" element={<CleaningCreate />} />
 
               </Routes>
             </Container>

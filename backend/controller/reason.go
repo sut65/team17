@@ -48,7 +48,7 @@ func ListReasons(c *gin.Context) {
 
 	var reasons []entity.Reason
 
-	if err := entity.DB().Raw("SELECT * FROM categories").Scan(&reasons).Error; err != nil {
+	if err := entity.DB().Raw("SELECT * FROM reasons").Scan(&reasons).Error; err != nil {
 
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 
