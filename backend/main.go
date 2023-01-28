@@ -66,8 +66,6 @@ func main() {
 			protected.PATCH("/rooms", controller.UpdateRoom)
 			protected.DELETE("/rooms/:id", controller.DeleteRoom)
 
-
-
 			// Requestout Routes
 			protected.GET("/requestouts", controller.ListRequestouts)
 			protected.GET("/requestout/:id", controller.GetRequestout)
@@ -75,14 +73,59 @@ func main() {
 			protected.PATCH("/requestouts", controller.UpdateRequestout)
 			protected.DELETE("/requestouts/:id", controller.DeleteRequestout)
 
-
 			// Reason Routes
 			protected.GET("/reasons", controller.ListReasons)
 			protected.GET("/reason/:id", controller.GetReason)
 			protected.POST("/reasons", controller.CreateReason)
 			protected.PATCH("/reaons", controller.UpdateReason)
 			protected.DELETE("/reasons/:id", controller.DeleteReason)
+
 			
+			//fah
+			// Banking Routes
+			protected.GET("/bankings", controller.ListBankings)
+			protected.GET("/banking/:id", controller.GetBanking)
+			protected.POST("/bankings", controller.CreateBanking)
+			protected.PATCH("/bankings", controller.UpdateBanking)
+			protected.DELETE("/bankings/:id", controller.DeleteBanking)
+
+			// Method Routes
+			protected.GET("/methods", controller.ListMethods)
+			protected.GET("/method/:id", controller.GetMethod)
+			protected.POST("/methods", controller.CreateMethod)
+			protected.PATCH("/methods", controller.UpdateMethod)
+			protected.DELETE("/methods/:id", controller.DeleteMethod)
+
+			// Payment Routes
+			protected.GET("/payments", controller.ListPayments)
+			protected.GET("/payment/:id", controller.GetPayment)
+			protected.POST("/payments", controller.CreatePayment)
+			protected.PATCH("/payments", controller.UpdatePayment)
+			protected.DELETE("/payments/:id", controller.DeletePayment)
+
+			// Title Routes
+			protected.GET("/titles", controller.ListTitles)
+			protected.GET("/title/:id", controller.GetTitle)
+			protected.POST("/titles", controller.CreateTitle)
+			protected.PATCH("/titles", controller.UpdateTitle)
+			protected.DELETE("/titles/:id", controller.DeleteTitle)
+
+			// Gender Routes
+			protected.GET("/genders", controller.ListGenders)
+			protected.GET("/gender/:id", controller.GetGender)
+			protected.POST("/genders", controller.CreateGender)
+			protected.PATCH("/genders", controller.UpdateGender)
+			protected.DELETE("/genders/:id", controller.DeleteGender)
+
+			// Status Routes
+			protected.GET("/statuses", controller.ListStatus)
+			protected.GET("/statuses/:id", controller.GetStatus)
+			protected.POST("/statuses", controller.CreateStatus)
+			protected.PATCH("/statuses", controller.UpdateStatus)
+			protected.DELETE("/statuses/:id", controller.DeleteStatus)
+			
+			
+
 
 			// Kind Routes
 			protected.GET("/kinds", controller.ListKinds)
@@ -105,12 +148,31 @@ func main() {
 			protected.PATCH("/cleanings", controller.UpdateCleaning)
 			protected.DELETE("/cleanings/:id", controller.DeleteCleaning)
 
-			
+			// Equipment Routes
+			protected.GET("/equipments", controller.ListEquipments)
+			protected.GET("/equipment/:id", controller.GetEquipment)
+			protected.POST("/equipments", controller.CreateEquipment)
+			protected.PATCH("/equipments", controller.UpdateEquipment)
+			protected.DELETE("/equipments/:id", controller.DeleteEquipment)
+
+			// Amount Routes
+			protected.GET("/amounts", controller.ListAmounts)
+			protected.GET("/amount/:id", controller.GetAmount)
+			protected.POST("/amounts", controller.CreateAmount)
+			protected.PATCH("/amounts", controller.UpdateAmount)
+			protected.DELETE("/amounts/:id", controller.DeleteAmount)
+
+			// Furniture Routes
+			protected.GET("/furnitures", controller.ListFurnitures)
+			protected.GET("/furniture/:id", controller.GetFurniture)
+			protected.POST("/furnitures", controller.CreateFurniture)
+			protected.PATCH("/furnitures", controller.UpdateFurniture)
+			protected.DELETE("/furnitures/:id", controller.DeleteFurniture)
 		}
 	}
 
 	// users Routes
-	r.POST("/users", controller.CreateUser)	
+	r.POST("/users", controller.CreateUser)
 
 	// Authentication Routes
 	r.POST("/login", controller.Login)
@@ -126,7 +188,7 @@ func CORSMiddleware() gin.HandlerFunc {
 		c.Writer.Header().Set("Access-Control-Allow-Headers", "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With")
 		c.Writer.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS, GET, PUT")
 
-		if c.Request.Method == "OPTIONS"{
+		if c.Request.Method == "OPTIONS" {
 			c.AbortWithStatus(204)
 			return
 		}
