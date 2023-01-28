@@ -7,7 +7,9 @@ import (
 type Reason struct {
 	gorm.Model
 
-	rea string
+	Reason string
+	
 
-	Requestouts []Requestout `gorm:"foreignKey:ReasonID"`
+	Requestouts 	[]Requestout 		`gorm:"foreignKey:ReasonID"`
+	Requestchange 	[]Requestchange 	`gorm:"foreignKey:ReasonID"`
 }
