@@ -30,7 +30,7 @@ func SetupDatabase() {
 
 	database.AutoMigrate(
 		&User{}, &Room{}, &Category{}, &Size{}, &Lease{}, &Manage{}, &Resident{}, &Reason{}, &Requestout{},&Kind{}, &Area{}, &Cleaning{},
-		&Banking{}, &Bill{}, &Payment{}, &Method{}, &Title{}, &Gender{}, &Status{},
+		&Banking{}, &Bill{}, &Payment{}, &Method{}, &Title{}, &Gender{}, &Status{}, &Amount{}, &Equipment{}, &Furniture{},
 	)
 
 	db = database
@@ -202,74 +202,70 @@ func SetupDatabase() {
 	
 
 
-	// Kind Data
-
-	kind01 := Kind{
-		Kind: "ดูดฝุ่น",
+	// Equipment Data
+	eq01 := Equipment{
+		Equipment: "ทีวี",
+		Price:     200,
 	}
-	db.Model(&Kind{}).Create(&kind01)
+	db.Model(&Equipment{}).Create(&eq01)
 
-	kind02 := Kind{
-		Kind: "กวาด",
+	eq02 := Equipment{
+		Equipment: "ตู้เย็น",
+		Price:     300,
 	}
-	db.Model(&Kind{}).Create(&kind02)
+	db.Model(&Equipment{}).Create(&eq02)
 
-	kind03 := Kind{
-		Kind: "กวาด/ถู",
+	eq03 := Equipment{
+		Equipment: "พัดลม",
+		Price:     100,
 	}
-	db.Model(&Kind{}).Create(&kind03)
+	db.Model(&Equipment{}).Create(&eq03)
 
-	kind04 := Kind{
-		Kind: "ดูดฝุ่น",
+	eq04 := Equipment{
+		Equipment: "ไมโครเวฟ",
+		Price:     100,
 	}
-	db.Model(&Kind{}).Create(&kind04)
+	db.Model(&Equipment{}).Create(&eq04)
 
-	kind05 := Kind{
-		Kind: "เก็บขยะ/เก็บของ",
+	eq05 := Equipment{
+		Equipment: "เตาไฟฟ้า",
+		Price:     100,
 	}
-	db.Model(&Kind{}).Create(&kind05)
+	db.Model(&Equipment{}).Create(&eq05)
 
-	kind06 := Kind{
-		Kind: "จัดห้อง",
+	eq06 := Equipment{
+		Equipment: "กระติกน้ำร้อน",
+		Price:     100,
 	}
-	db.Model(&Kind{}).Create(&kind06)
+	db.Model(&Equipment{}).Create(&eq06)
 
-	kind07 := Kind{
-		Kind: "ล้าง",
+	eq07 := Equipment{
+		Equipment: "เครื่องฟอกอากาศ",
+		Price:     400,
 	}
-	db.Model(&Kind{}).Create(&kind07)
+	db.Model(&Equipment{}).Create(&eq07)
 
-	kind08 := Kind{
-		Kind: "ปัดหยากไย่",
+	eq08 := Equipment{
+		Equipment: "เครื่องดูดฝุ่น",
+		Price:     200,
 	}
-	db.Model(&Kind{}).Create(&kind08)
+	db.Model(&Equipment{}).Create(&eq08)
 
-	// Area Data
-
-	area01 := Area{
-		Area: "ห้องนอน",
+	// Amount Data
+	am01 := Amount{
+		Amount: "1",
 	}
-	db.Model(&Area{}).Create(&area01)
+	db.Model(&Amount{}).Create(&am01)
 
-	area02 := Area{
-		Area: "ห้องโถง",
+	am02 := Amount{
+		Amount: "2",
 	}
-	db.Model(&Area{}).Create(&area02)
+	db.Model(&Amount{}).Create(&am02)
 
-	area03 := Area{
-		Area: "ห้องน้ำ",
+	am03 := Amount{
+		Amount: "3",
 	}
-	db.Model(&Area{}).Create(&area03)
-
-	area04 := Area{
-		Area: "ระเบียง",
-	}
-	db.Model(&Area{}).Create(&area04)
-
-	area05 := Area{
-		Area: "ทั้งห้อง",
-	}
-	db.Model(&Area{}).Create(&area05)
+	db.Model(&Amount{}).Create(&am03)
 
 
 
