@@ -84,6 +84,27 @@ func main() {
 			protected.DELETE("/reasons/:id", controller.DeleteReason)
 			
 
+			// Kind Routes
+			protected.GET("/kinds", controller.ListKinds)
+			protected.GET("/kind/:id", controller.GetKind)
+			protected.POST("/kinds", controller.CreateKind)
+			protected.PATCH("/kinds", controller.UpdateKind)
+			protected.DELETE("/kinds/:id", controller.DeleteKind)
+
+			// Area Routes
+			protected.GET("/areas", controller.ListAreas)
+			protected.GET("/area/:id", controller.GetArea)
+			protected.POST("/areas", controller.CreateArea)
+			protected.PATCH("/areas", controller.UpdateArea)
+			protected.DELETE("/areas/:id", controller.DeleteArea)
+
+			// Cleaning Routes
+			protected.GET("/cleanings", controller.ListCleanings)
+			protected.GET("/cleaning/:id", controller.GetCleaning)
+			protected.POST("/cleanings", controller.CreateCleaning)
+			protected.PATCH("/cleanings", controller.UpdateCleaning)
+			protected.DELETE("/cleanings/:id", controller.DeleteCleaning)
+
 			
 		}
 	}
