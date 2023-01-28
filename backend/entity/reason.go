@@ -10,5 +10,6 @@ type Reason struct {
 	Reason string
 	
 
-	Requestouts []Requestout `gorm:"foreignKey:ReasonID"`
+	Requestouts 	[]Requestout 		`gorm:"foreignKey:ReasonID"`
+	Requestchange 	[]Requestchange 	`gorm:"foreignKey:ReasonID"`
 }
