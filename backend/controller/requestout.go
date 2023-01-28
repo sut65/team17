@@ -32,12 +32,12 @@ func CreateRequestout(c *gin.Context) {
 
 	// 10: ค้นหา reason ด้วย id
 	if tx := entity.DB().Where("id = ?", requestout.ReasonID).First(&reason); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "size not found"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "reason not found"})
 		return
 	}
 
 	// 11: ค้นหา user ด้วย id
-	if tx := entity.DB().Where("id = ?", requestout.userID).First(&user); tx.RowsAffected == 0 {
+	if tx := entity.DB().Where("id = ?", requestout.UserID).First(&user); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "user not found"})
 		return
 	}
@@ -46,8 +46,8 @@ func CreateRequestout(c *gin.Context) {
 	// 12: สร้าง Requestout
 	req := entity.Requestout{
 		Room:		room,					// โยงความสัมพันธ์กับ Entity Room
-		Reason:		reason,					// โยงความสัมพันธ์กับ Entity Size
-		User:		user,               // โยงความสัมพันธ์กับ Entity Category
+		Reason:		reason,					// โยงความสัมพันธ์กับ Entity Reason
+		User:		user,               // โยงความสัมพันธ์กับ Entity User
 		Outtime:	requestout.Outtime,
 		Detail:     requestout.Detail,	
 	}
