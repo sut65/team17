@@ -33,4 +33,7 @@ type User struct {
 	Title Title
 
 	Payments []Payment `gorm:"foreignKey:UserID"`
+
+	Requestouts			[]Requestout			`gorm:"foreignKey:UserID"`
+	Requestchange		[]Requestchange			`gorm:"foreignKey:UserID"`
 }

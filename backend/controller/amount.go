@@ -32,7 +32,7 @@ func GetAmount(c *gin.Context) {
 
 	var amount entity.Amount
 	id := c.Param("id")
-	if err := entity.DB().Raw("SELECT * FROM categories WHERE id = ?", id).Scan(&amount).Error; err != nil {
+	if err := entity.DB().Raw("SELECT * FROM amounts WHERE id = ?", id).Scan(&amount).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -44,16 +44,16 @@ func GetAmount(c *gin.Context) {
 // เป็นการ list รายการของ amount ออกมา
 func ListAmounts(c *gin.Context) {
 
-	var categories []entity.Amount
+	var amounts []entity.Amount
 
-	if err := entity.DB().Raw("SELECT * FROM categories").Scan(&categories).Error; err != nil {
+	if err := entity.DB().Raw("SELECT * FROM amounts").Scan(&amounts).Error; err != nil {
 
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 
 		return
 
 	}
-	c.JSON(http.StatusOK, gin.H{"data": categories})
+	c.JSON(http.StatusOK, gin.H{"data": amounts})
 
 }
 
@@ -63,7 +63,7 @@ func DeleteAmount(c *gin.Context) {
 
 	id := c.Param("id")
 
-	if tx := entity.DB().Exec("DELETE FROM categories WHERE id = ?", id); tx.RowsAffected == 0 {
+	if tx := entity.DB().Exec("DELETE FROM amounts WHERE id = ?", id); tx.RowsAffected == 0 {
 
 		c.JSON(http.StatusBadRequest, gin.H{"error": "amount not found"})
 
@@ -75,7 +75,7 @@ func DeleteAmount(c *gin.Context) {
 
 }
 
-// PATCH /categories
+// PATCH /amounts
 
 func UpdateAmount(c *gin.Context) {
 

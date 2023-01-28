@@ -35,6 +35,10 @@ import Cleanings from "./components/Cleanings";
 import CleaningCreate from "./components/CleaningCreate";
 
 import SignIn from "./components/SignIn";
+import PaymentCreate from "./components/PaymentCreate";
+import Payment from "./components/Payment";
+import Users from "./components/User";
+import UserCreate from "./components/UserCreate";
 
 
 const drawerWidth = 240;
@@ -204,7 +208,7 @@ function App() {
           <Box
             component="main"
             sx={{
-              backgroundColor: (theme) =>
+              backgroundColor: (theme: { palette: { mode: string; grey: any[]; }; }) =>
                 theme.palette.mode === "light"
                   ? theme.palette.grey[100]
                   : theme.palette.grey[900],
@@ -225,7 +229,10 @@ function App() {
                 <Route path="/requestout/create" element={<RequestoutCreate />} />
                 <Route path="/cleanings" element={<Cleanings />} />
                 <Route path="/cleaning/create" element={<CleaningCreate />} />
-
+                <Route path="/payment/create" element={<PaymentCreate />} />
+                <Route path="/payments" element={<Payment />} />
+                <Route path="/users" element={<Users />} />
+                <Route path="/user/create" element={<UserCreate />} />
               </Routes>
             </Container>
           </Box>
