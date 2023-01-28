@@ -5,6 +5,7 @@ import (
 
 	"gorm.io/gorm"
 )
+
 type Repair struct{
 	gorm.Model
 	Repairtime			time.Time

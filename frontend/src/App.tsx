@@ -23,6 +23,7 @@ import StickyNote2OutlinedIcon from '@mui/icons-material/StickyNote2Outlined';
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import AddToQueueIcon from '@mui/icons-material/AddToQueue';
+import ChairOutlinedIcon from '@mui/icons-material/ChairOutlined';
 
 import Home from "./components/Home";
 import Manages from "./components/Manages";
@@ -33,6 +34,8 @@ import Requestout from "./components/Requestout";
 import RequestoutCreate from "./components/RequestoutCreate";
 import Cleanings from "./components/Cleanings";
 import CleaningCreate from "./components/CleaningCreate";
+import Furnitures from "./components/Furnitures";
+import FurnitureCreate from "./components/FurnitureCreate";
 
 import SignIn from "./components/SignIn";
 import PaymentCreate from "./components/PaymentCreate";
@@ -103,6 +106,8 @@ const menu = [
   { name: "แจ้งออก", icon: <RemoveCircleOutlineIcon />, path: "/requestouts", role : 'user'},
   { name: "จองทำความสะอาด", icon: <AddToQueueIcon />, path: "/cleanings", role: 'user'},
   { name: "จองทำความสะอาด", icon: <AddToQueueIcon />, path: "/cleanings", role: 'admin'},
+  { name: "เบิกจ่ายอุปกรณ์ในห้องพัก", icon: <ChairOutlinedIcon />, path: "/furnitures", role: 'user'},
+  { name: "เบิกจ่ายอุปกรณ์ในห้องพัก", icon: <ChairOutlinedIcon />, path: "/furnitures", role: 'admin'},
   
 
 ];
@@ -233,6 +238,9 @@ function App() {
                 <Route path="/payments" element={<Payment />} />
                 <Route path="/users" element={<Users />} />
                 <Route path="/user/create" element={<UserCreate />} />
+                <Route path="/furnitures" element={<Furnitures />} />
+                <Route path="/furniture/create" element={<FurnitureCreate />} />
+
               </Routes>
             </Container>
           </Box>
