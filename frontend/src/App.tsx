@@ -36,12 +36,19 @@ import Cleanings from "./components/Cleanings";
 import CleaningCreate from "./components/CleaningCreate";
 import Furnitures from "./components/Furnitures";
 import FurnitureCreate from "./components/FurnitureCreate";
+<<<<<<< HEAD
 import Repairs from "./components/Repair";
 import RepairCreate from "./components/RepairCreate";
 import Emergencys from "./components/Emergency";
 import EmergencyCreate from "./components/EmergencyCreate";
 
 
+=======
+import Meter from "./components/Meter";
+import MeterCreate from "./components/MeterCreate";
+import Bill from "./components/Bill";
+import BillCreate from "./components/BillCreate";
+>>>>>>> 941ab375545c9a664bd0874f8aa9e38c5e45ae2c
 
 import SignIn from "./components/SignIn";
 import PaymentCreate from "./components/PaymentCreate";
@@ -114,10 +121,17 @@ const menu = [
   { name: "จองทำความสะอาด", icon: <AddToQueueIcon />, path: "/cleanings", role: 'admin'},
   { name: "เบิกจ่ายอุปกรณ์ในห้องพัก", icon: <ChairOutlinedIcon />, path: "/furnitures", role: 'user'},
   { name: "เบิกจ่ายอุปกรณ์ในห้องพัก", icon: <ChairOutlinedIcon />, path: "/furnitures", role: 'admin'},
+<<<<<<< HEAD
   { name: "แจ้งเหตุฉุกเฉิน", icon: <ChairOutlinedIcon />, path: "/emergencies", role: 'user'},
   { name: "แจ้งเหตุฉุกเฉิน", icon: <ChairOutlinedIcon />, path: "/emergencies", role: 'admin'},
   { name: "แจ้งซ่อม", icon: <ChairOutlinedIcon />, path: "/repairs", role: 'user'},
   { name: "แจ้งซ่อม", icon: <ChairOutlinedIcon />, path: "/repairs", role: 'admin'},
+=======
+  { name: "มิเตอร์", icon: <ChairOutlinedIcon />, path: "/meters", role: 'user'},
+  { name: "มิเตอร์", icon: <ChairOutlinedIcon />, path: "/meters", role: 'admin'},
+  { name: "บิลชำระ", icon: <ChairOutlinedIcon />, path: "/bills", role: 'user'},
+  { name: "บิลชำระ", icon: <ChairOutlinedIcon />, path: "/bills", role: 'admin'},
+>>>>>>> 941ab375545c9a664bd0874f8aa9e38c5e45ae2c
   
 
 ];
@@ -250,10 +264,17 @@ function App() {
                 <Route path="/user/create" element={<UserCreate />} />
                 <Route path="/furnitures" element={<Furnitures />} />
                 <Route path="/furniture/create" element={<FurnitureCreate />} />
+<<<<<<< HEAD
                 <Route path="/emergencies" element={<Furnitures />} />
                 <Route path="/emergencie/create" element={<FurnitureCreate />} />
                 <Route path="/repairs" element={<Furnitures />} />
                 <Route path="/repair/create" element={<FurnitureCreate />} />
+=======
+                <Route path="/meters" element={<Meter />} />
+                <Route path="/meter/create" element={<MeterCreate />} />
+                <Route path="/bills" element={<Bill />} />
+                <Route path="/bill/create" element={<BillCreate />} />
+>>>>>>> 941ab375545c9a664bd0874f8aa9e38c5e45ae2c
 
               </Routes>
             </Container>
