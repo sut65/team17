@@ -7,13 +7,13 @@ export interface ResidentInterface {
   Bail:         string,
   LeaseTime:    Date,
 
-  UserID:      number,
-  User:        UserInterface,
+  UserID:       number,
+  User:         UserInterface,
   
-  LeaseID:   number,
-  Lease:     LeaseInterface,
+  LeaseID:      number,
+  Lease:        LeaseInterface,
 
-  ManageID:       number,
-  Manage:         ManageInterface,
+  ManageID:     number,
+  Manage:       ManageInterface,
 
   }
