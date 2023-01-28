@@ -24,6 +24,27 @@ func main() {
 			protected.PATCH("/users", controller.UpdateUser)
 			protected.DELETE("/users/:id", controller.DeleteUser)
 
+			// Authoritie Routes
+			protected.GET("/admins", controller.ListAdmins)
+			protected.GET("/admin/:id", controller.GetAdmin)
+			protected.POST("/admins", controller.CreateAdmin) ///******
+			protected.PATCH("/admins", controller.UpdateAdmin)
+			protected.DELETE("/admins/:id", controller.DeleteAdmin)
+
+			// Department Routes
+			protected.GET("/meters", controller.ListMeters)
+			protected.GET("/meter/:id", controller.GetMeter)
+			protected.POST("/meters", controller.CreateMeter)
+			protected.PATCH("/meters", controller.UpdateMeter)
+			protected.DELETE("/meters/:id", controller.DeleteMeter)
+
+			// doctor Routes
+			protected.GET("/bills", controller.ListBills)
+			protected.GET("/bill/:id", controller.GetBill)
+			protected.POST("/bills", controller.CreateBill)
+			protected.PATCH("/bills", controller.UpdateBill)
+			protected.DELETE("/bills/:id", controller.DeleteBill)
+
 			// Manage Routes
 			protected.GET("/manages", controller.ListManages)
 			protected.GET("/manage/:id", controller.GetManage)
