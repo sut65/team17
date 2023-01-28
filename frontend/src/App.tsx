@@ -94,6 +94,8 @@ const menu = [
   { name: "สัญญาเช่า", icon: <StickyNote2OutlinedIcon />, path: "/residents", role: 'user'},
   { name: "สัญญาเช่า", icon: <StickyNote2OutlinedIcon />, path: "/residents", role: 'admin'},
   { name: "แจ้งออก", icon: <RemoveCircleOutlineIcon />, path: "/requestouts", role : 'user'},
+  { name: "จองทำความสะอาด", icon: <AddToQueueIcon />, path: "/cleanings", role: 'user'},
+  { name: "จองทำความสะอาด", icon: <AddToQueueIcon />, path: "/cleanings", role: 'admin'},
   
 
 ];
@@ -218,6 +220,8 @@ function App() {
                 <Route path="/resident/create" element={<ResidentCreate />} />
                 <Route path="/requestouts" element={< Requestout />} />
                 <Route path="/requestout/create" element={<RequestoutCreate />} />
+                <Route path="/cleanings" element={<Cleanings />} />
+                <Route path="/cleaning/create" element={<CleaningCreate />} />
 
               </Routes>
             </Container>
