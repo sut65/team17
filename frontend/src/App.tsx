@@ -42,6 +42,14 @@ import PaymentCreate from "./components/PaymentCreate";
 import Payment from "./components/Payment";
 import Users from "./components/User";
 import UserCreate from "./components/UserCreate";
+import Repairs from "./components/Repair";
+import RepairCreate from "./components/RepairCreate";
+import Emergencys from "./components/Emergency";
+import EmergencyCreate from "./components/EmergencyCreate";
+
+
+
+
 
 
 const drawerWidth = 240;
@@ -108,6 +116,10 @@ const menu = [
   { name: "จองทำความสะอาด", icon: <AddToQueueIcon />, path: "/cleanings", role: 'admin'},
   { name: "เบิกจ่ายอุปกรณ์ในห้องพัก", icon: <ChairOutlinedIcon />, path: "/furnitures", role: 'user'},
   { name: "เบิกจ่ายอุปกรณ์ในห้องพัก", icon: <ChairOutlinedIcon />, path: "/furnitures", role: 'admin'},
+  { name: "แจ้งซ่อม", icon: <ChairOutlinedIcon />, path: "/repairs", role: 'user'},
+  { name: "แจ้งซ่อม", icon: <ChairOutlinedIcon />, path: "/repairs", role: 'admin'},
+  { name: "แจ้งเหตุฉุกเฉิน", icon: <ChairOutlinedIcon />, path: "/emergencies", role: 'user'},
+  { name: "แจ้งเหตุฉุกเฉิน", icon: <ChairOutlinedIcon />, path: "/emergencies", role: 'admin'},
   
 
 ];
@@ -240,6 +252,11 @@ function App() {
                 <Route path="/user/create" element={<UserCreate />} />
                 <Route path="/furnitures" element={<Furnitures />} />
                 <Route path="/furniture/create" element={<FurnitureCreate />} />
+                <Route path="/repairs" element={<Furnitures />} />
+                <Route path="/repair/create" element={<FurnitureCreate />} />
+                <Route path="/emergencies" element={<Furnitures />} />
+                <Route path="/emergencie/create" element={<FurnitureCreate />} />
+                
 
               </Routes>
             </Container>
