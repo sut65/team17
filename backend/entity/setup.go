@@ -95,6 +95,8 @@ func SetupDatabase() {
 	var panadda User
 	db.Raw("SELECT * FROM users WHERE email = ?", "panadda@gmail.com").Scan(&panadda)
 
+	
+
 	// Room Data
 	Room101 := Room{
 		Number: "101",
@@ -275,6 +277,7 @@ func SetupDatabase() {
 	}
 	db.Model(&Equipment{}).Create(&eq08)
 
+
 	// Amount Data
 	am01 := Amount{
 		Amount: "1",
@@ -319,6 +322,7 @@ func SetupDatabase() {
 	}
 	db.Model(&Banking{}).Create(&SCB)
 
+
 	//---Method Data
 	ATM := Method{
 		Name: "ATM (โอนจากตู้กดเงินสด)",
@@ -344,6 +348,7 @@ func SetupDatabase() {
 		Name: "Mobile Banking (โอนเงินผ่านแอพมือถือ)",
 	}
 	db.Model(&Method{}).Create(&Mobile_Banking)
+
 
 	//---Status Data
 	Single := Status{
@@ -371,26 +376,7 @@ func SetupDatabase() {
 	}
 	db.Model(&Status{}).Create(&Separated)
 
-	//---Bill Data
-	b1 := Bill{
-		Room: "A101",
-		Price: "3,500",
-		Water: "100",
-		Electic: "1,500",
-		Furniture: "1,000",
-		
-	}
-	db.Model(&Bill{}).Create(&b1)
-
-	b2 := Bill{
-		Room: "A102",
-		Price: "3,000",
-		Water: "100",
-		Electic: "1,00",
-		Furniture: "500",
-		
-	}
-	db.Model(&Bill{}).Create(&b2)
+	
 
 	
 	//---Title Data
