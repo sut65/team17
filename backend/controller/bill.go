@@ -5,7 +5,7 @@ import (
 
 	"github.com/asaskevich/govalidator"
 	"github.com/gin-gonic/gin"
-	"github.com/sut/team17/entity"
+	"github.com/sut65/team17/entity"
 )
 
 // POST /bill
