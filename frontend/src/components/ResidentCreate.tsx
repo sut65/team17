@@ -204,7 +204,7 @@ function ResidentCreate() {
                บันทึกข้อมูลไม่สำเร็จ
             </Alert>
          </Snackbar>
-         <Paper sx={{
+         <Paper elevation={5} sx={{
             borderRadius: 5,
             backgroundImage: 'url("https://img.freepik.com/free-vector/blue-purple-fluid-background_53876-118285.jpg")',
             backgroundRepeat: 'no-repeat',
