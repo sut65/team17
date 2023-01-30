@@ -95,6 +95,10 @@ function Manages() {
           backgroundSize: 'cover',
           
         }}>
+          <div style={{
+               backgroundColor: 'white',
+               background: 'rgba(255, 255, 255, 0.5)',
+            }}>
           <Box sx={{ 
             m: 1.5,
           }}
@@ -162,6 +166,7 @@ function Manages() {
                 
             </Grid>
           </Box>
+          </div>
         </Paper>
       </Container>
     </div>
