@@ -232,7 +232,7 @@ function App() {
           <Box
             component="main"
             sx={{
-              backgroundColor: (theme: { palette: { mode: string; grey: any[]; }; }) =>
+              backgroundColor: (theme) =>
                 theme.palette.mode === "light"
                   ? theme.palette.grey[100]
                   : theme.palette.grey[900],
