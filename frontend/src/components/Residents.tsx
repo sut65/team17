@@ -161,8 +161,8 @@ function Rooms() {
 
             }}>
                <div style={{
-                  backgroundColor: 'white',
                   background: 'rgba(255, 255, 255, 0.6)',
+                  borderRadius: '20px',
                }}>
                   <Box sx={{
                      m: 1.5
