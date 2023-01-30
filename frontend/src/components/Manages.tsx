@@ -153,7 +153,7 @@ function Manages() {
                         <p>
                           ขนาดห้อง: <b>{item.Size.Size}</b><br/>
                           ประเภทห้อง: <b>{item.Category.Category}</b><br/>
-                          ราคาเช่า: <b>{item.Price}/เดือน</b><br/>
+                          ราคาเช่า: <b>{item.Price}/เดือน</b><br/><br/>
                           <center>สิ่งอำนวยความสะดวก:</center>
                           <b>{item.Detail}</b>
                         </p>
