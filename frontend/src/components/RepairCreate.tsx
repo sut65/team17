@@ -253,7 +253,7 @@ function RepairCreate() {
                 </option>
                 {residents.map((item: ResidentInterface) => (
                 <option value={item.ID} key={item.ID}>
-                    {item.Room}
+                    {item.Manage.Room.Number}
                 </option>
                 ))}
               </Select>

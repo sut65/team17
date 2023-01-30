@@ -3,7 +3,7 @@ package entity
 import (
 	"gorm.io/gorm"
 )
-
+//dw
 type Room struct {
 	gorm.Model
 	

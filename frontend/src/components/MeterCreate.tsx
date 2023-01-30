@@ -242,7 +242,7 @@ function BookingCreate() {
                     </option>
                     {manage.map((item: ManageInterface) => (
                     <option value={item.ID} key={item.ID}>
-                        {item.Room}
+                        {item.Room.Number}
                     </option>
                     ))}
                 </Select>
