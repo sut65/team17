@@ -222,8 +222,9 @@ function ManageCreate() {
             bgcolor: '#e0f7fa'
          }}>
             <div style={{
-               backgroundColor: 'white',
-               background: 'rgba(255, 255, 255, 0.4)',
+               background: 'rgba(255, 255, 255, 0.5)',
+               borderRadius: 20,
+
             }}>
                <Box
                   display="flex"

@@ -97,8 +97,9 @@ function Manages() {
 
             }}>
                <div style={{
-                  backgroundColor: 'white',
-                  background: 'rgba(255, 255, 255, 0.6)',
+                  background: 'rgba(255, 255, 255, 0.5)',
+                  borderRadius: 20,
+
                }}>
                   <Box sx={{
                      m: 1.5,
