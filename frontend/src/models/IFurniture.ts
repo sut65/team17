@@ -8,7 +8,6 @@ export interface FurnitureInterface {
 
   ID:             number,
   FurnitureTime:  Date | null,
-  Detail:         string,
 
   AdminID:        number,
   Admin:          AdminInterface,
