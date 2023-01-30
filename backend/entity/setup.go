@@ -95,6 +95,8 @@ func SetupDatabase() {
 	var panadda User
 	db.Raw("SELECT * FROM users WHERE email = ?", "panadda@gmail.com").Scan(&panadda)
 
+	
+
 	// Room Data
 	Room101 := Room{
 		Number: "101",
@@ -275,6 +277,7 @@ func SetupDatabase() {
 	}
 	db.Model(&Equipment{}).Create(&eq08)
 
+
 	// Amount Data
 	am01 := Amount{
 		Amount: "1",
@@ -319,6 +322,7 @@ func SetupDatabase() {
 	}
 	db.Model(&Banking{}).Create(&SCB)
 
+
 	//---Method Data
 	ATM := Method{
 		Name: "ATM (โอนจากตู้กดเงินสด)",
@@ -344,6 +348,7 @@ func SetupDatabase() {
 		Name: "Mobile Banking (โอนเงินผ่านแอพมือถือ)",
 	}
 	db.Model(&Method{}).Create(&Mobile_Banking)
+
 
 	//---Status Data
 	Single := Status{
@@ -371,26 +376,7 @@ func SetupDatabase() {
 	}
 	db.Model(&Status{}).Create(&Separated)
 
-	//---Bill Data
-	b1 := Bill{
-		Room: "A101",
-		Price: "3,500",
-		Water: "100",
-		Electic: "1,500",
-		Furniture: "1,000",
-		
-	}
-	db.Model(&Bill{}).Create(&b1)
-
-	b2 := Bill{
-		Room: "A102",
-		Price: "3,000",
-		Water: "100",
-		Electic: "1,00",
-		Furniture: "500",
-		
-	}
-	db.Model(&Bill{}).Create(&b2)
+	
 
 	
 	//---Title Data
@@ -419,73 +405,9 @@ func SetupDatabase() {
 		Name: "หญิง",
 	}
 	db.Model(&Gender{}).Create(&Female)
+
+
 	
-
-	// Equipment Data
-	eq01 := Equipment{
-		Equipment: "ทีวี",
-		Price:     300,
-	}
-	db.Model(&Equipment{}).Create(&eq01)
-
-	eq02 := Equipment{
-		Equipment: "ตู้เย็น",
-		Price:     300,
-	}
-	db.Model(&Equipment{}).Create(&eq02)
-
-	eq03 := Equipment{
-		Equipment: "พัดลม",
-		Price:     300,
-	}
-	db.Model(&Equipment{}).Create(&eq03)
-
-	eq04 := Equipment{
-		Equipment: "ไมโครเวฟ",
-		Price:     300,
-	}
-	db.Model(&Equipment{}).Create(&eq04)
-
-	eq05 := Equipment{
-		Equipment: "เตาไฟฟ้า",
-		Price:     300,
-	}
-	db.Model(&Equipment{}).Create(&eq05)
-
-	eq06 := Equipment{
-		Equipment: "กระติกน้ำร้อน",
-		Price:     300,
-	}
-	db.Model(&Equipment{}).Create(&eq06)
-
-	eq07 := Equipment{
-		Equipment: "เครื่องฟอกอากาศ",
-		Price:     300,
-	}
-	db.Model(&Equipment{}).Create(&eq07)
-
-	eq08 := Equipment{
-		Equipment: "เครื่องดูดฝุ่น",
-		Price:     300,
-	}
-	db.Model(&Equipment{}).Create(&eq08)
-
-	// Amount Data
-	am01 := Amount{
-		Amount: "1",
-	}
-	db.Model(&Amount{}).Create(&am01)
-
-	am02 := Amount{
-		Amount: "2",
-	}
-	db.Model(&Amount{}).Create(&am02)
-
-	am03 := Amount{
-		Amount: "3",
-	}
-	db.Model(&Amount{}).Create(&am03)
-
 	C := Object{
 		Name: "Tv",
 	}
