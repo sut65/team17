@@ -405,73 +405,9 @@ func SetupDatabase() {
 		Name: "หญิง",
 	}
 	db.Model(&Gender{}).Create(&Female)
+
+
 	
-
-	// Equipment Data
-	eq01 := Equipment{
-		Equipment: "ทีวี",
-		Price:     300,
-	}
-	db.Model(&Equipment{}).Create(&eq01)
-
-	eq02 := Equipment{
-		Equipment: "ตู้เย็น",
-		Price:     300,
-	}
-	db.Model(&Equipment{}).Create(&eq02)
-
-	eq03 := Equipment{
-		Equipment: "พัดลม",
-		Price:     300,
-	}
-	db.Model(&Equipment{}).Create(&eq03)
-
-	eq04 := Equipment{
-		Equipment: "ไมโครเวฟ",
-		Price:     300,
-	}
-	db.Model(&Equipment{}).Create(&eq04)
-
-	eq05 := Equipment{
-		Equipment: "เตาไฟฟ้า",
-		Price:     300,
-	}
-	db.Model(&Equipment{}).Create(&eq05)
-
-	eq06 := Equipment{
-		Equipment: "กระติกน้ำร้อน",
-		Price:     300,
-	}
-	db.Model(&Equipment{}).Create(&eq06)
-
-	eq07 := Equipment{
-		Equipment: "เครื่องฟอกอากาศ",
-		Price:     300,
-	}
-	db.Model(&Equipment{}).Create(&eq07)
-
-	eq08 := Equipment{
-		Equipment: "เครื่องดูดฝุ่น",
-		Price:     300,
-	}
-	db.Model(&Equipment{}).Create(&eq08)
-
-	// Amount Data
-	am01 := Amount{
-		Amount: "1",
-	}
-	db.Model(&Amount{}).Create(&am01)
-
-	am02 := Amount{
-		Amount: "2",
-	}
-	db.Model(&Amount{}).Create(&am02)
-
-	am03 := Amount{
-		Amount: "3",
-	}
-	db.Model(&Amount{}).Create(&am03)
-
 	C := Object{
 		Name: "Tv",
 	}
