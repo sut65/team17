@@ -315,7 +315,7 @@ function CleaningCreate() {
                 </option>
                 {rooms.map((item: RoomInterface) => (
                   <option value={item.ID} key={item.ID}>
-                    {item.Roomnumber}
+                    {item.Number}
                   </option>
                 ))}
               </Select>

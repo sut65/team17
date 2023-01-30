@@ -104,7 +104,7 @@ function Furnitures() {
                 <TableCell align="center">{item.ID}</TableCell>
                   <TableCell align="center">{item.User.Name}</TableCell>
                   <TableCell align="center">{item.User.Tel}</TableCell>
-                  <TableCell align="center">{item.Room.Roomnumber}</TableCell>
+                  <TableCell align="center">{item.Room.Number}</TableCell>
                   <TableCell align="center">{item.Equipment.Equipment}</TableCell>
                   <TableCell align="center">{item.Amount.Amount}</TableCell>
                   <TableCell align="center">{item.Equipment.Price}</TableCell>
