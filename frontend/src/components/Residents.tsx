@@ -153,10 +153,9 @@ function Rooms() {
             </Box>
 
 
-            <Paper elevation={1} style={{
+            <Paper elevation={5} style={{
                'borderRadius': '20px',
                backgroundImage: 'url("https://img.freepik.com/free-vector/blue-purple-fluid-background_53876-118285.jpg")',
-               // backgroundImage: 'url("https://coolhdwall.com/storage/202101/mountains-fog-hd-phone-wallpaper-1125x2436.jpg")',
                backgroundRepeat: 'no-repeat',
                backgroundSize: 'cover',
 
