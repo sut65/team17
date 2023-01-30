@@ -214,8 +214,9 @@ function ResidentCreate() {
          }}>
 
             <div style={{
-               backgroundColor: 'white',
                background: 'rgba(255, 255, 255, 0.6)',
+               borderRadius: 20,
+
             }}>
                <Box
                   display="flex"
