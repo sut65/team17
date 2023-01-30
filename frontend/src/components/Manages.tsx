@@ -168,4 +168,77 @@ function Manages() {
   );
 }
 
+  // return (
+  //   <div>
+  //     <Container sx={{ marginTop: 2 }} maxWidth="md">
+  //       <Box display="flex">
+  //         <Box flexGrow={1}>
+  //           <Typography
+  //             component="h2"
+  //             variant="h6"
+  //             color="primary"
+  //             gutterBottom
+  //           >
+  //             ระบบจัดการห้องพัก
+  //           </Typography>
+  //         </Box>
+  //         <Box>
+  //           <Button
+  //             component={RouterLink}
+  //             to="/manage/create"
+  //             variant="contained"
+  //             color="primary"
+  //           >
+  //             จัดการห้องพัก
+  //           </Button>
+  //         </Box>
+  //       </Box>
+        
+  //       <TableContainer component={Paper} sx={{ minWidth: 650 }}>
+  //         <Table sx={{ marginTop: 2 }} aria-label="simple table">
+  //           <TableHead>
+  //             <TableRow>
+  //             <TableCell align="center" width="5%">
+  //                 ลำดับ
+  //               </TableCell>
+  //               <TableCell align="center" width="10%">
+  //                 เลขห้อง
+  //               </TableCell>
+  //               <TableCell align="center" width="15%">
+  //                 ขนาดห้อง
+  //               </TableCell>
+  //               <TableCell align="center" width="15%">
+  //                 ประเภทห้อง
+  //               </TableCell>
+  //               <TableCell align="center" width="10%">
+  //                 ราคา
+  //               </TableCell>
+  //               <TableCell align="center" width="10%">
+  //                 สถานะ
+  //               </TableCell>
+  //               <TableCell align="center" width="35%">
+  //                 สิ่งอำนวยความสะดวก
+  //               </TableCell>
+  //             </TableRow>
+  //           </TableHead>
+  //           <TableBody>
+  //             {manages.map((item: ManageInterface) => (
+  //               <TableRow key={item.ID}>
+  //               <TableCell align="center">{item.ID}</TableCell>
+  //                 <TableCell align="center">{item.Room.Number}</TableCell>
+  //                 <TableCell align="center">{item.Size.Size}</TableCell>
+  //                 <TableCell align="center">{item.Category.Category}</TableCell>
+  //                 <TableCell align="center">{item.Price}</TableCell>
+  //                 <TableCell align="center">{item.Stetus}</TableCell>
+  //                 <TableCell align="left">{item.Detail}</TableCell>
+  //               </TableRow>
+  //             ))}
+  //           </TableBody>
+  //         </Table>
+  //       </TableContainer>
+  //     </Container>
+  //   </div>
+  // );
+// }
+
 export default Manages;
