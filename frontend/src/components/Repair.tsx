@@ -104,7 +104,7 @@ function Repairs() {
                 <TableRow key={item.ID}>
                   <TableCell align="center">{item.ID}</TableCell>
                   <TableCell align="center">{item.User.Name}</TableCell>
-                  <TableCell align="center">{item.Resident.Room}</TableCell>
+                  <TableCell align="center">{item.Resident.Manage.Room.Number}</TableCell>
                   <TableCell align="center">{item.Object.Name}</TableCell>
                   <TableCell align="center">{item.Detail}</TableCell>
                   <TableCell align="center">{format((new Date(item.Repairtime)), 'dd MMMM yyyy hh:mm')} </TableCell>
