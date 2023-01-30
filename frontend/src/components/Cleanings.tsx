@@ -104,7 +104,7 @@ function Cleanings() {
                 <TableCell align="center">{item.ID}</TableCell>
                   <TableCell align="center">{item.User.Name}</TableCell>
                   <TableCell align="center">{item.User.Tel}</TableCell>
-                  <TableCell align="center">{item.Room.Roomnumber}</TableCell>
+                  <TableCell align="center">{item.Room.Number}</TableCell>
                   <TableCell align="center">{item.Kind.Kind}</TableCell>
                   <TableCell align="center">{item.Area.Area}</TableCell>
                   <TableCell align="center">{item.Detail}</TableCell>
