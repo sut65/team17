@@ -225,7 +225,7 @@ function BookingCreate() {
                     </option>
                     {meters.map((item: MeterInterface) => (
                     <option value={item.ID} key={item.ID}>
-                        {item.Manage.Room}
+                        {item.Manage.Room.Number}
                     </option>
                     ))}
                 </Select>
@@ -315,7 +315,7 @@ function BookingCreate() {
                     </option>
                     {furnitures.map((item: FurnitureInterface) => (
                     <option value={item.ID} key={item.ID}>
-                        {item.Price}
+                        {item.Equipment.Price}
                     </option>
                     ))}
                 </Select>
