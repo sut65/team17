@@ -5,7 +5,7 @@ import (
 
 	
 	"github.com/gin-gonic/gin"
-	"github.com/kingjokerbys/sa-65-exampled/entity"
+	"github.com/sut65/team17/entity"
 	
 )
 
