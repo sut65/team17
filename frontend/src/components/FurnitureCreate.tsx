@@ -14,42 +14,30 @@ import MuiAlert, { AlertProps } from "@mui/material/Alert";
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import TextField from '@mui/material/TextField';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
-import { createStyles, FormHelperText, InputLabel } from "@material-ui/core";
+import { FormHelperText, InputLabel } from "@material-ui/core";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 
-import dayjs, { Dayjs } from 'dayjs';
 
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-
-
-
-import { RequestoutInterface } from "../models/IRequestout";
-import { FormControlLabel, FormLabel, RadioGroup, Radio, FormGroup, Theme } from "@mui/material";
-import { ReasonInterface } from "../models/IReason";
 import { UserInterface } from "../models/IUser";
+import { AdminInterface } from "../models/IAdmin";
 import { RoomInterface } from "../models/IRoom";
-
+import { EquipmentInterface } from "../models/IEquipment";
+import { AmountInterface } from "../models/IAmount";
+import { FurnitureInterface } from "../models/IFurniture";
 
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-function RequestoutCreate() {
+function furnitureCreate() {
   const [selectedDate, setSelectedDate] = useState<Date | null>();
+  const [admins, setAdmins] = useState<AdminInterface>();
+  const [users, setUsers] = useState<UserInterface[]>([]);
   const [rooms, setRooms] = useState<RoomInterface[]>([]);
-  const [reasons, setReasons] = useState<ReasonInterface[]>([]);
-  const [users, setUsers] = useState<UserInterface>();
-
-  const [requestouts, setRequestouts] = useState<Partial<RequestoutInterface>>({});
-
-  const [details, setDetail] = useState<String>("");
-
-
-  const [value, setValue] = React.useState<Dayjs | null>(dayjs('2022-04-07'));
-
-  
+  const [equipments, setEquipments] = useState<EquipmentInterface[]>([]);
+  const [amounts, setAmounts] = useState<AmountInterface[]>([]);
+  const [furnitures, setFurnitures] = useState<Partial<FurnitureInterface>>({});
 
 
   const [success, setSuccess] = useState(false);
@@ -75,14 +63,16 @@ function RequestoutCreate() {
   };
 
   const handleChange = (event: SelectChangeEvent) => {
-    const name = event.target.name as keyof typeof requestouts;
-    setRequestouts({
-      ...requestouts,
+    const name = event.target.name as keyof typeof furnitures;
+    setFurnitures({
+      ...furnitures,
       [name]: event.target.value,
     });
     console.log(event.target.value);
-
-   
+    
+    // if(name == "SymptomID"){
+    //   getDepartment(event.target.value)
+    // }
     
   };
 
@@ -92,7 +82,7 @@ function RequestoutCreate() {
     fetch(`${apiUrl}/user/${uid}`, requestOptions)
       .then((response) => response.json())
       .then((res) => {
-        requestouts.UserID = res.data.ID
+        furnitures.UserID = res.data.ID
         if (res.data) {
             setUsers(res.data);
         } else {
@@ -113,24 +103,37 @@ function RequestoutCreate() {
       });
   };
 
-  const getReason = async () => {
-    fetch(`${apiUrl}/reasons`, requestOptions)
+  const getAmount = async () => {
+    fetch(`${apiUrl}/amounts`, requestOptions)
       .then((response) => response.json())
       .then((res) => {
         if (res.data) {
-          setReasons(res.data);
+          setAmounts(res.data);
         } else {
           console.log("else");
         }
       });
   };
 
- 
+
+  const getEquipment = async () => {
+    fetch(`${apiUrl}/equipments`, requestOptions)
+      .then((response) => response.json())
+      .then((res) => {
+        if (res.data) {
+          setEquipments(res.data);
+        } else {
+          console.log("else");
+        }
+      });
+  };
+
 
   useEffect(() => {
     getUsers();
     getRoom();
-    getReason();
+    getEquipment();
+    getAmount();
   }, []);
 
   const convertType = (data: string | number | undefined) => {
@@ -140,11 +143,11 @@ function RequestoutCreate() {
 
   function submit() {
     let data = {
-        RoomID: convertType(requestouts.RoomID),
-        ReasonID: convertType(requestouts.ReasonID),
-        UserID: convertType(requestouts.UserID),
-        Outtime: selectedDate,
-        Detail: details,
+        UserID: convertType(furnitures.UserID),
+        RoomID: convertType(furnitures.RoomID),
+        EquipmentID: convertType(furnitures.EquipmentID),
+        AmountID: convertType(furnitures.AmountID),
+        furnitureTime: selectedDate,        
 
     };
 
@@ -159,7 +162,7 @@ function RequestoutCreate() {
       body: JSON.stringify(data),
     };
 
-    fetch(`${apiUrl}/requestouts`, requestOptionsPost)
+    fetch(`${apiUrl}/furnitures`, requestOptionsPost)
       .then((response) => response.json())
       .then((res) => {
         if (res.data) {
@@ -175,11 +178,7 @@ function RequestoutCreate() {
   }
 
   return (
-    <Container maxWidth="md" sx={{
-      fontFamily: "PK Krung Thep Medium",
-      fontSize: "20px"
-      // fontStyle: "bold"
-    }}>
+    <Container maxWidth="md">
       <Snackbar
         open={success}
         autoHideDuration={3000}
@@ -213,63 +212,80 @@ function RequestoutCreate() {
               variant="h6"
               color="primary"
               gutterBottom
-              sx={{
-                fontFamily: "PK Krung Thep Medium",
-                fontSize: "30px"
-              }}
             >
-              <b>แบบคำขอออก</b>
+              บันทึกการเบิกจ่ายอุปกรณ์ในห้องพัก
 
             </Typography>
           </Box>
         </Box>
         <Divider />
         <Grid container spacing={3} sx={{ padding: 2 }}>
-
-         
-
           <Grid item xs={6}>
-          <FormControl fullWidth variant="outlined">
+            <FormControl fullWidth variant="outlined">
             <p>ชื่อ - สกุล</p>
               <Select
                 native
                 disabled
-                value={requestouts.UserID + ""}
+                value={furnitures.UserID + ""}
                 onChange={handleChange}
                 inputProps={{
                   name: "UserID",
                 }}
               >
-                <option value={users?.ID} key={users?.ID} >
-                    {users?.Name}
-                    </option>
+                <option aria-label="None" value="">
+                </option>
+                {users.map((item: UserInterface) => (
+                  <option value={item.ID} key={item.ID}>
+                    {item.Name}
+                  </option>
+                ))}
               </Select>
             </FormControl>
-              
           </Grid>
 
           <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
-              <p>ห้องพัก</p>
-              <Select sx={{
-                fontFamily: "PK Krung Thep Medium",
-                fontSize: "18px"
-              }}
-                style={{borderRadius: "30px"}}
+            <p>เบอร์โทรศัพท์</p>
+              <Select
                 native
+                disabled
+                value={furnitures.UserID + ""}
+                onChange={handleChange}
+                inputProps={{
+                  name: "UserID",
+                }}
+              >
+                <option aria-label="None" value="">
+                </option>
+                {users.map((item: UserInterface) => (
+                  <option value={item.ID} key={item.ID}>
+                    {item.Tel}
+                  </option>
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
+
+          <Grid item xs={6}>
+            <FormControl fullWidth variant="outlined">
+              <p>เลือกห้อง</p>
+              <Select
+                native
+                labelId="RoomID"
+                id="RoomID"
+                label="ห้อง"
                 placeholder=""
-                value={requestouts.RoomID + ""}
+                value={furnitures.RoomID + ""}
                 onChange={handleChange}
                 inputProps={{
                   name: "RoomID",
                 }}
               >
                 <option aria-label="None" value="">
-                  โปรดระบุ
                 </option>
-                {rooms.map((item:RoomInterface) => (
+                {rooms.map((item: RoomInterface) => (
                   <option value={item.ID} key={item.ID}>
-                    {item.Number}
+                    {item.Roomnumber}
                   </option>
                 ))}
               </Select>
@@ -278,26 +294,23 @@ function RequestoutCreate() {
 
           <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
-              <p>เหตุผล</p>
-              <Select sx={{
-                fontFamily: "PK Krung Thep Medium",
-                fontSize: "16px"
-              }}
-                style={{borderRadius: "30px"}}
+              <p>เฟอร์นิเจอร์ :</p>
+              <Select
                 native
-                placeholder="โปรดระบุ"
-                value={requestouts.ReasonID + ""}
+                labelId="EquipmentID"
+                id="EquipmentID"
+                placeholder=""
+                value={furnitures.EquipmentID + ""}
                 onChange={handleChange}
                 inputProps={{
-                  name: "ReasonID",
+                  name: "EquipmentID",
                 }}
               >
                 <option aria-label="None" value="">
-                  
                 </option>
-                {reasons.map((item:ReasonInterface) => (
+                {equipments.map((item: EquipmentInterface) => (
                   <option value={item.ID} key={item.ID}>
-                    {item.Reason}
+                    {item.Equipment}
                   </option>
                 ))}
               </Select>
@@ -306,82 +319,88 @@ function RequestoutCreate() {
 
 
           <Grid item xs={6}>
-            <p>หากอื่นๆโปรดระบุ (*ไม่จำเป็น)</p>
             <FormControl fullWidth variant="outlined">
-              <TextField
-                id="detail"
-                variant="outlined"
-                type="string"
-                size="medium"
-                placeholder="ไม่มี"   
-                onChange={(event) => setDetail(event.target.value)}
+              <p>จำนวนเช่า :</p>
+              <Select
+                native
+                value={furnitures.AmountID + ""}
+                onChange={handleChange}
+                inputProps={{
+                  name: "AmountID",
+                }}
                 
-              />
+              >
+                <option aria-label="None" value="">
+                </option>
+                {amounts.map((item: AmountInterface) => (
+                  <option value={item.ID} key={item.ID}>
+                    {item.Amount}
+                  </option>
+                ))}
+              </Select>
             </FormControl>
           </Grid>
 
           <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
-            <p>วัน เดือน  ปี ที่ต้องการ</p>
-            
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-                
-            <DatePicker
-                    disableFuture
-                    label="Select Date"
-                    openTo="year"
-                    views={['year', 'month', 'day']}
-                    value={value}
-                    onChange={(newValue) => {
-                      setValue(newValue);
+            <p>ราคา</p>
+              <Select
+                native
+                disabled
+                value={furnitures.EquipmentID+ ""}
+                onChange={handleChange}
+                inputProps={{
+                  name: "EquipmentID",
                 }}
-                renderInput={(params) => <TextField {...params} />}
-              />
+              >
+                <option aria-label="None" value="">
+                </option>
+                {equipments.map((item: EquipmentInterface) => (
+                  <option value={item.ID} key={item.ID}>
+                    {item.Price}
+                  </option>
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
+          
+          <Grid item xs={6}>
+            <FormControl fullWidth variant="outlined">
+              <p>วันที่และเวลา</p>
+              <LocalizationProvider dateAdapter={AdapterDateFns}>
+                <DateTimePicker
+                 value={selectedDate}
+                 onChange={(newValue) => setSelectedDate(newValue)}
+                //  minDate={(new Date('31-12-2022T09:00'))}
+                  renderInput={(params) => <TextField {...params} />}
+                />
               </LocalizationProvider>
             </FormControl>
           </Grid>
 
 
-
-
-          
-          
           <Grid item xs={12}>
-          
-            <Button sx={{
-              fontFamily: "PK Krung Thep Medium", 
-              fontSize:17
-            }}
+            <Button
               component={RouterLink}
-              to="/requestouts"
+              to="/furnitures"
               variant="contained"
               color="inherit"
             >
-              <b>กลับ</b>
+              กลับ
             </Button>
-
-            
-             
-            
-            <Button sx={{ 
-              fontFamily: "PK Krung Thep Medium", 
-              fontSize:17
-
-            }}
-              style={{ float: "right"}}
+            <Button
+              style={{ float: "right" }}
               onClick={submit}
               variant="contained"
               color="primary"
             >
-              <b>บันทึก</b>
+              บันทึก
             </Button>
-            
           </Grid>
-          
         </Grid>
       </Paper>
     </Container>
   );
 }
 
-export default RequestoutCreate;
+export default furnitureCreate;

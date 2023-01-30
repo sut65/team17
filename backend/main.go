@@ -24,6 +24,27 @@ func main() {
 			protected.PATCH("/users", controller.UpdateUser)
 			protected.DELETE("/users/:id", controller.DeleteUser)
 
+			// Authoritie Routes
+			protected.GET("/admins", controller.ListAdmins)
+			protected.GET("/admin/:id", controller.GetAdmin)
+			protected.POST("/admins", controller.CreateAdmin) ///******
+			protected.PATCH("/admins", controller.UpdateAdmin)
+			protected.DELETE("/admins/:id", controller.DeleteAdmin)
+
+			// Department Routes
+			protected.GET("/meters", controller.ListMeters)
+			protected.GET("/meter/:id", controller.GetMeter)
+			protected.POST("/meters", controller.CreateMeter)
+			protected.PATCH("/meters", controller.UpdateMeter)
+			protected.DELETE("/meters/:id", controller.DeleteMeter)
+
+			// doctor Routes
+			protected.GET("/bills", controller.ListBills)
+			protected.GET("/bill/:id", controller.GetBill)
+			protected.POST("/bills", controller.CreateBill)
+			protected.PATCH("/bills", controller.UpdateBill)
+			protected.DELETE("/bills/:id", controller.DeleteBill)
+
 			// Manage Routes
 			protected.GET("/manages", controller.ListManages)
 			protected.GET("/manage/:id", controller.GetManage)
@@ -168,6 +189,35 @@ func main() {
 			protected.POST("/furnitures", controller.CreateFurniture)
 			protected.PATCH("/furnitures", controller.UpdateFurniture)
 			protected.DELETE("/furnitures/:id", controller.DeleteFurniture)
+
+			// Object Routes
+			protected.GET("/objects", controller.ListObjects)
+			protected.GET("/object/:id", controller.GetObject)
+			protected.POST("/objects", controller.CreateObject)
+			protected.PATCH("/objects", controller.UpdateObject)
+			protected.DELETE("/objects/:id", controller.DeleteObject)
+
+			// Repair Routes
+			protected.GET("/repairs", controller.ListRepairs)
+			protected.GET("/repair/:id", controller.GetRepair)
+			protected.POST("/repairs", controller.CreateRepair)
+			protected.PATCH("/repairs", controller.UpdateRepair)
+			protected.DELETE("/repairs/:id", controller.DeleteRepair)
+
+			// emergencytype
+			protected.GET("/emergencytypes", controller.ListEmergencytypes)
+			protected.GET("/emergencytype/:id", controller.GetEmergencytype)
+			protected.POST("/emergencytypes", controller.CreateEmergencytype)
+			protected.PATCH("/emergencytypes", controller.UpdateEmergencytype)
+			protected.DELETE("/emergencytypes/:id", controller.DeleteEmergencytype)
+
+			
+			// emergency
+			protected.GET("/emergencies", controller.ListEmergencys)
+			protected.GET("/emergencie/:id", controller.GetEmergency)
+			protected.POST("/emergencies", controller.CreateEmergency)
+			protected.PATCH("/emergencies", controller.UpdateEmergency)
+			protected.DELETE("/emergencies/:id", controller.DeleteEmergency)
 		}
 	}
 

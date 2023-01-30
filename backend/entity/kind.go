@@ -8,6 +8,6 @@ type Kind struct {
 	gorm.Model
 		
 	Kind				string
-	Cleanings			[]Cleaning 			`gorm:"foreignKey:CategoryID"`
+	Cleanings			[]Cleaning 			`gorm:"foreignKey:KindID"`
 	
 }

@@ -31,12 +31,36 @@ func SetupDatabase() {
 	database.AutoMigrate(
 		&User{}, &Room{}, &Category{}, &Size{}, &Lease{}, &Manage{}, &Resident{}, &Reason{}, &Requestout{},&Kind{}, &Area{}, &Cleaning{},
 		&Banking{}, &Bill{}, &Payment{}, &Method{}, &Title{}, &Gender{}, &Status{}, &Amount{}, &Equipment{}, &Furniture{},
+		&Admin{}, &Meter{}, &Bill{}, &Object{}, &Emergencytype{}, &Repair{}, &Emergency{},
 	)
 
 	db = database
 
 
 	password, err := bcrypt.GenerateFromPassword([]byte("123456"), 14)
+
+	db.Model(&Admin{}).Create(&Admin{
+		Name:     	"Promporn Phinitphong",
+		Email:    	"Promporn@gmail.com",
+		Tel:      	"0932941944",
+		Password: 	string(password),
+		Role:		"admin",
+	})
+
+	db.Model(&Admin{}).Create(&Admin{
+		Name:     	"Noppong Phinitphong",
+		Email:    	"Noppong.1999@gmail.com",
+		Tel: 		"0857798727",
+		Password: 	string(password),
+		Role:     	"admin",
+	})
+
+	var promporn		Admin
+	db.Raw("SELECT * FROM Admins WHERE email = ?", "promporn@gmail.com").Scan(&promporn)
+
+	var noppong  	Admin
+	db.Raw("SELECT * FROM Admins WHERE email = ?", "noppong@gmail.com").Scan(&noppong)
+
 
 	db.Model(&User{}).Create(&User{
 		Name:     	"Jakkrit Chaiwan",
@@ -70,6 +94,8 @@ func SetupDatabase() {
 
 	var panadda User
 	db.Raw("SELECT * FROM users WHERE email = ?", "panadda@gmail.com").Scan(&panadda)
+
+	
 
 	// Room Data
 	Room101 := Room{
@@ -198,8 +224,77 @@ func SetupDatabase() {
 		Reason: "อื่นๆ",
 	}
 	db.Model(&Reason{}).Create(&Reason4)
+
 	
+	// Kind Data
+
+	kind01 := Kind{
+		Kind: "ดูดฝุ่น",
+	}
+	db.Model(&Kind{}).Create(&kind01)
+
+	kind02 := Kind{
+		Kind: "กวาด",
+	}
+	db.Model(&Kind{}).Create(&kind02)
+
+	kind03 := Kind{
+		Kind: "กวาด/ถู",
+	}
+	db.Model(&Kind{}).Create(&kind03)
+
+	kind04 := Kind{
+		Kind: "ดูดฝุ่น",
+	}
+	db.Model(&Kind{}).Create(&kind04)
+
+	kind05 := Kind{
+		Kind: "เก็บขยะ/เก็บของ",
+	}
+	db.Model(&Kind{}).Create(&kind05)
+
+	kind06 := Kind{
+		Kind: "จัดห้อง",
+	}
+	db.Model(&Kind{}).Create(&kind06)
+
+	kind07 := Kind{
+		Kind: "ล้าง",
+	}
+	db.Model(&Kind{}).Create(&kind07)
+
+	kind08 := Kind{
+		Kind: "ปัดหยากไย่",
+	}
+	db.Model(&Kind{}).Create(&kind08)
 	
+
+	// Area Data
+
+	area01 := Area{
+		Area: "ห้องนอน",
+	}
+	db.Model(&Area{}).Create(&area01)
+
+	area02 := Area{
+		Area: "ห้องโถง",
+	}
+	db.Model(&Area{}).Create(&area02)
+
+	area03 := Area{
+		Area: "ห้องน้ำ",
+	}
+	db.Model(&Area{}).Create(&area03)
+
+	area04 := Area{
+		Area: "ระเบียง",
+	}
+	db.Model(&Area{}).Create(&area04)
+
+	area05 := Area{
+		Area: "ทั้งห้อง",
+	}
+	db.Model(&Area{}).Create(&area05)
 
 
 	// Equipment Data
@@ -251,6 +346,7 @@ func SetupDatabase() {
 	}
 	db.Model(&Equipment{}).Create(&eq08)
 
+
 	// Amount Data
 	am01 := Amount{
 		Amount: "1",
@@ -295,6 +391,7 @@ func SetupDatabase() {
 	}
 	db.Model(&Banking{}).Create(&SCB)
 
+
 	//---Method Data
 	ATM := Method{
 		Name: "ATM (โอนจากตู้กดเงินสด)",
@@ -320,6 +417,7 @@ func SetupDatabase() {
 		Name: "Mobile Banking (โอนเงินผ่านแอพมือถือ)",
 	}
 	db.Model(&Method{}).Create(&Mobile_Banking)
+
 
 	//---Status Data
 	Single := Status{
@@ -347,26 +445,7 @@ func SetupDatabase() {
 	}
 	db.Model(&Status{}).Create(&Separated)
 
-	//---Bill Data
-	b1 := Bill{
-		Room: "A101",
-		Price: "3,500",
-		Water: "100",
-		Electic: "1,500",
-		Furniture: "1,000",
-		
-	}
-	db.Model(&Bill{}).Create(&b1)
-
-	b2 := Bill{
-		Room: "A102",
-		Price: "3,000",
-		Water: "100",
-		Electic: "1,00",
-		Furniture: "500",
-		
-	}
-	db.Model(&Bill{}).Create(&b2)
+	
 
 	
 	//---Title Data
@@ -395,71 +474,31 @@ func SetupDatabase() {
 		Name: "หญิง",
 	}
 	db.Model(&Gender{}).Create(&Female)
+
+
 	
-
-	// Equipment Data
-	eq01 := Equipment{
-		Equipment: "ทีวี",
-		Price:     300,
+	C := Object{
+		Name: "Tv",
 	}
-	db.Model(&Equipment{}).Create(&eq01)
+	db.Model(&Object{}).Create(&C)
 
-	eq02 := Equipment{
-		Equipment: "ตู้เย็น",
-		Price:     300,
-	}
-	db.Model(&Equipment{}).Create(&eq02)
+	D := Object{
 
-	eq03 := Equipment{
-		Equipment: "พัดลม",
-		Price:     300,
+		Name: "Microwave",
 	}
-	db.Model(&Equipment{}).Create(&eq03)
 
-	eq04 := Equipment{
-		Equipment: "ไมโครเวฟ",
-		Price:     300,
-	}
-	db.Model(&Equipment{}).Create(&eq04)
+	db.Model(&Object{}).Create(&D)
 
-	eq05 := Equipment{
-		Equipment: "เตาไฟฟ้า",
-		Price:     300,
-	}
-	db.Model(&Equipment{}).Create(&eq05)
+	//Emergency
 
-	eq06 := Equipment{
-		Equipment: "กระติกน้ำร้อน",
-		Price:     300,
+	E := Emergencytype{
+		Name: "อัคคีภัย",
 	}
-	db.Model(&Equipment{}).Create(&eq06)
+	db.Model(&Emergencytype{}).Create(&E)
 
-	eq07 := Equipment{
-		Equipment: "เครื่องฟอกอากาศ",
-		Price:     300,
+	F := Emergencytype{
+		Name: "คนแปลกหน้า",
 	}
-	db.Model(&Equipment{}).Create(&eq07)
-
-	eq08 := Equipment{
-		Equipment: "เครื่องดูดฝุ่น",
-		Price:     300,
-	}
-	db.Model(&Equipment{}).Create(&eq08)
-
-	// Amount Data
-	am01 := Amount{
-		Amount: "1",
-	}
-	db.Model(&Amount{}).Create(&am01)
-
-	am02 := Amount{
-		Amount: "2",
-	}
-	db.Model(&Amount{}).Create(&am02)
-
-	am03 := Amount{
-		Amount: "3",
-	}
-	db.Model(&Amount{}).Create(&am03)
+	db.Model(&Emergencytype{}).Create(&F)
 
 }

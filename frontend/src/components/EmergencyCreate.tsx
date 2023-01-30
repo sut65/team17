@@ -14,41 +14,29 @@ import MuiAlert, { AlertProps } from "@mui/material/Alert";
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import TextField from '@mui/material/TextField';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
-import { createStyles, FormHelperText, InputLabel } from "@material-ui/core";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 
-import dayjs, { Dayjs } from 'dayjs';
-
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-
-
-
-import { RequestoutInterface } from "../models/IRequestout";
-import { FormControlLabel, FormLabel, RadioGroup, Radio, FormGroup, Theme } from "@mui/material";
-import { ReasonInterface } from "../models/IReason";
 import { UserInterface } from "../models/IUser";
-import { RoomInterface } from "../models/IRoom";
+import { ResidentInterface } from "../models/IResident";
+import { EmergencytypeInterface } from "../models/IEmergencytype";
 
+import { EmergencyInterface } from "../models/IEmergency";
+
+import { FormHelperText, InputLabel } from "@material-ui/core";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { DesktopDatePicker } from "@mui/x-date-pickers";
 
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-function RequestoutCreate() {
-  const [selectedDate, setSelectedDate] = useState<Date | null>();
-  const [rooms, setRooms] = useState<RoomInterface[]>([]);
-  const [reasons, setReasons] = useState<ReasonInterface[]>([]);
+function EmergencyCreate() {
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [users, setUsers] = useState<UserInterface>();
-
-  const [requestouts, setRequestouts] = useState<Partial<RequestoutInterface>>({});
-
-  const [details, setDetail] = useState<String>("");
-
-
-  const [value, setValue] = React.useState<Dayjs | null>(dayjs('2022-04-07'));
-
+  const [residents, setResidents] = useState<ResidentInterface[]>([]);
+  const [emergencytypes, setEmergencytypes] = useState<EmergencytypeInterface[]>([]);
+  const [details, setDetails] = useState<String>("");
+  const [emergencys, setEmergencys] = useState<Partial<EmergencyInterface>>({});
   
 
 
@@ -57,7 +45,6 @@ function RequestoutCreate() {
   const [errorMessage, setErrorMessage] = useState("");
 
   const apiUrl = "http://localhost:8080";
-
   const requestOptions = {
     method: "GET",
     headers: {
@@ -75,16 +62,28 @@ function RequestoutCreate() {
   };
 
   const handleChange = (event: SelectChangeEvent) => {
-    const name = event.target.name as keyof typeof requestouts;
-    setRequestouts({
-      ...requestouts,
+    const name = event.target.name as keyof typeof emergencys;
+    setEmergencys({
+      ...emergencys,
       [name]: event.target.value,
     });
     console.log(event.target.value);
-
-   
+    
+    // if(name == "SymptomID"){
+    //   getDepartment(event.target.value)
+    // }
     
   };
+
+  // const handleChange = (
+  //   event: SelectChangeEvent<number>
+  // ) => {
+  //   const name = event.target.name as keyof typeof symptoms;
+  //   setSymptoms({
+  //     ...symptoms,
+  //     [name]: event.target.value,
+  //   });
+  // };
 
 
   const getUsers = async () => {
@@ -92,7 +91,7 @@ function RequestoutCreate() {
     fetch(`${apiUrl}/user/${uid}`, requestOptions)
       .then((response) => response.json())
       .then((res) => {
-        requestouts.UserID = res.data.ID
+        emergencys.UserID = res.data.ID
         if (res.data) {
             setUsers(res.data);
         } else {
@@ -101,36 +100,37 @@ function RequestoutCreate() {
       });
   };
 
-  const getRoom = async () => {
-    fetch(`${apiUrl}/rooms`, requestOptions)
+  const getResident = async () => {
+    fetch(`${apiUrl}/residents`, requestOptions)
       .then((response) => response.json())
       .then((res) => {
         if (res.data) {
-          setRooms(res.data);
+          setResidents(res.data);
         } else {
           console.log("else");
         }
       });
   };
 
-  const getReason = async () => {
-    fetch(`${apiUrl}/reasons`, requestOptions)
+  const getEmergencytype = async () => {
+    fetch(`${apiUrl}/emergencytypes`, requestOptions)
       .then((response) => response.json())
       .then((res) => {
         if (res.data) {
-          setReasons(res.data);
+          setEmergencytypes(res.data);
         } else {
           console.log("else");
         }
       });
   };
 
- 
+  
 
   useEffect(() => {
     getUsers();
-    getRoom();
-    getReason();
+    getResident();
+    getEmergencytype();
+    
   }, []);
 
   const convertType = (data: string | number | undefined) => {
@@ -140,11 +140,12 @@ function RequestoutCreate() {
 
   function submit() {
     let data = {
-        RoomID: convertType(requestouts.RoomID),
-        ReasonID: convertType(requestouts.ReasonID),
-        UserID: convertType(requestouts.UserID),
-        Outtime: selectedDate,
-        Detail: details,
+        UserID:     convertType(emergencys.UserID),
+        ResidentID: convertType(emergencys.ResidentID),
+        EmergencytypeID:   convertType(emergencys. EmergencytypeID),
+        Detail:     details,
+        Emergencytime: selectedDate
+        
 
     };
 
@@ -159,7 +160,7 @@ function RequestoutCreate() {
       body: JSON.stringify(data),
     };
 
-    fetch(`${apiUrl}/requestouts`, requestOptionsPost)
+    fetch(`${apiUrl}/emergencies`, requestOptionsPost)
       .then((response) => response.json())
       .then((res) => {
         if (res.data) {
@@ -175,11 +176,7 @@ function RequestoutCreate() {
   }
 
   return (
-    <Container maxWidth="md" sx={{
-      fontFamily: "PK Krung Thep Medium",
-      fontSize: "20px"
-      // fontStyle: "bold"
-    }}>
+    <Container maxWidth="md">
       <Snackbar
         open={success}
         autoHideDuration={3000}
@@ -213,12 +210,8 @@ function RequestoutCreate() {
               variant="h6"
               color="primary"
               gutterBottom
-              sx={{
-                fontFamily: "PK Krung Thep Medium",
-                fontSize: "30px"
-              }}
             >
-              <b>แบบคำขอออก</b>
+              บันทึกการแจ้งเหตุฉุกเฉิน
 
             </Typography>
           </Box>
@@ -226,15 +219,14 @@ function RequestoutCreate() {
         <Divider />
         <Grid container spacing={3} sx={{ padding: 2 }}>
 
-         
-
           <Grid item xs={6}>
-          <FormControl fullWidth variant="outlined">
+            <FormControl fullWidth variant="outlined">
             <p>ชื่อ - สกุล</p>
               <Select
                 native
                 disabled
-                value={requestouts.UserID + ""}
+                
+                value={emergencys.UserID + ""}
                 onChange={handleChange}
                 inputProps={{
                   name: "UserID",
@@ -245,32 +237,25 @@ function RequestoutCreate() {
                     </option>
               </Select>
             </FormControl>
-              
           </Grid>
 
           <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
-              <p>ห้องพัก</p>
-              <Select sx={{
-                fontFamily: "PK Krung Thep Medium",
-                fontSize: "18px"
-              }}
-                style={{borderRadius: "30px"}}
+            <p>ห้อง</p>
+              <Select
                 native
-                placeholder=""
-                value={requestouts.RoomID + ""}
+                value={emergencys.ResidentID + ""}
                 onChange={handleChange}
                 inputProps={{
-                  name: "RoomID",
+                  name: "ResidentID",
                 }}
               >
                 <option aria-label="None" value="">
-                  โปรดระบุ
                 </option>
-                {rooms.map((item:RoomInterface) => (
-                  <option value={item.ID} key={item.ID}>
-                    {item.Number}
-                  </option>
+                {residents.map((item: ResidentInterface) => (
+                <option value={item.ID} key={item.ID}>
+                    {item.Room}
+                </option>
                 ))}
               </Select>
             </FormControl>
@@ -278,110 +263,84 @@ function RequestoutCreate() {
 
           <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
-              <p>เหตุผล</p>
-              <Select sx={{
-                fontFamily: "PK Krung Thep Medium",
-                fontSize: "16px"
-              }}
-                style={{borderRadius: "30px"}}
+              <p>เลือกประเภทเหตุฉุกเฉิน</p>
+              <Select
                 native
-                placeholder="โปรดระบุ"
-                value={requestouts.ReasonID + ""}
+                
                 onChange={handleChange}
                 inputProps={{
-                  name: "ReasonID",
+                  name: "EmergencytypeID",
                 }}
+                
               >
                 <option aria-label="None" value="">
-                  
                 </option>
-                {reasons.map((item:ReasonInterface) => (
-                  <option value={item.ID} key={item.ID}>
-                    {item.Reason}
-                  </option>
+                {emergencytypes.map((item: EmergencytypeInterface) => (
+                <option value={item.ID} key={item.ID}>
+                    {item.Name}
+                </option>
                 ))}
               </Select>
             </FormControl>
           </Grid>
 
-
           <Grid item xs={6}>
-            <p>หากอื่นๆโปรดระบุ (*ไม่จำเป็น)</p>
             <FormControl fullWidth variant="outlined">
+            <p>ระบุรายละเอียดเพิ่มเติม</p>
               <TextField
-                id="detail"
-                variant="outlined"
-                type="string"
-                size="medium"
-                placeholder="ไม่มี"   
-                onChange={(event) => setDetail(event.target.value)}
-                
+                  id="ResidentID"
+                  multiline
+                  label="ระบุรายละเอียดเพิ่มเติม"
+                  onChange={(event) => setDetails(event.target.value)}
               />
             </FormControl>
-          </Grid>
+            </Grid>
 
-          <Grid item xs={6}>
+
+            <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
-            <p>วัน เดือน  ปี ที่ต้องการ</p>
-            
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-                
-            <DatePicker
-                    disableFuture
-                    label="Select Date"
-                    openTo="year"
-                    views={['year', 'month', 'day']}
-                    value={value}
-                    onChange={(newValue) => {
-                      setValue(newValue);
-                }}
-                renderInput={(params) => <TextField {...params} />}
-              />
+              <p>วันที่แจ้งเหตุฉุกเฉิน</p>
+              <LocalizationProvider dateAdapter={AdapterDateFns}>
+                <DesktopDatePicker
+                  // disabled
+                  label="เดือน/วัน/ปี"
+                  value={selectedDate}
+                  onChange={(newValue) => setSelectedDate(newValue)}
+                  minDate={(new Date('2022-12-20'))}
+                  renderInput={(params) => <TextField {...params} />}
+                />
               </LocalizationProvider>
             </FormControl>
           </Grid>
+         
+          
 
 
-
-
+        
           
           
           <Grid item xs={12}>
-          
-            <Button sx={{
-              fontFamily: "PK Krung Thep Medium", 
-              fontSize:17
-            }}
+            <Button
               component={RouterLink}
-              to="/requestouts"
+              to="/emergencies"
               variant="contained"
               color="inherit"
             >
-              <b>กลับ</b>
+              กลับ
             </Button>
-
-            
-             
-            
-            <Button sx={{ 
-              fontFamily: "PK Krung Thep Medium", 
-              fontSize:17
-
-            }}
-              style={{ float: "right"}}
+            <Button
+              style={{ float: "right" }}
               onClick={submit}
               variant="contained"
               color="primary"
             >
-              <b>บันทึก</b>
+              บันทึก
             </Button>
-            
           </Grid>
-          
         </Grid>
       </Paper>
     </Container>
   );
 }
 
-export default RequestoutCreate;
+export default EmergencyCreate;
