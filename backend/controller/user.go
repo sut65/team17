@@ -64,7 +64,7 @@ func CreateUser(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{"user": dt})
+	c.JSON(http.StatusOK, gin.H{"data": dt})
 }
 
 // GET /user/:id
@@ -75,18 +75,18 @@ func GetUser(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{"user": user})
+	c.JSON(http.StatusOK, gin.H{"data": user})
 }
 
 // GET /user
 func ListUsers(c *gin.Context) {
 	var user []entity.User
-	if err := entity.DB().Preload("Status").Preload("Gender").Preload("Title").Raw("SELECT * FROM user").Find(&user).Error; err != nil {
+	if err := entity.DB().Preload("Status").Preload("Gender").Preload("Title").Raw("SELECT * FROM users").Find(&user).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"user": user})
+	c.JSON(http.StatusOK, gin.H{"data": user})
 }
 
 // DELETE /user/:id
@@ -97,7 +97,7 @@ func DeleteUser(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"user": id})
+	c.JSON(http.StatusOK, gin.H{"data": id})
 }
 
 // PATCH /users
@@ -118,5 +118,5 @@ func UpdateUser(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"user": user})
+	c.JSON(http.StatusOK, gin.H{"data": user})
 }
