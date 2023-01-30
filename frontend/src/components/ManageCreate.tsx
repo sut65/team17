@@ -23,7 +23,14 @@ import { CategoryInterface } from "../models/ICategory";
 import { SizeInterface } from "../models/ISize";
 import { ManageInterface } from "../models/IManage";
 import { FormControlLabel, FormLabel, RadioGroup, Radio, FormGroup, Theme } from "@mui/material";
+import styled from "@emotion/styled";
 
+
+export const TextFielPrice = styled(TextField)`
+  fieldset {
+    border-radius: 20px;
+  }
+`;
 
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props, ref) {
@@ -118,17 +125,6 @@ function ManageCreate() {
       });
   };
 
-  // const getSize = async (id : String | unknown) => {
-  //   fetch(`${apiUrl}/size/${id}`, requestOptions)
-  //     .then((response) => response.json())
-  //     .then((res) => {
-  //       if (res.data) {
-  //         setSizes(res.data);
-  //       } else {
-  //         console.log("else");
-  //       }
-  //     });
-  // };
 
   const getSize = async () => {
     fetch(`${apiUrl}/sizes`, requestOptions)
@@ -218,18 +214,25 @@ function ManageCreate() {
           บันทึกข้อมูลไม่สำเร็จ
         </Alert>
       </Snackbar>
-      <Paper>
+      <Paper sx={{
+        borderRadius: 5,
+        backgroundImage: 'url("https://coolhdwall.com/storage/202101/mountains-fog-hd-phone-wallpaper-1125x2436.jpg")',
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover',
+        bgcolor: '#e0f7fa'
+      }}>
         <Box
           display="flex"
+          justifyContent="center"
           sx={{
             marginTop: 2,
+            borderRadius: 10
           }}
         >
           <Box sx={{ paddingX: 2, paddingY: 1 }}>
             <Typography
               component="h2"
               variant="h6"
-              color="primary"
               gutterBottom
               sx={{
                 fontFamily: "PK Krung Thep Medium",
@@ -241,17 +244,29 @@ function ManageCreate() {
             </Typography>
           </Box>
         </Box>
-        <Divider />
+
         <Grid container spacing={3} sx={{ padding: 2 }}>
 
           <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
-            <p>เลือกห้อง</p>
+              <Typography align="center"
+                sx={{
+                  fontFamily: "PK Krung Thep Medium",
+                  fontSize: "25px",
+                  fontWeight: "bold",
+                }}
+                variant="h6"
+                color="#212121"
+              >
+                <p>เลือกห้อง</p>
+              </Typography>
+            
               <Select sx={{
                 fontFamily: "PK Krung Thep Medium",
-                fontSize: "18px"
+                fontSize: "20px",
+                fontWeight: "bold",
               }}
-                style={{borderRadius: "30px"}}
+                style={{borderRadius: "20px"}}
                 native
                 value={manages.RoomID + ""}
                 onChange={handleChange}
@@ -273,12 +288,23 @@ function ManageCreate() {
 
           <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
-            <p>ขนาดห้อง</p>
+            <Typography align="center"
+                sx={{
+                  fontFamily: "PK Krung Thep Medium",
+                  fontSize: "25px",
+                  fontWeight: "bold",
+                }}
+                variant="h6"
+                color="#212121"
+              >
+                <p>ขนาดห้อง</p>
+              </Typography>
               <Select sx={{
                 fontFamily: "PK Krung Thep Medium",
-                fontSize: "18px"
+                fontSize: "20px",
+                fontWeight: "bold",
               }}
-                style={{borderRadius: "30px"}}
+                style={{borderRadius: "20px"}}
                 native
                 onChange={handleChange}
                 inputProps={{
@@ -300,12 +326,23 @@ function ManageCreate() {
 
           <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
-              <p>ประเภทของห้อง</p>
+            <Typography align="center"
+                sx={{
+                  fontFamily: "PK Krung Thep Medium",
+                  fontSize: "25px",
+                  fontWeight: "bold",
+                }}
+                variant="h6"
+                color="#212121"
+              >
+                <p>ประเภทของห้อง</p>
+              </Typography>
               <Select sx={{
                 fontFamily: "PK Krung Thep Medium",
-                fontSize: "18px"
+                fontSize: "20px",
+                fontWeight: "bold",
               }}
-                style={{borderRadius: "30px"}}
+                style={{borderRadius: "20px"}}
                 native
                 placeholder=""
                 value={manages.CategoryID + ""}
@@ -328,22 +365,42 @@ function ManageCreate() {
 
           <Grid item xs={6}>
            <FormControl fullWidth variant="outlined">
-           <p>ราคาเช่า</p>
-            <TextField
-                variant="filled"
+           <Typography align="center"
+                sx={{
+                  fontFamily: "PK Krung Thep Medium",
+                  fontSize: "25px",
+                  fontWeight: "bold",
+                }}
+                variant="h6"
+                color="#212121"
+              >
+                <p>ค่าเช่า</p>
+              </Typography>
+            <TextFielPrice
+                variant="outlined"
                 id="ManageID"
                 placeholder="ราคา"
                 inputProps={{
-                  style: {fontFamily:"PK Krung Thep Medium",  fontSize: 18,} 
+                  style: {fontFamily:"PK Krung Thep Medium",  fontSize: 20, fontWeight: "bold"},
                 }}
                 onChange={(event) => setPrice(event.target.value)}
             />
            </FormControl>
           </Grid> 
 
-          <Grid item xs={6}>
+          <Grid item xs={6} >
             <FormControl>
-            <p>สิ่งอำนวยความสะดวก</p>
+            <Typography align="center"
+                sx={{
+                  fontFamily: "PK Krung Thep Medium",
+                  fontSize: "25px",
+                  fontWeight: "bold",
+                }}
+                variant="h6"
+                color="#212121"
+              >
+                <p>สิ่งอำนวยความสะดวก</p>
+              </Typography>
               <RadioGroup 
                 aria-labelledby="demo-controlled-radio-buttons-group"
                 name="controlled-radio-buttons-group"
@@ -355,32 +412,46 @@ function ManageCreate() {
                 <FormControlLabel 
                 value="ตู้เสื่อผ้า, เตียงนอน, เครื่องทำน้ำอุ่น, เก้าอี้(1), โต๊ะ(1)" 
                 control={<Radio />} label={<Typography 
-                  style={{fontFamily: "PK Krung Thep Medium", fontSize:17}} >ตู้เสื่อผ้า, เตียงนอน, เครื่องทำน้ำอุ่น, เก้าอี้(1), โต๊ะ(1)</Typography>} />
+                  style={{fontFamily: "PK Krung Thep Medium", fontSize:18, fontWeight: "bold",}} >ตู้เสื่อผ้า, เตียงนอน, เครื่องทำน้ำอุ่น, เก้าอี้(1), โต๊ะ(1)</Typography>} />
                 
                 <FormControlLabel value="ตู้เสื่อผ้า, เตียงนอน, เครื่องทำน้ำอุ่น, ตู้เย็น, wifi, เก้าอี้(1), โต๊ะ(1)" 
                 control={<Radio />} label={<Typography 
-                  style={{fontFamily: "PK Krung Thep Medium", fontSize:17}}>ตู้เสื่อผ้า, เตียงนอน, เครื่องทำน้ำอุ่น, ตู้เย็น, wifi, เก้าอี้(1), โต๊ะ(1)</Typography>} />
+                  style={{fontFamily: "PK Krung Thep Medium", fontSize:18, fontWeight: "bold",}}>ตู้เสื่อผ้า, เตียงนอน, เครื่องทำน้ำอุ่น, ตู้เย็น, wifi, เก้าอี้(1), โต๊ะ(1)</Typography>} />
                 
                 <FormControlLabel value="ห้องนอนแยก, ตู้เสื่อผ้า, เตียงนอน, เครื่องทำน้ำอุ่น, ตู้เย็น, wifi, เก้าอี้(1), โต๊ะ(1), ไมโครเวฟ" 
                 control={<Radio />} label={<Typography 
-                  style={{fontFamily: "PK Krung Thep Medium", fontSize:17}}>ห้องนอนแยก, ตู้เสื่อผ้า, เตียงนอน, เครื่องทำน้ำอุ่น, ตู้เย็น, wifi, เก้าอี้(1), โต๊ะ(1), ไมโครเวฟ</Typography>} />
+                  style={{fontFamily: "PK Krung Thep Medium", fontSize:18, fontWeight: "bold",}}>ห้องนอนแยก, ตู้เสื่อผ้า, เตียงนอน, เครื่องทำน้ำอุ่น, ตู้เย็น, wifi, เก้าอี้(1), โต๊ะ(1), ไมโครเวฟ</Typography>} />
               </RadioGroup>
             </FormControl>
           </Grid>
           
           <Grid item xs={6}>
            <FormControl fullWidth variant="outlined">
-           <p>สถานะ</p>
+           <Typography align="center"
+                sx={{
+                  fontFamily: "PK Krung Thep Medium",
+                  fontSize: "25px",
+                  fontWeight: "bold",
+                }}
+                variant="h6"
+                color="#212121"
+              >
+                <p>สถานะ</p>
+              </Typography>
            <RadioGroup
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                }}
                 row
                 aria-labelledby="demo-controlled-radio-buttons-group"
                 name="controlled-radio-buttons-group"
                 onChange={(event) => setStetus(event.target.value)}
               >
                 <FormControlLabel value="ว่าง" control={<Radio />} label={<Typography 
-                  style={{fontFamily: "PK Krung Thep Medium", fontSize:18}}>ว่าง</Typography>} />
+                  style={{fontFamily: "PK Krung Thep Medium", fontSize:18, fontWeight: "bold",}}>ว่าง</Typography>} />
                 <FormControlLabel value="ไม่ว่าง" control={<Radio />} label={<Typography 
-                  style={{fontFamily: "PK Krung Thep Medium", fontSize:18}}>ไม่ว่าง</Typography>} />
+                  style={{fontFamily: "PK Krung Thep Medium", fontSize:18, fontWeight: "bold",}}>ไม่ว่าง</Typography>} />
             </RadioGroup>
            </FormControl>
           </Grid>
@@ -388,7 +459,10 @@ function ManageCreate() {
           <Grid item xs={12}>
             <Button sx={{
               fontFamily: "PK Krung Thep Medium", 
-              fontSize:17
+              fontSize:20,
+              width: 100,
+              marginLeft: 5,
+              borderRadius: 10
             }}
               component={RouterLink}
               to="/manages"
@@ -399,7 +473,10 @@ function ManageCreate() {
             </Button>
             <Button sx={{
               fontFamily: "PK Krung Thep Medium", 
-              fontSize:17
+              fontSize:20,
+              width: 100,
+              marginRight: 5,
+              borderRadius: 10
             }}
               style={{ float: "right" }}
               onClick={submit}

@@ -65,7 +65,7 @@ function Manages() {
               }} 
               component="h2"
               variant="h3"
-              color="text.primary"
+              color="primary"
               gutterBottom
             >
               <b>ระบบจัดการห้องพัก</b>
@@ -79,9 +79,9 @@ function Manages() {
               color="primary"
               sx={{ 
                 fontFamily: "PK Krung Thep Medium",
-                fontSize: 18
+                fontSize: 18,
+                borderRadius: 15
               }}
-              style={{ borderRadius: "15px" }}
             >
               จัดการห้องพัก
             </Button>
@@ -90,7 +90,7 @@ function Manages() {
         
         
         <Paper elevation={3} style={{'borderRadius':'20px', 
-          backgroundImage: 'url("https://www.hdwallpapers.in/download/foggy_sunrise_4k_2-1080x1920.jpg")',
+          backgroundImage: 'url("https://coolhdwall.com/storage/202101/mountains-fog-hd-phone-wallpaper-1125x2436.jpg")',
           backgroundRepeat: 'no-repeat',
           backgroundSize: 'cover',
           
@@ -106,8 +106,7 @@ function Manages() {
                       align="center"
                       sx={{ 
                         fontFamily: "PK Krung Thep Medium",
-                        fontSize: 30,
-                        
+                        fontSize: 35,
                       }}
                     >
                       <b>ห้อง {item.Room.Number}</b>
@@ -115,44 +114,45 @@ function Manages() {
                     <Button 
                       component="span"
                       sx={{ 
-                      display: 'flex',
-                      justifyContent: 'center',
-                      flexGrow: 1,
-                      m: 0.5,
-                      background: 'rgba(255, 255, 255,0.7)',
-                      boxShadow: 5,
-                      borderRadius: 4,
-                      '&:hover': {
-                      background: 'rgba(142, 209, 252, 0.5)',
-
-                      },
-                      
+                        display: 'flex',
+                        justifyContent: 'center',
+                        flexGrow: 2,
+                        m: 0.5,
+                        background: 'rgba(255, 255, 255,0.7)',
+                        boxShadow: 5,
+                        borderRadius: 4,
+                        '&:hover': {
+                        background: 'rgba(142, 209, 252, 0.5)',
+                        },
                       }}
                     >
                       <Typography 
-                        align="center"
                         sx={{ 
                           fontFamily: "PK Krung Thep Medium",
-                          fontSize: 20,
-                          color: 'black',
+                          fontSize: 18,
                         }}
+                        color="black"
                       >
-                        
-                        <h1>
-                          <b>
-                            {/* ห้อง {item.Room.Number} <br/> */}
-                            {item.Stetus}
-                          </b>
-                        </h1>
-                        <h4>
-                          <b>ขนาดห้อง:</b> {item.Size.Size}<br/>
-                          <b>ประเภทห้อง:</b> {item.Category.Category}<br/>
-                          <b>ราคาเช่า:</b> {item.Price}/เดือน<br/>
-                          <h5>
-                            สิ่งอำนวยความสะดวก:<br/>
-                            {item.Detail}
-                          </h5>
-                        </h4>
+                        <Typography 
+                          align="center"
+                          sx={{ 
+                            fontFamily: "PK Krung Thep Medium",
+                            fontSize: 20,
+                          }}
+                        >
+                          <h1>
+                            <b>
+                              {item.Stetus}
+                            </b>
+                          </h1>
+                        </Typography>
+                        <p>
+                          ขนาดห้อง: <b>{item.Size.Size}</b><br/>
+                          ประเภทห้อง: <b>{item.Category.Category}</b><br/>
+                          ราคาเช่า: <b>{item.Price}/เดือน</b><br/>
+                          <center>สิ่งอำนวยความสะดวก:</center>
+                          <b>{item.Detail}</b>
+                        </p>
                       </Typography>                      
                     </Button>
                   </Grid>
@@ -167,4 +167,5 @@ function Manages() {
     </div>
   );
 }
+
 export default Manages;
