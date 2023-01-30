@@ -32,7 +32,7 @@ func GetEquipment(c *gin.Context) {
 
 	var equipment entity.Equipment
 	id := c.Param("id")
-	if err := entity.DB().Raw("SELECT * FROM equipments WHERE id = ?", id).Scan(&equipment).Error; err != nil {
+	if err := entity.DB().Raw("SELECT * FROM equipment WHERE id = ?", id).Scan(&equipment).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -46,7 +46,7 @@ func ListEquipments(c *gin.Context) {
 
 	var equipments []entity.Equipment
 
-	if err := entity.DB().Raw("SELECT * FROM equipments").Scan(&equipments).Error; err != nil {
+	if err := entity.DB().Raw("SELECT * FROM equipment").Scan(&equipments).Error; err != nil {
 
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 
@@ -63,7 +63,7 @@ func DeleteEquipment(c *gin.Context) {
 
 	id := c.Param("id")
 
-	if tx := entity.DB().Exec("DELETE FROM equipments WHERE id = ?", id); tx.RowsAffected == 0 {
+	if tx := entity.DB().Exec("DELETE FROM equipment WHERE id = ?", id); tx.RowsAffected == 0 {
 
 		c.JSON(http.StatusBadRequest, gin.H{"error": "equipment not found"})
 

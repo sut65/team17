@@ -12,7 +12,7 @@ import (
 func CreateFurniture(c *gin.Context) {
 
 	var furniture entity.Furniture
-	var admin entity.Admin
+	// var admin entity.Admin
 	var user entity.User
 	var room entity.Room
 	var equipment entity.Equipment
@@ -24,11 +24,11 @@ func CreateFurniture(c *gin.Context) {
 		return
 	}
 
-	// 9: ค้นหา Admin ด้วย id
-	if tx := entity.DB().Where("id = ?", furniture.AdminID).First(&admin); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Admin not found"})
-		return
-	}
+	// // 9: ค้นหา Admin ด้วย id
+	// if tx := entity.DB().Where("id = ?", furniture.AdminID).First(&admin); tx.RowsAffected == 0 {
+	// 	c.JSON(http.StatusBadRequest, gin.H{"error": "Admin not found"})
+	// 	return
+	// }
 
 	// 10: ค้นหา room ด้วย id
 	if tx := entity.DB().Where("id = ?", furniture.RoomID).First(&room); tx.RowsAffected == 0 {
@@ -55,7 +55,7 @@ func CreateFurniture(c *gin.Context) {
 	}
 	// 14: สร้าง furniture
 	bk := entity.Furniture{
-		Admin:        	admin,		// โยงความสัมพันธ์กับ Entity Admin
+		// Admin:        	admin,		// โยงความสัมพันธ์กับ Entity Admin
 		User:         	user,     	// โยงความสัมพันธ์กับ Entity User
 		Room:         	room,     	// โยงความสัมพันธ์กับ Entity Room
 		Equipment:     	equipment, 	// โยงความสัมพันธ์กับ Entity Equipment
