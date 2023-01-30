@@ -155,120 +155,125 @@ function Rooms() {
 
             <Paper elevation={5} style={{
                'borderRadius': '20px',
-               backgroundImage: 'url("https://img.freepik.com/free-vector/blue-purple-fluid-background_53876-118285.jpg")',
+               backgroundImage: 'url("https://images.pexels.com/photos/1172849/pexels-photo-1172849.jpeg")',
                backgroundRepeat: 'no-repeat',
                backgroundSize: 'cover',
 
             }}>
-               <Box sx={{
-                  m: 1.5
+               <div style={{
+                  backgroundColor: 'white',
+                  background: 'rgba(255, 255, 255, 0.6)',
                }}>
+                  <Box sx={{
+                     m: 1.5
+                  }}>
 
-                  <Grid container spacing={3}>
-                     {residents.map((item: ResidentInterface, index) => (
-                        <Grid xs={4}>
-                           <Typography
-                              align="center"
-                              sx={{
-                                 fontFamily: "PK Krung Thep Medium",
-                                 fontSize: 35,
-                              }}
-                           >
-                              <b>ห้อง {item.Manage.Room.Number}</b>
-                           </Typography>
-                           <Button
-                              component="span"
-                              sx={{
-                                 display: 'flex',
-                                 justifyContent: 'center',
-                                 flexGrow: 1,
-                                 m: 0.5,
-                                 background: 'rgba(255, 255, 255,0.7)',
-                                 boxShadow: 5,
-                                 borderRadius: 4,
-                                 '&:hover': {
-                                    background: 'rgba(224, 242, 241, 0.5)',
-                                 },
-                              }}
-                           >
+                     <Grid container spacing={3}>
+                        {residents.map((item: ResidentInterface, index) => (
+                           <Grid xs={4}>
                               <Typography
+                                 align="center"
                                  sx={{
                                     fontFamily: "PK Krung Thep Medium",
-                                    fontSize: 18,
+                                    fontSize: 35,
                                  }}
-                                 color="black"
                               >
-                                 <p> ชื่อผู้เช่า: <b>{item.User.Name}</b><br />
-                                    เบอร์โทร: <b>{item.User.Tel}</b><br />
-                                    สัญญา: <b>{item.Lease.Lease}</b><br />
-                                    ประกันห้อง: <b>{item.Bail}</b> บาท<br />
-                                 </p>
-                                 วันที่ทำสัญญา: <b>{moment(item.LeaseTime).format('DD MMM yyyy')}</b>
+                                 <b>ห้อง {item.Manage.Room.Number}</b>
                               </Typography>
-                           </Button>
-
-
-
-
-                           <Grid container spacing={3} sx={{ padding: 2 }}>
-                              <Grid xs={12}>
-                                 <ButtonGroup
-                                    disableElevation
-                                    // variant="contained"
-                                    aria-label="Disabled elevation buttons"
+                              <Button
+                                 component="span"
+                                 sx={{
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    flexGrow: 1,
+                                    m: 0.5,
+                                    background: 'rgba(255, 255, 255,0.7)',
+                                    boxShadow: 5,
+                                    borderRadius: 4,
+                                    '&:hover': {
+                                       background: 'rgba(224, 242, 241, 0.5)',
+                                    },
+                                 }}
+                              >
+                                 <Typography
                                     sx={{
-                                       display: "flex",
-                                       justifyContent: "center",
-
+                                       fontFamily: "PK Krung Thep Medium",
+                                       fontSize: 18,
                                     }}
+                                    color="black"
                                  >
-                                    <Button
-                                       // color="success"
-                                       variant="contained"
-                                       size="medium"
-                                       sx={{
-                                          fontFamily: "PK Krung Thep Medium",
-                                          fontSize: 18,
-                                          fontWeight: "bold",
-                                          borderRadius: 5,
-                                          color: 'black',
-                                          bgcolor: '#00d084',
-                                          '&:hover': {
-                                             background: 'rgba(3, 175, 112, 1)',
-                                          },
-                                       }}
-                                       startIcon={<EditIcon />}
-                                    >
-                                       แก้ไข
-                                    </Button>
-                                    <Button
-                                       // color="success"
-                                       variant="contained"
-                                       sx={{
-                                          fontFamily: "PK Krung Thep Medium",
-                                          fontSize: 18,
-                                          fontWeight: "bold",
-                                          borderRadius: 5,
-                                          bgcolor: '#00d084',
-                                          color: 'black',
-                                          '&:hover': {
-                                             background: 'rgba(3, 175, 112, 1)',
-                                          },
-                                       }}
-                                       startIcon={<DeleteIcon />}
-                                       aria-label="delete"
-                                       onClick={() => DeleteResident(item.ID)}
-                                    >
-                                       ลบ
-                                    </Button>
+                                    <p> ชื่อผู้เช่า: <b>{item.User.Name}</b><br />
+                                       เบอร์โทร: <b>{item.User.Tel}</b><br />
+                                       สัญญา: <b>{item.Lease.Lease}</b><br />
+                                       ประกันห้อง: <b>{item.Bail}</b> บาท<br />
+                                    </p>
+                                    วันที่ทำสัญญา: <b>{moment(item.LeaseTime).format('DD MMM yyyy')}</b>
+                                 </Typography>
+                              </Button>
 
-                                 </ButtonGroup>
-                              </Grid >
+
+
+
+                              <Grid container spacing={3} sx={{ padding: 2 }}>
+                                 <Grid xs={12}>
+                                    <ButtonGroup
+                                       disableElevation
+                                       // variant="contained"
+                                       aria-label="Disabled elevation buttons"
+                                       sx={{
+                                          display: "flex",
+                                          justifyContent: "center",
+
+                                       }}
+                                    >
+                                       <Button
+                                          // color="success"
+                                          variant="contained"
+                                          size="medium"
+                                          sx={{
+                                             fontFamily: "PK Krung Thep Medium",
+                                             fontSize: 18,
+                                             fontWeight: "bold",
+                                             borderRadius: 5,
+                                             color: 'black',
+                                             bgcolor: '#00d084',
+                                             '&:hover': {
+                                                background: 'rgba(3, 175, 112, 1)',
+                                             },
+                                          }}
+                                          startIcon={<EditIcon />}
+                                       >
+                                          แก้ไข
+                                       </Button>
+                                       <Button
+                                          // color="success"
+                                          variant="contained"
+                                          sx={{
+                                             fontFamily: "PK Krung Thep Medium",
+                                             fontSize: 18,
+                                             fontWeight: "bold",
+                                             borderRadius: 5,
+                                             bgcolor: '#00d084',
+                                             color: 'black',
+                                             '&:hover': {
+                                                background: 'rgba(3, 175, 112, 1)',
+                                             },
+                                          }}
+                                          startIcon={<DeleteIcon />}
+                                          aria-label="delete"
+                                          onClick={() => DeleteResident(item.ID)}
+                                       >
+                                          ลบ
+                                       </Button>
+
+                                    </ButtonGroup>
+                                 </Grid >
+                              </Grid>
                            </Grid>
-                        </Grid>
-                     ))}
-                  </Grid>
-               </Box>
+                        ))}
+                     </Grid>
+                  </Box>
+               </div>
             </Paper>
 
 

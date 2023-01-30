@@ -206,138 +206,56 @@ function ResidentCreate() {
          </Snackbar>
          <Paper elevation={5} sx={{
             borderRadius: 5,
-            backgroundImage: 'url("https://img.freepik.com/free-vector/blue-purple-fluid-background_53876-118285.jpg")',
+            // backgroundImage: 'url("https://images.pexels.com/photos/1939485/pexels-photo-1939485.jpeg")', //good
+            backgroundImage: 'url("https://images.pexels.com/photos/1172849/pexels-photo-1172849.jpeg")',
             backgroundRepeat: 'no-repeat',
             backgroundSize: 'cover',
             bgcolor: '#e0f7fa'
          }}>
-            <Box
-               display="flex"
-               justifyContent="center"
-               sx={{
-                  marginTop: 2,
-               }}
-            >
-               <Box sx={{ paddingX: 2, paddingY: 1 }}>
-                  <Typography
-                     sx={{
-                        fontFamily: "PK Krung Thep Medium",
-                        fontSize: 40,
-                     }}
-                     component="h2"
-                     variant="h4"
-                     gutterBottom
-                  >
-                     <b>บันทึกการทำสัญญาเช่า</b>
 
-                  </Typography>
+            <div style={{
+               backgroundColor: 'white',
+               background: 'rgba(255, 255, 255, 0.6)',
+            }}>
+               <Box
+                  display="flex"
+                  justifyContent="center"
+                  sx={{
+                     marginTop: 2,
+                  }}
+               >
+                  <Box sx={{ paddingX: 2, paddingY: 1 }}>
+                     <Typography
+                        sx={{
+                           fontFamily: "PK Krung Thep Medium",
+                           fontSize: 40,
+                        }}
+                        component="h2"
+                        variant="h4"
+                        gutterBottom
+                     >
+                        <b>บันทึกการทำสัญญาเช่า</b>
+
+                     </Typography>
+                  </Box>
                </Box>
-            </Box>
 
-
-            <Grid container spacing={3} sx={{ padding: 2 }}>
-
-               <Grid item xs={6}>
-                  <FormControl fullWidth variant="outlined">
-                     <Typography align="center"
-                        sx={{
-                           fontFamily: "PK Krung Thep Medium",
-                           fontSize: "25px",
-                           fontWeight: "bold",
-                        }}
-                        variant="h6"
-                        color="#212121"
-                     >
-                        <b>ระบุชื่อผู้เช่า</b>
-                     </Typography>
-                     <Select sx={{
-                        fontFamily: "PK Krung Thep Medium",
-                        fontSize: "20px",
-                        fontWeight: "bold",
-                     }}
-                        style={{ borderRadius: "20px" }}
-                        native
-                        value={residents.UserID + ""}
-                        onChange={handleChange}
-                        inputProps={{
-                           name: "UserID",
-                        }}
-                     >
-                        <option aria-label="None" value="">
-                           เลือก
-                        </option>
-                        {/* <option value={users?.ID} key={users?.ID}>
-                      {users?.Name}
-                  </option> */}
-                        {users.map((item: UserInterface) => (
-                           <option value={item.ID} key={item.ID}>
-                              {item.Name}
-                           </option>
-                        ))}
-                     </Select>
-                  </FormControl>
-               </Grid>
-
-               <Grid item xs={6}>
-                  <FormControl fullWidth variant="outlined">
-                     <Typography align="center"
-                        sx={{
-                           fontFamily: "PK Krung Thep Medium",
-                           fontSize: "25px",
-                           fontWeight: "bold",
-                        }}
-                        variant="h6"
-                        color="#212121"
-                     >
-                        <b>เบอร์โทรศัพท์</b>
-                     </Typography>
-                     <Select sx={{
-                        fontFamily: "PK Krung Thep Medium",
-                        fontSize: "20px",
-                        fontWeight: "bold",
-                     }}
-                        style={{ borderRadius: "20px" }}
-                        disabled
-                        native
-                        value={residents.UserID + ""}
-                        onChange={handleChange}
-                        inputProps={{
-                           name: "UserID",
-                        }}
-                     >
-                        <option aria-label="None" value="">
-                        </option>
-                        {/* <option value={users?.ID} key={users?.ID}>
-                      {users?.Tel}
-                  </option> */}
-                        {users.map((item: UserInterface) => (
-                           <option value={item.ID} key={item.ID}>
-                              {item.Tel}
-                           </option>
-                        ))}
-                     </Select>
-                  </FormControl>
-               </Grid>
-            </Grid>
-
-
-
-            <Typography
-               align="center"
-               sx={{
-                  fontFamily: "PK Krung Thep Medium",
-                  fontSize: 22,
-                  fontWeight: "bold",
-               }}
-            >
-               <h2>
-                  <b>ข้อมูลห้องพัก</b>
-               </h2>
 
                <Grid container spacing={3} sx={{ padding: 2 }}>
+
                   <Grid item xs={6}>
                      <FormControl fullWidth variant="outlined">
-                        <p>เลือกห้อง</p>
+                        <Typography align="center"
+                           sx={{
+                              fontFamily: "PK Krung Thep Medium",
+                              fontSize: "25px",
+                              fontWeight: "bold",
+                           }}
+                           variant="h6"
+                           color="#212121"
+                        >
+                           <b>ระบุชื่อผู้เช่า</b>
+                        </Typography>
                         <Select sx={{
                            fontFamily: "PK Krung Thep Medium",
                            fontSize: "20px",
@@ -345,242 +263,330 @@ function ResidentCreate() {
                         }}
                            style={{ borderRadius: "20px" }}
                            native
-                           value={residents.ManageID + ""}
+                           value={residents.UserID + ""}
                            onChange={handleChange}
                            inputProps={{
-                              name: "ManageID",
+                              name: "UserID",
                            }}
                         >
                            <option aria-label="None" value="">
-                              เลือกห้อง
+                              เลือก
                            </option>
-                           {manages.map((item: ManageInterface) => (
+                           {/* <option value={users?.ID} key={users?.ID}>
+                      {users?.Name}
+                  </option> */}
+                           {users.map((item: UserInterface) => (
                               <option value={item.ID} key={item.ID}>
-                                 {item.Room.Number}
+                                 {item.Name}
                               </option>
                            ))}
                         </Select>
                      </FormControl>
                   </Grid>
 
-
-
                   <Grid item xs={6}>
                      <FormControl fullWidth variant="outlined">
-                        <p>ขนาดห้อง</p>
+                        <Typography align="center"
+                           sx={{
+                              fontFamily: "PK Krung Thep Medium",
+                              fontSize: "25px",
+                              fontWeight: "bold",
+                           }}
+                           variant="h6"
+                           color="#212121"
+                        >
+                           <b>เบอร์โทรศัพท์</b>
+                        </Typography>
                         <Select sx={{
                            fontFamily: "PK Krung Thep Medium",
                            fontSize: "20px",
                            fontWeight: "bold",
                         }}
                            style={{ borderRadius: "20px" }}
-                           native
                            disabled
-                           value={residents.ManageID + ""}
-                           onChange={handleChange}
-                           inputProps={{
-                              name: "ManageID",
-                           }}
-                        >
-                           <option aria-label="None" value="">
-                           </option>
-                           {manages.map((item: ManageInterface) => (
-                              <option value={item.ID} key={item.ID}>
-                                 {item.Size.Size}
-                              </option>
-                           ))}
-                        </Select>
-                     </FormControl>
-                  </Grid>
-
-                  <Grid item xs={6}>
-                     <FormControl fullWidth variant="outlined">
-                        <p>ประเภทห้อง</p>
-                        <Select sx={{
-                           fontFamily: "PK Krung Thep Medium",
-                           fontSize: "20px",
-                           fontWeight: "bold",
-                        }}
-                           style={{ borderRadius: "20px" }}
                            native
-                           disabled
-                           value={residents.ManageID + ""}
+                           value={residents.UserID + ""}
                            onChange={handleChange}
                            inputProps={{
-                              name: "ManageID",
+                              name: "UserID",
                            }}
                         >
                            <option aria-label="None" value="">
                            </option>
-                           {manages.map((item: ManageInterface) => (
+                           {/* <option value={users?.ID} key={users?.ID}>
+                      {users?.Tel}
+                  </option> */}
+                           {users.map((item: UserInterface) => (
                               <option value={item.ID} key={item.ID}>
-                                 {item.Category.Category}
+                                 {item.Tel}
                               </option>
                            ))}
                         </Select>
                      </FormControl>
                   </Grid>
+               </Grid>
 
-                  <Grid item xs={6}>
-                     <FormControl fullWidth variant="outlined">
-                        <p>ราคา</p>
-                        <Select sx={{
-                           fontFamily: "PK Krung Thep Medium",
-                           fontSize: "20px",
-                           fontWeight: "bold",
-                        }}
-                           style={{ borderRadius: "20px" }}
-                           native
-                           disabled
-                           value={residents.ManageID + ""}
-                           onChange={handleChange}
-                           inputProps={{
-                              name: "ManageID",
+
+
+               <Typography
+                  align="center"
+                  sx={{
+                     fontFamily: "PK Krung Thep Medium",
+                     fontSize: 22,
+                     fontWeight: "bold",
+                  }}
+               >
+                  <h2>
+                     <b>ข้อมูลห้องพัก</b>
+                  </h2>
+
+                  <Grid container spacing={3} sx={{ padding: 2 }}>
+                     <Grid item xs={6}>
+                        <FormControl fullWidth variant="outlined">
+                           <p>เลือกห้อง</p>
+                           <Select sx={{
+                              fontFamily: "PK Krung Thep Medium",
+                              fontSize: "20px",
+                              fontWeight: "bold",
                            }}
-                        >
-                           <option aria-label="None" value="">
-                           </option>
-                           {manages.map((item: ManageInterface) => (
-                              <option value={item.ID} key={item.ID}>
-                                 {item.Price}
+                              style={{ borderRadius: "20px" }}
+                              native
+                              value={residents.ManageID + ""}
+                              onChange={handleChange}
+                              inputProps={{
+                                 name: "ManageID",
+                              }}
+                           >
+                              <option aria-label="None" value="">
+                                 เลือกห้อง
                               </option>
-                           ))}
-                        </Select>
-                     </FormControl>
-                  </Grid>
+                              {manages.map((item: ManageInterface) => (
+                                 <option value={item.ID} key={item.ID}>
+                                    {item.Room.Number}
+                                 </option>
+                              ))}
+                           </Select>
+                        </FormControl>
+                     </Grid>
 
-                  <Grid item xs={6}>
-                     <FormControl fullWidth variant="outlined">
-                        <p>สัญญาเช่า</p>
-                        <Select sx={{
-                           fontFamily: "PK Krung Thep Medium",
-                           fontSize: "20px",
-                           fontWeight: "bold",
-                        }}
-                           style={{ borderRadius: "20px" }}
-                           native
-                           placeholder=""
-                           value={residents.LeaseID + ""}
-                           onChange={handleChange}
-                           inputProps={{
-                              name: "LeaseID",
+
+
+                     <Grid item xs={6}>
+                        <FormControl fullWidth variant="outlined">
+                           <p>ขนาดห้อง</p>
+                           <Select sx={{
+                              fontFamily: "PK Krung Thep Medium",
+                              fontSize: "20px",
+                              fontWeight: "bold",
                            }}
-                        >
-                           <option aria-label="None" value="">
-                              โปรดระบุ
-                           </option>
-                           {leases.map((item: LeaseInterface) => (
-                              <option value={item.ID} key={item.ID}>
-                                 {item.Lease}
+                              style={{ borderRadius: "20px" }}
+                              native
+                              disabled
+                              value={residents.ManageID + ""}
+                              onChange={handleChange}
+                              inputProps={{
+                                 name: "ManageID",
+                              }}
+                           >
+                              <option aria-label="None" value="">
                               </option>
-                           ))}
-                        </Select>
-                     </FormControl>
-                  </Grid>
+                              {manages.map((item: ManageInterface) => (
+                                 <option value={item.ID} key={item.ID}>
+                                    {item.Size.Size}
+                                 </option>
+                              ))}
+                           </Select>
+                        </FormControl>
+                     </Grid>
 
-                  <Grid item xs={6}>
-                     <FormControl fullWidth variant="outlined">
-                        <p>เงินประกัน</p>
-                        <TextFieldBail
-                           variant="outlined"
-                           id="ResidentID"
-                           defaultValue="5000"
-                           multiline
-                           inputProps={{
-                              style: { fontFamily: "PK Krung Thep Medium", fontSize: 18, fontWeight: "bold", },
+                     <Grid item xs={6}>
+                        <FormControl fullWidth variant="outlined">
+                           <p>ประเภทห้อง</p>
+                           <Select sx={{
+                              fontFamily: "PK Krung Thep Medium",
+                              fontSize: "20px",
+                              fontWeight: "bold",
                            }}
-                           onChange={(event) => setBail(event.target.value)}
-                        />
-                     </FormControl>
-                  </Grid>
+                              style={{ borderRadius: "20px" }}
+                              native
+                              disabled
+                              value={residents.ManageID + ""}
+                              onChange={handleChange}
+                              inputProps={{
+                                 name: "ManageID",
+                              }}
+                           >
+                              <option aria-label="None" value="">
+                              </option>
+                              {manages.map((item: ManageInterface) => (
+                                 <option value={item.ID} key={item.ID}>
+                                    {item.Category.Category}
+                                 </option>
+                              ))}
+                           </Select>
+                        </FormControl>
+                     </Grid>
 
-                  <Grid item xs={2}>
-                     <FormControl fullWidth variant="outlined">
-                        <p>ปีที่ทำสัญญา</p>
-                        <LocalizationProvider dateAdapter={AdapterDateFns}>
-                           <Box sx={{        // จัด center
-                              display: 'flex',
-                              justifyContent: 'center',
-                           }}>
-                              <YearPicker
+                     <Grid item xs={6}>
+                        <FormControl fullWidth variant="outlined">
+                           <p>ราคา</p>
+                           <Select sx={{
+                              fontFamily: "PK Krung Thep Medium",
+                              fontSize: "20px",
+                              fontWeight: "bold",
+                           }}
+                              style={{ borderRadius: "20px" }}
+                              native
+                              disabled
+                              value={residents.ManageID + ""}
+                              onChange={handleChange}
+                              inputProps={{
+                                 name: "ManageID",
+                              }}
+                           >
+                              <option aria-label="None" value="">
+                              </option>
+                              {manages.map((item: ManageInterface) => (
+                                 <option value={item.ID} key={item.ID}>
+                                    {item.Price}
+                                 </option>
+                              ))}
+                           </Select>
+                        </FormControl>
+                     </Grid>
 
+                     <Grid item xs={6}>
+                        <FormControl fullWidth variant="outlined">
+                           <p>สัญญาเช่า</p>
+                           <Select sx={{
+                              fontFamily: "PK Krung Thep Medium",
+                              fontSize: "20px",
+                              fontWeight: "bold",
+                           }}
+                              style={{ borderRadius: "20px" }}
+                              native
+                              placeholder=""
+                              value={residents.LeaseID + ""}
+                              onChange={handleChange}
+                              inputProps={{
+                                 name: "LeaseID",
+                              }}
+                           >
+                              <option aria-label="None" value="">
+                                 โปรดระบุ
+                              </option>
+                              {leases.map((item: LeaseInterface) => (
+                                 <option value={item.ID} key={item.ID}>
+                                    {item.Lease}
+                                 </option>
+                              ))}
+                           </Select>
+                        </FormControl>
+                     </Grid>
+
+                     <Grid item xs={6}>
+                        <FormControl fullWidth variant="outlined">
+                           <p>เงินประกัน</p>
+                           <TextFieldBail
+                              variant="outlined"
+                              id="ResidentID"
+                              defaultValue="5000"
+                              multiline
+                              inputProps={{
+                                 style: { fontFamily: "PK Krung Thep Medium", fontSize: 18, fontWeight: "bold", },
+                              }}
+                              onChange={(event) => setBail(event.target.value)}
+                           />
+                        </FormControl>
+                     </Grid>
+
+                     <Grid item xs={2}>
+                        <FormControl fullWidth variant="outlined">
+                           <p>ปีที่ทำสัญญา</p>
+                           <LocalizationProvider dateAdapter={AdapterDateFns}>
+                              <Box sx={{        // จัด center
+                                 display: 'flex',
+                                 justifyContent: 'center',
+                              }}>
+                                 <YearPicker
+
+                                    date={selectedDate}
+                                    onChange={(newValue) => setSelectedDate(newValue)}
+                                    minDate={(new Date)}
+                                    maxDate={(new Date('2023-12-31'))}
+
+                                 />
+                              </Box>
+
+                           </LocalizationProvider>
+                        </FormControl>
+                     </Grid>
+
+                     <Grid item xs={5}>
+                        <FormControl fullWidth variant="outlined">
+                           <p>ระบุเดือนที่ทำสัญญา</p>
+                           <LocalizationProvider dateAdapter={AdapterDateFns}>
+                              <MonthPicker
                                  date={selectedDate}
                                  onChange={(newValue) => setSelectedDate(newValue)}
                                  minDate={(new Date)}
                                  maxDate={(new Date('2023-12-31'))}
-
                               />
-                           </Box>
+                           </LocalizationProvider>
+                        </FormControl>
+                     </Grid>
 
-                        </LocalizationProvider>
-                     </FormControl>
+                     <Grid item xs={5}>
+                        <FormControl fullWidth variant="outlined">
+                           <p>วันที่ทำสัญญา</p>
+                           <LocalizationProvider dateAdapter={AdapterDateFns}>
+                              <CalendarPicker
+                                 date={selectedDate}
+                                 onChange={(newValue) => setSelectedDate(newValue)}
+                                 minDate={(new Date)}
+                                 maxDate={(new Date('2023-12-31'))}
+                              />
+                           </LocalizationProvider>
+                        </FormControl>
+                     </Grid>
                   </Grid>
+               </Typography>
 
-                  <Grid item xs={5}>
-                     <FormControl fullWidth variant="outlined">
-                        <p>ระบุเดือนที่ทำสัญญา</p>
-                        <LocalizationProvider dateAdapter={AdapterDateFns}>
-                           <MonthPicker
-                              date={selectedDate}
-                              onChange={(newValue) => setSelectedDate(newValue)}
-                              minDate={(new Date)}
-                              maxDate={(new Date('2023-12-31'))}
-                           />
-                        </LocalizationProvider>
-                     </FormControl>
-                  </Grid>
+               <Grid container spacing={3} sx={{ padding: 2 }}>
+                  <Grid item xs={12}>
+                     <Button sx={{
+                        fontFamily: "PK Krung Thep Medium",
+                        fontSize: 20,
+                        width: 100,
+                        marginLeft: 5,
+                        borderRadius: 10
+                     }}
+                        component={RouterLink}
+                        to="/residents"
+                        variant="contained"
+                        color="inherit"
 
-                  <Grid item xs={5}>
-                     <FormControl fullWidth variant="outlined">
-                        <p>วันที่ทำสัญญา</p>
-                        <LocalizationProvider dateAdapter={AdapterDateFns}>
-                           <CalendarPicker
-                              date={selectedDate}
-                              onChange={(newValue) => setSelectedDate(newValue)}
-                              minDate={(new Date)}
-                              maxDate={(new Date('2023-12-31'))}
-                           />
-                        </LocalizationProvider>
-                     </FormControl>
+                     >
+                        <b>กลับ</b>
+                     </Button>
+
+                     <Button sx={{
+                        fontFamily: "PK Krung Thep Medium",
+                        fontSize: 20,
+                        width: 100,
+                        marginRight: 5,
+                        borderRadius: 10
+                     }}
+                        style={{ float: "right" }}
+                        onClick={(submitResident)}
+                        variant="contained"
+                        color="primary"
+                     >
+                        <b>บันทึก</b>
+                     </Button>
                   </Grid>
                </Grid>
-            </Typography>
-            
-            <Grid container spacing={3} sx={{ padding: 2 }}>
-               <Grid item xs={12}>
-                  <Button sx={{
-                     fontFamily: "PK Krung Thep Medium",
-                     fontSize: 20,
-                     width: 100,
-                     marginLeft: 5,
-                     borderRadius: 10
-                  }}
-                     component={RouterLink}
-                     to="/residents"
-                     variant="contained"
-                     color="inherit"
-
-                  >
-                     <b>กลับ</b>
-                  </Button>
-
-                  <Button sx={{
-                     fontFamily: "PK Krung Thep Medium",
-                     fontSize: 20,
-                     width: 100,
-                     marginRight: 5,
-                     borderRadius: 10
-                  }}
-                     style={{ float: "right" }}
-                     onClick={(submitResident)}
-                     variant="contained"
-                     color="primary"
-                  >
-                     <b>บันทึก</b>
-                  </Button>
-               </Grid>
-            </Grid>
-
+            </div>
 
          </Paper>
       </Container>
@@ -588,7 +594,3 @@ function ResidentCreate() {
 }
 
 export default ResidentCreate;
-
-function dayjs(arg0: string) {
-   throw new Error("Function not implemented.");
-}
