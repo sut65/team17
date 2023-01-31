@@ -315,7 +315,7 @@ function BookingCreate() {
                     </option>
                     {furnitures.map((item: FurnitureInterface) => (
                     <option value={item.ID} key={item.ID}>
-                        {item.Equipment.Price}
+                        {item.Equipment.Price}//
                     </option>
                     ))}
                 </Select>
