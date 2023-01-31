@@ -28,6 +28,8 @@ import ConstructionIcon from '@mui/icons-material/Construction';
 import CampaignIcon from '@mui/icons-material/Campaign';
 import ContactPageIcon from '@mui/icons-material/ContactPage';
 import CleaningServicesOutlinedIcon from '@mui/icons-material/CleaningServicesOutlined';
+import LightIcon from '@mui/icons-material/Light';
+import ReceiptIcon from '@mui/icons-material/Receipt';
 
 import Home from "./components/Home";
 import Manages from "./components/Manages";
@@ -120,10 +122,10 @@ const menu = [
   { name: "จองทำความสะอาด", icon: <CleaningServicesOutlinedIcon />, path: "/cleanings", role: 'admin'},
   { name: "เบิกจ่ายอุปกรณ์ในห้องพัก", icon: <ChairOutlinedIcon />, path: "/furnitures", role: 'user'},
   { name: "เบิกจ่ายอุปกรณ์ในห้องพัก", icon: <ChairOutlinedIcon />, path: "/furnitures", role: 'admin'},
-  { name: "มิเตอร์", icon: <ChairOutlinedIcon />, path: "/meters", role: 'user'},
-  { name: "มิเตอร์", icon: <ChairOutlinedIcon />, path: "/meters", role: 'admin'},
-  { name: "บิลชำระ", icon: <ChairOutlinedIcon />, path: "/bills", role: 'user'},
-  { name: "บิลชำระ", icon: <ChairOutlinedIcon />, path: "/bills", role: 'admin'},
+  { name: "มิเตอร์", icon: <LightIcon />, path: "/meters", role: 'user'},
+  { name: "มิเตอร์", icon: <LightIcon />, path: "/meters", role: 'admin'},
+  { name: "บิลชำระ", icon: <ReceiptIcon />, path: "/bills", role: 'user'},
+  { name: "บิลชำระ", icon: <ReceiptIcon />, path: "/bills", role: 'admin'},
   { name: "บิลชำระ", icon: <ConstructionIcon />, path: "/repairs", role: 'user'},
   { name: "บิลชำระ", icon: <ConstructionIcon />, path: "/repairs", role: 'admin'},
   { name: "บิลชำระ", icon: <CampaignIcon />, path: "/emergencies", role: 'user'},
