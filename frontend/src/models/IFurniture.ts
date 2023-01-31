@@ -3,12 +3,11 @@ import { AdminInterface } from "./IAdmin";
 import { RoomInterface } from "./IRoom";
 import { EquipmentInterface } from "./IEquipment";
 import { AmountInterface } from "./IAmount";
-
+//dw
 export interface FurnitureInterface {
 
   ID:             number,
   FurnitureTime:  Date | null,
-  Detail:         string,
 
   AdminID:        number,
   Admin:          AdminInterface,

@@ -267,7 +267,7 @@ function PaymentCreate() {
                 </option>
                 {bills.map((item: BillInterface) => (
                   <option value={item.ID} key={item.ID}>
-                    {item.Room}
+                    {item.Meter.Manage.Room.Number}
                   </option>
                 ))}
               </Select>
@@ -290,7 +290,7 @@ function PaymentCreate() {
                 </option>
                 {bills.map((item: BillInterface) => (
                   <option value={item.ID} key={item.ID}>
-                    {item.Price}
+                    {item.Meter.Manage.Price}
                   </option>
                 ))}
               </Select>
@@ -313,7 +313,7 @@ function PaymentCreate() {
                 </option>
                 {bills.map((item: BillInterface) => (
                   <option value={item.ID} key={item.ID}>
-                    {item.Water}
+                    {item.Meter.Water}
                   </option>
                 ))}
               </Select>
@@ -336,7 +336,7 @@ function PaymentCreate() {
                 </option>
                 {bills.map((item: BillInterface) => (
                   <option value={item.ID} key={item.ID}>
-                    {item.Electic}
+                    {item.Meter.Electric}
                   </option>
                 ))}
               </Select>
@@ -359,7 +359,7 @@ function PaymentCreate() {
                 </option>
                 {bills.map((item: BillInterface) => (
                   <option value={item.ID} key={item.ID}>
-                    {item.Furniture}
+                    {item.Furniture.Equipment.Price}
                   </option>
                 ))}
               </Select>
@@ -382,7 +382,7 @@ function PaymentCreate() {
                 </option>
                 {bills.map((item: BillInterface) => (
                   <option value={item.ID} key={item.ID}>
-                    {item.Total}
+                    {item.Cost}
                   </option>
                 ))}
               </Select>
@@ -486,5 +486,5 @@ function PaymentCreate() {
     </Container>
   );
 }
-
+//dw
 export default PaymentCreate;

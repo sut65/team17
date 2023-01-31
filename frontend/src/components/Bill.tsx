@@ -119,11 +119,11 @@ function Bills() {
               {bills.map((item: BillInterface) => (
                 <TableRow key={item.ID}>
                   <TableCell align="center">{item.ID}</TableCell>
-                  <TableCell align="center">{item.Meter.Manage.Room}</TableCell>
+                  <TableCell align="center">{item.Meter.Manage.Room.Number}</TableCell>
                   <TableCell align="center">{item.Meter.User.Name}</TableCell>
                   <TableCell align="center">{item.Meter.User.Tel}</TableCell>
                   <TableCell align="center">{item.Meter.Manage.Price}</TableCell>
-                  <TableCell align="center">{item.Furniture.Price}</TableCell>
+                  <TableCell align="center">{item.Furniture.Equipment.Price}</TableCell>
                   <TableCell align="center">{item.Meter.After}</TableCell>
                   <TableCell align="center">{item.Meter.Before}</TableCell>
                   <TableCell align="center">{item.Meter.Total}</TableCell>

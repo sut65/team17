@@ -117,7 +117,7 @@ function Meters() {
                 <TableRow key={item.ID}>
                   <TableCell align="center">{item.ID}</TableCell>
                   <TableCell align="center">{item.User.Name}</TableCell>
-                  <TableCell align="center">{item.Manage.Room}</TableCell>
+                  <TableCell align="center">{item.Manage.Room.Number}</TableCell>
                   <TableCell align="center">{item.Manage.Price}</TableCell>
                   <TableCell align="center">{item.Before}</TableCell>
                   <TableCell align="center">{item.After}</TableCell>

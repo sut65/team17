@@ -24,147 +24,155 @@ import { readBuilderProgram } from "typescript";
 
 
 function Manages() {
-  const [manages, setManages] = useState<ManageInterface[]>([]);
-  
-  const apiUrl = "http://localhost:8080";
-  const requestOptions = {
-    method: "GET",
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem("token")}`,
-      "Content-Type": "application/json",
-    },
-  };
+   const [manages, setManages] = useState<ManageInterface[]>([]);
 
-  const getManages = async () => {
-    fetch(`${apiUrl}/manages`, requestOptions)
-      .then((response) => response.json())
-      .then((res) => {
-        console.log(res.data);
-        if (res.data) {
-            setManages(res.data);
-        } else {
-          console.log("else");
-        }
-      });
-  };
+   const apiUrl = "http://localhost:8080";
+   const requestOptions = {
+      method: "GET",
+      headers: {
+         Authorization: `Bearer ${localStorage.getItem("token")}`,
+         "Content-Type": "application/json",
+      },
+   };
+
+   const getManages = async () => {
+      fetch(`${apiUrl}/manages`, requestOptions)
+         .then((response) => response.json())
+         .then((res) => {
+            console.log(res.data);
+            if (res.data) {
+               setManages(res.data);
+            } else {
+               console.log("else");
+            }
+         });
+   };
 
 
-  useEffect(() => {
-    getManages();
-  }, []);
+   useEffect(() => {
+      getManages();
+   }, []);
 
-  return (
-    <div style={{
-    }}>
-      <Container sx={{ marginTop: 2 }} maxWidth="md">
-        <Box display="flex">
-          <Box flexGrow={1}>
-            <Typography
-              sx={{ 
-                fontFamily: "PK Krung Thep Medium",
-              }} 
-              component="h2"
-              variant="h3"
-              color="text.primary"
-              gutterBottom
-            >
-              <b>ระบบจัดการห้องพัก</b>
-            </Typography>
-          </Box>
-          <Box>
-            <Button
-              component={RouterLink}
-              to="/manage/create"
-              variant="contained"
-              color="primary"
-              sx={{ 
-                fontFamily: "PK Krung Thep Medium",
-                fontSize: 18
-              }}
-              style={{ borderRadius: "15px" }}
-            >
-              จัดการห้องพัก
-            </Button>
-          </Box>
-        </Box>
-        
-        
-        <Paper elevation={3} style={{'borderRadius':'20px', 
-          backgroundImage: 'url("https://www.hdwallpapers.in/download/foggy_sunrise_4k_2-1080x1920.jpg")',
-          backgroundRepeat: 'no-repeat',
-          backgroundSize: 'cover',
-          
-        }}>
-          <Box sx={{ 
-            m: 1.5,
-          }}
-          >
-            <Grid container spacing={3}>
-                {manages.map((item: ManageInterface) => (
-                  <Grid xs={4}>
-                    <Typography 
-                      align="center"
-                      sx={{ 
+   return (
+      <div style={{
+      }}>
+         <Container sx={{ marginTop: 2 }} maxWidth="md">
+            <Box display="flex">
+               <Box flexGrow={1}>
+                  <Typography
+                     sx={{
                         fontFamily: "PK Krung Thep Medium",
-                        fontSize: 30,
-                        
-                      }}
-                    >
-                      <b>ห้อง {item.Room.Number}</b>
-                    </Typography>
-                    <Button 
-                      component="span"
-                      sx={{ 
-                      display: 'flex',
-                      justifyContent: 'center',
-                      flexGrow: 1,
-                      m: 0.5,
-                      background: 'rgba(255, 255, 255,0.7)',
-                      boxShadow: 5,
-                      borderRadius: 4,
-                      '&:hover': {
-                      background: 'rgba(142, 209, 252, 0.5)',
+                     }}
+                     component="h2"
+                     variant="h3"
+                     color="primary"
+                     gutterBottom
+                  >
+                     <b>ระบบจัดการห้องพัก</b>
+                  </Typography>
+               </Box>
+               <Box>
+                  <Button
+                     component={RouterLink}
+                     to="/manage/create"
+                     variant="contained"
+                     color="primary"
+                     sx={{
+                        fontFamily: "PK Krung Thep Medium",
+                        fontSize: 18,
+                        borderRadius: 15
+                     }}
+                  >
+                     จัดการห้องพัก
+                  </Button>
+               </Box>
+            </Box>
 
-                      },
-                      
-                      }}
-                    >
-                      <Typography 
-                        align="center"
-                        sx={{ 
-                          fontFamily: "PK Krung Thep Medium",
-                          fontSize: 20,
-                          color: 'black',
-                        }}
-                      >
-                        
-                        <h1>
-                          <b>
-                            {/* ห้อง {item.Room.Number} <br/> */}
-                            {item.Stetus}
-                          </b>
-                        </h1>
-                        <h4>
-                          <b>ขนาดห้อง:</b> {item.Size.Size}<br/>
-                          <b>ประเภทห้อง:</b> {item.Category.Category}<br/>
-                          <b>ราคาเช่า:</b> {item.Price}/เดือน<br/>
-                          <h5>
-                            สิ่งอำนวยความสะดวก:<br/>
-                            {item.Detail}
-                          </h5>
-                        </h4>
-                      </Typography>                      
-                    </Button>
-                  </Grid>
-                  
-                  
-                ))}
-                
-            </Grid>
-          </Box>
-        </Paper>
-      </Container>
-    </div>
-  );
+
+            <Paper elevation={3} style={{
+               'borderRadius': '20px',
+               backgroundImage: 'url("https://coolhdwall.com/storage/202101/mountains-fog-hd-phone-wallpaper-1125x2436.jpg")',
+               backgroundRepeat: 'no-repeat',
+               backgroundSize: 'cover',
+
+            }}>
+               <div style={{
+                  background: 'rgba(255, 255, 255, 0.5)',
+                  borderRadius: 20,
+
+               }}>
+                  <Box sx={{
+                     m: 1.5,
+                  }}
+                  >
+                     <Grid container spacing={3}>
+                        {manages.map((item: ManageInterface) => (
+                           <Grid xs={4}>
+                              <Typography
+                                 align="center"
+                                 sx={{
+                                    fontFamily: "PK Krung Thep Medium",
+                                    fontSize: 35,
+                                 }}
+                              >
+                                 <b>ห้อง {item.Room.Number}</b>
+                              </Typography>
+                              <Button
+                                 component="span"
+                                 sx={{
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    flexGrow: 2,
+                                    m: 0.5,
+                                    background: 'rgba(255, 255, 255,0.7)',
+                                    boxShadow: 5,
+                                    borderRadius: 4,
+                                    '&:hover': {
+                                       background: 'rgba(142, 209, 252, 0.5)',
+                                    },
+                                 }}
+                              >
+                                 <Typography
+                                    sx={{
+                                       fontFamily: "PK Krung Thep Medium",
+                                       fontSize: 18,
+                                    }}
+                                    color="black"
+                                 >
+                                    <Typography
+                                       align="center"
+                                       sx={{
+                                          fontFamily: "PK Krung Thep Medium",
+                                          fontSize: 20,
+                                       }}
+                                    >
+                                       <h1>
+                                          <b>
+                                             {item.Stetus}
+                                          </b>
+                                       </h1>
+                                    </Typography>
+                                    <p>
+                                       ขนาดห้อง: <b>{item.Size.Size}</b><br />
+                                       ประเภทห้อง: <b>{item.Category.Category}</b><br />
+                                       ราคาเช่า: <b>{item.Price}/เดือน</b><br />
+                                       <center>สิ่งอำนวยความสะดวก:</center>
+                                       <b>{item.Detail}</b>
+                                    </p>
+                                 </Typography>
+                              </Button>
+                           </Grid>
+
+
+                        ))}
+
+                     </Grid>
+                  </Box>
+               </div>
+            </Paper>
+         </Container>
+      </div>
+   );
 }
+
 export default Manages;
