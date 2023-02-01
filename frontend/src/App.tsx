@@ -29,6 +29,9 @@ import CampaignIcon from '@mui/icons-material/Campaign';
 import ContactPageIcon from '@mui/icons-material/ContactPage';
 import PaymentIcon from '@mui/icons-material/Payment';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import CleaningServicesOutlinedIcon from '@mui/icons-material/CleaningServicesOutlined';
+import LightIcon from '@mui/icons-material/Light';
+import ReceiptIcon from '@mui/icons-material/Receipt';
 
 import Home from "./components/Home";
 import Manages from "./components/Manages";
@@ -117,8 +120,8 @@ const menu = [
   { name: "สัญญาเช่า", icon: <ContactPageIcon />, path: "/residents", role: 'user'},
   { name: "สัญญาเช่า", icon: <ContactPageIcon />, path: "/residents", role: 'admin'},
   { name: "แจ้งออก", icon: <RemoveCircleOutlineIcon />, path: "/requestouts", role : 'user'},
-  { name: "จองทำความสะอาด", icon: <AddToQueueIcon />, path: "/cleanings", role: 'user'},
-  { name: "จองทำความสะอาด", icon: <AddToQueueIcon />, path: "/cleanings", role: 'admin'},
+  { name: "จองทำความสะอาด", icon: <CleaningServicesOutlinedIcon />, path: "/cleanings", role: 'user'},
+  { name: "จองทำความสะอาด", icon: <CleaningServicesOutlinedIcon />, path: "/cleanings", role: 'admin'},
   { name: "เบิกจ่ายอุปกรณ์ในห้องพัก", icon: <ChairOutlinedIcon />, path: "/furnitures", role: 'user'},
   { name: "เบิกจ่ายอุปกรณ์ในห้องพัก", icon: <ChairOutlinedIcon />, path: "/furnitures", role: 'admin'},
   { name: "มิเตอร์", icon: <ChairOutlinedIcon />, path: "/meters", role: 'user'},

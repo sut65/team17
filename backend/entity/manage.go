@@ -6,9 +6,9 @@ import (
 
 type Manage struct {
 	gorm.Model
-	Stetus string
-	Price  string
-	Detail string
+	Stetus string	`valid:"required~Price cannot be blank"`
+	Price  string	`valid:"required~Price cannot be blank"`
+	Detail string	`valid:"required~Price cannot be blank"`
 
 	//Entity Room
 	RoomID *uint

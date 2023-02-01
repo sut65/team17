@@ -36,7 +36,7 @@ function furnitureCreate() {
   const [users, setUsers] = useState<UserInterface[]>([]);
   const [rooms, setRooms] = useState<RoomInterface[]>([]);
   const [equipments, setEquipments] = useState<EquipmentInterface[]>([]);
-  const [amounts, setAmounts] = useState<AmountInterface[]>([]);
+  const [Amounts, setAmounts] = useState<AmountInterface[]>([]);
   const [furnitures, setFurnitures] = useState<Partial<FurnitureInterface>>({});
 
 
@@ -78,8 +78,7 @@ function furnitureCreate() {
 
 
   const getUsers = async () => {
-    const uid = localStorage.getItem("uid");
-    fetch(`${apiUrl}/user/${uid}`, requestOptions)
+    fetch(`${apiUrl}/users`, requestOptions)
       .then((response) => response.json())
       .then((res) => {
         furnitures.UserID = res.data.ID
@@ -117,7 +116,7 @@ function furnitureCreate() {
 
 
   const getEquipment = async () => {
-    fetch(`${apiUrl}/equipments`, requestOptions)
+    fetch(`${apiUrl}/equipment`, requestOptions)
       .then((response) => response.json())
       .then((res) => {
         if (res.data) {
@@ -213,7 +212,7 @@ function furnitureCreate() {
               color="primary"
               gutterBottom
             >
-              บันทึกการเบิกจ่ายอุปกรณ์ในห้องพัก
+              บันทึกเบิกจ่ายอุปกรณ์ในห้องพัก
 
             </Typography>
           </Box>
@@ -225,7 +224,6 @@ function furnitureCreate() {
             <p>ชื่อ - สกุล</p>
               <Select
                 native
-                disabled
                 value={furnitures.UserID + ""}
                 onChange={handleChange}
                 inputProps={{
@@ -255,7 +253,7 @@ function furnitureCreate() {
                   name: "UserID",
                 }}
               >
-                <option aria-label="None" value="">
+                  <option aria-label="None" value="">
                 </option>
                 {users.map((item: UserInterface) => (
                   <option value={item.ID} key={item.ID}>
@@ -273,7 +271,7 @@ function furnitureCreate() {
                 native
                 labelId="RoomID"
                 id="RoomID"
-                label="ห้อง"
+                label=""
                 placeholder=""
                 value={furnitures.RoomID + ""}
                 onChange={handleChange}
@@ -294,7 +292,7 @@ function furnitureCreate() {
 
           <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
-              <p>เฟอร์นิเจอร์ :</p>
+              <p>เลือกเฟอร์นิเจอร์</p>
               <Select
                 native
                 labelId="EquipmentID"
@@ -317,10 +315,9 @@ function furnitureCreate() {
             </FormControl>
           </Grid>
 
-
           <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
-              <p>จำนวนเช่า :</p>
+              <p>เลือกจำนวน</p>
               <Select
                 native
                 value={furnitures.AmountID + ""}
@@ -332,7 +329,7 @@ function furnitureCreate() {
               >
                 <option aria-label="None" value="">
                 </option>
-                {amounts.map((item: AmountInterface) => (
+                {Amounts.map((item: AmountInterface) => (
                   <option value={item.ID} key={item.ID}>
                     {item.Amount}
                   </option>
@@ -343,11 +340,14 @@ function furnitureCreate() {
 
           <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
-            <p>ราคา</p>
+              <p>ราคา</p>
               <Select
                 native
                 disabled
-                value={furnitures.EquipmentID+ ""}
+                labelId="EquipmentID"
+                id="EquipmentID"
+                placeholder=""
+                value={furnitures.EquipmentID + ""}
                 onChange={handleChange}
                 inputProps={{
                   name: "EquipmentID",
@@ -363,7 +363,7 @@ function furnitureCreate() {
               </Select>
             </FormControl>
           </Grid>
-          
+
           <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
               <p>วันที่และเวลา</p>
@@ -378,8 +378,8 @@ function furnitureCreate() {
             </FormControl>
           </Grid>
 
+          <Grid item xs={6}>
 
-          <Grid item xs={12}>
             <Button
               component={RouterLink}
               to="/furnitures"

@@ -170,11 +170,11 @@ func main() {
 			protected.DELETE("/cleanings/:id", controller.DeleteCleaning)
 
 			// Equipment Routes
-			protected.GET("/equipments", controller.ListEquipments)
+			protected.GET("/equipment", controller.ListEquipments)
 			protected.GET("/equipment/:id", controller.GetEquipment)
-			protected.POST("/equipments", controller.CreateEquipment)
-			protected.PATCH("/equipments", controller.UpdateEquipment)
-			protected.DELETE("/equipments/:id", controller.DeleteEquipment)
+			protected.POST("/equipment", controller.CreateEquipment)
+			protected.PATCH("/equipment", controller.UpdateEquipment)
+			protected.DELETE("/equipment/:id", controller.DeleteEquipment)
 
 			// Amount Routes
 			protected.GET("/amounts", controller.ListAmounts)

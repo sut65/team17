@@ -206,16 +206,17 @@ function ResidentCreate() {
          </Snackbar>
          <Paper elevation={5} sx={{
             borderRadius: 5,
-            // backgroundImage: 'url("https://images.pexels.com/photos/1939485/pexels-photo-1939485.jpeg")', //good
-            backgroundImage: 'url("https://images.pexels.com/photos/1172849/pexels-photo-1172849.jpeg")',
+            backgroundImage: 'url("https://images.pexels.com/photos/1939485/pexels-photo-1939485.jpeg")', //good
+            // backgroundImage: 'url("https://images.pexels.com/photos/1172849/pexels-photo-1172849.jpeg")',
             backgroundRepeat: 'no-repeat',
             backgroundSize: 'cover',
             bgcolor: '#e0f7fa'
          }}>
 
             <div style={{
-               backgroundColor: 'white',
-               background: 'rgba(255, 255, 255, 0.6)',
+               background: 'rgba(255, 255, 255, 0.4)',
+               borderRadius: 20,
+
             }}>
                <Box
                   display="flex"

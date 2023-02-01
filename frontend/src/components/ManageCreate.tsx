@@ -47,15 +47,11 @@ function ManageCreate() {
    const [detail, setDetail] = useState<String>("");
    const [price, setPrice] = useState<String>("");
 
-
-
-
    const [success, setSuccess] = useState(false);
    const [error, setError] = useState(false);
-   const [errorMessage, setErrorMessage] = useState("");
+   const [errorMessage, setErrorMessage] = useState("");const [message, setAlertMessage] = React.useState("");
 
    const apiUrl = "http://localhost:8080";
-
    const requestOptions = {
       method: "GET",
       headers: {
@@ -211,7 +207,7 @@ function ManageCreate() {
             anchorOrigin={{ vertical: "top", horizontal: "center" }}
          >
             <Alert onClose={handleClose} severity="error">
-               บันทึกข้อมูลไม่สำเร็จ
+               {errorMessage}
             </Alert>
          </Snackbar>
          <Paper sx={{
@@ -222,8 +218,9 @@ function ManageCreate() {
             bgcolor: '#e0f7fa'
          }}>
             <div style={{
-               backgroundColor: 'white',
-               background: 'rgba(255, 255, 255, 0.4)',
+               background: 'rgba(255, 255, 255, 0.5)',
+               borderRadius: 20,
+
             }}>
                <Box
                   display="flex"
@@ -384,6 +381,7 @@ function ManageCreate() {
                            variant="outlined"
                            id="ManageID"
                            placeholder="ราคา"
+                           type="number"
                            inputProps={{
                               style: { fontFamily: "PK Krung Thep Medium", fontSize: 20, fontWeight: "bold" },
                            }}

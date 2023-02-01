@@ -117,7 +117,7 @@ function Bills() {
             </TableHead>
             <TableBody>
               {bills.map((item: BillInterface) => (
-                <TableRow key={item.ID}>
+                <TableRow key={item.ID}>//
                   <TableCell align="center">{item.ID}</TableCell>
                   <TableCell align="center">{item.Meter.Manage.Room.Number}</TableCell>
                   <TableCell align="center">{item.Meter.User.Name}</TableCell>
