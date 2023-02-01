@@ -185,7 +185,7 @@ function BookingCreate() {
       </Snackbar>
       <Snackbar open={error} autoHideDuration={6000} onClose={handleClose}>
         <Alert onClose={handleClose} severity="error">
-          บันทึกข้อมูลไม่สำเร็จ: {errorMessage}
+          {errorMessage}
         </Alert>
       </Snackbar>
       <Paper sx={{ padding: 2, color: "text.secondary" }}>
@@ -206,7 +206,7 @@ function BookingCreate() {
         <Divider />
         <Grid container spacing={3}  sx={{ flexGrow: 1 }}>
 
-            <Grid item xs={6}>
+            {/* <Grid item xs={6}>
                 <FormControl fullWidth variant="outlined">
                 <Select
                     native
@@ -225,7 +225,7 @@ function BookingCreate() {
                     
                 </Select>
                 </FormControl>
-            </Grid>
+            </Grid> */}
 
             <Grid item xs={6}>
                 <FormControl fullWidth variant="outlined">
