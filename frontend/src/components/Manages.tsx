@@ -8,11 +8,13 @@ import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Grid from '@mui/material/Unstable_Grid2';
 
-
+import Stack from '@mui/material/Stack';
+import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
+import SaveAsOutlinedIcon from '@mui/icons-material/SaveAsOutlined';
 
 import { ManageInterface } from "../models/IManage";
+import { autocompleteClasses, Card, Hidden } from '@mui/material';
 
 
 
@@ -20,6 +22,11 @@ import { ManageInterface } from "../models/IManage";
 
 function Manages() {
    const [manages, setManages] = useState<ManageInterface[]>([]);
+   const [hiddens, setHiddens] = useState(true);
+
+   const [success, setSuccess] = useState(false);
+   const [error, setError] = useState(false);
+   const [ErrorMessage, setErrorMessage] = useState("");
 
    const apiUrl = "http://localhost:8080";
    const requestOptions = {
@@ -44,133 +51,59 @@ function Manages() {
          });
    };
 
+   const DeleteManage = async (id: string | number | undefined) => {
+      console.log(id);
+
+      const apiUrl = "http://localhost:8080";
+      const requestOptions = {
+         method: "DELETE",
+         headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "application/json",
+         },
+      };
+
+      fetch(`${apiUrl}/manages/${id}`, requestOptions)
+         .then((response) => response.json())
+         .then(
+            (res) => {
+               if (res.data) {
+                  setSuccess(true)
+                  console.log("ยกเลิกสำเร็จ")
+                  setErrorMessage("")
+               }
+               else {
+                  setErrorMessage(res.error)
+                  setError(true)
+                  console.log("ยกเลิกไม่สำเร็จ")
+               }
+               getManages();
+            }
+         )
+
+   }
+
+   // const hiddenData = async (id: string | number | undefined) => {
+   //    console.log(id);
+
+   //    if (hiddens == true) {
+   //       setHiddens(false)
+   //    } else {
+   //       setHiddens(true)
+   //    }
+   // };
+
 
    useEffect(() => {
       getManages();
    }, []);
 
 
-   // return (
-   //    <div style={{
-   //       fontFamily: "PK Krung Thep Medium",
-   //       fontSize: 20,
-   //    }}>
-   //       <Box display="flex">
-   //          <Box flexGrow={1}>
-   //             <Typography
-   //                sx={{
-   //                   fontFamily: "PK Krung Thep Medium",
-   //                }}
-   //                component="h2"
-   //                variant="h3"
-   //                color="primary"
-   //                gutterBottom
-   //             >
-   //                <b>ระบบจัดการห้องพัก</b>
-   //             </Typography>
-   //          </Box>
-   //          <Box>
-   //             <Button
-   //                component={RouterLink}
-   //                to="/manage/create"
-   //                variant="contained"
-   //                color="primary"
-   //                sx={{
-   //                   fontFamily: "PK Krung Thep Medium",
-   //                   fontSize: 18,
-   //                   borderRadius: 15
-   //                }}
-   //             >
-   //                จัดการห้องพัก
-   //             </Button>
-   //          </Box>
-   //       </Box>
-
-   //       <Paper elevation={3} style={{
-   //          'borderRadius': '20px',
-   //          backgroundImage: 'url("https://coolhdwall.com/storage/202101/mountains-fog-hd-phone-wallpaper-1125x2436.jpg")',
-   //          backgroundRepeat: 'no-repeat',
-   //          backgroundSize: 'cover',
-
-   //       }}>
-   //          <div style={{
-   //             background: 'rgba(255, 255, 255, 0.5)',
-   //             borderRadius: 20,
-
-   //          }}>
-   //             <Box sx={{
-   //                m: 1.5,
-   //             }}
-   //             >
-   //                <Grid container spacing={3} sx={{
-   //                   alignContent: 'center',
-   //                }}>
-   //                   {manages.map((item: ManageInterface) => (
-   //                      <Grid xs={10}>
-   //                         <center>
-   //                            <Typography
-   //                               align="center"
-   //                               sx={{
-   //                                  fontFamily: "PK Krung Thep Medium",
-   //                                  fontSize: 35,
-   //                               }}
-   //                            >
-   //                               <b>ห้อง {item.Room.Number}</b>
-   //                            </Typography>
-   //                            <Button
-   //                               component="span"
-   //                               sx={{
-   //                                  display: 'flex',
-   //                                  justifyContent: 'center',
-   //                                  flexGrow: 2,
-   //                                  m: 0.5,
-   //                                  background: 'rgba(255, 255, 255,0.7)',
-   //                                  boxShadow: 5,
-   //                                  borderRadius: 4,
-   //                                  '&:hover': {
-   //                                     background: 'rgba(142, 209, 252, 0.5)',
-   //                                  },
-   //                               }}
-   //                            >
-   //                               <Typography
-   //                                  sx={{
-   //                                     fontFamily: "PK Krung Thep Medium",
-   //                                     fontSize: 18,
-   //                                  }}
-   //                                  color="black"
-   //                               >
-   //                                  <Typography
-   //                                     align="center"
-   //                                     sx={{
-   //                                        fontFamily: "PK Krung Thep Medium",
-   //                                        fontSize: 30,
-   //                                     }}
-   //                                  >
-   //                                     <h1>
-   //                                        <b>
-   //                                           {item.Stetus}
-   //                                        </b>
-   //                                     </h1>
-   //                                  </Typography>
-   //                                  ราคาเช่า: <b>{item.Price}/เดือน</b>
-   //                               </Typography>
-   //                            </Button>
-   //                         </center>
-   //                      </Grid>
-
-   //                   ))}
-
-   //                </Grid>
-   //             </Box>
-   //          </div>
-   //       </Paper>
-   //    </div>
-   // );
-
-
    return (
-
-      <Container sx={{ marginTop: 2 }} maxWidth="md">
+      <div style={{
+         fontFamily: "PK Krung Thep Medium",
+         fontSize: 20,
+      }}>
          <Box display="flex">
             <Box flexGrow={1}>
                <Typography
@@ -181,6 +114,7 @@ function Manages() {
                   variant="h3"
                   color="primary"
                   gutterBottom
+                  align='center'
                >
                   <b>ระบบจัดการห้องพัก</b>
                </Typography>
@@ -202,7 +136,6 @@ function Manages() {
             </Box>
          </Box>
 
-
          <Paper elevation={3} style={{
             'borderRadius': '20px',
             backgroundImage: 'url("https://coolhdwall.com/storage/202101/mountains-fog-hd-phone-wallpaper-1125x2436.jpg")',
@@ -215,43 +148,52 @@ function Manages() {
                borderRadius: 20,
 
             }}>
-               <Box sx={{
-                  m: 1.5,
-               }}
-               >
-                  <Grid container spacing={3}>
-                     {manages.map((item: ManageInterface) => (
-                        <Grid xs={4}>
-                           <Typography
-                              align="center"
-                              sx={{
-                                 fontFamily: "PK Krung Thep Medium",
-                                 fontSize: 35,
-                              }}
-                           >
-                              <b>ห้อง {item.Room.Number}</b>
+               <Grid container spacing={3} sx={{
+                  display: 'flex',
+                  justifyContent: 'center',
+               }}>
+                  {manages.map((item: ManageInterface) => (
+                     <Grid xs={11} sx={{
+                        display: 'flex',
+                     }}>
+
+                        <Button
+                           component="span"
+                           sx={{
+                              fontFamily: "PK Krung Thep Medium",
+                              fontSize: 30,
+                              display: 'flex',
+                              justifyContent: 'left',
+                              width: 'auto',
+                              flexGrow: 2,
+                              m: 0.5,
+                              background: 'rgba(255, 255, 255,0.7)',
+                              boxShadow: 5,
+                              borderRadius: 5,
+                              '&:hover': {
+                                 background: 'rgba(142, 209, 252, 0.5)',
+                              },
+                           }}
+                        >
+                           <Typography sx={{
+                              display: 'flex',
+                              justifyContent: 'center',
+                              width: '30%',
+                              fontFamily: "PK Krung Thep Medium",
+                              fontSize: 30,
+                           }}>
+                                 <h1><b>{item.Stetus}</b></h1>
                            </Typography>
-                           <Button
-                              component="span"
-                              sx={{
-                                 display: 'flex',
-                                 justifyContent: 'center',
-                                 flexGrow: 2,
-                                 m: 0.5,
-                                 background: 'rgba(255, 255, 255,0.7)',
-                                 boxShadow: 5,
-                                 borderRadius: 4,
-                                 '&:hover': {
-                                    background: 'rgba(142, 209, 252, 0.5)',
-                                 },
+
+                           <Typography sx={{
+                                 width: '30%',
+                                 fontFamily: "PK Krung Thep Medium",
+                                 fontSize: 20,
+                                 margin: 3,
+                                 color: 'black',
+                                 // backgroundColor: 'skyblue',
                               }}
-                           >
-                              <Typography
-                                 sx={{
-                                    fontFamily: "PK Krung Thep Medium",
-                                    fontSize: 18,
-                                 }}
-                                 color="black"
+                                 // align="center"
                               >
                                  <Typography
                                     align="center"
@@ -262,7 +204,7 @@ function Manages() {
                                  >
                                     <h1>
                                        <b>
-                                          {item.Status}
+                                          {item.Stetus}
                                        </b>
                                     </h1>
                                  </Typography>
@@ -275,66 +217,182 @@ function Manages() {
                                     <b>{item.Detail}</b>
                                  </p>
                               </Typography>
-                           </Button>
+                           
+                        </Button>
 
-
-                           <center>
+                        <div style={{
+                              display: 'grid',
+                              marginTop: 'auto',
+                              marginBottom: 'auto',
+                              marginLeft: 5,
+                              marginRight: 10,
+                           }}>
                               <Button
-                                 // color="success"
-                                 variant="contained"
+                                 variant="outlined"
                                  size="medium"
+                                 startIcon={<SaveAsOutlinedIcon />}
                                  sx={{
-                                    marginRight: 3,
-                                    marginTop: 1,
                                     fontFamily: "PK Krung Thep Medium",
-                                    fontSize: 18,
+                                    fontSize: 20,
+                                    borderRadius: 20,
                                     fontWeight: "bold",
-                                    borderRadius: 5,
                                     color: 'black',
-                                    bgcolor: '#00d084',
+                                    width: '100px',
+                                    marginBottom: 1,
+                                    borderColor: 'black',
                                     '&:hover': {
-                                       background: 'rgba(3, 175, 112, 1)',
+                                       background: 'rgba(0, 208, 132, 0.5)',
+                                       borderColor: 'rgba(0, 208, 132, 0.4)',
                                     },
                                  }}
-                                 startIcon={<EditIcon />}
                               >
                                  แก้ไข
                               </Button>
                               <Button
-                                 // color="success"
-                                 variant="contained"
+                                 variant="outlined"
                                  size="medium"
+                                 startIcon={<DeleteIcon />}
                                  sx={{
-                                    marginTop: 1,
                                     fontFamily: "PK Krung Thep Medium",
-                                    fontSize: 18,
+                                    fontSize: 20,
+                                    borderRadius: 20,
                                     fontWeight: "bold",
-                                    borderRadius: 5,
-                                    bgcolor: '#00d084',
+                                    marginTop: 1,
+                                    width: '100px',
                                     color: 'black',
+                                    borderColor: 'black',
                                     '&:hover': {
-                                       background: 'rgba(3, 175, 112, 1)',
+                                       background: 'rgba(0, 208, 132, 0.5)',
+                                       borderColor: 'rgba(0, 208, 132, 0.4)',
                                     },
                                  }}
-                                 startIcon={<DeleteIcon />}
                                  aria-label="delete"
-                              // onClick={() => DeleteResident(item.ID)}
+                                 onClick={() => DeleteManage(item.ID)}
                               >
                                  ลบ
                               </Button>
-                           </center>
+                           </div>
 
-                        </Grid>
+                        {/* <div style={{
+                           marginTop: 'auto',
+                           marginBottom: 'auto',
+                           fontFamily: "PK Krung Thep Medium",
+                           fontSize: 30,
+                        }}>
+                           <Button
+                              component="span"
+                              sx={{
+                                 fontFamily: "PK Krung Thep Medium",
+                                 fontSize: 30,
+                                 display: 'grid',
+                                 justifyContent: 'center',
+                                 width: '250px',
+                                 flexGrow: 2,
+                                 m: 0.5,
+                                 background: 'rgba(255, 255, 255,0.7)',
+                                 boxShadow: 5,
+                                 borderRadius: 5,
+                                 '&:hover': {
+                                    background: 'rgba(142, 209, 252, 0.5)',
+                                 },
+                              }}
+                           >
+                              <b>
+                                 <h1>
+                                    ห้อง{item.Stetus} 
+                                 </h1>
+                              </b>
+                              
+                           </Button>
+                        </div>
 
 
-                     ))}
+                        <div style={{
+                           display: 'grid',
+                           marginTop: 'auto',
+                           marginBottom: 'auto',
+                           marginLeft: 5,
+                           marginRight: 10,
+                        }}>
+                           <Button
+                              variant="outlined"
+                              size="medium"
+                              startIcon={<SaveAsOutlinedIcon />}
+                              sx={{
+                                 fontFamily: "PK Krung Thep Medium",
+                                 fontSize: 20,
+                                 borderRadius: 20,
+                                 fontWeight: "bold",
+                                 color: 'black',
+                                 width: '100px',
+                                 marginBottom: 1,
+                                 '&:hover': {
+                                    background: 'rgba(3, 175, 112, 0.5)',
+                                    borderColor: 'rgba(3, 175, 112, 0.4)',
+                                 },
+                              }}
+                           >
+                              แก้ไข
+                           </Button>
+                           <Button
+                              variant="outlined"
+                              size="medium"
+                              startIcon={<DeleteIcon />}
+                              sx={{
+                                 fontFamily: "PK Krung Thep Medium",
+                                 fontSize: 20,
+                                 borderRadius: 20,
+                                 fontWeight: "bold",
+                                 marginTop: 1,
+                                 width: '100px',
+                                 color: 'black',
+                                 '&:hover': {
+                                    background: 'rgba(3, 175, 112, 0.5)',
+                                    borderColor: 'rgba(3, 175, 112, 0.4)',
+                                 },
+                              }}
+                              onClick={() => DeleteManage(item.ID)}
+                           >
+                              ลบ
+                           </Button>
+                        </div>
 
-                  </Grid>
-               </Box>
+                        <Card elevation={3} sx={{
+                           width: '100%',
+                           height: 'auto',
+                           borderRadius: 5,
+                           backgroundColor: 'white',
+                           background: 'rgba(255, 255, 255, 0.5)',
+                           '&:hover': {
+                              background: 'rgba(255, 255, 255, 0.8)',
+                           },
+                        }}
+                        // hidden={hiddens}
+                        
+                        >
+                           <Typography sx={{
+                              fontFamily: "PK Krung Thep Medium",
+                              fontSize: 20,
+                              margin: 3,
+                           }}>
+                              ห้อง: <b>{item.Room.Number}</b><br />
+                              ขนาดห้อง: <b>{item.Size.Size}</b><br />
+                              ประเภทห้อง: <b>{item.Category.Category}</b><br />
+                              ราคาเช่า: <b>{item.Price}/เดือน</b><br />
+                              สิ่งอำนวยความสะดวก: <br /><b>{item.Detail}</b>
+                              
+                           </Typography>
+                        </Card> */}
+                     </Grid>
+                  ))}
+               </Grid>
             </div>
          </Paper>
-      </Container>
+      </div>
    );
+
+
+   
 }
 
 export default Manages;

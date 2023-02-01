@@ -183,7 +183,7 @@ function ManageCreate() {
    }
 
    return (
-      <Container maxWidth="md" sx={{
+      <div style={{
          fontFamily: "PK Krung Thep Medium",
          fontSize: "20px"
          // fontStyle: "bold"
@@ -489,7 +489,7 @@ function ManageCreate() {
                </Grid>
             </div>
          </Paper>
-      </Container>
+      </div>
    );
 }
 

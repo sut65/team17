@@ -6,8 +6,8 @@ export interface ManageInterface {
 
   ID:           number,
   Detail:       string,
-  Status:       string,
-  Price:        number,
+  Stetus:       string,
+  Price:        string,
 
   RoomID:       number,
   Room:         RoomInterface,
