@@ -70,10 +70,6 @@ function CleaningCreate() {
     });
     console.log(event.target.value);
     
-    // if(name == "SymptomID"){
-    //   getDepartment(event.target.value)
-    // }
-    
   };
 
 
@@ -114,30 +110,6 @@ function CleaningCreate() {
       });
   };
 
-  // const getKind = async () => {
-  //   fetch(`${apiUrl}/kinds`, requestOptions)
-  //     .then((response) => response.json())
-  //     .then((res) => {
-  //       if (res.data) {
-  //         setKinds(res.data);
-  //       } else {
-  //         console.log("else");
-  //       }
-  //     });
-  // };
-
-//   const getCategory = async () => {
-//     fetch(`${apiUrl}/categorys`, requestOptions)
-//       .then((response) => response.json())
-//       .then((res) => {
-//         if (res.data) {
-//           setCategorys(res.data);
-//         } else {
-//           console.log("else");
-//         }
-//       });
-//   };
-
   const getArea = async () => {
     fetch(`${apiUrl}/areas`, requestOptions)
       .then((response) => response.json())
@@ -149,22 +121,6 @@ function CleaningCreate() {
         }
       });
   };
-
-  
-
-//   const getDepartment = async (id : String | unknown) => {
-//     fetch(`${apiUrl}/department/symptom/${id}`, requestOptions)
-//       .then((response) => response.json())
-//       .then((res) => {
-//         booking.DepartmentID = res.data
-//         if (res.data) {
-//         console.log(booking.DepartmentID);
-//         setDepartments(res.data);
-//         } else {
-//           console.log("else");
-//         }
-//       });
-//   };
 
   useEffect(() => {
     getUsers();
@@ -234,7 +190,7 @@ function CleaningCreate() {
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
       >
         <Alert onClose={handleClose} severity="error">
-          บันทึกข้อมูลไม่สำเร็จ
+          {errorMessage}
         </Alert>
       </Snackbar>
       <Paper>
@@ -347,32 +303,6 @@ function CleaningCreate() {
             </FormControl>
           </Grid>
 
-          {/* <Grid item xs={6}>
-            <FormControl fullWidth variant="outlined">
-              <p>เลือกประเภทการทำความสะอาด</p>
-              <Select
-                native
-                labelId="CategoryID"
-                id="CategoryID"
-                label="ประเภทการทำความสะอาด"
-                placeholder=""
-                value={cleanings.CategoryID + ""}
-                onChange={handleChange}
-                inputProps={{
-                  name: "CategoryID",
-                }}
-              >
-                <option aria-label="None" value="">
-                </option>
-                {categorys.map((item: CategoryInterface) => (
-                  <option value={item.ID} key={item.ID}>
-                    {item.Category}
-                  </option>
-                ))}
-              </Select>
-            </FormControl>
-          </Grid> */}
-
           <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
               <p>เลือกบริเวณที่ต้องการทำความสะอาด</p>
@@ -395,24 +325,7 @@ function CleaningCreate() {
               </Select>
             </FormControl>
           </Grid>
-
-          {/* <Grid item xs={6}>
-                <FormControl fullWidth variant="outlined">
-                  <p>แผนกทางการแพทย์</p>
-                <Select
-                    native
-                    labelId="SymptomID"
-                    value={booking.DepartmentID + ""}
-                    onChange={handleChange}
-                    
-                >
-                    <option value={departments?.ID} key={departments?.ID}>
-                    {departments?.Name}
-                    </option>
-                </Select>
-                </FormControl>
-            </Grid> */}
-          
+      
           <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
               <p>วันที่และเวลา</p>
