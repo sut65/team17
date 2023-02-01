@@ -9,7 +9,7 @@ import (
 type Requestout struct {
 	gorm.Model
 	
-	Detail		string
+	Detail		string		`valid:"required~Detail cannot be blank"`
 	
 	ReasonID 	*uint
 	Reason   	Reason
