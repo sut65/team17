@@ -27,17 +27,22 @@ import ChairOutlinedIcon from '@mui/icons-material/ChairOutlined';
 import ConstructionIcon from '@mui/icons-material/Construction';
 import CampaignIcon from '@mui/icons-material/Campaign';
 import ContactPageIcon from '@mui/icons-material/ContactPage';
+import PaymentIcon from '@mui/icons-material/Payment';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import CleaningServicesOutlinedIcon from '@mui/icons-material/CleaningServicesOutlined';
 import LightIcon from '@mui/icons-material/Light';
 import ReceiptIcon from '@mui/icons-material/Receipt';
+import EditLocationIcon from '@mui/icons-material/EditLocation';
 
 import Home from "./components/Home";
 import Manages from "./components/Manages";
 import ManageCreate from "./components/ManageCreate";
 import Residents from "./components/Residents";
 import ResidentCreate from "./components/ResidentCreate";
-import Requestout from "./components/Requestout";
-import RequestoutCreate from "./components/RequestoutCreate";
+import Requestout from "./components/Requestout/Requestout";
+import RequestoutCreate from "./components/Requestout/RequestoutCreate";
+import Requestchange from "./components/Requestchange/Requestchange";
+import RequestchangeCreate from "./components/Requestchange/Requestchangecreate";
 import Cleanings from "./components/Cleanings";
 import CleaningCreate from "./components/CleaningCreate";
 import Furnitures from "./components/Furnitures";
@@ -118,20 +123,25 @@ const menu = [
   { name: "สัญญาเช่า", icon: <ContactPageIcon />, path: "/residents", role: 'user'},
   { name: "สัญญาเช่า", icon: <ContactPageIcon />, path: "/residents", role: 'admin'},
   { name: "แจ้งออก", icon: <RemoveCircleOutlineIcon />, path: "/requestouts", role : 'user'},
+  { name: "แจ้งออก", icon: <RemoveCircleOutlineIcon />, path: "/requestouts", role : 'admin'},
+  { name: "แจ้งย้ายห้อง", icon: <EditLocationIcon />, path: "/requestchanges", role : 'user'},
+  { name: "แจ้งย้ายห้อง", icon: <EditLocationIcon />, path: "/requestchanges", role : 'admin'},
   { name: "จองทำความสะอาด", icon: <CleaningServicesOutlinedIcon />, path: "/cleanings", role: 'user'},
   { name: "จองทำความสะอาด", icon: <CleaningServicesOutlinedIcon />, path: "/cleanings", role: 'admin'},
   { name: "เบิกจ่ายอุปกรณ์ในห้องพัก", icon: <ChairOutlinedIcon />, path: "/furnitures", role: 'user'},
   { name: "เบิกจ่ายอุปกรณ์ในห้องพัก", icon: <ChairOutlinedIcon />, path: "/furnitures", role: 'admin'},
-  { name: "มิเตอร์", icon: <LightIcon />, path: "/meters", role: 'user'},
-  { name: "มิเตอร์", icon: <LightIcon />, path: "/meters", role: 'admin'},
-  { name: "บิลชำระ", icon: <ReceiptIcon />, path: "/bills", role: 'user'},
-  { name: "บิลชำระ", icon: <ReceiptIcon />, path: "/bills", role: 'admin'},
+  { name: "มิเตอร์", icon: <ChairOutlinedIcon />, path: "/meters", role: 'user'},
+  { name: "มิเตอร์", icon: <ChairOutlinedIcon />, path: "/meters", role: 'admin'},
+  { name: "บิลชำระ", icon: <ChairOutlinedIcon />, path: "/bills", role: 'user'},
+  { name: "บิลชำระ", icon: <ChairOutlinedIcon />, path: "/bills", role: 'admin'},
+  { name: "การชำระเงิน", icon: <PaymentIcon />, path: "/payments", role: 'user'},
+  { name: "การชำระเงิน", icon: <PaymentIcon />, path: "/payments", role: 'admin'},
+  { name: "บันทึกข้อมูลผู้เช่า", icon: <AccountCircleIcon />, path: "/users", role: 'user'},
+  { name: "บันทึกข้อมูลผู้เช่า", icon: <AccountCircleIcon />, path: "/users", role: 'admin'},
   { name: "บิลชำระ", icon: <ConstructionIcon />, path: "/repairs", role: 'user'},
   { name: "บิลชำระ", icon: <ConstructionIcon />, path: "/repairs", role: 'admin'},
   { name: "บิลชำระ", icon: <CampaignIcon />, path: "/emergencies", role: 'user'},
   { name: "บิลชำระ", icon: <CampaignIcon />, path: "/emergencies", role: 'admin'},
-  
-
 ];
 
 
@@ -254,6 +264,8 @@ function App() {
                 <Route path="/resident/create" element={<ResidentCreate />} />
                 <Route path="/requestouts" element={< Requestout />} />
                 <Route path="/requestout/create" element={<RequestoutCreate />} />
+                <Route path="/requestchanges" element={< Requestchange />} />
+                <Route path="/requestchange/create" element={<RequestchangeCreate />} />
                 <Route path="/cleanings" element={<Cleanings />} />
                 <Route path="/cleaning/create" element={<CleaningCreate />} />
                 <Route path="/payment/create" element={<PaymentCreate />} />

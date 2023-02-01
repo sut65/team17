@@ -13,30 +13,42 @@ import Select, { SelectChangeEvent } from "@mui/material/Select";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import TextField from '@mui/material/TextField';
-import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
-import { FormHelperText, InputLabel } from "@material-ui/core";
+
+import { createStyles, FormHelperText, InputLabel } from "@material-ui/core";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 
+import dayjs, { Dayjs } from 'dayjs';
 
-import { UserInterface } from "../models/IUser";
-import { RoomInterface } from "../models/IRoom";
-import { KindInterface } from "../models/IKind";
-import { AreaInterface } from "../models/IArea";
-import { CleaningInterface } from "../models/ICleaning";
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+
+
+
+import { RequestchangeInterface } from "../../models/IRequestchange";
+import { FormControlLabel, FormLabel, RadioGroup, Radio, FormGroup, Theme } from "@mui/material";
+import { ReasonInterface } from "../../models/IReason";
+import { UserInterface } from "../../models/IUser";
+import { RoomInterface } from "../../models/IRoom";
+
 
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-function CleaningCreate() {
-  const [selectedDate, setSelectedDate] = useState<Date | null>();
-  const [users, setUsers] = useState<UserInterface>();
+function RequestchangeCreate() {
+  
   const [rooms, setRooms] = useState<RoomInterface[]>([]);
-  const [kinds, setKinds] = useState<KindInterface[]>([]);
-  const [areas, setAreas] = useState<AreaInterface[]>([]);
-  const [cleanings, setCleanings] = useState<Partial<CleaningInterface>>({});
-  const [detail, setDetail] = useState<String>("");
+  const [reasons, setReasons] = useState<ReasonInterface[]>([]);
+  const [users, setUsers] = useState<UserInterface>();
+
+  const [requestchanges, setRequestchanges] = useState<Partial<RequestchangeInterface>>({});
+
+  const [details, setDetail] = useState<String>("");
+
+
+  const [value, setValue] = React.useState<Dayjs | null>(dayjs('2022-04-07'));
+
   
 
 
@@ -63,12 +75,14 @@ function CleaningCreate() {
   };
 
   const handleChange = (event: SelectChangeEvent) => {
-    const name = event.target.name as keyof typeof cleanings;
-    setCleanings({
-      ...cleanings,
+    const name = event.target.name as keyof typeof requestchanges;
+    setRequestchanges({
+      ...requestchanges,
       [name]: event.target.value,
     });
     console.log(event.target.value);
+
+   
     
   };
 
@@ -78,7 +92,7 @@ function CleaningCreate() {
     fetch(`${apiUrl}/user/${uid}`, requestOptions)
       .then((response) => response.json())
       .then((res) => {
-        cleanings.UserID = res.data.ID
+        requestchanges.UserID = res.data.ID
         if (res.data) {
             setUsers(res.data);
         } else {
@@ -98,35 +112,25 @@ function CleaningCreate() {
         }
       });
   };
-  const getKind = async () => {
-    fetch(`${apiUrl}/kinds`, requestOptions)
+
+  const getReason = async () => {
+    fetch(`${apiUrl}/reasons`, requestOptions)
       .then((response) => response.json())
       .then((res) => {
         if (res.data) {
-          setKinds(res.data);
+          setReasons(res.data);
         } else {
           console.log("else");
         }
       });
   };
 
-  const getArea = async () => {
-    fetch(`${apiUrl}/areas`, requestOptions)
-      .then((response) => response.json())
-      .then((res) => {
-        if (res.data) {
-          setAreas(res.data);
-        } else {
-          console.log("else");
-        }
-      });
-  };
+ 
 
   useEffect(() => {
     getUsers();
     getRoom();
-    getKind();
-    getArea();
+    getReason();
   }, []);
 
   const convertType = (data: string | number | undefined) => {
@@ -136,12 +140,10 @@ function CleaningCreate() {
 
   function submit() {
     let data = {
-        UserID: convertType(cleanings.UserID),
-        RoomID: convertType(cleanings.RoomID),
-        KindID: convertType(cleanings.KindID),
-        AreaID: convertType(cleanings.AreaID),
-        CleaningTime: selectedDate,        
-        Detail:    detail,
+        RoomID: convertType(requestchanges.RoomID),
+        ReasonID: convertType(requestchanges.ReasonID),
+        UserID: convertType(requestchanges.UserID),
+        Detail: details,
 
     };
 
@@ -156,7 +158,7 @@ function CleaningCreate() {
       body: JSON.stringify(data),
     };
 
-    fetch(`${apiUrl}/cleanings`, requestOptionsPost)
+    fetch(`${apiUrl}/requestchanges`, requestOptionsPost)
       .then((response) => response.json())
       .then((res) => {
         if (res.data) {
@@ -172,7 +174,11 @@ function CleaningCreate() {
   }
 
   return (
-    <Container maxWidth="md">
+    <Container maxWidth="md" sx={{
+      fontFamily: "PK Krung Thep Medium",
+      fontSize: "20px"
+      // fontStyle: "bold"
+    }}>
       <Snackbar
         open={success}
         autoHideDuration={3000}
@@ -206,21 +212,28 @@ function CleaningCreate() {
               variant="h6"
               color="primary"
               gutterBottom
+              sx={{
+                fontFamily: "PK Krung Thep Medium",
+                fontSize: "30px"
+              }}
             >
-              บันทึกการจองทำความสะอาด
+              <b>แบบคำขอย้ายห้อง</b>
 
             </Typography>
           </Box>
         </Box>
         <Divider />
         <Grid container spacing={3} sx={{ padding: 2 }}>
+
+         
+
           <Grid item xs={6}>
-            <FormControl fullWidth variant="outlined">
+          <FormControl fullWidth variant="outlined">
             <p>ชื่อ - สกุล</p>
               <Select
                 native
                 disabled
-                value={cleanings.UserID + ""}
+                value={requestchanges.UserID + ""}
                 onChange={handleChange}
                 inputProps={{
                   name: "UserID",
@@ -231,45 +244,29 @@ function CleaningCreate() {
                     </option>
               </Select>
             </FormControl>
+              
           </Grid>
 
           <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
-            <p>เบอร์โทรศัพท์</p>
-              <Select
+              <p>ห้องพัก</p>
+              <Select sx={{
+                fontFamily: "PK Krung Thep Medium",
+                fontSize: "18px"
+              }}
+                style={{borderRadius: "30px"}}
                 native
-                disabled
-                value={cleanings.UserID + ""}
-                onChange={handleChange}
-                inputProps={{
-                  name: "UserID",
-                }}
-              >
-                <option value={users?.ID} key={users?.ID} >
-                    {users?.Tel}
-                    </option>
-              </Select>
-            </FormControl>
-          </Grid>
-
-          <Grid item xs={6}>
-            <FormControl fullWidth variant="outlined">
-              <p>เลือกห้อง</p>
-              <Select
-                native
-                labelId="RoomID"
-                id="RoomID"
-                label=""
                 placeholder=""
-                value={cleanings.RoomID + ""}
+                value={requestchanges.RoomID + ""}
                 onChange={handleChange}
                 inputProps={{
                   name: "RoomID",
                 }}
               >
                 <option aria-label="None" value="">
+                  โปรดระบุ
                 </option>
-                {rooms.map((item: RoomInterface) => (
+                {rooms.map((item:RoomInterface) => (
                   <option value={item.ID} key={item.ID}>
                     {item.Number}
                   </option>
@@ -280,23 +277,26 @@ function CleaningCreate() {
 
           <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
-              <p>เลือกประเภทการทำความสะอาด</p>
-              <Select
+              <p>ห้องพักที่ต้องการ</p>
+              <Select sx={{
+                fontFamily: "PK Krung Thep Medium",
+                fontSize: "18px"
+              }}
+                style={{borderRadius: "30px"}}
                 native
-                labelId="KindID"
-                id="KindID"
                 placeholder=""
-                value={cleanings.KindID + ""}
+                value={requestchanges.RoomID + ""}
                 onChange={handleChange}
                 inputProps={{
-                  name: "KindID",
+                  name: "RoomID",
                 }}
               >
                 <option aria-label="None" value="">
+                  โปรดระบุ
                 </option>
-                {kinds.map((item: KindInterface) => (
+                {rooms.map((item:RoomInterface) => (
                   <option value={item.ID} key={item.ID}>
-                    {item.Kind}
+                    {item.Number}
                   </option>
                 ))}
               </Select>
@@ -305,78 +305,85 @@ function CleaningCreate() {
 
           <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
-              <p>เลือกบริเวณที่ต้องการทำความสะอาด</p>
-              <Select
+              <p>เหตุผล</p>
+              <Select sx={{
+                fontFamily: "PK Krung Thep Medium",
+                fontSize: "16px"
+              }}
+                style={{borderRadius: "30px"}}
                 native
-                value={cleanings.AreaID + ""}
+                placeholder="โปรดระบุ"
+                value={requestchanges.ReasonID + ""}
                 onChange={handleChange}
                 inputProps={{
-                  name: "AreaID",
+                  name: "ReasonID",
                 }}
-                
               >
                 <option aria-label="None" value="">
+                  
                 </option>
-                {areas.map((item: AreaInterface) => (
+                {reasons.map((item:ReasonInterface) => (
                   <option value={item.ID} key={item.ID}>
-                    {item.Area}
+                    {item.Reason}
                   </option>
                 ))}
               </Select>
             </FormControl>
           </Grid>
-      
-          <Grid item xs={6}>
-            <FormControl fullWidth variant="outlined">
-              <p>วันที่และเวลา</p>
-              <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <DateTimePicker
-                 value={selectedDate}
-                 onChange={(newValue) => setSelectedDate(newValue)}
-                //  minDate={(new Date('31-12-2022T09:00'))}
-                  renderInput={(params) => <TextField {...params} />}
-                />
-              </LocalizationProvider>
-            </FormControl>
-          </Grid>
+
 
           <Grid item xs={6}>
-           <FormControl fullWidth variant="outlined">
-           <p>เพิ่มเติม</p>
-            <TextField
-                id="CleaningID"
-                label=""
-                rows={2}
-                placeholder=""
-                multiline
+            <p>หากอื่นๆโปรดระบุ (หากไม่ต้องการระบุใส่ -)</p>
+            <FormControl fullWidth variant="outlined">
+              <TextField
+                id="detail"
+                variant="outlined"
+                type="string"
+                size="medium"
+                placeholder="ไม่มี"   
                 onChange={(event) => setDetail(event.target.value)}
-            />
-            <FormHelperText error>*ไม่จำเป็นต้องระบุ</FormHelperText>
-           </FormControl>
+                
+              />
+            </FormControl>
           </Grid>
 
+          
           <Grid item xs={12}>
-            <Button
+          
+            <Button sx={{
+              fontFamily: "PK Krung Thep Medium", 
+              fontSize:17
+            }}
               component={RouterLink}
-              to="/cleanings"
+              to="/requestchanges"
               variant="contained"
               color="inherit"
             >
-              กลับ
+              <b>กลับ</b>
             </Button>
-            <Button
-              style={{ float: "right" }}
+
+            
+             
+            
+            <Button sx={{ 
+              fontFamily: "PK Krung Thep Medium", 
+              fontSize:17
+
+            }}
+              style={{ float: "right"}}
               onClick={submit}
               variant="contained"
               color="primary"
             >
-              บันทึก
+              <b>บันทึก</b>
             </Button>
+            
           </Grid>
+          
         </Grid>
       </Paper>
     </Container>
   );
 }
 
-export default CleaningCreate;
+export default RequestchangeCreate;
