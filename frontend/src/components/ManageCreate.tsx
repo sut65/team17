@@ -43,19 +43,15 @@ function ManageCreate() {
    const [categorys, setCategorys] = useState<CategoryInterface[]>([]);
    const [sizes, setSizes] = useState<SizeInterface[]>([]);
    const [manages, setManages] = useState<Partial<ManageInterface>>({});
-   const [stetus, setStetus] = useState<String>("");
+   const [status, setStatus] = useState<String>("");
    const [detail, setDetail] = useState<String>("");
    const [price, setPrice] = useState<String>("");
 
-
-
-
    const [success, setSuccess] = useState(false);
    const [error, setError] = useState(false);
-   const [errorMessage, setErrorMessage] = useState("");
+   const [errorMessage, setErrorMessage] = useState("");const [message, setAlertMessage] = React.useState("");
 
    const apiUrl = "http://localhost:8080";
-
    const requestOptions = {
       method: "GET",
       headers: {
@@ -156,9 +152,7 @@ function ManageCreate() {
          SizeID: convertType(manages.SizeID),
          Detail: detail,
          Price: price,
-         Stetus: stetus,
-
-
+         Status: status,
 
       };
 
@@ -211,7 +205,7 @@ function ManageCreate() {
             anchorOrigin={{ vertical: "top", horizontal: "center" }}
          >
             <Alert onClose={handleClose} severity="error">
-               บันทึกข้อมูลไม่สำเร็จ
+               {errorMessage}
             </Alert>
          </Snackbar>
          <Paper sx={{
@@ -385,6 +379,7 @@ function ManageCreate() {
                            variant="outlined"
                            id="ManageID"
                            placeholder="ราคา"
+                           type="number"
                            inputProps={{
                               style: { fontFamily: "PK Krung Thep Medium", fontSize: 20, fontWeight: "bold" },
                            }}
@@ -451,7 +446,7 @@ function ManageCreate() {
                            row
                            aria-labelledby="demo-controlled-radio-buttons-group"
                            name="controlled-radio-buttons-group"
-                           onChange={(event) => setStetus(event.target.value)}
+                           onChange={(event) => setStatus(event.target.value)}
                         >
                            <FormControlLabel value="ว่าง" control={<Radio />} label={<Typography
                               style={{ fontFamily: "PK Krung Thep Medium", fontSize: 18, fontWeight: "bold", }}>ว่าง</Typography>} />
