@@ -48,7 +48,7 @@ func CreateManage(c *gin.Context) {
 		Size:		size,					// โยงความสัมพันธ์กับ Entity Size
 		Category:		category,               // โยงความสัมพันธ์กับ Entity Category
 		Detail: 		manage.Detail,
-		Stetus: 		manage.Stetus,
+		Status: 		manage.Status,
 		Price: 		manage.Price,
 	}
 

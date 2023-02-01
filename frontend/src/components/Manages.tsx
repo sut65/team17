@@ -262,7 +262,7 @@ function Manages() {
                                  >
                                     <h1>
                                        <b>
-                                          {item.Stetus}
+                                          {item.Status}
                                        </b>
                                     </h1>
                                  </Typography>
