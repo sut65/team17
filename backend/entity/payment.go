@@ -8,7 +8,7 @@ import (
 
 type Payment struct {
 	gorm.Model
-	Evidence       string
+	Evidence       string			`valid:"required~Evidence cannot be blank"`
 	PaymentTime	   time.Time
 
 	// UserID เป็น FK
