@@ -189,7 +189,7 @@ function ManageCreate() {
    }
 
    return (
-      <Container maxWidth="md" sx={{
+      <div style={{
          fontFamily: "PK Krung Thep Medium",
          fontSize: "20px"
          // fontStyle: "bold"
@@ -385,6 +385,7 @@ function ManageCreate() {
                            variant="outlined"
                            id="ManageID"
                            placeholder="ราคา"
+                           type="number"
                            inputProps={{
                               style: { fontFamily: "PK Krung Thep Medium", fontSize: 20, fontWeight: "bold" },
                            }}
@@ -494,7 +495,7 @@ function ManageCreate() {
                </Grid>
             </div>
          </Paper>
-      </Container>
+      </div>
    );
 }
 
