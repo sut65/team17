@@ -3,7 +3,6 @@ import { CategoryInterface } from "./ICategory";
 import { SizeInterface } from "./ISize";
 
 export interface ManageInterface {
-
   ID:           number,
   Detail:       string,
   Stetus:       string,

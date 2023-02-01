@@ -76,26 +76,8 @@ function ManageCreate() {
       });
       console.log(event.target.value);
 
-      // if(name == "RoomID"){
-      //   getSize(event.target.value)
-      // }
-
    };
 
-
-   // const getUsers = async () => {
-   //   const uid = localStorage.getItem("uid");
-   //   fetch(`${apiUrl}/user/${uid}`, requestOptions)
-   //     .then((response) => response.json())
-   //     .then((res) => {
-   //       manages.UserID = res.data.ID
-   //       if (res.data) {
-   //           setUsers(res.data);
-   //       } else {
-   //         console.log("else");
-   //       }
-   //     });
-   // };
 
    const getRoom = async () => {
       fetch(`${apiUrl}/rooms`, requestOptions)

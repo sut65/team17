@@ -44,9 +44,9 @@ func CreateManage(c *gin.Context) {
 
 	// 12: สร้าง Manage
 	rm := entity.Manage{
-		Room:		room,					// โยงความสัมพันธ์กับ Entity Room
-		Size:		size,					// โยงความสัมพันธ์กับ Entity Size
-		Category:		category,               // โยงความสัมพันธ์กับ Entity Category
+		Room:		room,			// โยงความสัมพันธ์กับ Entity Room
+		Size:		size,			// โยงความสัมพันธ์กับ Entity Size
+		Category:		category,			// โยงความสัมพันธ์กับ Entity Category
 		Detail: 		manage.Detail,
 		Status: 		manage.Status,
 		Price: 		manage.Price,

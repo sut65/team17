@@ -182,7 +182,7 @@ function Manages() {
                               fontFamily: "PK Krung Thep Medium",
                               fontSize: 30,
                            }}>
-                                 <h1><b>{item.Stetus}</b></h1>
+                                 <h1><b>{item.Status}</b></h1>
                            </Typography>
 
                            <Typography sx={{
@@ -191,31 +191,25 @@ function Manages() {
                                  fontSize: 20,
                                  margin: 3,
                                  color: 'black',
-                                 // backgroundColor: 'skyblue',
                               }}
-                                 // align="center"
                               >
-                                 <Typography
-                                    align="center"
-                                    sx={{
-                                       fontFamily: "PK Krung Thep Medium",
-                                       fontSize: 30,
-                                    }}
-                                 >
-                                    <h1>
-                                       <b>
-                                          {item.Stetus}
-                                       </b>
-                                    </h1>
-                                 </Typography>
-                                 ราคาเช่า: <b>{item.Price}/เดือน</b>
-                                 <p>
-                                    ขนาดห้อง: <b>{item.Size.Size}</b><br />
-                                    ประเภทห้อง: <b>{item.Category.Category}</b><br />
-                                    ราคาเช่า: <b>{item.Price}/เดือน</b><br />
-                                    <center>สิ่งอำนวยความสะดวก:</center>
-                                    <b>{item.Detail}</b>
-                                 </p>
+                                 ห้อง: <b>{item.Room.Number}</b> <br />
+                                 ราคาเช่า: <b>{item.Price}/เดือน</b><br />
+                                 ขนาดห้อง: <b>{item.Size.Size}</b><br />
+                                 ประเภทห้อง: <b>{item.Category.Category}</b><br />
+                                 ราคาเช่า: <b>{item.Price}/เดือน</b><br />
+                              </Typography>
+
+                           <Typography sx={{
+                                 width: '50%',
+                                 fontFamily: "PK Krung Thep Medium",
+                                 fontSize: 20,
+                                 margin: 3,
+                                 color: 'black',
+                              }}
+                              >
+                                 สิ่งอำนวยความสะดวก: <br />
+                                 <b>{item.Detail}</b>
                               </Typography>
                            
                         </Button>
