@@ -3,6 +3,7 @@ package controller
 import (
 	"net/http"
 
+	// "github.com/asaskevich/govalidator"
 	"github.com/gin-gonic/gin"
 	"github.com/sut65/team17/service"
 	"github.com/sut65/team17/entity"
@@ -17,15 +18,16 @@ type LoginPayload struct {
 
 // SignUpPayload signup body
 type SignUpPayload struct {
-	Name     string `json:"name"`
-	Email    string `json:"email"`
-	Password string `json:"password"`
+	Name     string `json:"name" valid:"required~Name cannot be blank"`
+	Email    string `json:"email" valid:"email"`
+	Password string `json:"password" valid:"required~Password cannot be blank"`
+	Role     string `json:"role" valid:"required~Role cannot be blank"`
 }
 
 
 // LoginResponse token response
 type LoginResponse struct {
-	Role	string	`json:"role"`
+	Role		string	`json:"role"`
 	Token 	string 	`json:"token"`
 	ID    	uint   	`json:"id"`
 }
