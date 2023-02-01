@@ -27,6 +27,8 @@ import ChairOutlinedIcon from '@mui/icons-material/ChairOutlined';
 import ConstructionIcon from '@mui/icons-material/Construction';
 import CampaignIcon from '@mui/icons-material/Campaign';
 import ContactPageIcon from '@mui/icons-material/ContactPage';
+import PaymentIcon from '@mui/icons-material/Payment';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 import Home from "./components/Home";
 import Manages from "./components/Manages";
@@ -123,14 +125,17 @@ const menu = [
   { name: "มิเตอร์", icon: <ChairOutlinedIcon />, path: "/meters", role: 'admin'},
   { name: "บิลชำระ", icon: <ChairOutlinedIcon />, path: "/bills", role: 'user'},
   { name: "บิลชำระ", icon: <ChairOutlinedIcon />, path: "/bills", role: 'admin'},
+  { name: "การชำระเงิน", icon: <PaymentIcon />, path: "/payments", role: 'user'},
+  { name: "การชำระเงิน", icon: <PaymentIcon />, path: "/payments", role: 'admin'},
+  { name: "บันทึกข้อมูลผู้เช่า", icon: <AccountCircleIcon />, path: "/users", role: 'user'},
+  { name: "บันทึกข้อมูลผู้เช่า", icon: <AccountCircleIcon />, path: "/users", role: 'admin'},
   { name: "บิลชำระ", icon: <ConstructionIcon />, path: "/repairs", role: 'user'},
   { name: "บิลชำระ", icon: <ConstructionIcon />, path: "/repairs", role: 'admin'},
   { name: "บิลชำระ", icon: <CampaignIcon />, path: "/emergencies", role: 'user'},
   { name: "บิลชำระ", icon: <CampaignIcon />, path: "/emergencies", role: 'admin'},
-  
 
 ];
-
+//bit
 
 
 function App() {
