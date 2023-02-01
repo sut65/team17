@@ -5,7 +5,7 @@ import { SizeInterface } from "./ISize";
 export interface ManageInterface {
   ID:           number,
   Detail:       string,
-  Stetus:       string,
+  Status:       string,
   Price:        string,
 
   RoomID:       number,
