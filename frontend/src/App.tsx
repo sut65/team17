@@ -35,8 +35,9 @@ import ReceiptIcon from '@mui/icons-material/Receipt';
 import EditLocationIcon from '@mui/icons-material/EditLocation';
 
 import Home from "./components/Home";
-import Manages from "./components/Manages";
-import ManageCreate from "./components/ManageCreate";
+import Manages from "./components/Manage/Manages";
+import ManageCreate from "./components/Manage/ManageCreate";
+import ManageUpdate from "./components/Manage/ManageUpdate";
 import Residents from "./components/Residents";
 import ResidentCreate from "./components/ResidentCreate";
 import Requestout from "./components/Requestout/Requestout";
@@ -260,6 +261,7 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/manages" element={<Manages />} />
                 <Route path="/manage/create" element={<ManageCreate />} />
+                <Route path="/manages/:id" element={<ManageUpdate />} />
                 <Route path="/residents" element={<Residents />} />
                 <Route path="/resident/create" element={<ResidentCreate />} />
                 <Route path="/requestouts" element={< Requestout />} />
