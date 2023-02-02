@@ -6,19 +6,21 @@ import Button from "@mui/material/Button";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Grid from '@mui/material/Unstable_Grid2';
+import { useParams, useNavigate } from "react-router-dom";
 
 import DeleteIcon from '@mui/icons-material/Delete';
 import SaveAsOutlinedIcon from '@mui/icons-material/SaveAsOutlined';
 
-import { ManageInterface } from "../models/IManage";
+import { ManageInterface } from "../../models/IManage";
 
 
 
 
 
 function Manages() {
+   let navigate = useNavigate();
+   const { id } = useParams();
    const [manages, setManages] = useState<ManageInterface[]>([]);
-   const [hiddens, setHiddens] = useState(true);
 
    const [success, setSuccess] = useState(false);
    const [error, setError] = useState(false);
@@ -48,9 +50,6 @@ function Manages() {
    };
 
    const DeleteManage = async (id: string | number | undefined) => {
-      console.log(id);
-
-      const apiUrl = "http://localhost:8080";
       const requestOptions = {
          method: "DELETE",
          headers: {
@@ -193,7 +192,6 @@ function Manages() {
                               ราคาเช่า: <b>{item.Price}/เดือน</b><br />
                               ขนาดห้อง: <b>{item.Size.Size}</b><br />
                               ประเภทห้อง: <b>{item.Category.Category}</b><br />
-                              ราคาเช่า: <b>{item.Price}/เดือน</b><br />
                            </Typography>
 
                            <Typography sx={{
@@ -235,6 +233,7 @@ function Manages() {
                                     borderColor: 'rgba(0, 208, 132, 0.4)',
                                  },
                               }}
+                              onClick={() => navigate(`${item.ID}`)}
                            >
                               แก้ไข
                            </Button>

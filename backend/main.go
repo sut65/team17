@@ -1,6 +1,8 @@
 package main
 
 import (
+	"os"
+
 	"github.com/sut65/team17/controller"
 	"github.com/sut65/team17/entity"
 	"github.com/sut65/team17/middlewares"
@@ -9,6 +11,7 @@ import (
 )
 
 func main() {
+	os.Remove("./se-65.db")
 	entity.SetupDatabase()
 
 	r := gin.Default()
