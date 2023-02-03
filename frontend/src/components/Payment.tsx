@@ -45,7 +45,7 @@ function Payments() {
     fetch(`${apiUrl}/payments`, requestOptions)
       .then((response) => response.json())
       .then((res) => {
-        console.log(res.data);
+        console.log(res);
         if (res.data) {
             setPayments(res.data);
         } else {
@@ -138,7 +138,7 @@ function Payments() {
                   <TableCell align="center">{item.Bill.Cost}</TableCell>
                   <TableCell align="center">{item.Method.Name}</TableCell>
                   <TableCell align="center">{item.Banking.Name}</TableCell>
-                  <TableCell align="center">{item.Evidence}</TableCell>
+                  <TableCell align="center"><a href={item.Evidence} download> download </a></TableCell>
                   <TableCell align="center">{format((new Date(item.PaymentTime)), 'dd MMMM yyyy hh:mm')}</TableCell>
                 </TableRow>
               ))}
