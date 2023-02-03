@@ -107,7 +107,7 @@ function UserCreate() {
         if (res.data) {
           setStatus(res.data);
         } else {
-          console.log("else",res);
+          console.log("else", res);
         }
       });
   };
@@ -153,7 +153,7 @@ function UserCreate() {
       GenderID: convertType(users.GenderID),
       TitleID: convertType(users.TitleID),
       BirthdaTime: selectedDate,
-      Name:name,
+      Name: name,
       Personal: personal,
       Email: email,
       Tel: tel,
@@ -218,7 +218,7 @@ function UserCreate() {
         <Divider />
         <Grid container spacing={3} sx={{ flexGrow: 1 }}>
 
-        <Grid item xs={6}>
+          <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
               <InputLabel id="TitleID">เลือกคำนำหน้า</InputLabel>
               <Select
@@ -240,28 +240,28 @@ function UserCreate() {
               </Select>
             </FormControl>
           </Grid>
-          
+
           <Grid item xs={6}>
             <FormControl fullWidth variant="standard">
-              <InputLabel id="UserID">กรอกชื่อ-สกุล</InputLabel>
-                <TextField
-                  required
-                  id="outlined-required"
-                
-                  onChange={(event) => setName(event.target.value)}
-                />
+              <TextField
+                label="กรอกชื่อ-สกุล"
+                required
+                id="outlined-required"
+
+                onChange={(event) => setName(event.target.value)}
+              />
             </FormControl>
           </Grid>
 
           <Grid item xs={6}>
             <FormControl fullWidth variant="standard">
-              <InputLabel id="UserID">กรอกเลขบัตรประชาชน</InputLabel>
-                <TextField
-                  required
-                  id="outlined-required"
-                
-                  onChange={(event) => setPersonal(event.target.value)}
-                />
+              <TextField
+                label="กรอกเลขบัตรประชาชน"
+                required
+                id="outlined-required"
+
+                onChange={(event) => setName(event.target.value)}
+              />
             </FormControl>
           </Grid>
 
@@ -328,55 +328,52 @@ function UserCreate() {
 
           <Grid item xs={6}>
             <FormControl fullWidth variant="standard">
-              <InputLabel id="UserID">กรอกอีเมล</InputLabel>
-                <TextField
-                  required
-                  id="outlined-required"
-                  type="email"
-                
-                  onChange={(event) => setEmail(event.target.value)}
-                />
+              <TextField
+                label="กรอกอีเมล"
+                required
+                id="outlined-required"
+
+                onChange={(event) => setName(event.target.value)}
+              />
+            </FormControl>
+          </Grid>
+          
+          <Grid item xs={6}>
+            <FormControl fullWidth variant="standard">
+              <TextField
+                label="กรอกiหัสผ่าน"
+                required
+                id="outlined-required"
+
+                onChange={(event) => setName(event.target.value)}
+              />
             </FormControl>
           </Grid>
 
           <Grid item xs={6}>
             <FormControl fullWidth variant="standard">
-              <InputLabel id="UserID">กรอกรหัสผ่าน</InputLabel>
-                <TextField
-                  required
-                  id="outlined-required"
-                  type="password"
-                
-                  onChange={(event) => setPassword(event.target.value)}
-                />
+              <TextField
+                label="กรอกเบอร์โทรศัพท์"
+                required
+                id="outlined-required"
+
+                onChange={(event) => setName(event.target.value)}
+              />
             </FormControl>
           </Grid>
-
+          
           <Grid item xs={6}>
             <FormControl fullWidth variant="standard">
-              <InputLabel id="UserID">กรอกเบอร์โทรศัพท์</InputLabel>
-                <TextField
-                  required
-                  id="outlined-required"
-                
-                  onChange={(event) => setTel(event.target.value)}
-                />
+              <TextField
+                label="กรอกที่อยู่ตามทะเบียนบ้าน"
+                required
+                id="outlined-required"
+
+                onChange={(event) => setName(event.target.value)}
+              />
             </FormControl>
           </Grid>
-
-          <Grid item xs={6}>
-            <FormControl fullWidth variant="standard">
-              <InputLabel id="UserID">กรอกที่อยู่ตามทะเบียนบ้านบ้าน</InputLabel>
-                <TextField
-                  required
-                  id="outlined-required"
-                  multiline
-                
-                  onChange={(event) => setAddress(event.target.value)}
-                />
-            </FormControl>
-          </Grid>
-
+          
           <Grid item xs={12}>
             <Button
               component={RouterLink}

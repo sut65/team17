@@ -104,7 +104,8 @@ function PaymentCreate() {
     fetch(`${apiUrl}/user/${uid}`, requestOptions)
       .then((response) => response.json())
       .then((res) => {
-        const data = res?.user
+        const data = res?.data
+        console.log(data) //อันนี้
         if (data) {
           payments.UserID =data.ID
           setUsers(data);
@@ -152,11 +153,37 @@ function PaymentCreate() {
   };
 
   useEffect(() => {
-    getBanking();
-    getBill();
     getUsers();
+    getBill();
     getMethod();
+    getBanking();
   }, []);
+
+  const onFileChange = (e: any) => {
+    //setSelectedFile(e.target.files);
+    console.log(e.target.files[0]);
+    console.log(e.target.files[0].name);
+    console.log(e.target.files[0].size);
+    console.log(e.target.files[0].type);
+    encodeFileBase64(e.target.files[0]);
+
+
+
+  };
+  const encodeFileBase64 = (file: any) => {
+    var reader = new FileReader();
+    if (file) {
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        var Base64 = reader.result;
+        console.log(Base64);
+        setEvidence(Base64 as string);
+      };
+      reader.onerror = (error) => {
+        console.log("error: ", error);
+      };
+    }
+  };
 
   const convertType = (data: string | number | undefined) => {
     let val = typeof data === "string" ? parseInt(data) : data;
@@ -457,7 +484,7 @@ function PaymentCreate() {
             <FormControl fullWidth variant="outlined">
               <Button variant="contained" component="label">
                 Upload
-                <input hidden accept="image/*" multiple type="file" />
+                <input hidden accept="image/*" multiple type="file"  onChange={onFileChange}/>
               </Button>
             </FormControl>
           </Grid>

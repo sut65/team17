@@ -43,7 +43,7 @@ func GetTitle(c *gin.Context) {
 
 	id := c.Param("id")
 
-	if err := entity.DB().Raw("SELECT * FROMtitles WHERE id = ?", id).Scan(&title).Error; err != nil {
+	if err := entity.DB().Raw("SELECT * FROM titles WHERE id = ?", id).Scan(&title).Error; err != nil {
 
 		   c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 
