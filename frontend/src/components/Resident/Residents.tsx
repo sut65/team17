@@ -3,15 +3,14 @@ import { useEffect, useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import Container from "@mui/material/Container";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
-import { ResidentInterface } from "../models/IResident";
+import { ResidentInterface } from "../../models/IResident";
 import Grid from '@mui/material/Unstable_Grid2';
-import ButtonGroup from '@mui/material/ButtonGroup';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import moment from "moment";
+import { useParams, useNavigate } from "react-router-dom";
 import { Alert, IconButton, Snackbar } from "@mui/material";
 
 
@@ -21,6 +20,8 @@ import MuiAlert, { AlertProps } from "@mui/material/Alert";
 
 
 function Rooms() {
+   let navigate = useNavigate();
+   const { id } = useParams();
    const [residents, setResidents] = useState<ResidentInterface[]>([]);
 
    const [success, setSuccess] = useState(false);
@@ -200,7 +201,7 @@ function Rooms() {
                            }}
                            >
                               ชื่อผู้เช่า: <b>{item.User.Name}</b> <br />
-                              เบอร์โทร: <b>{item.User.Tel}/เดือน</b><br />
+                              เบอร์โทร: <b>{item.User.Tel}</b><br />
                               ระยะเวลาสัญญา: <b>{item.Lease.Lease}</b><br />
                               เงินประกัน: <b>{item.Bail}</b><br />
                               วันที่ทำสัญญา: <b>{moment(item.LeaseTime).format('DD MMMM yyyy')}</b><br />
@@ -233,6 +234,8 @@ function Rooms() {
                                     borderColor: 'rgba(0, 208, 132, 0.4)',
                                  },
                               }}
+                              onClick={() => navigate(`${item.ID}`)}
+
                            >
                               แก้ไข
                            </Button>

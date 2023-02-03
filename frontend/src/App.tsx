@@ -38,8 +38,9 @@ import Home from "./components/Home";
 import Manages from "./components/Manage/Manages";
 import ManageCreate from "./components/Manage/ManageCreate";
 import ManageUpdate from "./components/Manage/ManageUpdate";
-import Residents from "./components/Residents";
-import ResidentCreate from "./components/ResidentCreate";
+import Residents from "./components/Resident/Residents";
+import ResidentCreate from "./components/Resident/ResidentCreate";
+import ResidentUpdate from "./components/Resident/ResidentUpdate";
 import Requestout from "./components/Requestout/Requestout";
 import RequestoutCreate from "./components/Requestout/RequestoutCreate";
 import Requestchange from "./components/Requestchange/Requestchange";
@@ -264,6 +265,7 @@ function App() {
                 <Route path="/manages/:id" element={<ManageUpdate />} />
                 <Route path="/residents" element={<Residents />} />
                 <Route path="/resident/create" element={<ResidentCreate />} />
+                <Route path="/residents/:id" element={<ResidentUpdate />} />
                 <Route path="/requestouts" element={< Requestout />} />
                 <Route path="/requestout/create" element={<RequestoutCreate />} />
                 <Route path="/requestchanges" element={< Requestchange />} />
