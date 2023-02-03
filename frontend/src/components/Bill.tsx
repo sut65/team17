@@ -56,7 +56,7 @@ function Bills() {
               color="primary"
               gutterBottom
             >
-              บันทึกการจดมิเตอร์
+              ระบบบิลชำระค่าเช่า
             </Typography>
           </Box>
           <Box>
@@ -66,7 +66,7 @@ function Bills() {
               variant="contained"
               color="primary"
             >
-              ตารางมิเตอร์
+              บันทึกบิลชำระค่าเช่า
             </Button>
           </Box>
         </Box>
@@ -78,7 +78,7 @@ function Bills() {
                   ลำดับ
                 </TableCell>
                 <TableCell align="center" width="18%">
-                  ผู้เช่า
+                  ชื่อผู้เช่า
                 </TableCell>
                 <TableCell align="center" width="9%">
                   เลขห้อง
@@ -87,31 +87,31 @@ function Bills() {
                   เบอร์โทร
                 </TableCell>
                 <TableCell align="center" width="9%">
-                  ค่าเช่าห้อง
+                  ค่าห้องพัก
                 </TableCell>
                 <TableCell align="center" width="9%">
-                  เฟอร์นิเจอร์
+                  ค่าเช่าเฟอร์นิเจอร์
                 </TableCell>
                 <TableCell align="center" width="9%">
-                  ครั้งก่อน
+                  มิเตอร์ครั้งก่อน
                 </TableCell>
                 <TableCell align="center" width="9%">
-                  ที่จด
+                  มิเตอร์ที่จดได้
                 </TableCell>
                 <TableCell align="center" width="9%">
-                  ที่ใช้
+                จำนวนมิเตอร์ที่ใช้
                 </TableCell>
                 <TableCell align="center" width="9%">
-                  หน่วยละ
+                ราคาต่อหน่วย
                 </TableCell>
                 <TableCell align="center" width="9%">
                   ค่าไฟ
                 </TableCell>
                 <TableCell align="center" width="9%">
-                  ค่าน้ำ
+                  ค่าน้ำเหมา
                 </TableCell>
                 <TableCell align="center" width="9%">
-                  รวม
+                  ยอดรวม
                 </TableCell>
               </TableRow>
             </TableHead>

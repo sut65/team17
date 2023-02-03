@@ -20,5 +20,6 @@ type Manage struct {
 	SizeID *uint
 	Size   Size
 
-	Residents []Resident `gorm:"foreignKey:ManageID"`
+	Residents 	[]Resident `gorm:"foreignKey:ManageID"`
+	Meters 		[]Meter 	`gorm:"foreignKey:ManageID"`
 }

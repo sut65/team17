@@ -33,12 +33,18 @@ func CreateMeter(c *gin.Context) {
 		return
 	}
 
-
 	// 12: สร้าง Meter
 	bk := entity.Meter{
-		User:			user,             		// โยงความสัมพันธ์กับ Entity User
-		Manage:			manage,					// โยงความสัมพันธ์กับ Entity Manage
-		MeterTime:	meter.MeterTime,	// ตั้งค่าฟิลด์ MeterTime
+		User:     user,   // โยงความสัมพันธ์กับ Entity User
+		Manage:   manage, // โยงความสัมพันธ์กับ Entity Manage
+		Before:   meter.Before,
+		After:    meter.After,
+		Total:    meter.Total,
+		Unit:     meter.Unit,
+		Electric: meter.Electric,
+		Water:    meter.Water,
+
+		Metertime: meter.Metertime, // ตั้งค่าฟิลด์ Metertime
 	}
 
 	// ขั้นตอนการ validate ที่นำมาจาก unit test
@@ -59,7 +65,7 @@ func CreateMeter(c *gin.Context) {
 func GetMeter(c *gin.Context) {
 	var meter entity.Meter
 	id := c.Param("id")
-	if err := entity.DB().Preload("User").Preload("Admin").Preload("Manage").Raw("SELECT * FROM meters WHERE id = ?", id).Find(&meter).Error; err != nil {
+	if err := entity.DB().Preload("User").Preload("Admin").Preload("Manage.Room").Raw("SELECT * FROM meters WHERE id = ?", id).Find(&meter).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -69,7 +75,7 @@ func GetMeter(c *gin.Context) {
 // GET /Meters
 func ListMeters(c *gin.Context) {
 	var meters []entity.Meter
-	if err := entity.DB().Preload("User").Preload("Admin").Preload("Manage").Raw("SELECT * FROM meters").Find(&meters).Error; err != nil {
+	if err := entity.DB().Preload("User").Preload("Admin").Preload("Manage.Room").Raw("SELECT * FROM meters").Find(&meters).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}

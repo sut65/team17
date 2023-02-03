@@ -30,17 +30,15 @@ import ContactPageIcon from '@mui/icons-material/ContactPage';
 import PaymentIcon from '@mui/icons-material/Payment';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import CleaningServicesOutlinedIcon from '@mui/icons-material/CleaningServicesOutlined';
-import LightIcon from '@mui/icons-material/Light';
 import ReceiptIcon from '@mui/icons-material/Receipt';
+import ElectricMeterIcon from '@mui/icons-material/ElectricMeter';
 import EditLocationIcon from '@mui/icons-material/EditLocation';
 
 import Home from "./components/Home";
 import Manages from "./components/Manage/Manages";
 import ManageCreate from "./components/Manage/ManageCreate";
-import ManageUpdate from "./components/Manage/ManageUpdate";
 import Residents from "./components/Resident/Residents";
 import ResidentCreate from "./components/Resident/ResidentCreate";
-import ResidentUpdate from "./components/Resident/ResidentUpdate";
 import Requestout from "./components/Requestout/Requestout";
 import RequestoutCreate from "./components/Requestout/RequestoutCreate";
 import Requestchange from "./components/Requestchange/Requestchange";
@@ -49,8 +47,8 @@ import Cleanings from "./components/Cleanings";
 import CleaningCreate from "./components/CleaningCreate";
 import Furnitures from "./components/Furnitures";
 import FurnitureCreate from "./components/FurnitureCreate";
-import Meter from "./components/Meter";
-import MeterCreate from "./components/MeterCreate";
+import Meter from "./components/Meter/Meter";
+import MeterCreate from "./components/Meter/MeterCreate";
 import Bill from "./components/Bill";
 import BillCreate from "./components/BillCreate";
 import Repair from "./components/Repair";
@@ -132,10 +130,10 @@ const menu = [
   { name: "จองทำความสะอาด", icon: <CleaningServicesOutlinedIcon />, path: "/cleanings", role: 'admin'},
   { name: "เบิกจ่ายอุปกรณ์ในห้องพัก", icon: <ChairOutlinedIcon />, path: "/furnitures", role: 'user'},
   { name: "เบิกจ่ายอุปกรณ์ในห้องพัก", icon: <ChairOutlinedIcon />, path: "/furnitures", role: 'admin'},
-  { name: "มิเตอร์", icon: <ChairOutlinedIcon />, path: "/meters", role: 'user'},
-  { name: "มิเตอร์", icon: <ChairOutlinedIcon />, path: "/meters", role: 'admin'},
-  { name: "บิลชำระ", icon: <ChairOutlinedIcon />, path: "/bills", role: 'user'},
-  { name: "บิลชำระ", icon: <ChairOutlinedIcon />, path: "/bills", role: 'admin'},
+  { name: "มิเตอร์", icon: <ElectricMeterIcon />, path: "/meters", role: 'user'},
+  { name: "มิเตอร์", icon: <ElectricMeterIcon />, path: "/meters", role: 'admin'},
+  { name: "บิลชำระ", icon: <ReceiptIcon />, path: "/bills", role: 'user'},
+  { name: "บิลชำระ", icon: <ReceiptIcon />, path: "/bills", role: 'admin'},
   { name: "การชำระเงิน", icon: <PaymentIcon />, path: "/payments", role: 'user'},
   { name: "การชำระเงิน", icon: <PaymentIcon />, path: "/payments", role: 'admin'},
   { name: "บันทึกข้อมูลผู้เช่า", icon: <AccountCircleIcon />, path: "/users", role: 'user'},
@@ -262,10 +260,8 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/manages" element={<Manages />} />
                 <Route path="/manage/create" element={<ManageCreate />} />
-                <Route path="/manages/:id" element={<ManageUpdate />} />
                 <Route path="/residents" element={<Residents />} />
                 <Route path="/resident/create" element={<ResidentCreate />} />
-                <Route path="/residents/:id" element={<ResidentUpdate />} />
                 <Route path="/requestouts" element={< Requestout />} />
                 <Route path="/requestout/create" element={<RequestoutCreate />} />
                 <Route path="/requestchanges" element={< Requestchange />} />

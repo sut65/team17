@@ -11,7 +11,7 @@ export interface MeterInterface {
 	Unit:       number,
 	Electric:   number,
 	Water:      number,
-	MeterTime:  Date,
+	Metertime:  Date,
 
 
     UserID:             number,
