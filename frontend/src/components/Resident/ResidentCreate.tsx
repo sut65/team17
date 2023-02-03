@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link as RouterLink, useActionData } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
 import Button from "@mui/material/Button";
 import FormControl from "@mui/material/FormControl";
 import Container from "@mui/material/Container";
@@ -7,25 +7,20 @@ import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
 import Snackbar from "@mui/material/Snackbar";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
 import TextField from '@mui/material/TextField';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
-import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
-
-
-import { UserInterface } from "../models/IUser";
-import { ResidentInterface } from "../models/IResident";
-import { LeaseInterface } from "../models/ILease";
-import { ManageInterface } from "../models/IManage";
-import { now } from "moment";
 import styled from "@emotion/styled";
-import { borderRadius } from "@mui/system";
-import { CalendarPicker, DatePicker, MonthPicker, StaticDatePicker, YearPicker } from "@mui/x-date-pickers";
+import { CalendarPicker, MonthPicker, YearPicker } from "@mui/x-date-pickers";
+
+import { UserInterface } from "../../models/IUser";
+import { ResidentInterface } from "../../models/IResident";
+import { LeaseInterface } from "../../models/ILease";
+import { ManageInterface } from "../../models/IManage";
+
 
 
 export const TextFieldBail = styled(TextField)`
@@ -183,7 +178,7 @@ function ResidentCreate() {
    }
 
    return (
-      <Container maxWidth="md">
+      <Container maxWidth="lg">
          <Snackbar
             open={success}
             autoHideDuration={3000}
@@ -206,8 +201,7 @@ function ResidentCreate() {
          </Snackbar>
          <Paper elevation={5} sx={{
             borderRadius: 5,
-            backgroundImage: 'url("https://images.pexels.com/photos/1939485/pexels-photo-1939485.jpeg")', //good
-            // backgroundImage: 'url("https://images.pexels.com/photos/1172849/pexels-photo-1172849.jpeg")',
+            backgroundImage: 'url("https://images.pexels.com/photos/4590785/pexels-photo-4590785.jpeg")',
             backgroundRepeat: 'no-repeat',
             backgroundSize: 'cover',
             bgcolor: '#e0f7fa'

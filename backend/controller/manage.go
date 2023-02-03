@@ -43,27 +43,27 @@ func CreateManage(c *gin.Context) {
 
 
 	// 12: สร้าง Manage
-	rm := entity.Manage{
-		Room:		room,					// โยงความสัมพันธ์กับ Entity Room
-		Size:		size,					// โยงความสัมพันธ์กับ Entity Size
-		Category:		category,               // โยงความสัมพันธ์กับ Entity Category
+	mn := entity.Manage{
+		Room:		room,			// โยงความสัมพันธ์กับ Entity Room
+		Size:		size,			// โยงความสัมพันธ์กับ Entity Size
+		Category:		category,			// โยงความสัมพันธ์กับ Entity Category
 		Detail: 		manage.Detail,
 		Status: 		manage.Status,
 		Price: 		manage.Price,
 	}
 
 	// ขั้นตอนการ validate ที่นำมาจาก unit test
-	if _, err := govalidator.ValidateStruct(rm); err != nil {
+	if _, err := govalidator.ValidateStruct(mn); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
 	// 13: บันทึก
-	if err := entity.DB().Create(&rm).Error; err != nil {
+	if err := entity.DB().Create(&mn).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{"data": rm})
+	c.JSON(http.StatusOK, gin.H{"data": mn})
 }
 
 // GET /manage/:id
@@ -102,20 +102,52 @@ func DeleteManage(c *gin.Context) {
 // PATCH /manages
 func UpdateManage(c *gin.Context) {
 	var manage entity.Manage
+	var size entity.Size
+	var category entity.Category
+	var room entity.Room
+
+	// ผลลัพธ์ที่ได้จากขั้นตอนที่ 8 จะถูก bind เข้าตัวแปร manage
 	if err := c.ShouldBindJSON(&manage); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	if tx := entity.DB().Where("id = ?", manage.ID).First(&manage); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "manage not found"})
+	// 9: ค้นหา room ด้วย id
+	if tx := entity.DB().Where("id = ?", manage.RoomID).First(&room); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "room not found"})
+		return
+	}
+	
+
+	// 10: ค้นหา size ด้วย id
+	if tx := entity.DB().Where("id = ?", manage.SizeID).First(&size); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "size not found"})
 		return
 	}
 
-	if err := entity.DB().Save(&manage).Error; err != nil {
+	// 11: ค้นหา category ด้วย id
+	if tx := entity.DB().Where("id = ?", manage.CategoryID).First(&category); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "category not found"})
+		return
+	}
+
+
+	// 12: สร้าง Manage
+	update := entity.Manage{
+		Room:		room,			// โยงความสัมพันธ์กับ Entity Room
+		Size:		size,			// โยงความสัมพันธ์กับ Entity Size
+		Category:		category,			// โยงความสัมพันธ์กับ Entity Category
+		Detail: 		manage.Detail,
+		Status: 		manage.Status,
+		Price: 		manage.Price,
+	}
+
+
+
+	// 13: update
+	if err := entity.DB().Where("id = ?", manage.ID).Updates(&update).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-
-	c.JSON(http.StatusOK, gin.H{"data": manage})
+	c.JSON(http.StatusOK, gin.H{"data": update})
 }

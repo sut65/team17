@@ -8,24 +8,6 @@ import (
 	"github.com/sut65/team17/entity"
 )
 
-// type payloadRoom struct {
-	
-// 	Bail				string
-
-
-// 	LeaseID				*uint
-
-// 	ManageID			*uint
-
-// 	Name				string
-// 	Tel					string			`gorm:"uniqeIndex"`
-// 	Email				string			`gorm:"uniqeIndex"`
-// 	Password			string
-// 	Role				string
-
-
-
-// }
 
 // POST /resident
 func CreateResident(c *gin.Context) {
@@ -120,20 +102,49 @@ func DeleteResident(c *gin.Context) {
 // PATCH /residents
 func UpdateResident(c *gin.Context) {
 	var resident entity.Resident
+	var manage entity.Manage
+	var user entity.User
+	var lease entity.Lease
+
+	// ผลลัพธ์ที่ได้จากขั้นตอนที่ 8 จะถูก bind เข้าตัวแปร resident
 	if err := c.ShouldBindJSON(&resident); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	if tx := entity.DB().Where("id = ?", resident.ID).First(&resident); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "resident not found"})
+	// 9: ค้นหา user ด้วย id
+	if tx := entity.DB().Where("id = ?", resident.UserID).First(&user); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "user not found"})
+		return
+	}
+	
+
+	// 10: ค้นหา manage ด้วย id
+	if tx := entity.DB().Where("id = ?", resident.ManageID).First(&manage); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "manage not found"})
 		return
 	}
 
-	if err := entity.DB().Save(&resident).Error; err != nil {
+	// 11: ค้นหา lease ด้วย id
+	if tx := entity.DB().Where("id = ?", resident.LeaseID).First(&lease); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "lease not found"})
+		return
+	}
+
+
+	// 12: สร้าง Resident
+	update := entity.Resident{
+		User:			user,					// โยงความสัมพันธ์กับ Entity User
+		Manage:			manage,					// โยงความสัมพันธ์กับ Entity Manage
+		Lease:			lease,					// โยงความสัมพันธ์กับ Entity Lease
+		Bail: 			resident.Bail,
+		LeaseTime:		resident.LeaseTime,
+	}
+
+	// 13: บันทึก
+	if err := entity.DB().Where("id = ?", resident.ID).Updates(&update).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-
-	c.JSON(http.StatusOK, gin.H{"data": resident})
+	c.JSON(http.StatusOK, gin.H{"data": update})
 }
