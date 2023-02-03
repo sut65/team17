@@ -143,7 +143,6 @@ func UpdateManage(c *gin.Context) {
 	}
 
 
-
 	// 13: update
 	if err := entity.DB().Where("id = ?", manage.ID).Updates(&update).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
