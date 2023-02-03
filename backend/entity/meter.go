@@ -14,7 +14,7 @@ type Meter struct {
 	Unit      int `valid:"required~Unit cannot be blank"`
 	Electric  int `valid:"required~Electric cannot be blank"`
 	Water     int `valid:"required~Water cannot be blank"`
-	MeterTime time.Time `valid:"required~MeterTime cannot be blank"`
+	Metertime time.Time `valid:"required~Metertime cannot be blank"`
 
 	// AdminID เป็น FK
 	AdminID *uint
