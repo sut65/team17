@@ -78,6 +78,7 @@ func GetUser(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"data": user})
 }
 
+
 // GET /user /s
 func ListUsers(c *gin.Context) {
 	var user []entity.User
