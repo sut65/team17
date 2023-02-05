@@ -68,11 +68,6 @@ function FurnitureCreate() {
       [name]: event.target.value,
     });
     console.log(event.target.value);
-
-    if(name=='EquipmentID'){
-      // setPrices(item.)
-    }
-
   };
 
 
@@ -111,7 +106,6 @@ function FurnitureCreate() {
           console.log("else");
         }
       });
-        // setTotals((Number(equipments.Price)));
   };
 
   const getEquipment = async () => {
