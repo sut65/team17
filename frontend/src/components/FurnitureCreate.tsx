@@ -25,25 +25,24 @@ import { EquipmentInterface } from "../models/IEquipment";
 import { AmountInterface } from "../models/IAmount";
 import { FurnitureInterface } from "../models/IFurniture";
 
-
-const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props, ref) {
-  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-});
-
-function furnitureCreate() {
-  const [selectedDate, setSelectedDate] = useState<Date | null>();
-  const [admins, setAdmins] = useState<AdminInterface>();
-  const [users, setUsers] = useState<UserInterface[]>([]);
-  const [rooms, setRooms] = useState<RoomInterface[]>([]);
-  const [equipments, setEquipments] = useState<EquipmentInterface[]>([]);
+function FurnitureCreate() {
+  const [SelectedDate, setSelectedDate] = useState<Date | null>();
+  const [Admins, setAdmins] = useState<AdminInterface>();
+  const [Users, setUsers] = useState<UserInterface[]>([]);
+  const [Rooms, setRooms] = useState<RoomInterface[]>([]);
+  const [Equipments, setEquipments] = useState<EquipmentInterface[]>([]);
   const [Amounts, setAmounts] = useState<AmountInterface[]>([]);
-  const [furnitures, setFurnitures] = useState<Partial<FurnitureInterface>>({});
+  const [Totals, setTotals] = useState<string>("");
+  const [Prices, setPrices] = useState<string>("");
+  const [Furnitures, setFurnitures] = useState<Partial<FurnitureInterface>>({});
+  const [Success, setSuccess] = useState(false);
+  const [Error, setError] = useState(false);
+  const [ErrorMessage, setErrorMessage] = useState("");
 
-
-  const [success, setSuccess] = useState(false);
-  const [error, setError] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
-
+  const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  });
+  
   const apiUrl = "http://localhost:8080";
 
   const requestOptions = {
@@ -63,17 +62,17 @@ function furnitureCreate() {
   };
 
   const handleChange = (event: SelectChangeEvent) => {
-    const name = event.target.name as keyof typeof furnitures;
+    const name = event.target.name as keyof typeof Furnitures;
     setFurnitures({
-      ...furnitures,
+      ...Furnitures,
       [name]: event.target.value,
     });
     console.log(event.target.value);
-    
-    // if(name == "SymptomID"){
-    //   getDepartment(event.target.value)
-    // }
-    
+
+    if(name=='EquipmentID'){
+      // setPrices(item.)
+    }
+
   };
 
 
@@ -81,7 +80,7 @@ function furnitureCreate() {
     fetch(`${apiUrl}/users`, requestOptions)
       .then((response) => response.json())
       .then((res) => {
-        furnitures.UserID = res.data.ID
+        Furnitures.UserID = res.data.ID
         if (res.data) {
             setUsers(res.data);
         } else {
@@ -112,8 +111,8 @@ function furnitureCreate() {
           console.log("else");
         }
       });
+        // setTotals((Number(equipments.Price)));
   };
-
 
   const getEquipment = async () => {
     fetch(`${apiUrl}/equipment`, requestOptions)
@@ -126,7 +125,6 @@ function furnitureCreate() {
         }
       });
   };
-
 
   useEffect(() => {
     getUsers();
@@ -141,13 +139,18 @@ function furnitureCreate() {
   };
 
   function submit() {
+    const Amountselect = Amounts.find(item => item.ID === Number(Furnitures.AmountID))
+    console.log(Amounts," ",Furnitures.AmountID)
+    const Equipmentselect = Equipments.find(item => item.ID === Number(Furnitures.EquipmentID))
+    console.log(Equipmentselect)
+    const total = Number(Amountselect?.Amount)*Number(Equipmentselect?.Price)
     let data = {
-        UserID: convertType(furnitures.UserID),
-        RoomID: convertType(furnitures.RoomID),
-        EquipmentID: convertType(furnitures.EquipmentID),
-        AmountID: convertType(furnitures.AmountID),
-        furnitureTime: selectedDate,        
-
+        UserID: convertType(Furnitures.UserID),
+        RoomID: convertType(Furnitures.RoomID),
+        EquipmentID: convertType(Furnitures.EquipmentID),
+        AmountID: convertType(Furnitures.AmountID),
+        furnitureTime: SelectedDate,        
+        Total: total
     };
 
     console.log(data)
@@ -179,7 +182,7 @@ function furnitureCreate() {
   return (
     <Container maxWidth="md">
       <Snackbar
-        open={success}
+        open={Success}
         autoHideDuration={3000}
         onClose={handleClose}
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
@@ -189,7 +192,7 @@ function furnitureCreate() {
         </Alert>
       </Snackbar>
       <Snackbar
-        open={error}
+        open={Error}
         autoHideDuration={6000}
         onClose={handleClose}
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
@@ -224,7 +227,7 @@ function furnitureCreate() {
             <p>ชื่อ - สกุล</p>
               <Select
                 native
-                value={furnitures.UserID + ""}
+                value={Furnitures.UserID + ""}
                 onChange={handleChange}
                 inputProps={{
                   name: "UserID",
@@ -232,7 +235,7 @@ function furnitureCreate() {
               >
                 <option aria-label="None" value="">
                 </option>
-                {users.map((item: UserInterface) => (
+                {Users.map((item: UserInterface) => (
                   <option value={item.ID} key={item.ID}>
                     {item.Name}
                   </option>
@@ -247,7 +250,7 @@ function furnitureCreate() {
               <Select
                 native
                 disabled
-                value={furnitures.UserID + ""}
+                value={Furnitures.UserID + ""}
                 onChange={handleChange}
                 inputProps={{
                   name: "UserID",
@@ -255,7 +258,7 @@ function furnitureCreate() {
               >
                   <option aria-label="None" value="">
                 </option>
-                {users.map((item: UserInterface) => (
+                {Users.map((item: UserInterface) => (
                   <option value={item.ID} key={item.ID}>
                     {item.Tel}
                   </option>
@@ -273,7 +276,7 @@ function furnitureCreate() {
                 id="RoomID"
                 label=""
                 placeholder=""
-                value={furnitures.RoomID + ""}
+                value={Furnitures.RoomID + ""}
                 onChange={handleChange}
                 inputProps={{
                   name: "RoomID",
@@ -281,7 +284,7 @@ function furnitureCreate() {
               >
                 <option aria-label="None" value="">
                 </option>
-                {rooms.map((item: RoomInterface) => (
+                {Rooms.map((item: RoomInterface) => (
                   <option value={item.ID} key={item.ID}>
                     {item.Number}
                   </option>
@@ -298,15 +301,15 @@ function furnitureCreate() {
                 labelId="EquipmentID"
                 id="EquipmentID"
                 placeholder=""
-                value={furnitures.EquipmentID + ""}
+                value={Furnitures.EquipmentID + ""}
                 onChange={handleChange}
                 inputProps={{
                   name: "EquipmentID",
                 }}
-              >
+                >
                 <option aria-label="None" value="">
                 </option>
-                {equipments.map((item: EquipmentInterface) => (
+                {Equipments.map((item: EquipmentInterface) => (
                   <option value={item.ID} key={item.ID}>
                     {item.Equipment}
                   </option>
@@ -320,7 +323,7 @@ function furnitureCreate() {
               <p>เลือกจำนวน</p>
               <Select
                 native
-                value={furnitures.AmountID + ""}
+                value={Furnitures.AmountID + ""}
                 onChange={handleChange}
                 inputProps={{
                   name: "AmountID",
@@ -347,7 +350,7 @@ function furnitureCreate() {
                 labelId="EquipmentID"
                 id="EquipmentID"
                 placeholder=""
-                value={furnitures.EquipmentID + ""}
+                value={Furnitures.EquipmentID + ""}
                 onChange={handleChange}
                 inputProps={{
                   name: "EquipmentID",
@@ -355,7 +358,7 @@ function furnitureCreate() {
               >
                 <option aria-label="None" value="">
                 </option>
-                {equipments.map((item: EquipmentInterface) => (
+                {Equipments.map((item: EquipmentInterface) => (
                   <option value={item.ID} key={item.ID}>
                     {item.Price}
                   </option>
@@ -369,17 +372,17 @@ function furnitureCreate() {
               <p>วันที่และเวลา</p>
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DateTimePicker
-                 value={selectedDate}
+                 value={SelectedDate}
                  onChange={(newValue) => setSelectedDate(newValue)}
                 //  minDate={(new Date('31-12-2022T09:00'))}
                   renderInput={(params) => <TextField {...params} />}
                 />
               </LocalizationProvider>
             </FormControl>
-          </Grid>
-
-          <Grid item xs={6}>
-
+          </Grid>       
+        </Grid>
+        <Grid container spacing={3} sx={{padding:2}}> 
+        <Grid item xs={12}>
             <Button
               component={RouterLink}
               to="/furnitures"
@@ -403,4 +406,4 @@ function furnitureCreate() {
   );
 }
 //dw
-export default furnitureCreate;
+export default FurnitureCreate;

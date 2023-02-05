@@ -93,6 +93,9 @@ function Furnitures() {
                 <TableCell align="center" width="15%">
                   ราคา
                 </TableCell>
+                <TableCell align="center" width="15%">
+                  ราคารวม
+                </TableCell>
                 <TableCell align="center" width="20%">
                   วันที่และเวลา
                 </TableCell>
@@ -108,6 +111,7 @@ function Furnitures() {
                   <TableCell align="center">{item.Equipment.Equipment}</TableCell>
                   <TableCell align="center">{item.Amount.Amount}</TableCell>
                   <TableCell align="center">{item.Equipment.Price}</TableCell>
+                  <TableCell align="center">{item.Total}</TableCell>
                 <TableCell align="center">{moment(item.FurnitureTime).format('DD MMMM yyyy hh:mm')}</TableCell>
                 {/* <TableCell align="center">{format((new Date(item.BookingTime)), 'DD MMMM yyyy hh:mm')}</TableCell> */}
                 </TableRow>
