@@ -1,5 +1,5 @@
 export interface AmountInterface {
 
     ID:         number,
-    Amount:     string,
+    Amount:     number,
   }
