@@ -8,15 +8,15 @@ import (
 
 type Bill struct {
 	gorm.Model
-	Cost     int
+	Cost     int `valid:"required~cost cannot be blank"`
 	BillTime time.Time
 
 	MeterID *uint
-	Meter   Meter
+	Meter   Meter `gorm:"referenes:id" valid:"-"`
 
 	FurnitureID *uint
-	Furniture   Furniture
+	Furniture   Furniture `gorm:"referenes:id" valid:"-"`
 
 	AdminID *uint
-	Admin   Admin
+	Admin   Admin `gorm:"referenes:id" valid:"-"`
 }

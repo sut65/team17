@@ -239,6 +239,7 @@ function BookingCreate() {
                 <Select
                     native
                     value={meters.ManageID}
+                    label="ระบุห้อง"
                     onChange={handleChange}
                     inputProps={{
                     name: "ManageID",
@@ -284,6 +285,7 @@ function BookingCreate() {
                 <Select
                     native
                     value={meters.ManageID}
+                    label="ค่าเช่าห้อง"
                     onChange={handleChange}
                     inputProps={{
                     name: "ManageID",

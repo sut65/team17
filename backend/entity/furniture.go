@@ -25,4 +25,7 @@ type Furniture struct {
 
 	EquipmentID *uint
 	Equipment   Equipment
+
+	Bills	[]Bill	`gorm:"foreignKey:FurnitureID"`
 }
+
