@@ -11,17 +11,10 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-// import Grid from '@mui/material/Unstable_Grid2';
-import { deepOrange, deepPurple, green } from '@mui/material/colors';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
-
+import EditIcon from '@mui/icons-material/Edit';
 import { RequestoutInterface } from "../../models/IRequestout";
-// import { Divider } from "@mui/material";
-// import { Chip } from "@material-ui/core";
-// import Avatar from '@mui/material/Avatar';
-// import { url } from "inspector";
-// import { readBuilderProgram } from "typescript";
 
 import { format } from 'date-fns'
 import moment from "moment";
@@ -103,6 +96,13 @@ function Requestout() {
               <TableCell align="center" width="20%">
                 วันที่ออก
               </TableCell>
+
+              <TableCell align="center" width="20%">
+                แก้ไข
+              </TableCell>
+              <TableCell align="center" width="20%">
+                Delete
+              </TableCell>
         
             </TableRow>
           </TableHead>
@@ -116,6 +116,12 @@ function Requestout() {
                 <TableCell align="center">{item.Detail}</TableCell>
                 
                 <TableCell align="center">{moment(item.Outtime).format('DD MM yyyy')}</TableCell>
+                <TableCell align="center">
+                <IconButton aria-label="แก้ไข" size="large">
+                <EditIcon fontSize="inherit" />
+                </IconButton>
+                </TableCell>
+
                 <TableCell align="center">
                 <IconButton aria-label="delete" size="large">
                 <DeleteIcon fontSize="inherit" />
