@@ -38,6 +38,8 @@ function furnitureCreate() {
   const [equipments, setEquipments] = useState<EquipmentInterface[]>([]);
   const [Amounts, setAmounts] = useState<AmountInterface[]>([]);
   const [furnitures, setFurnitures] = useState<Partial<FurnitureInterface>>({});
+  const [amount, setAmount] = useState(0);
+  const [total, setTotal] = useState();
 
 
   const [success, setSuccess] = useState(false);
@@ -68,7 +70,7 @@ function furnitureCreate() {
       ...furnitures,
       [name]: event.target.value,
     });
-    console.log(event.target.value);
+    console.log("ONCHANGE: ",event.target.value);
     
     // if(name == "SymptomID"){
     //   getDepartment(event.target.value)
@@ -146,8 +148,7 @@ function furnitureCreate() {
         RoomID: convertType(furnitures.RoomID),
         EquipmentID: convertType(furnitures.EquipmentID),
         AmountID: convertType(furnitures.AmountID),
-        furnitureTime: selectedDate,        
-
+        furnitureTime: selectedDate, 
     };
 
     console.log(data)

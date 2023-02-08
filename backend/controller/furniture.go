@@ -3,9 +3,9 @@ package controller
 import (
 	"net/http"
 
-	"github.com/sut65/team17/entity"
 	"github.com/asaskevich/govalidator"
 	"github.com/gin-gonic/gin"
+	"github.com/sut65/team17/entity"
 )
 
 // POST /furniture
@@ -62,6 +62,7 @@ func CreateFurniture(c *gin.Context) {
 		Amount:        	amount,     // โยงความสัมพันธ์กับ Entity Amount
 		FurnitureTime: 	furniture.FurnitureTime, // ตั้งค่าฟิลด์ furnitureTime
 	}
+
 
 	// ขั้นตอนการ validate ที่นำมาจาก unit test
 	if _, err := govalidator.ValidateStruct(bk); err != nil {
