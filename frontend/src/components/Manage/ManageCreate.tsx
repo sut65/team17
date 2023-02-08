@@ -2,28 +2,22 @@ import React, { useEffect, useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import Button from "@mui/material/Button";
 import FormControl from "@mui/material/FormControl";
-import Container from "@mui/material/Container";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
 import Snackbar from "@mui/material/Snackbar";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import TextField from '@mui/material/TextField';
-import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
-import { createStyles, FormHelperText, InputLabel } from "@material-ui/core";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
-
-
-import { RoomInterface } from "../models/IRoom";
-import { CategoryInterface } from "../models/ICategory";
-import { SizeInterface } from "../models/ISize";
-import { ManageInterface } from "../models/IManage";
-import { FormControlLabel, FormLabel, RadioGroup, Radio, FormGroup, Theme } from "@mui/material";
+import { FormControlLabel, RadioGroup, Radio } from "@mui/material";
 import styled from "@emotion/styled";
+
+
+import { RoomInterface } from "../../models/IRoom";
+import { CategoryInterface } from "../../models/ICategory";
+import { SizeInterface } from "../../models/ISize";
+import { ManageInterface } from "../../models/IManage";
 
 
 export const TextFielPrice = styled(TextField)`
@@ -38,18 +32,18 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props,
 });
 
 function ManageCreate() {
-   const [selectedDate, setSelectedDate] = useState<Date | null>();
    const [rooms, setRooms] = useState<RoomInterface[]>([]);
    const [categorys, setCategorys] = useState<CategoryInterface[]>([]);
    const [sizes, setSizes] = useState<SizeInterface[]>([]);
    const [manages, setManages] = useState<Partial<ManageInterface>>({});
-   const [stetus, setStetus] = useState<String>("");
+   const [status, setStatus] = useState<String>("");
    const [detail, setDetail] = useState<String>("");
    const [price, setPrice] = useState<String>("");
 
    const [success, setSuccess] = useState(false);
    const [error, setError] = useState(false);
-   const [errorMessage, setErrorMessage] = useState("");const [message, setAlertMessage] = React.useState("");
+   const [errorMessage, setErrorMessage] = useState("");
+   const [message, setAlertMessage] = React.useState("");
 
    const apiUrl = "http://localhost:8080";
    const requestOptions = {
@@ -76,26 +70,8 @@ function ManageCreate() {
       });
       console.log(event.target.value);
 
-      // if(name == "RoomID"){
-      //   getSize(event.target.value)
-      // }
-
    };
 
-
-   // const getUsers = async () => {
-   //   const uid = localStorage.getItem("uid");
-   //   fetch(`${apiUrl}/user/${uid}`, requestOptions)
-   //     .then((response) => response.json())
-   //     .then((res) => {
-   //       manages.UserID = res.data.ID
-   //       if (res.data) {
-   //           setUsers(res.data);
-   //       } else {
-   //         console.log("else");
-   //       }
-   //     });
-   // };
 
    const getRoom = async () => {
       fetch(`${apiUrl}/rooms`, requestOptions)
@@ -145,6 +121,8 @@ function ManageCreate() {
       return val;
    };
 
+
+
    function submit() {
       let data = {
          RoomID: convertType(manages.RoomID),
@@ -152,9 +130,7 @@ function ManageCreate() {
          SizeID: convertType(manages.SizeID),
          Detail: detail,
          Price: price,
-         Stetus: stetus,
-
-
+         Status: status,
 
       };
 
@@ -185,7 +161,7 @@ function ManageCreate() {
    }
 
    return (
-      <Container maxWidth="md" sx={{
+      <div style={{
          fontFamily: "PK Krung Thep Medium",
          fontSize: "20px"
          // fontStyle: "bold"
@@ -448,7 +424,7 @@ function ManageCreate() {
                            row
                            aria-labelledby="demo-controlled-radio-buttons-group"
                            name="controlled-radio-buttons-group"
-                           onChange={(event) => setStetus(event.target.value)}
+                           onChange={(event) => setStatus(event.target.value)}
                         >
                            <FormControlLabel value="ว่าง" control={<Radio />} label={<Typography
                               style={{ fontFamily: "PK Krung Thep Medium", fontSize: 18, fontWeight: "bold", }}>ว่าง</Typography>} />
@@ -491,7 +467,7 @@ function ManageCreate() {
                </Grid>
             </div>
          </Paper>
-      </Container>
+      </div>
    );
 }
 

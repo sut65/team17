@@ -3,11 +3,10 @@ import { CategoryInterface } from "./ICategory";
 import { SizeInterface } from "./ISize";
 
 export interface ManageInterface {
-
   ID:           number,
   Detail:       string,
-  Stetus:       string,
-  Price:        number,
+  Status:       string,
+  Price:        string,
 
   RoomID:       number,
   Room:         RoomInterface,

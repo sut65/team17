@@ -14,14 +14,15 @@ import MuiAlert, { AlertProps } from "@mui/material/Alert";
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import TextField from '@mui/material/TextField';
 
-import { ManageInterface } from "../models/IManage";
-import { AdminInterface } from "../models/IAdmin";
-import { MeterInterface } from "../models/IMeter";
-import { UserInterface } from "../models/IUser";
+import { ManageInterface } from "../../models/IManage";
+import { AdminInterface } from "../../models/IAdmin";
+import { MeterInterface } from "../../models/IMeter";
+import { UserInterface } from "../../models/IUser";
 
 import { InputLabel } from "@mui/material";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { DesktopDatePicker } from "@mui/x-date-pickers";
+import moment from "moment";
 
 
 
@@ -36,11 +37,11 @@ function BookingCreate() {
   const [users, setUsers] = useState<UserInterface[]>([]);
   const [manage, setManages] = useState<ManageInterface[]>([]);
   const [meters, setMeters] = useState<Partial<MeterInterface>>({});
-  const [brfores, setBefores] = useState<string>("");
+  const [befores, setBefores] = useState<string>("");
   const [afters, setAfters] = useState<string>("");
-  const [units, setUnits] = useState<string>("");
-  const [electronics, setElectronics] = useState<string>("");
-  const [waters, setWaters] = useState<string>("");
+  const [units, setUnits] = useState<string>("7");
+  const [electric, setElectronics] = useState<string>("");
+  const [waters, setWaters] = useState<string>("100");
   const [totals, setTotals] = useState<string>("");
   
   const [success, setSuccess] = useState(false);
@@ -83,7 +84,6 @@ function BookingCreate() {
   //     [name]: Number(event.target.value),
   //   });   
   // };
-
 
 
 
@@ -145,8 +145,14 @@ function BookingCreate() {
         UserID: convertType(meters.UserID),
         AdminID: convertType(meters.AdminID),
         ManageID: convertType(meters.ManageID),
+        Before: Number(befores),
+        After: Number(afters),
+        Total: Number(totals),
+        Unit: Number(units),
+        Electric: Number(electric),
+        Water: Number(waters),
 
-        ScheduleTime: selectedDate,  
+        Metertime: moment(),  
 
     };
 
@@ -185,7 +191,7 @@ function BookingCreate() {
       </Snackbar>
       <Snackbar open={error} autoHideDuration={6000} onClose={handleClose}>
         <Alert onClose={handleClose} severity="error">
-          บันทึกข้อมูลไม่สำเร็จ: {errorMessage}
+          {errorMessage}
         </Alert>
       </Snackbar>
       <Paper sx={{ padding: 2, color: "text.secondary" }}>
@@ -206,7 +212,7 @@ function BookingCreate() {
         <Divider />
         <Grid container spacing={3}  sx={{ flexGrow: 1 }}>
 
-            <Grid item xs={6}>
+            {/* <Grid item xs={6}>
                 <FormControl fullWidth variant="outlined">
                 <Select
                     native
@@ -225,7 +231,7 @@ function BookingCreate() {
                     
                 </Select>
                 </FormControl>
-            </Grid>
+            </Grid> */}
 
             <Grid item xs={6}>
                 <FormControl fullWidth variant="outlined">
@@ -322,6 +328,9 @@ function BookingCreate() {
             <Grid item xs={2}>
               <Button
                 variant="contained"
+                onClick={() => {
+                  setTotals((Number(afters) - Number(befores)).toString())
+                }}
               >
                 คำนวนมิเตอร์
               </Button>
@@ -333,6 +342,7 @@ function BookingCreate() {
                 <TextField
                     variant="filled"
                     id="MeterID"
+                    value={totals}
                     onChange={(event) => setTotals(event.target.value)}
                 />
               </FormControl>
@@ -353,9 +363,24 @@ function BookingCreate() {
             <Grid item xs={2}>
               <Button
                 variant="contained"
+                onClick={() => {
+                  setElectronics((Number(totals)*Number(units)).toString())
+                }}
               >
                 คำนวนค่าไฟ
               </Button>
+            </Grid>
+
+            <Grid item xs={5}>
+              <FormControl fullWidth variant="outlined">
+              <p>ค่าไฟ</p>
+                <TextField
+                    variant="filled"
+                    id="MeterID"
+                    value={electric}
+                    onChange={(event) => setElectronics(event.target.value)}
+                />
+              </FormControl>
             </Grid>
 
             <Grid item xs={5}>

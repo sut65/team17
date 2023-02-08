@@ -11,7 +11,7 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import { MeterInterface } from "../models/IMeter";
+import { MeterInterface } from "../../models/IMeter";
 import { format } from 'date-fns'
 
 
@@ -56,7 +56,7 @@ function Meters() {
               color="primary"
               gutterBottom
             >
-              บันทึกการจดมิเตอร์
+              ระบบจดมิเตอร์
             </Typography>
           </Box>
           <Box>
@@ -66,7 +66,7 @@ function Meters() {
               variant="contained"
               color="primary"
             >
-              ตารางมิเตอร์
+              บันทึกการจดมิเตอร์
             </Button>
           </Box>
         </Box>
@@ -77,9 +77,9 @@ function Meters() {
                 <TableCell align="center" width="2%">
                   ลำดับ
                 </TableCell>
-                <TableCell align="center" width="18%">
+                {/* <TableCell align="center" width="18%">
                   ผู้บันทึกข้อมูล
-                </TableCell>
+                </TableCell> */}
                 <TableCell align="center" width="9%">
                   เลขห้อง
                 </TableCell>
@@ -105,7 +105,7 @@ function Meters() {
                   ค่าไฟ
                 </TableCell>
                 <TableCell align="center" width="9%">
-                  ค่านํ้า(เหมา)
+                  ค่านํ้าเหมา
                 </TableCell>
                 <TableCell align="center" width="9%">
                   เดือนที่ใช้
@@ -114,17 +114,18 @@ function Meters() {
             </TableHead>
             <TableBody>
               {meters.map((item: MeterInterface) => (
-                <TableRow key={item.ID}>//
+                <TableRow key={item.ID}>
                   <TableCell align="center">{item.ID}</TableCell>
+                  <TableCell align="center">{item.Manage?.Room.Number}</TableCell>
                   <TableCell align="center">{item.User.Name}</TableCell>
-                  <TableCell align="center">{item.Manage.Room.Number}</TableCell>
-                  <TableCell align="center">{item.Manage.Price}</TableCell>
+                  <TableCell align="center">{item.User.Tel}</TableCell>
                   <TableCell align="center">{item.Before}</TableCell>
                   <TableCell align="center">{item.After}</TableCell>
+                  <TableCell align="center">{item.Total}</TableCell>
                   <TableCell align="center">{item.Unit}</TableCell>
                   <TableCell align="center">{item.Electric}</TableCell>
                   <TableCell align="center">{item.Water}</TableCell>
-                  <TableCell align="center">{format((new Date(item.MeterTime)), 'dd MMMM yyyy hh:mm')}</TableCell>
+                  <TableCell align="center">{format((new Date(item.Metertime)), 'dd MMMM yyyy hh:mm')}</TableCell>
                 </TableRow>
               ))}
             </TableBody>

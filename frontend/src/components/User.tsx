@@ -69,7 +69,7 @@ function Users() {
               color="primary"
               gutterBottom
             >
-              [บันทึกข้อมูลผู้เช่า]
+              บันทึกข้อมูลผู้เช่า
             </Typography>
           </Box>
           <Box>
