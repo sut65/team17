@@ -67,16 +67,12 @@ function FurnitureCreate() {
       ...Furnitures,
       [name]: event.target.value,
     });
-<<<<<<< HEAD:frontend/src/components/FurnitureCreate.tsx
     console.log("ONCHANGE: ",event.target.value);
     
     // if(name == "SymptomID"){
     //   getDepartment(event.target.value)
     // }
     
-=======
-    console.log(event.target.value);
->>>>>>> 1165f0a3a583fd95817521d455f9b92c441fb904:frontend/src/components/Furniture/FurnitureCreate.tsx
   };
 
 
@@ -148,20 +144,12 @@ function FurnitureCreate() {
     console.log(Equipmentselect)
     const total = Number(Amountselect?.Amount)*Number(Equipmentselect?.Price)
     let data = {
-<<<<<<< HEAD:frontend/src/components/FurnitureCreate.tsx
-        UserID: convertType(furnitures.UserID),
-        RoomID: convertType(furnitures.RoomID),
-        EquipmentID: convertType(furnitures.EquipmentID),
-        AmountID: convertType(furnitures.AmountID),
-        furnitureTime: selectedDate, 
-=======
         UserID: convertType(Furnitures.UserID),
         RoomID: convertType(Furnitures.RoomID),
         EquipmentID: convertType(Furnitures.EquipmentID),
         AmountID: convertType(Furnitures.AmountID),
         furnitureTime: SelectedDate,        
         Total: total
->>>>>>> 1165f0a3a583fd95817521d455f9b92c441fb904:frontend/src/components/Furniture/FurnitureCreate.tsx
     };
 
     console.log(data)
