@@ -13,17 +13,10 @@ import Select, { SelectChangeEvent } from "@mui/material/Select";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import TextField from '@mui/material/TextField';
-import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { createStyles, FormHelperText, InputLabel } from "@material-ui/core";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 
-import dayjs, { Dayjs } from 'dayjs';
-
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-
-
-
 import { RequestoutInterface } from "../../models/IRequestout";
 import { FormControlLabel, FormLabel, RadioGroup, Radio, FormGroup, Theme } from "@mui/material";
 import { ReasonInterface } from "../../models/IReason";
@@ -45,9 +38,7 @@ function RequestoutCreate() {
   const [requestouts, setRequestouts] = useState<Partial<RequestoutInterface>>({});
 
   const [details, setDetail] = useState<String>("");
-
-
-  const [value, setValue] = React.useState<Dayjs | null>(dayjs('2022-04-07'));
+  const NowDate = Date.now();
 
   
 
@@ -324,18 +315,19 @@ function RequestoutCreate() {
             <FormControl fullWidth variant="outlined">
             <p>วัน เดือน  ปี ที่ต้องการ</p>
             
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
                 
             <DatePicker
-                    disableFuture
                     label="Select Date"
-                    openTo="year"
-                    views={['year', 'month', 'day']}
-                    value={value}
+                    value={selectedDate}
                     onChange={(newValue) => {
-                      setValue(newValue);
-                }}
-                renderInput={(params) => <TextField {...params} />}
+                      setSelectedDate(newValue);
+                    }}
+                    renderInput={(params) => <TextField {...params} />}
+
+                    minDate={new Date(NowDate)}
+                    
+                 
               />
               </LocalizationProvider>
             </FormControl>
