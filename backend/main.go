@@ -30,7 +30,7 @@ func main() {
 			// Authoritie Routes
 			protected.GET("/admins", controller.ListAdmins)
 			protected.GET("/admin/:id", controller.GetAdmin)
-			protected.POST("/admins", controller.CreateAdmin) ///******
+			protected.POST("/admins", controller.CreateAdmin) 
 			protected.PATCH("/admins", controller.UpdateAdmin)
 			protected.DELETE("/admins/:id", controller.DeleteAdmin)
 
