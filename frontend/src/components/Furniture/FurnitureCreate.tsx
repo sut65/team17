@@ -18,12 +18,12 @@ import { FormHelperText, InputLabel } from "@material-ui/core";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 
 
-import { UserInterface } from "../models/IUser";
-import { AdminInterface } from "../models/IAdmin";
-import { RoomInterface } from "../models/IRoom";
-import { EquipmentInterface } from "../models/IEquipment";
-import { AmountInterface } from "../models/IAmount";
-import { FurnitureInterface } from "../models/IFurniture";
+import { UserInterface } from "../../models/IUser";
+import { AdminInterface } from "../../models/IAdmin";
+import { RoomInterface } from "../../models/IRoom";
+import { EquipmentInterface } from "../../models/IEquipment";
+import { AmountInterface } from "../../models/IAmount";
+import { FurnitureInterface } from "../../models/IFurniture";
 
 function FurnitureCreate() {
   const [SelectedDate, setSelectedDate] = useState<Date | null>();

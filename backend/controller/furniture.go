@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/asaskevich/govalidator"
@@ -87,6 +88,13 @@ func GetFurniture(c *gin.Context) {
 		return
 	}
 	c.JSON(http.StatusOK, gin.H{"data": furniture})
+}
+
+func SumFurnitures(c *gin.Context) {
+	var sum int
+	entity.DB().Table("furnitures").Select("sum(total)").Where("room_id=?", c.Param("room_id")).Row().Scan(&sum)
+	fmt.Printf("sum: %#v\n", sum)
+	c.JSON(http.StatusOK, gin.H{"sum": sum})
 }
 
 // GET /furnitures
