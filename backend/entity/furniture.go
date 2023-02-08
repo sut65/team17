@@ -10,6 +10,7 @@ type Furniture struct {
 	gorm.Model
 
 	FurnitureTime time.Time
+	Total         *uint
 
 	AdminID *uint
 	Admin   Admin

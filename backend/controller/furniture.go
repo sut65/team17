@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/asaskevich/govalidator"
@@ -56,11 +57,12 @@ func CreateFurniture(c *gin.Context) {
 	// 14: สร้าง furniture
 	bk := entity.Furniture{
 		// Admin:        	admin,		// โยงความสัมพันธ์กับ Entity Admin
-		User:         	user,     	// โยงความสัมพันธ์กับ Entity User
-		Room:         	room,     	// โยงความสัมพันธ์กับ Entity Room
-		Equipment:     	equipment, 	// โยงความสัมพันธ์กับ Entity Equipment
-		Amount:        	amount,     // โยงความสัมพันธ์กับ Entity Amount
-		FurnitureTime: 	furniture.FurnitureTime, // ตั้งค่าฟิลด์ furnitureTime
+		User:          user,      // โยงความสัมพันธ์กับ Entity User
+		Room:          room,      // โยงความสัมพันธ์กับ Entity Room
+		Equipment:     equipment, // โยงความสัมพันธ์กับ Entity Equipment
+		Amount:        amount,
+		Total:         furniture.Total,         // โยงความสัมพันธ์กับ Entity Total
+		FurnitureTime: furniture.FurnitureTime, // ตั้งค่าฟิลด์ furnitureTime
 	}
 
 
@@ -82,11 +84,18 @@ func CreateFurniture(c *gin.Context) {
 func GetFurniture(c *gin.Context) {
 	var furniture entity.Furniture
 	id := c.Param("id")
-	if err := entity.DB().Preload("Admin").Preload("User").Preload("Room").Preload("Equipment").Preload("Amount").Raw("SELECT * FROM furnitures WHERE id = ?", id).Find(&furniture).Error; err != nil {
+	if err := entity.DB().Preload("Admin").Preload("User").Preload("Room").Preload("Equipment").Preload("Amount").Raw("SELECT * FROM furnitures WHERE room_id = ? GROUP BY room_id", id).Scan(&furniture).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 	c.JSON(http.StatusOK, gin.H{"data": furniture})
+}
+
+func SumFurnitures(c *gin.Context) {
+	var sum int
+	entity.DB().Table("furnitures").Select("sum(total)").Where("room_id=?", c.Param("room_id")).Row().Scan(&sum)
+	fmt.Printf("sum: %#v\n", sum)
+	c.JSON(http.StatusOK, gin.H{"sum": sum})
 }
 
 // GET /furnitures

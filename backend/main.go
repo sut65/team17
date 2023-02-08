@@ -104,7 +104,6 @@ func main() {
 			protected.PATCH("/reaons", controller.UpdateReason)
 			protected.DELETE("/reasons/:id", controller.DeleteReason)
 
-			
 			//fah
 			// Banking Routes
 			protected.GET("/bankings", controller.ListBankings)
@@ -147,9 +146,6 @@ func main() {
 			protected.POST("/statuses", controller.CreateStatus)
 			protected.PATCH("/statuses", controller.UpdateStatus)
 			protected.DELETE("/statuses/:id", controller.DeleteStatus)
-			
-			
-
 
 			// Kind Routes
 			protected.GET("/kinds", controller.ListKinds)
@@ -188,6 +184,7 @@ func main() {
 
 			// Furniture Routes
 			protected.GET("/furnitures", controller.ListFurnitures)
+			protected.GET("/furniture/sum/:room_id", controller.SumFurnitures)
 			protected.GET("/furniture/:id", controller.GetFurniture)
 			protected.POST("/furnitures", controller.CreateFurniture)
 			protected.PATCH("/furnitures", controller.UpdateFurniture)
@@ -214,7 +211,6 @@ func main() {
 			protected.PATCH("/emergencytypes", controller.UpdateEmergencytype)
 			protected.DELETE("/emergencytypes/:id", controller.DeleteEmergencytype)
 
-			
 			// emergency
 			protected.GET("/emergencies", controller.ListEmergencys)
 			protected.GET("/emergencie/:id", controller.GetEmergency)
@@ -223,6 +219,8 @@ func main() {
 			protected.DELETE("/emergencies/:id", controller.DeleteEmergency)
 		}
 	}
+
+	
 
 	// users Routes
 	r.POST("/users", controller.CreateUser)

@@ -9,7 +9,7 @@ import (
 type Cleaning struct {
 	gorm.Model
 
-	CleaningTime 		time.Time
+	CleaningTime 		time.Time	
 	Detail				string		`valid:"required~Detail cannot be blank"`
 
 	UserID				*uint
