@@ -41,6 +41,7 @@ import Residents from "./components/Resident/Residents";
 import ResidentCreate from "./components/Resident/ResidentCreate";
 import Requestout from "./components/Requestout/Requestout";
 import RequestoutCreate from "./components/Requestout/RequestoutCreate";
+import RequestoutUpdate from "./components/Requestout/RequestoutUpdate";
 import Requestchange from "./components/Requestchange/Requestchange";
 import RequestchangeCreate from "./components/Requestchange/Requestchangecreate";
 import Cleanings from "./components/Cleanings";
@@ -262,8 +263,11 @@ function App() {
                 <Route path="/manage/create" element={<ManageCreate />} />
                 <Route path="/residents" element={<Residents />} />
                 <Route path="/resident/create" element={<ResidentCreate />} />
+
                 <Route path="/requestouts" element={< Requestout />} />
                 <Route path="/requestout/create" element={<RequestoutCreate />} />
+                <Route path="/requestouts/:id" element={<RequestoutUpdate />} />
+                
                 <Route path="/requestchanges" element={< Requestchange />} />
                 <Route path="/requestchange/create" element={<RequestchangeCreate />} />
                 <Route path="/cleanings" element={<Cleanings />} />
