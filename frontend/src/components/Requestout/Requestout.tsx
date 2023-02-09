@@ -1,10 +1,13 @@
-import { useEffect, useState } from "react";
-import { Link as RouterLink } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link as RouterLink,useNavigate, } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import MuiAlert, { AlertProps } from "@mui/material/Alert";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
+import Snackbar from "@mui/material/Snackbar";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -19,8 +22,31 @@ import { RequestoutInterface } from "../../models/IRequestout";
 import { format } from 'date-fns'
 import moment from "moment";
 
+
+
+const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+
+
 function Requestout() {
+  let navigate = useNavigate();
+  const { id } = useParams();
   const [requestouts, setRequestouts] = useState<RequestoutInterface[]>([]);
+
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState(false);
+  const [ErrorMessage, setErrorMessage] = useState("");
+
+
+  const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setSuccess(false);
+    setError(false);
+  };
+  
   
   const apiUrl = "http://localhost:8080";
   const requestOptions = {
@@ -44,6 +70,36 @@ function Requestout() {
       });
   };
 
+  const DeleteRequestout = async (id: string | number | undefined) => {
+    const requestOptions = {
+       method: "DELETE",
+       headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "application/json",
+       },
+    };
+
+    fetch(`${apiUrl}/requestouts/${id}`, requestOptions)
+       .then((response) => response.json())
+       .then(
+          (res) => {
+             if (res.data) {
+                setSuccess(true)
+                console.log("ยกเลิกสำเร็จ")
+                setErrorMessage("")
+             }
+             else {
+                setErrorMessage(res.error)
+                setError(true)
+                console.log("ยกเลิกไม่สำเร็จ")
+             }
+             getRequestouts();
+          }
+       )
+
+ }
+
+
 
   useEffect(() => {
     getRequestouts();
@@ -51,6 +107,28 @@ function Requestout() {
 
   return (
     <div>
+      
+
+    <Snackbar
+    open={success}
+    autoHideDuration={3000}
+    onClose={handleClose}
+    anchorOrigin={{ vertical: "top", horizontal: "center" }}
+    >
+    <Alert onClose={handleClose} severity="warning">
+      ลบข้อมูลเรียบร้อย
+    </Alert>
+  </Snackbar>
+  <Snackbar
+    open={error}
+    autoHideDuration={6000}
+    onClose={handleClose}
+    anchorOrigin={{ vertical: "top", horizontal: "center" }}
+  >
+    <Alert onClose={handleClose} severity="error">
+      ลบข้อมูลผิดพลาด
+    </Alert>
+  </Snackbar>
     <Container sx={{ marginTop: 2 }} maxWidth="md">
       <Box display="flex">
         <Box flexGrow={1}>
@@ -116,14 +194,15 @@ function Requestout() {
                 <TableCell align="center">{item.Detail}</TableCell>
                 
                 <TableCell align="center">{moment(item.Outtime).format('DD MM yyyy')}</TableCell>
+
                 <TableCell align="center">
-                <IconButton aria-label="แก้ไข" size="large">
+                <IconButton aria-label="แก้ไข" size="large" onClick={() => navigate(`${item.ID}`)} color="info">
                 <EditIcon fontSize="inherit" />
                 </IconButton>
                 </TableCell>
 
                 <TableCell align="center">
-                <IconButton aria-label="delete" size="large">
+                <IconButton  aria-label="delete" size="large" onClick={() => DeleteRequestout(item.ID)} color="error">
                 <DeleteIcon fontSize="inherit" />
                 </IconButton>
                 </TableCell>
