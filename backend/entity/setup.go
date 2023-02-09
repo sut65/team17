@@ -48,34 +48,28 @@ func SetupDatabase() {
 	})
 
 	db.Model(&Admin{}).Create(&Admin{
-		Name:     	"Noppong Phinitphong",
-		Email:    	"Noppong.1999@gmail.com",
-		Tel: 		"0857798727",
+		Name:     	"Jakkrit Chaiwan",
+		Email:   		"jackerchaiwan@gmail.com",
+		Tel:      	"0610255279",
 		Password: 	string(password),
-		Role:     	"admin",
+		Role:		"admin",
 	})
 
 	var promporn		Admin
 	db.Raw("SELECT * FROM Admins WHERE email = ?", "promporn@gmail.com").Scan(&promporn)
 
-	var noppong  	Admin
-	db.Raw("SELECT * FROM Admins WHERE email = ?", "noppong@gmail.com").Scan(&noppong)
+	var jakkrit  		Admin
+	db.Raw("SELECT * FROM Admins WHERE email = ?", "jackerchaiwan@gmail.com").Scan(&jakkrit)
 
 
-	db.Model(&User{}).Create(&User{
-		Name:     	"Jakkrit Chaiwan",
-		Email:   	"jackerchaiwan@gmail.com",
-		Tel:      	"0610255279",
-		Password: 	string(password),
-		Role:		"user",
-	})
+	
 
 	db.Model(&User{}).Create(&User{
 		Name:     	"Wallaya Patisang",
-		Email:   	"wallaya.1999@gmail.com",
+		Email:   		"wallaya.1999@gmail.com",
 		Tel: 		"0920000123",
 		Password: 	string(password),
-		Role:     	"admin",
+		Role:     	"user",
 	})
 
 	db.Model(&User{}).Create(&User{
@@ -86,13 +80,10 @@ func SetupDatabase() {
 		Role:     "user",
 	})
 
-	var jakkrit		User
-	db.Raw("SELECT * FROM users WHERE email = ?", "jackerchaiwan@gmail.com").Scan(&jakkrit)
-
 	var wallaya  	User
 	db.Raw("SELECT * FROM users WHERE email = ?", "wallaya@gmail.com").Scan(&wallaya)
 
-	var panadda User
+	var panadda 	User
 	db.Raw("SELECT * FROM users WHERE email = ?", "panadda@gmail.com").Scan(&panadda)
 
 	
