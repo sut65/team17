@@ -45,6 +45,7 @@ import Requestchange from "./components/Requestchange/Requestchange";
 import RequestchangeCreate from "./components/Requestchange/Requestchangecreate";
 import Cleanings from "./components/Cleaning/Cleanings";
 import CleaningCreate from "./components/Cleaning/CleaningCreate";
+import CleaningUpdate from "../../frontend/src/components/Cleaning/CleaningUpdate";
 import Furnitures from "./components/Furniture/Furnitures";
 import FurnitureCreate from "./components/Furniture/FurnitureCreate";
 import Meter from "./components/Meter/Meter";
@@ -314,7 +315,7 @@ function App() {
                   <Box 
                      component="main"
                      sx={{
-                        width: '110vh',
+                        width: '90%',
                         height: '100%',
                         // bgcolor: 'skyblue',
                         display: 'flex',
@@ -328,13 +329,14 @@ function App() {
                         <Route path="/manages/:id" element={<ManageUpdate />} />
                         <Route path="/residents" element={<Residents />} />
                         <Route path="/resident/create" element={<ResidentCreate />} />
-                        <Route path="/residents/:id" element={<ResidentUpdate />} />
+                        {/* <Route path="/residents/:id" element={<ResidentUpdate />} /> */}
                         <Route path="/requestouts" element={< Requestout />} />
                         <Route path="/requestout/create" element={<RequestoutCreate />} />
                         <Route path="/requestchanges" element={< Requestchange />} />
                         <Route path="/requestchange/create" element={<RequestchangeCreate />} />
                         <Route path="/cleanings" element={<Cleanings />} />
                         <Route path="/cleaning/create" element={<CleaningCreate />} />
+                        <Route path="/cleanings/:id" element={<CleaningUpdate />} />
                         <Route path="/payment/create" element={<PaymentCreate />} />
                         <Route path="/payments" element={<Payment />} />
                         <Route path="/users" element={<Users />} />
