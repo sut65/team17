@@ -14,9 +14,9 @@ import (
 func CreateRequestchange(c *gin.Context) {
 
 	var requestchange	entity.Requestchange
-	var room entity.Room
-	var reason entity.Reason
-	var user	entity.User
+	var room 			entity.Room
+	var reason 			entity.Reason
+	var user			entity.User
 
 	// ผลลัพธ์ที่ได้จากขั้นตอนที่ 8 จะถูก bind เข้าตัวแปร requestchange
 	if err := c.ShouldBindJSON(&requestchange); err != nil {

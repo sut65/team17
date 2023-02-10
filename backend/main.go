@@ -97,6 +97,13 @@ func main() {
 			protected.PATCH("/requestouts", controller.UpdateRequestout)
 			protected.DELETE("/requestouts/:id", controller.DeleteRequestout)
 
+			// Requestchange Routes
+			protected.GET("/requestchanges", controller.ListRequestchanges)
+			protected.GET("/requestchange/:id", controller.GetRequestchange)
+			protected.POST("/requestchanges", controller.CreateRequestchange)
+			protected.PATCH("/requestchanges", controller.UpdateRequestchange)
+			protected.DELETE("/requestchanges/:id", controller.DeleteRequestchange)
+
 			// Reason Routes
 			protected.GET("/reasons", controller.ListReasons)
 			protected.GET("/reason/:id", controller.GetReason)
