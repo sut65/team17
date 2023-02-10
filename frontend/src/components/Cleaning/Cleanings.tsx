@@ -11,7 +11,7 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import { CleaningInterface } from "../models/ICleaning";
+import { CleaningInterface } from "../../models/ICleaning";
 import moment from "moment";
 
 function Cleanings() {
@@ -53,8 +53,11 @@ function Cleanings() {
               variant="h6"
               color="primary"
               gutterBottom
+              sx={{
+                fontFamily: "PK Krung Thep Medium",
+             }}
             >
-              ระบบจองบริการทำความความสะอาด
+              <b>ระบบจองบริการทำความความสะอาด</b>
             </Typography>
           </Box>
           <Box>
@@ -63,6 +66,9 @@ function Cleanings() {
               to="/cleaning/create"
               variant="contained"
               color="primary"
+              sx={{
+                fontFamily: "PK Krung Thep Medium",
+             }}
             >
               จองทำความสะอาด
             </Button>
@@ -71,7 +77,7 @@ function Cleanings() {
         <TableContainer component={Paper} sx={{ minWidth: 650 }}>
           <Table sx={{ marginTop: 2 }} aria-label="simple table">
             <TableHead>
-              <TableRow>
+              <TableRow >
               <TableCell align="center" width="2%">
                   ลำดับ
                 </TableCell>
