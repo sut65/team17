@@ -14,6 +14,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { UserInterface } from "../models/IUser";
 import { format } from 'date-fns'
+import moment from "moment";
 
 // const useStyles = makeStyles((theme: Theme) =>
 //   createStyles({
@@ -97,9 +98,6 @@ function Users() {
                   ชื่อ-สกุล
                 </TableCell>
                 <TableCell align="center" width="10%">
-                  เลขบัตรประชาชน
-                </TableCell>
-                <TableCell align="center" width="10%">
                   วัน/เดือน/ปีเกิด
                 </TableCell>
                 <TableCell align="center" width="5%">
@@ -110,9 +108,6 @@ function Users() {
                 </TableCell>
                 <TableCell align="center" width="15%">
                   อีเมล
-                </TableCell>
-                <TableCell align="center" width="10%">
-                  รหัสผ่าน
                 </TableCell>
                 <TableCell align="center" width="10%">
                   เบอร์โทรศัพท์
@@ -128,12 +123,10 @@ function Users() {
                   <TableCell align="center">{item.ID}</TableCell>
                   <TableCell align="center">{item.Title.Name}</TableCell>
                   <TableCell align="center">{item.Name}</TableCell>
-                  <TableCell align="center">{item.Personal}</TableCell>
-                  <TableCell align="center">{format((new Date(item.BirthdayTime)), 'dd MMMM yyyy hh:mm')}</TableCell>
+                  <TableCell align="center">{moment(item.BirthdayTime).format('DD MM yyyy')}</TableCell>
                   <TableCell align="center">{item.Gender.Name}</TableCell>
                   <TableCell align="center">{item.Status.Name}</TableCell>
                   <TableCell align="center">{item.Email}</TableCell>
-                  <TableCell align="center">{item.Password}</TableCell>
                   <TableCell align="center">{item.Tel}</TableCell>
                   <TableCell align="center">{item.Address}</TableCell>
                 </TableRow>
