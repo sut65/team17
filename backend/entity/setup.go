@@ -65,8 +65,8 @@ func SetupDatabase() {
 
 	db.Model(&User{}).Create(&User{
 		Name:     	"Wallaya Patisang",
-		Email:   		"wallaya.1999@gmail.com",
-		Tel: 		"0920000123",
+		Email:   	"wallaya.1999@gmail.com",
+		Tel: 		"0958713961",
 		Password: 	string(password),
 		Role:     	"user",
 	})
@@ -74,7 +74,7 @@ func SetupDatabase() {
 	db.Model(&User{}).Create(&User{
 		Name:  "Panadda Srisawat",
 		Email: "panadda@gmail.com",
-
+		Tel: 		"0966346799",
 		Password: string(password),
 		Role:     "user",
 	})
@@ -384,6 +384,7 @@ func SetupDatabase() {
 		Name: "Mobile Banking (โอนเงินผ่านแอพมือถือ)",
 	}
 	db.Model(&Method{}).Create(&Mobile_Banking)
+
 
 	//---Status Data
 	Single := Status{
