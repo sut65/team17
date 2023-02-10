@@ -19,7 +19,7 @@ type Payment struct {
 	// BillID เป็น FK
 	BillID *uint
 	// ข้อมูลของ Bill เมื่อ join ตาราง
-	Bill Bill
+	Bill Bill		`gorm:"referenes:id" valid:"-"`
 
 	// BankingID เป็น FK
 	BankingID *uint
