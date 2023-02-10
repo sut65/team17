@@ -144,10 +144,10 @@ const menu = [
    // { name: "การชำระเงิน", icon: <PaymentIcon />, path: "/payments", role: 'admin' },
    { name: "บันทึกข้อมูลผู้เช่า", icon: <AccountCircleIcon />, path: "/users", role: 'user' },
    { name: "บันทึกข้อมูลผู้เช่า", icon: <AccountCircleIcon />, path: "/users", role: 'admin' },
-   { name: "บิลชำระ", icon: <ConstructionIcon />, path: "/repairs", role: 'user' },
-   { name: "บิลชำระ", icon: <ConstructionIcon />, path: "/repairs", role: 'admin' },
-   { name: "บิลชำระ", icon: <CampaignIcon />, path: "/emergencies", role: 'user' },
-   { name: "บิลชำระ", icon: <CampaignIcon />, path: "/emergencies", role: 'admin' },
+   { name: "แจ้งซ่อม", icon: <ConstructionIcon />, path: "/repairs", role: 'user' },
+   
+   { name: "แจ้งเหตุฉุกเฉิน", icon: <CampaignIcon />, path: "/emergencies", role: 'user' },
+   
 ];
 
 
@@ -359,9 +359,10 @@ function App() {
                         <Route path="/meter/create" element={<MeterCreate />} />
                         <Route path="/bills" element={<Bill />} />
                         <Route path="/bill/create" element={<BillCreate />} />
+                        
                         <Route path="/repairs" element={<Repair />} />
                         <Route path="/repair/create" element={<RepairCreate />} />
-                        <Route path="/emergencies" element={<Bill />} />
+                        <Route path="/emergencies" element={<Emergency />} />
                         <Route path="/emergencie/create" element={<EmergencyCreate />} />
                      </Routes>
                   </Box>
