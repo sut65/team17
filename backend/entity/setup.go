@@ -438,9 +438,41 @@ func SetupDatabase() {
 	}
 	db.Model(&Gender{}).Create(&Female)
 
-	//---Repair Data
+
 	
-    Ob1:= Object{
+    
+
+	//Emergency
+
+	Ec1 := Emergencytype{
+		Name: "อัคคีภัย",
+	}
+	db.Model(&Emergencytype{}).Create(&Ec1)
+
+	Ec2 := Emergencytype{
+		Name: "คนแปลกหน้า",
+	}
+	db.Model(&Emergencytype{}).Create(&Ec2)
+
+	Ec3 := Emergencytype{
+		Name: "ไฟรั่ว",
+	}
+	db.Model(&Emergencytype{}).Create(&Ec3)
+
+	Ec4 := Emergencytype{
+		Name: "สัตว์ร้าย",
+	}
+	db.Model(&Emergencytype{}).Create(&Ec4)
+
+	Ec5 := Emergencytype{
+		Name: "อุบัติเหตุ",
+	}
+	db.Model(&Emergencytype{}).Create(&Ec5)
+
+
+		//---Repair Data
+	
+		Ob1:= Object{
 
 		Name: "ไมโครเวฟ",
 	}
@@ -486,32 +518,5 @@ func SetupDatabase() {
 		Name: "เพดานรั่ว",
 	}
 	db.Model(&Object{}).Create(&Ob9)
-
-	//Emergency
-
-	Ec1 := Emergencytype{
-		Name: "อัคคีภัย",
-	}
-	db.Model(&Emergencytype{}).Create(&Ec1)
-
-	Ec2 := Emergencytype{
-		Name: "คนแปลกหน้า",
-	}
-	db.Model(&Emergencytype{}).Create(&Ec2)
-
-	Ec3 := Emergencytype{
-		Name: "ไฟรั่ว",
-	}
-	db.Model(&Emergencytype{}).Create(&Ec3)
-
-	Ec4 := Emergencytype{
-		Name: "สัตว์ร้าย",
-	}
-	db.Model(&Emergencytype{}).Create(&Ec4)
-
-	Ec5 := Emergencytype{
-		Name: "อุบัติเหตุ",
-	}
-	db.Model(&Emergencytype{}).Create(&Ec5)
 
 }
