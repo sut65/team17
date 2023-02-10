@@ -8,29 +8,29 @@ import (
 
 type User struct {
 	gorm.Model
-	Name         string
-	Email        string
-	Tel          string
-	Password     string
-	Role         string
-	Address      string
-	Personal     string
+	Name         string		`valid:"required~Name cannot be blank"`
+	Email        string		`valid:"required~Email cannot be blank"`
+	Tel          string		`valid:"required~Tel cannot be blank"`
+	Password     string		`valid:"required~Password cannot be blank"`
+	Role         string		`valid:"required~Role cannot be blank"`
+	Address      string		`valid:"required~Address cannot be blank"`
+	Personal     string		`valid:"required~Personal cannot be blank"`
 	BirthdayTime time.Time
 
 	// StatusID เป็น FK
 	StatusID *uint
 	// ข้อมูลของ Status เมื่อ join ตาราง
-	Status Status
+	Status Status		`gorm:"referenes:id" valid:"-"`
 
 	// GenderID เป็น FK
 	GenderID *uint
 	// ข้อมูลของ Gender เมื่อ join ตาราง
-	Gender Gender
+	Gender Gender		`gorm:"referenes:id" valid:"-"`
 
 	// TitleID เป็น FK
 	TitleID *uint
 	// ข้อมูลของ Title เมื่อ join ตาราง
-	Title Title
+	Title Title			 `gorm:"referenes:id" valid:"-"`
 
 	Payments []Payment `gorm:"foreignKey:UserID"`
 

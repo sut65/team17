@@ -19,6 +19,7 @@ import { RoomInterface } from "../../models/IRoom";
 import { CategoryInterface } from "../../models/ICategory";
 import { SizeInterface } from "../../models/ISize"
 import { ManageInterface } from "../../models/IManage";
+import { Divider } from '@material-ui/core';
 
 
 export const TextFielPrice = styled(TextField)`
@@ -143,7 +144,7 @@ function ManageUpdate() {
    function update() {
       console.log(id);
       let data = {
-         ID: convertType(id),       
+         ID: convertType(id),
          RoomID: convertType(manages.RoomID),
          CategoryID: convertType(manages.CategoryID),
          SizeID: convertType(manages.SizeID),
@@ -208,294 +209,278 @@ function ManageUpdate() {
                {errorMessage}
             </Alert>
          </Snackbar>
-         <Paper sx={{
-            borderRadius: 5,
-            backgroundImage: 'url("https://coolhdwall.com/storage/202101/mountains-fog-hd-phone-wallpaper-1125x2436.jpg")',
-            backgroundRepeat: 'no-repeat',
-            backgroundSize: 'cover',
-            bgcolor: '#e0f7fa'
-         }}>
-            <div style={{
-               background: 'rgba(255, 255, 255, 0.5)',
-               borderRadius: 20,
 
-            }}>
-               <Box
-                  display="flex"
-                  justifyContent="center"
+
+         <Box
+            display="flex"
+            justifyContent="center"
+            sx={{
+               marginTop: 2,
+               borderRadius: 10
+            }}
+         >
+            <Box sx={{ paddingX: 2, paddingY: 1 }}>
+               <Typography
+                  component="h2"
+                  variant="h6"
+                  gutterBottom
                   sx={{
-                     marginTop: 2,
-                     borderRadius: 10
+                     fontFamily: "PK Krung Thep Medium",
+                     fontSize: "30px",
+                     color: '#3f51b5',
                   }}
                >
-                  <Box sx={{ paddingX: 2, paddingY: 1 }}>
-                     <Typography
-                        component="h2"
-                        variant="h6"
-                        gutterBottom
-                        sx={{
-                           fontFamily: "PK Krung Thep Medium",
-                           fontSize: "30px"
-                        }}
-                     >
-                        <h1><b>การจัดการห้องพัก</b></h1>
+                  <h1><b>การจัดการห้องพัก</b></h1>
+               </Typography>
+            </Box>
+         </Box>
+         <Divider  />
 
-                     </Typography>
-                  </Box>
-               </Box>
+         <Grid container spacing={3} sx={{ padding: 2 }}>
 
-               <Grid container spacing={3} sx={{ padding: 2 }}>
-
-                  <Grid item xs={6}>
-                     <FormControl fullWidth variant="outlined">
-                        <Typography align="center"
-                           sx={{
-                              fontFamily: "PK Krung Thep Medium",
-                              fontSize: "25px",
-                              fontWeight: "bold",
-                           }}
-                           variant="h6"
-                           color="#212121"
-                        >
-                           <p>เลือกห้อง</p>
-                        </Typography>
-
-                        <Select sx={{
-                           fontFamily: "PK Krung Thep Medium",
-                           fontSize: "20px",
-                           fontWeight: "bold",
-                        }}
-                           style={{ borderRadius: "20px" }}
-                           native
-                           onChange={handleChange}
-                           inputProps={{
-                              name: "RoomID",
-                           }}
-                           value={manages.RoomID + ""}
-                           required
-                        >
-                           <option aria-label="None" value="">
-                              โปรดระบุ
-                           </option>
-                           {rooms.map((item: RoomInterface) => (
-                              <option value={item.ID} key={item.ID}>
-                                 {item.Number}
-                              </option>
-                           ))}
-                        </Select>
-                     </FormControl>
-                  </Grid>
-
-                  <Grid item xs={6}>
-                     <FormControl fullWidth variant="outlined">
-                        <Typography align="center"
-                           sx={{
-                              fontFamily: "PK Krung Thep Medium",
-                              fontSize: "25px",
-                              fontWeight: "bold",
-                           }}
-                           variant="h6"
-                           color="#212121"
-                        >
-                           <p>ขนาดห้อง</p>
-                        </Typography>
-                        <Select sx={{
-                           fontFamily: "PK Krung Thep Medium",
-                           fontSize: "20px",
-                           fontWeight: "bold",
-                        }}
-                           style={{ borderRadius: "20px" }}
-                           native
-                           onChange={handleChange}
-                           inputProps={{
-                              name: "SizeID",
-                           }}
-                           value={manages.SizeID + ""}
-                           required
-                        >
-
-                           <option aria-label="None" value="">
-                              โปรดระบุ
-                           </option>
-                           {sizes.map((item: SizeInterface) => (
-                              <option value={item.ID} key={item.ID}>
-                                 {item.Size}
-                              </option>
-                           ))}
-                        </Select>
-                     </FormControl>
-                  </Grid>
-
-                  <Grid item xs={6}>
-                     <FormControl fullWidth variant="outlined">
-                        <Typography align="center"
-                           sx={{
-                              fontFamily: "PK Krung Thep Medium",
-                              fontSize: "25px",
-                              fontWeight: "bold",
-                           }}
-                           variant="h6"
-                           color="#212121"
-                        >
-                           <p>ประเภทของห้อง</p>
-                        </Typography>
-                        <Select sx={{
-                           fontFamily: "PK Krung Thep Medium",
-                           fontSize: "20px",
-                           fontWeight: "bold",
-                        }}
-                           style={{ borderRadius: "20px" }}
-                           native
-                           placeholder=""
-                           onChange={handleChange}
-                           inputProps={{
-                              name: "CategoryID",
-                           }}
-                           value={manages.CategoryID + ""}
-                           required
-                        >
-                           <option aria-label="None" value="">
-                              โปรดระบุ
-                           </option>
-                           {categorys.map((item: CategoryInterface) => (
-                              <option value={item.ID} key={item.ID}>
-                                 {item.Category}
-                              </option>
-                           ))}
-                        </Select>
-                     </FormControl>
-                  </Grid>
-
-                  <Grid item xs={6}>
-                     <FormControl fullWidth variant="outlined">
-                        <Typography align="center"
-                           sx={{
-                              fontFamily: "PK Krung Thep Medium",
-                              fontSize: "25px",
-                              fontWeight: "bold",
-                           }}
-                           variant="h6"
-                           color="#212121"
-                        >
-                           <p>ค่าเช่า</p>
-                        </Typography>
-                        <TextFielPrice
-                           variant="outlined"
-                           id="ManageID"
-                           placeholder="ราคา"
-                           type="number"
-                           name="Price"
-                           // value={manages.Price}
-                           required
-                           inputProps={{
-                              style: { fontFamily: "PK Krung Thep Medium", fontSize: 20, fontWeight: "bold" },
-                           }}
-                           onChange={(event) => setPrice(event.target.value)}
-                        />
-                     </FormControl>
-                  </Grid>
-
-                  <Grid item xs={6} >
-                     <FormControl>
-                        <Typography align="center"
-                           sx={{
-                              fontFamily: "PK Krung Thep Medium",
-                              fontSize: "25px",
-                              fontWeight: "bold",
-                           }}
-                           variant="h6"
-                           color="#212121"
-                        >
-                           <p>สิ่งอำนวยความสะดวก</p>
-                        </Typography>
-                        <RadioGroup
-                           name="Detail"
-                           // value={manages.Detail}
-                           // required
-                           onChange={(event) => setDetail(event.target.value)}
-                           sx={{
-                              fontFamily: "PK Krung Thep Medium",
-                           }}
-                        >
-                           <FormControlLabel
-                              value="ตู้เสื่อผ้า, เตียงนอน, เครื่องทำน้ำอุ่น, เก้าอี้(1), โต๊ะ(1)"
-                              control={<Radio />} label={<Typography
-                                 style={{ fontFamily: "PK Krung Thep Medium", fontSize: 18, fontWeight: "bold", }} >ตู้เสื่อผ้า, เตียงนอน, เครื่องทำน้ำอุ่น, เก้าอี้(1), โต๊ะ(1)</Typography>} />
-
-                           <FormControlLabel value="ตู้เสื่อผ้า, เตียงนอน, เครื่องทำน้ำอุ่น, ตู้เย็น, wifi, เก้าอี้(1), โต๊ะ(1)"
-                              control={<Radio />} label={<Typography
-                                 style={{ fontFamily: "PK Krung Thep Medium", fontSize: 18, fontWeight: "bold", }}>ตู้เสื่อผ้า, เตียงนอน, เครื่องทำน้ำอุ่น, ตู้เย็น, wifi, เก้าอี้(1), โต๊ะ(1)</Typography>} />
-
-                           <FormControlLabel value="ห้องนอนแยก, ตู้เสื่อผ้า, เตียงนอน, เครื่องทำน้ำอุ่น, ตู้เย็น, wifi, เก้าอี้(1), โต๊ะ(1), ไมโครเวฟ"
-                              control={<Radio />} label={<Typography
-                                 style={{ fontFamily: "PK Krung Thep Medium", fontSize: 18, fontWeight: "bold", }}>ห้องนอนแยก, ตู้เสื่อผ้า, เตียงนอน, เครื่องทำน้ำอุ่น, ตู้เย็น, wifi, เก้าอี้(1), โต๊ะ(1), ไมโครเวฟ</Typography>} />
-                        </RadioGroup>
-                     </FormControl>
-                  </Grid>
-
-                  <Grid item xs={6}>
-                     <FormControl fullWidth variant="outlined">
-                        <Typography align="center"
-                           sx={{
-                              fontFamily: "PK Krung Thep Medium",
-                              fontSize: "25px",
-                              fontWeight: "bold",
-                           }}
-                           variant="h6"
-                           color="#212121"
-                        >
-                           <p>สถานะ</p>
-                        </Typography>
-                        <RadioGroup
-                           sx={{
-                              display: 'flex',
-                              justifyContent: 'center',
-                           }}
-                           row
-                           name="Status"
-                           // value={manages.Status}
-                           onChange={(event) => setStatus(event.target.value)}
-                        >
-                           <FormControlLabel value="ว่าง" control={<Radio />} label={<Typography
-                              style={{ fontFamily: "PK Krung Thep Medium", fontSize: 18, fontWeight: "bold", }}>ว่าง</Typography>} />
-                           <FormControlLabel value="ไม่ว่าง" control={<Radio />} label={<Typography
-                              style={{ fontFamily: "PK Krung Thep Medium", fontSize: 18, fontWeight: "bold", }}>ไม่ว่าง</Typography>} />
-                        </RadioGroup>
-                     </FormControl>
-                  </Grid>
-
-                  <Grid item xs={12}>
-                     <Button sx={{
+            <Grid item xs={6}>
+               <FormControl fullWidth variant="outlined">
+                  <Typography align="center"
+                     sx={{
                         fontFamily: "PK Krung Thep Medium",
-                        fontSize: 20,
-                        width: 100,
-                        marginLeft: 5,
-                        borderRadius: 10
+                        fontSize: "25px",
+                        fontWeight: "bold",
                      }}
-                        component={RouterLink}
-                        to="/manages"
-                        variant="contained"
-                        color="inherit"
-                     >
-                        <b>กลับ</b>
-                     </Button>
-                     <Button sx={{
+                     variant="h6"
+                     color="#212121"
+                  >
+                     <p>เลือกห้อง</p>
+                  </Typography>
+
+                  <Select sx={{
+                     fontFamily: "PK Krung Thep Medium",
+                     fontSize: "20px",
+                     fontWeight: "bold",
+                  }}
+                     style={{ borderRadius: "20px" }}
+                     native
+                     value={manages.RoomID + ""}
+                     onChange={handleChange}
+                     inputProps={{
+                        name: "RoomID",
+                     }}
+                  >
+                     <option aria-label="None" value="">
+                        โปรดระบุ
+                     </option>
+                     {rooms.map((item: RoomInterface) => (
+                        <option value={item.ID} key={item.ID}>
+                           {item.Number}
+                        </option>
+                     ))}
+                  </Select>
+               </FormControl>
+            </Grid>
+
+            <Grid item xs={6}>
+               <FormControl fullWidth variant="outlined">
+                  <Typography align="center"
+                     sx={{
                         fontFamily: "PK Krung Thep Medium",
-                        fontSize: 20,
-                        marginRight: 5,
-                        borderRadius: 10
+                        fontSize: "25px",
+                        fontWeight: "bold",
                      }}
-                        style={{ float: "right" }}
-                        onClick={update}
-                        variant="contained"
-                        color="success"
-                     >
-                        <b>บันทึกการอัพเดท</b>
-                     </Button>
-                  </Grid>
-               </Grid>
-            </div>
-         </Paper>
+                     variant="h6"
+                     color="#212121"
+                  >
+                     <p>ขนาดห้อง</p>
+                  </Typography>
+                  <Select sx={{
+                     fontFamily: "PK Krung Thep Medium",
+                     fontSize: "20px",
+                     fontWeight: "bold",
+                  }}
+                     style={{ borderRadius: "20px" }}
+                     native
+                     onChange={handleChange}
+                     inputProps={{
+                        name: "SizeID",
+                     }}
+                  >
+
+                     <option aria-label="None" value="">
+                        โปรดระบุ
+                     </option>
+                     {sizes.map((item: SizeInterface) => (
+                        <option value={item.ID} key={item.ID}>
+                           {item.Size}
+                        </option>
+                     ))}
+                  </Select>
+               </FormControl>
+            </Grid>
+
+            <Grid item xs={6}>
+               <FormControl fullWidth variant="outlined">
+                  <Typography align="center"
+                     sx={{
+                        fontFamily: "PK Krung Thep Medium",
+                        fontSize: "25px",
+                        fontWeight: "bold",
+                     }}
+                     variant="h6"
+                     color="#212121"
+                  >
+                     <p>ประเภทของห้อง</p>
+                  </Typography>
+                  <Select sx={{
+                     fontFamily: "PK Krung Thep Medium",
+                     fontSize: "20px",
+                     fontWeight: "bold",
+                  }}
+                     style={{ borderRadius: "20px" }}
+                     native
+                     placeholder=""
+                     value={manages.CategoryID + ""}
+                     onChange={handleChange}
+                     inputProps={{
+                        name: "CategoryID",
+                     }}
+                  >
+                     <option aria-label="None" value="">
+                        โปรดระบุ
+                     </option>
+                     {categorys.map((item: CategoryInterface) => (
+                        <option value={item.ID} key={item.ID}>
+                           {item.Category}
+                        </option>
+                     ))}
+                  </Select>
+               </FormControl>
+            </Grid>
+
+            <Grid item xs={6}>
+               <FormControl fullWidth variant="outlined">
+                  <Typography align="center"
+                     sx={{
+                        fontFamily: "PK Krung Thep Medium",
+                        fontSize: "25px",
+                        fontWeight: "bold",
+                     }}
+                     variant="h6"
+                     color="#212121"
+                  >
+                     <p>ค่าเช่า</p>
+                  </Typography>
+                  <TextFielPrice
+                     variant="outlined"
+                     id="ManageID"
+                     placeholder="ราคา"
+                     type="number"
+                     inputProps={{
+                        style: { fontFamily: "PK Krung Thep Medium", fontSize: 20, fontWeight: "bold" },
+                     }}
+                     onChange={(event) => setPrice(event.target.value)}
+                  />
+               </FormControl>
+            </Grid>
+
+            <Grid item xs={6} >
+               <FormControl>
+                  <Typography align="center"
+                     sx={{
+                        fontFamily: "PK Krung Thep Medium",
+                        fontSize: "25px",
+                        fontWeight: "bold",
+                     }}
+                     variant="h6"
+                     color="#212121"
+                  >
+                     <p>สิ่งอำนวยความสะดวก</p>
+                  </Typography>
+                  <RadioGroup
+                     aria-labelledby="demo-controlled-radio-buttons-group"
+                     name="controlled-radio-buttons-group"
+                     onChange={(event) => setDetail(event.target.value)}
+                     sx={{
+                        fontFamily: "PK Krung Thep Medium",
+                     }}
+                  >
+                     <FormControlLabel
+                        value="ตู้เสื่อผ้า, เตียงนอน, เครื่องทำน้ำอุ่น, เก้าอี้(1), โต๊ะ(1)"
+                        control={<Radio />} label={<Typography
+                           style={{ fontFamily: "PK Krung Thep Medium", fontSize: 18, fontWeight: "bold", }} >ตู้เสื่อผ้า, เตียงนอน, เครื่องทำน้ำอุ่น, เก้าอี้(1), โต๊ะ(1)</Typography>} />
+
+                     <FormControlLabel value="ตู้เสื่อผ้า, เตียงนอน, เครื่องทำน้ำอุ่น, ตู้เย็น, wifi, เก้าอี้(1), โต๊ะ(1)"
+                        control={<Radio />} label={<Typography
+                           style={{ fontFamily: "PK Krung Thep Medium", fontSize: 18, fontWeight: "bold", }}>ตู้เสื่อผ้า, เตียงนอน, เครื่องทำน้ำอุ่น, ตู้เย็น, wifi, เก้าอี้(1), โต๊ะ(1)</Typography>} />
+
+                     <FormControlLabel value="ห้องนอนแยก, ตู้เสื่อผ้า, เตียงนอน, เครื่องทำน้ำอุ่น, ตู้เย็น, wifi, เก้าอี้(1), โต๊ะ(1), ไมโครเวฟ"
+                        control={<Radio />} label={<Typography
+                           style={{ fontFamily: "PK Krung Thep Medium", fontSize: 18, fontWeight: "bold", }}>ห้องนอนแยก, ตู้เสื่อผ้า, เตียงนอน, เครื่องทำน้ำอุ่น, ตู้เย็น, wifi, เก้าอี้(1), โต๊ะ(1), ไมโครเวฟ</Typography>} />
+                  </RadioGroup>
+               </FormControl>
+            </Grid>
+
+            <Grid item xs={6}>
+               <FormControl fullWidth variant="outlined">
+                  <Typography align="center"
+                     sx={{
+                        fontFamily: "PK Krung Thep Medium",
+                        fontSize: "25px",
+                        fontWeight: "bold",
+                     }}
+                     variant="h6"
+                     color="#212121"
+                  >
+                     <p>สถานะ</p>
+                  </Typography>
+                  <RadioGroup
+                     sx={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                     }}
+                     row
+                     aria-labelledby="demo-controlled-radio-buttons-group"
+                     name="controlled-radio-buttons-group"
+                     onChange={(event) => setStatus(event.target.value)}
+                  >
+                     <FormControlLabel value="ว่าง" control={<Radio />} label={<Typography
+                        style={{ fontFamily: "PK Krung Thep Medium", fontSize: 18, fontWeight: "bold", }}>ว่าง</Typography>} />
+                     <FormControlLabel value="ไม่ว่าง" control={<Radio />} label={<Typography
+                        style={{ fontFamily: "PK Krung Thep Medium", fontSize: 18, fontWeight: "bold", }}>ไม่ว่าง</Typography>} />
+                  </RadioGroup>
+               </FormControl>
+            </Grid>
+
+            <Grid item xs={12} sx={{
+               mt: '20px',
+            }}>
+               <Button sx={{
+                  fontFamily: "PK Krung Thep Medium",
+                  fontSize: 20,
+                  width: 100,
+                  marginLeft: 5,
+                  borderRadius: 10
+               }}
+                  component={RouterLink}
+                  to="/manages"
+                  variant="contained"
+                  color="inherit"
+               >
+                  <b>กลับ</b>
+               </Button>
+               <Button sx={{
+                  fontFamily: "PK Krung Thep Medium",
+                  fontSize: 20,
+                  width: 'auto',
+                  marginRight: 5,
+                  borderRadius: 10
+               }}
+                  style={{ float: "right" }}
+                  onClick={update}
+                  variant="contained"
+                  color="success"
+               >
+                  <b>แก้ไขข้อมูล</b>
+               </Button>
+            </Grid>
+         </Grid>
       </div>
    );
 
