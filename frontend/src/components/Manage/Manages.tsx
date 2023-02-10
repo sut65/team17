@@ -78,16 +78,6 @@ function Manages() {
 
    }
 
-   // const hiddenData = async (id: string | number | undefined) => {
-   //    console.log(id);
-
-   //    if (hiddens == true) {
-   //       setHiddens(false)
-   //    } else {
-   //       setHiddens(true)
-   //    }
-   // };
-
 
    useEffect(() => {
       getManages();
@@ -99,28 +89,48 @@ function Manages() {
          fontFamily: "PK Krung Thep Medium",
          fontSize: 20,
       }}>
-         <Box display="flex">
-            <Box flexGrow={1}>
-               <Typography
-                  sx={{
-                     fontFamily: "PK Krung Thep Medium",
-                  }}
-                  component="h2"
-                  variant="h3"
-                  color="primary"
-                  gutterBottom
-                  align='center'
-               >
-                  <b>ระบบจัดการห้องพัก</b>
-               </Typography>
+         <Box sx={{
+            mt: '20px',
+            mb: '20px',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+         }}
+         >
+            <Box sx={{
+               width: '30%'
+            }}>
+
             </Box>
-            <Box>
+            <Typography
+               sx={{
+                  width: '100%',
+                  fontFamily: "PK Krung Thep Medium",
+               }}
+               component="h2"
+               variant="h3"
+               color="primary"
+               gutterBottom
+               align='center'
+            >
+               <b>ระบบจัดการห้องพัก</b>
+            </Typography>
+
+
+            <Box sx={{
+               display: 'flex',
+               justifyContent: 'right',
+               width: '30%',
+            }}>
                <Button
                   component={RouterLink}
                   to="/manage/create"
                   variant="contained"
                   color="primary"
                   sx={{
+                     mr: '20px',
+                     width: 'auto',
+                     height: 'auto',
                      fontFamily: "PK Krung Thep Medium",
                      fontSize: 18,
                      borderRadius: 15
@@ -131,146 +141,128 @@ function Manages() {
             </Box>
          </Box>
 
-         <Paper elevation={3} style={{
-            'borderRadius': '20px',
-            backgroundImage: 'url("https://coolhdwall.com/storage/202101/mountains-fog-hd-phone-wallpaper-1125x2436.jpg")',
-            backgroundRepeat: 'no-repeat',
-            backgroundSize: 'cover',
-
-         }}>
-            <div style={{
-               background: 'rgba(255, 255, 255, 0.5)',
-               borderRadius: 20,
-
-            }}>
-               <Grid container spacing={3} sx={{
+         
+         <Grid container spacing={3}>
+            {manages.map((item: ManageInterface) => (
+               <Grid xs={6} sx={{
                   display: 'flex',
-                  justifyContent: 'center',
                }}>
-                  {manages.map((item: ManageInterface) => (
-                     <Grid xs={11} sx={{
+
+                  <Button
+                     component="span"
+                     sx={{
+                        height: '160px',
+                        fontFamily: "PK Krung Thep Medium",
+                        fontSize: 30,
                         display: 'flex',
+                        justifyContent: 'left',
+                        alignItems: 'center',
+                        width: 'auto',
+                        flexGrow: 2,
+                        m: 0.5,
+                        background: 'rgba(255, 255, 255,0.7)',
+                        boxShadow: 5,
+                        borderRadius: 10,
+                        '&:hover': {
+                           background: 'rgba(142, 209, 252, 0.5)',
+                        },
+                     }}
+                  >
+                     <Typography align='center' sx={{
+                        ml: '10px',
+                        width: '20%',
+                        fontFamily: "PK Krung Thep Medium",
+                        fontSize: 55,
                      }}>
+                        <b>{item.Status}</b>
+                     </Typography>
 
-                        <Button
-                           component="span"
-                           sx={{
-                              fontFamily: "PK Krung Thep Medium",
-                              fontSize: 30,
-                              display: 'flex',
-                              justifyContent: 'left',
-                              width: 'auto',
-                              flexGrow: 2,
-                              m: 0.5,
-                              background: 'rgba(255, 255, 255,0.7)',
-                              boxShadow: 5,
-                              borderRadius: 10,
-                              '&:hover': {
-                                 background: 'rgba(142, 209, 252, 0.5)',
-                              },
-                           }}
-                        >
-                           <Typography sx={{
-                              display: 'flex',
-                              justifyContent: 'center',
-                              width: '30%',
-                              fontFamily: "PK Krung Thep Medium",
-                              fontSize: 30,
-                           }}>
-                              <h1><b>{item.Status}</b></h1>
-                           </Typography>
+                     <Typography sx={{
+                        width: 'auto',
+                        fontFamily: "PK Krung Thep Medium",
+                        fontSize: 18,
+                        margin: 3,
+                        color: 'black',
+                     }}
+                     >
+                        ห้อง: <b>{item.Room.Number}</b> <br />
+                        ราคาเช่า: <b>{item.Price}/เดือน</b><br />
+                        ขนาดห้อง: <b>{item.Size.Size}</b><br />
+                        ประเภทห้อง: <b>{item.Category.Category}</b><br />
+                     </Typography>
 
-                           <Typography sx={{
-                              width: '30%',
-                              fontFamily: "PK Krung Thep Medium",
-                              fontSize: 20,
-                              margin: 3,
-                              color: 'black',
-                           }}
-                           >
-                              ห้อง: <b>{item.Room.Number}</b> <br />
-                              ราคาเช่า: <b>{item.Price}/เดือน</b><br />
-                              ขนาดห้อง: <b>{item.Size.Size}</b><br />
-                              ประเภทห้อง: <b>{item.Category.Category}</b><br />
-                           </Typography>
+                     <Typography sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        width: '35%',
+                        fontFamily: "PK Krung Thep Medium",
+                        fontSize: 20,
+                        margin: 2,
+                        color: 'black',
+                     }}
+                     >
+                        {item.Detail}
+                     </Typography>
 
-                           <Typography sx={{
-                              width: '50%',
-                              fontFamily: "PK Krung Thep Medium",
-                              fontSize: 20,
-                              margin: 3,
-                              color: 'black',
-                           }}
-                           >
-                              สิ่งอำนวยความสะดวก: <br />
-                              <b>{item.Detail}</b>
-                           </Typography>
+                  </Button>
 
-                        </Button>
-
-                        <div style={{
-                           display: 'grid',
-                           marginTop: 'auto',
-                           marginBottom: 'auto',
-                           marginLeft: 5,
-                           marginRight: 10,
-                        }}>
-                           <Button
-                              variant="outlined"
-                              size="medium"
-                              startIcon={<SaveAsOutlinedIcon />}
-                              sx={{
-                                 fontFamily: "PK Krung Thep Medium",
-                                 fontSize: 20,
-                                 borderRadius: 20,
-                                 fontWeight: "bold",
-                                 color: 'black',
-                                 width: '100px',
-                                 marginBottom: 1,
-                                 borderColor: 'black',
-                                 '&:hover': {
-                                    background: 'rgba(0, 208, 132, 0.5)',
-                                    borderColor: 'rgba(0, 208, 132, 0.4)',
-                                 },
-                              }}
-                              onClick={() => navigate(`${item.ID}`)}
-                           >
-                              แก้ไข
-                           </Button>
-                           <Button
-                              variant="outlined"
-                              size="medium"
-                              startIcon={<DeleteIcon />}
-                              sx={{
-                                 fontFamily: "PK Krung Thep Medium",
-                                 fontSize: 20,
-                                 borderRadius: 20,
-                                 fontWeight: "bold",
-                                 marginTop: 1,
-                                 width: '100px',
-                                 color: 'black',
-                                 borderColor: 'black',
-                                 '&:hover': {
-                                    background: 'rgba(0, 208, 132, 0.5)',
-                                    borderColor: 'rgba(0, 208, 132, 0.4)',
-                                 },
-                              }}
-                              aria-label="delete"
-                              onClick={() => DeleteManage(item.ID)}
-                           >
-                              ลบ
-                           </Button>
-                        </div>
-                     </Grid>
-                  ))}
+                  <div style={{
+                     display: 'grid',
+                     marginTop: 'auto',
+                     marginBottom: 'auto',
+                     marginLeft: 5,
+                     marginRight: 10,
+                  }}>
+                     <Button
+                        variant="outlined"
+                        size="medium"
+                        startIcon={<SaveAsOutlinedIcon />}
+                        sx={{
+                           fontFamily: "PK Krung Thep Medium",
+                           fontSize: 20,
+                           borderRadius: 20,
+                           fontWeight: "bold",
+                           color: 'black',
+                           width: '100px',
+                           marginBottom: 1,
+                           borderColor: 'black',
+                           '&:hover': {
+                              background: 'rgba(0, 208, 132, 0.5)',
+                              borderColor: 'rgba(0, 208, 132, 0.4)',
+                           },
+                        }}
+                        onClick={() => navigate(`${item.ID}`)}
+                     >
+                        แก้ไข
+                     </Button>
+                     <Button
+                        variant="outlined"
+                        size="medium"
+                        startIcon={<DeleteIcon />}
+                        sx={{
+                           fontFamily: "PK Krung Thep Medium",
+                           fontSize: 20,
+                           borderRadius: 20,
+                           fontWeight: "bold",
+                           marginTop: 1,
+                           width: '100px',
+                           color: 'black',
+                           borderColor: 'black',
+                           '&:hover': {
+                              background: 'rgba(0, 208, 132, 0.5)',
+                              borderColor: 'rgba(0, 208, 132, 0.4)',
+                           },
+                        }}
+                        aria-label="delete"
+                        onClick={() => DeleteManage(item.ID)}
+                     >
+                        ลบ
+                     </Button>
+                  </div>
                </Grid>
-            </div>
-         </Paper>
+            ))}
+         </Grid>
       </div>
-   );
-
-
-   
+   );   
 }
-
 export default Manages;

@@ -1,6 +1,7 @@
 import React from "react";
 import { SigninInterface } from "../models/ISignin";
 import { UserInterface } from "../models/IUser";
+import { AdminInterface } from "../models/IAdmin";
 
 const apiUrl = "http://localhost:8080";
 
@@ -26,6 +27,30 @@ async function Login(data: SigninInterface) {
 
   return res;
 }
+
+// Admin Login
+const AdminLogin = async (data: SigninInterface) => {
+  const requestOptions = {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  };
+
+  let res = await fetch(`${apiUrl}/adminLogin`, requestOptions)
+    .then((response) => response.json())
+    .then((res) => {
+      if (res.data) {
+        localStorage.setItem("role", res.data.role);
+        localStorage.setItem("token", res.data.token);
+        localStorage.setItem("uid", res.data.id);
+        return res.data;
+      } else {
+        return false;
+      }
+    });
+
+  return res;
+};
 
 async function GetUsers() {
   let uid = localStorage.getItem("uid");
@@ -74,6 +99,7 @@ async function CreateUser(data: UserInterface) {
 
 export {
     Login,
+    AdminLogin,
     GetUsers,
     CreateUser,
     
