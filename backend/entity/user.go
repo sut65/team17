@@ -20,7 +20,7 @@ type User struct {
 	// StatusID เป็น FK
 	StatusID *uint
 	// ข้อมูลของ Status เมื่อ join ตาราง
-	Status Status		
+	Status Status		`gorm:"referenes:id" valid:"-"`
 
 	// GenderID เป็น FK
 	GenderID *uint
