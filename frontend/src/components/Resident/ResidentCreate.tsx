@@ -196,7 +196,7 @@ function ResidentCreate() {
             anchorOrigin={{ vertical: "top", horizontal: "center" }}
          >
             <Alert onClose={handleClose} severity="error">
-               บันทึกข้อมูลไม่สำเร็จ
+               {errorMessage}
             </Alert>
          </Snackbar>
 
