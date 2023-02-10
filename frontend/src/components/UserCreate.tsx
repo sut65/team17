@@ -341,7 +341,7 @@ function UserCreate() {
           <Grid item xs={6}>
             <FormControl fullWidth variant="standard">
               <TextField
-                label="กรอกiหัสผ่าน"
+                label="กรอกรหัสผ่าน"
                 required
                 id="outlined-required"
 
@@ -394,6 +394,7 @@ function UserCreate() {
         </Grid>
       </Paper>
     </Container>
+
   );
 }
 
