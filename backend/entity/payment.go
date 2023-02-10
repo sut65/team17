@@ -29,5 +29,5 @@ type Payment struct {
 	// MethodID เป็น FK
 	MethodID *uint
 	// ข้อมูลของ Method เมื่อ join ตาราง
-	Method Method
+	Method Method	`gorm:"referenes:id" valid:"-"`
 }
