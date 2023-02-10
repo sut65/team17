@@ -12,21 +12,17 @@ import Divider from "@mui/material/Divider";
 import Snackbar from "@mui/material/Snackbar";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import TextField from '@mui/material/TextField';
 
 import { createStyles, FormHelperText, InputLabel } from "@material-ui/core";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 
-
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { FormControlLabel, FormLabel, RadioGroup, Radio, FormGroup, Theme } from "@mui/material";
 
 
 import CssBaseline from "@mui/material/CssBaseline";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-import { RequestoutInterface } from "../../models/IRequestout";
+import { RequestchangeInterface } from "../../models/IRequestchange";
 import { ReasonInterface } from "../../models/IReason";
 import { UserInterface } from "../../models/IUser";
 import { RoomInterface } from "../../models/IRoom";
@@ -41,15 +37,15 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props,
 
 const theme = createTheme();
 
-function RequestoutUpdate() {
+function RequestchangeUpdate() {
   const { id } = useParams();
-  const [selectedDate, setSelectedDate] = useState<Date | null>();
+  
   const [rooms, setRooms] = useState<RoomInterface[]>([]);
   const [reasons, setReasons] = useState<ReasonInterface[]>([]);
   const [users, setUsers] = useState<UserInterface>();
-  const [requestouts, setRequestouts] = useState<Partial<RequestoutInterface>>({});
+  const [requestchanges, setRequestchanges] = useState<Partial<RequestchangeInterface>>({});
   const [details, setDetail] = useState<String>("");
-  const NowDate = Date.now();
+  
   
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
@@ -75,9 +71,9 @@ function RequestoutUpdate() {
   };
 
   const handleChange = (event: SelectChangeEvent) => {
-    const name = event.target.name as keyof typeof requestouts;
-    setRequestouts({
-      ...requestouts,
+    const name = event.target.name as keyof typeof requestchanges;
+    setRequestchanges({
+      ...requestchanges,
       [name]: event.target.value,
     });
     console.log(event.target.value);
@@ -92,7 +88,7 @@ function RequestoutUpdate() {
     fetch(`${apiUrl}/user/${uid}`, requestOptions)
       .then((response) => response.json())
       .then((res) => {
-        requestouts.UserID = res.data.ID
+        requestchanges.UserID = res.data.ID
         if (res.data) {
             setUsers(res.data);
         } else {
@@ -127,14 +123,14 @@ function RequestoutUpdate() {
 
 
 
-  const getRequestoutsByID = async () => {
+  const getRequestchangesByID = async () => {
     const uid = localStorage.getItem("id");
-    fetch(`${apiUrl}/requestout/${uid}`, requestOptions)
+    fetch(`${apiUrl}/requestchange/${uid}`, requestOptions)
        .then((response) => response.json())
        .then((res) => {
-          requestouts.ID = res.data.ID
+          requestchanges.ID = res.data.ID
           if (res.data) {
-             setRequestouts(res.data);
+             setRequestchanges(res.data);
           } else {
              console.log("else");
           }
@@ -152,7 +148,7 @@ function RequestoutUpdate() {
     getUsers();
     getRoom();
     getReason();
-    getRequestoutsByID();
+    getRequestchangesByID();
   }, []);
 
   const convertType = (data: string | number | undefined) => {
@@ -162,10 +158,10 @@ function RequestoutUpdate() {
 
   function update() {
     let data = {
-        RoomID: convertType(requestouts.RoomID),
-        ReasonID: convertType(requestouts.ReasonID),
-        UserID: convertType(requestouts.UserID),
-        Outtime: selectedDate,
+        RoomID: convertType(requestchanges.RoomID),
+        ReasonID: convertType(requestchanges.ReasonID),
+        UserID: convertType(requestchanges.UserID),
+       
         Detail: details,
 
     };
@@ -181,7 +177,7 @@ function RequestoutUpdate() {
       body: JSON.stringify(data),
     };
 
-    fetch(`${apiUrl}/requestouts`, requestOptionsPatch)
+    fetch(`${apiUrl}/requestchanges`, requestOptionsPatch)
       .then((response) => response.json())
       .then((res) => {
         if (res.data) {
@@ -191,7 +187,7 @@ function RequestoutUpdate() {
                   window.location.reload();
                }, 1000);
                setSuccess(true)
-               window.location.href = "/requestouts";
+               window.location.href = "/requestchanges";
         } else {
           console.log("บันทึกไม่ได้")
           setError(true)
@@ -231,7 +227,7 @@ function RequestoutUpdate() {
         </Alert>
       </Snackbar>
 
-      
+     
     
     <Grid  component={Paper} elevation={6} square >
 
@@ -262,7 +258,7 @@ function RequestoutUpdate() {
                 
               }}
             >
-              <b>แบบคำขอออก</b>
+              <b>แบบคำขอย้ายห้อง</b>
 
             </Typography>
           </Box>
@@ -278,7 +274,7 @@ function RequestoutUpdate() {
               <Select
                 native
                 disabled
-                value={requestouts.UserID + ""}
+                value={requestchanges.UserID + ""}
                 onChange={handleChange}
                 inputProps={{
                   name: "UserID",
@@ -302,7 +298,7 @@ function RequestoutUpdate() {
                 style={{borderRadius: "30px"}}
                 native
                 placeholder=""
-                value={requestouts.RoomID + ""}
+                value={requestchanges.RoomID + ""}
                 onChange={handleChange}
                 inputProps={{
                   name: "RoomID",
@@ -330,7 +326,7 @@ function RequestoutUpdate() {
                 style={{borderRadius: "30px"}}
                 native
                 placeholder="โปรดระบุ"
-                value={requestouts.ReasonID + ""}
+                value={requestchanges.ReasonID + ""}
                 onChange={handleChange}
                 inputProps={{
                   name: "ReasonID",
@@ -364,27 +360,7 @@ function RequestoutUpdate() {
             </FormControl>
           </Grid>
 
-          <Grid item xs={6}>
-            <FormControl fullWidth variant="outlined">
-            <p>วัน เดือน  ปี ที่ต้องการ</p>
-            
-            <LocalizationProvider dateAdapter={AdapterDateFns}>
-                
-            <DatePicker
-                    label="Select Date"
-                    value={selectedDate}
-                    onChange={(newValue) => {
-                      setSelectedDate(newValue);
-                    }}
-                    renderInput={(params) => <TextField {...params} />}
-
-                    minDate={new Date(NowDate)}
-                    // maxDate={(new Date('2024-12-31'))}
-                 
-              />
-              </LocalizationProvider>
-            </FormControl>
-          </Grid>
+          
 
 
 
@@ -398,7 +374,7 @@ function RequestoutUpdate() {
               fontSize:17
             }}
             component={RouterLink}
-              to="/requestouts"
+              to="/requestchanges"
               variant="contained"
               color="inherit"
             >
@@ -427,7 +403,7 @@ function RequestoutUpdate() {
       
               </Grid>
               </Grid>
-             
+          
 
               </ThemeProvider>
      
@@ -435,4 +411,4 @@ function RequestoutUpdate() {
   );
 }
 
-export default RequestoutUpdate;
+export default RequestchangeUpdate;
