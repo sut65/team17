@@ -79,11 +79,23 @@ func SetupDatabase() {
 		Role:     "user",
 	})
 
+	db.Model(&User{}).Create(&User{
+		Name:  "Ratchapol Piyaman",
+		Email: "start@gmail.com",
+		Tel: 		"0814498218",
+		Password: string(password),
+		Role:     "user",
+	})
+
 	var wallaya  	User
 	db.Raw("SELECT * FROM users WHERE email = ?", "wallaya@gmail.com").Scan(&wallaya)
 
 	var panadda 	User
 	db.Raw("SELECT * FROM users WHERE email = ?", "panadda@gmail.com").Scan(&panadda)
+
+	var ratchapol	User
+	db.Raw("SELECT * FROM users WHERE email = ?", "start@gmail.com").Scan(&ratchapol)
+
 
 	// Room Data
 	Room101 := Room{

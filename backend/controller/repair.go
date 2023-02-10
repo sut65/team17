@@ -66,7 +66,7 @@ func CreateRepair(c *gin.Context) {
 func GetRepair(c *gin.Context) {
 	var repair entity.Repair
 	id := c.Param("id")
-	if err := entity.DB().Preload("User").Preload("Object").Preload("Resident").Raw("SELECT * FROM repairs WHERE id = ?", id).Find(&repair).Error; err != nil {
+	if err := entity.DB().Preload("User").Preload("Object").Preload("Resident.Manage.Room").Raw("SELECT * FROM repairs WHERE id = ?", id).Find(&repair).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -76,7 +76,7 @@ func GetRepair(c *gin.Context) {
 // GET /appointments
 func ListRepairs(c *gin.Context) {
 	var repairs []entity.Repair
-	if err := entity.DB().Preload("User").Preload("Object").Preload("Resident").Raw("SELECT * FROM repairs").Find(&repairs).Error; err != nil {
+	if err := entity.DB().Preload("User").Preload("Object").Preload("Resident.Manage.Room").Raw("SELECT * FROM repairs").Find(&repairs).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
