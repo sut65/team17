@@ -17,12 +17,11 @@ import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { FormHelperText, InputLabel } from "@material-ui/core";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 
-
-import { UserInterface } from "../models/IUser";
-import { RoomInterface } from "../models/IRoom";
-import { KindInterface } from "../models/IKind";
-import { AreaInterface } from "../models/IArea";
-import { CleaningInterface } from "../models/ICleaning";
+import { UserInterface } from "../../models/IUser";
+import { RoomInterface } from "../../models/IRoom";
+import { KindInterface } from "../../models/IKind";
+import { AreaInterface } from "../../models/IArea";
+import { CleaningInterface } from "../../models/ICleaning";
 
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props, ref) {
@@ -172,7 +171,11 @@ function CleaningCreate() {
   }
 
   return (
-    <Container maxWidth="md">
+    <Container maxWidth="md" 
+    sx={{
+      fontFamily: "PK Krung Thep Medium",
+      fontSize: "20px"
+    }}>
       <Snackbar
         open={success}
         autoHideDuration={3000}
@@ -206,18 +209,28 @@ function CleaningCreate() {
               variant="h6"
               color="primary"
               gutterBottom
+              sx={{
+                fontFamily: "PK Krung Thep Medium",
+                fontSize: "30px"
+              }}
             >
-              บันทึกการจองทำความสะอาด
+              <b>บันทึกการจองทำความสะอาด</b>
 
             </Typography>
           </Box>
         </Box>
         <Divider />
         <Grid container spacing={3} sx={{ padding: 2 }}>
+
           <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
             <p>ชื่อ - สกุล</p>
               <Select
+              sx={{
+                fontFamily: "PK Krung Thep Medium",
+                fontSize: "16px"
+              }}
+                style={{borderRadius: "30px"}}
                 native
                 disabled
                 value={cleanings.UserID + ""}
@@ -237,6 +250,11 @@ function CleaningCreate() {
             <FormControl fullWidth variant="outlined">
             <p>เบอร์โทรศัพท์</p>
               <Select
+              sx={{
+                fontFamily: "PK Krung Thep Medium",
+                fontSize: "16px"
+              }}
+                style={{borderRadius: "30px"}}
                 native
                 disabled
                 value={cleanings.UserID + ""}
@@ -256,6 +274,11 @@ function CleaningCreate() {
             <FormControl fullWidth variant="outlined">
               <p>เลือกห้อง</p>
               <Select
+              sx={{
+                fontFamily: "PK Krung Thep Medium",
+                fontSize: "16px"
+              }}
+                style={{borderRadius: "30px"}}  
                 native
                 labelId="RoomID"
                 id="RoomID"
@@ -268,6 +291,7 @@ function CleaningCreate() {
                 }}
               >
                 <option aria-label="None" value="">
+                โปรดระบุ
                 </option>
                 {rooms.map((item: RoomInterface) => (
                   <option value={item.ID} key={item.ID}>
@@ -282,6 +306,11 @@ function CleaningCreate() {
             <FormControl fullWidth variant="outlined">
               <p>เลือกประเภทการทำความสะอาด</p>
               <Select
+              sx={{
+                fontFamily: "PK Krung Thep Medium",
+                fontSize: "16px"
+              }}
+                style={{borderRadius: "30px"}}
                 native
                 labelId="KindID"
                 id="KindID"
@@ -293,6 +322,7 @@ function CleaningCreate() {
                 }}
               >
                 <option aria-label="None" value="">
+                  โปรดระบุ
                 </option>
                 {kinds.map((item: KindInterface) => (
                   <option value={item.ID} key={item.ID}>
@@ -307,6 +337,11 @@ function CleaningCreate() {
             <FormControl fullWidth variant="outlined">
               <p>เลือกบริเวณที่ต้องการทำความสะอาด</p>
               <Select
+              sx={{
+                fontFamily: "PK Krung Thep Medium",
+                fontSize: "16px"
+              }}
+                style={{borderRadius: "30px"}}
                 native
                 value={cleanings.AreaID + ""}
                 onChange={handleChange}
@@ -316,6 +351,7 @@ function CleaningCreate() {
                 
               >
                 <option aria-label="None" value="">
+                  โปรดระบุ
                 </option>
                 {areas.map((item: AreaInterface) => (
                   <option value={item.ID} key={item.ID}>
@@ -344,6 +380,10 @@ function CleaningCreate() {
            <FormControl fullWidth variant="outlined">
            <p>เพิ่มเติม</p>
             <TextField
+            sx={{
+              fontFamily: "PK Krung Thep Medium", 
+              fontSize:17
+            }}
                 id="CleaningID"
                 label=""
                 rows={2}
@@ -357,6 +397,10 @@ function CleaningCreate() {
 
           <Grid item xs={12}>
             <Button
+            sx={{
+              fontFamily: "PK Krung Thep Medium", 
+              fontSize:17
+            }}
               component={RouterLink}
               to="/cleanings"
               variant="contained"
@@ -365,6 +409,10 @@ function CleaningCreate() {
               กลับ
             </Button>
             <Button
+            sx={{
+              fontFamily: "PK Krung Thep Medium", 
+              fontSize:17
+            }}
               style={{ float: "right" }}
               onClick={submit}
               variant="contained"
