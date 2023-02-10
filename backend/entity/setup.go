@@ -29,7 +29,7 @@ func SetupDatabase() {
 	// Migrate the schema
 
 	database.AutoMigrate(
-		&User{}, &Room{}, &Category{}, &Size{}, &Lease{}, &Manage{}, &Resident{}, &Reason{}, &Requestout{}, &Kind{}, &Area{}, &Cleaning{},
+		&User{}, &Room{}, &Category{}, &Size{}, &Lease{}, &Manage{}, &Resident{}, &Reason{}, &Requestout{}, &Requestchange{}, &Kind{}, &Area{}, &Cleaning{},
 		&Banking{}, &Bill{}, &Payment{}, &Method{}, &Title{}, &Gender{}, &Status{}, &Amount{}, &Equipment{}, &Furniture{},
 		&Admin{}, &Meter{}, &Bill{}, &Object{}, &Emergencytype{}, &Repair{}, &Emergency{},
 	)
