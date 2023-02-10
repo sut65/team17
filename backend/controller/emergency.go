@@ -66,7 +66,7 @@ func CreateEmergency(c *gin.Context) {
 func GetEmergency(c *gin.Context) {
 	var emergency entity.Emergency
 	id := c.Param("id")
-	if err := entity.DB().Preload("User").Preload("Emergencytype").Preload("Resident").Raw("SELECT * FROM emergencies WHERE id = ?", id).Find(&emergency).Error; err != nil {
+	if err := entity.DB().Preload("User").Preload("Emergencytype").Preload("Resident.Manage.Room").Raw("SELECT * FROM emergencies WHERE id = ?", id).Find(&emergency).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -76,7 +76,7 @@ func GetEmergency(c *gin.Context) {
 // GET /appointments
 func ListEmergencys(c *gin.Context) {
 	var emergencys []entity.Emergency
-	if err := entity.DB().Preload("User").Preload("Emergencytype").Preload("Resident").Raw("SELECT * FROM emergencies").Find(&emergencys).Error; err != nil {
+	if err := entity.DB().Preload("User").Preload("Emergencytype").Preload("Resident.Manage.Room").Raw("SELECT * FROM emergencies").Find(&emergencys).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
