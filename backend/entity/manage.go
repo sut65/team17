@@ -6,20 +6,20 @@ import (
 
 type Manage struct {
 	gorm.Model
-	Status string `valid:"required~Status cannot be blank"`
-	Price  string `valid:"required~Price cannot be blank"`
-	Detail string `valid:"required~Detail cannot be blank"`
+	Status string 			`valid:"required~Status cannot be blank"`
+	Price  string 			`valid:"required~Price cannot be blank"`
+	Detail string 			`valid:"required~Detail cannot be blank"`
 
 	//Entity Room
 	RoomID *uint
 	Room   Room
 
 	CategoryID *uint
-	Category   Category
+	Category   Category		`gorm:"referenes:id" valid:"-"`
 
 	SizeID *uint
-	Size   Size
+	Size   Size			`gorm:"referenes:id" valid:"-"`
 
-	Residents []Resident `gorm:"foreignKey:ManageID"`
-	Meters    []Meter    `gorm:"foreignKey:ManageID"`
+	Residents []Resident 	`gorm:"foreignKey:ManageID"`
+	Meters    []Meter    	`gorm:"foreignKey:ManageID"`
 }
