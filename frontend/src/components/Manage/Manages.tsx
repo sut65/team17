@@ -86,6 +86,7 @@ function Manages() {
 
    return (
       <div style={{
+         width: '100%',
          fontFamily: "PK Krung Thep Medium",
          fontSize: 20,
       }}>
@@ -94,7 +95,7 @@ function Manages() {
             mb: '20px',
             display: 'flex',
             justifyContent: 'center',
-            alignItems: 'center',
+            // alignItems: 'center',
          }}
          >
             <Box sx={{
@@ -130,7 +131,7 @@ function Manages() {
                   sx={{
                      mr: '20px',
                      width: 'auto',
-                     height: 'auto',
+                     height: '55px',
                      fontFamily: "PK Krung Thep Medium",
                      fontSize: 18,
                      borderRadius: 15

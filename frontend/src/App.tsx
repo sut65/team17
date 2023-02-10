@@ -38,6 +38,7 @@ import ManageCreate from "../../frontend/src/components/Manage/ManageCreate";
 import ManageUpdate from "../../frontend/src/components/Manage/ManageUpdate";
 import Residents from "./components/Resident/Residents";
 import ResidentCreate from "./components/Resident/ResidentCreate";
+import ResidentUpdate from "./components/Resident/ResidentUpdate";
 import Requestout from "./components/Requestout/Requestout";
 import RequestoutCreate from "./components/Requestout/RequestoutCreate";
 import RequestoutUpdate from "./components/Requestout/RequestoutUpdate";
@@ -292,7 +293,7 @@ function App() {
                sx={{
                   display: "flex",
                   justifyContent: "center",
-                  alignItems: "center",
+                  alignItems: "top",
                   backgroundImage: "url(https://cdn.pixabay.com/photo/2019/08/28/12/20/fog-4436636_960_720.jpg)",
                   backgroundRepeat: "no-repeat",
                   backgroundSize: "cover",
@@ -300,12 +301,15 @@ function App() {
                }}
             >
                <Box sx={{
-                  height: '85vh',
+                  // height: '85vh',
+                  mt: '100px',
+                  mb: '50px',
+                  minHeight: '50%',
                   width: '90%',
                   backgroundColor: 'rgba(255, 255, 255, 0.8)',
                   display: 'flex',
                   justifyContent: 'center',
-                  alignItems: 'center',
+                  // alignItems: 'center',
                   borderRadius: 10,
 
                }}>
@@ -314,7 +318,7 @@ function App() {
                   <Box 
                      component="main"
                      sx={{
-                        width: '110vh',
+                        width: '90%',
                         height: '100%',
                         // bgcolor: 'skyblue',
                         display: 'flex',
