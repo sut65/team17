@@ -196,13 +196,31 @@ function Requestout() {
                 <TableCell align="center">{moment(item.Outtime).format('DD MM yyyy')}</TableCell>
 
                 <TableCell align="center">
-                <IconButton aria-label="แก้ไข" size="large" onClick={() => navigate(`${item.ID}`)} color="info">
+                <IconButton aria-label="แก้ไข" size="large" 
+                sx={{
+                  background: 'white',   
+                           '&:hover': {
+                              background: "#24e1f9",
+                              color: "white",
+                              
+                           },
+               
+                }} onClick={() => navigate(`${item.ID}`)} color="info">
                 <EditIcon fontSize="inherit" />
                 </IconButton>
                 </TableCell>
 
                 <TableCell align="center">
-                <IconButton  aria-label="delete" size="large" onClick={() => DeleteRequestout(item.ID)} color="error">
+                <IconButton  aria-label="delete" size="large"
+                sx={{
+                  background: 'white',   
+                           '&:hover': {
+                              background: "#ff3838",
+                              color: "white",
+                              
+                           },
+               
+                }} onClick={() => DeleteRequestout(item.ID)} color="error">
                 <DeleteIcon fontSize="inherit" />
                 </IconButton>
                 </TableCell>

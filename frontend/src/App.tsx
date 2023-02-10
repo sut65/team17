@@ -38,11 +38,13 @@ import ManageCreate from "../../frontend/src/components/Manage/ManageCreate";
 import ManageUpdate from "../../frontend/src/components/Manage/ManageUpdate";
 import Residents from "./components/Resident/Residents";
 import ResidentCreate from "./components/Resident/ResidentCreate";
+import ResidentUpdate from "./components/Resident/ResidentUpdate";
 import Requestout from "./components/Requestout/Requestout";
 import RequestoutCreate from "./components/Requestout/RequestoutCreate";
 import RequestoutUpdate from "./components/Requestout/RequestoutUpdate";
 import Requestchange from "./components/Requestchange/Requestchange";
 import RequestchangeCreate from "./components/Requestchange/Requestchangecreate";
+import RequestchangeUpdate from "./components/Requestchange/RequestchangeUpdate";
 import Cleanings from "./components/Cleaning/Cleanings";
 import CleaningCreate from "./components/Cleaning/CleaningCreate";
 import Furnitures from "./components/Furniture/Furnitures";
@@ -292,7 +294,7 @@ function App() {
                sx={{
                   display: "flex",
                   justifyContent: "center",
-                  alignItems: "center",
+                  alignItems: "top",
                   backgroundImage: "url(https://cdn.pixabay.com/photo/2019/08/28/12/20/fog-4436636_960_720.jpg)",
                   backgroundRepeat: "no-repeat",
                   backgroundSize: "cover",
@@ -300,12 +302,15 @@ function App() {
                }}
             >
                <Box sx={{
-                  height: '85vh',
+                  // height: '85vh',
+                  mt: '100px',
+                  mb: '50px',
+                  minHeight: '50%',
                   width: '90%',
                   backgroundColor: 'rgba(255, 255, 255, 0.8)',
                   display: 'flex',
                   justifyContent: 'center',
-                  alignItems: 'center',
+                  // alignItems: 'center',
                   borderRadius: 10,
 
                }}>
@@ -314,7 +319,7 @@ function App() {
                   <Box 
                      component="main"
                      sx={{
-                        width: '110vh',
+                        width: '90%',
                         height: '100%',
                         // bgcolor: 'skyblue',
                         display: 'flex',
@@ -326,19 +331,28 @@ function App() {
                         <Route path="/manages" element={<Manages />} />
                         <Route path="/manage/create" element={<ManageCreate />} />
                         <Route path="/manages/:id" element={<ManageUpdate />} />
+
                         <Route path="/residents" element={<Residents />} />
                         <Route path="/resident/create" element={<ResidentCreate />} />
                         <Route path="/residents/:id" element={<ResidentUpdate />} />
+
                         <Route path="/requestouts" element={< Requestout />} />
                         <Route path="/requestout/create" element={<RequestoutCreate />} />
+                        <Route path="/requestouts/:id" element={<RequestoutUpdate />} />
+
                         <Route path="/requestchanges" element={< Requestchange />} />
                         <Route path="/requestchange/create" element={<RequestchangeCreate />} />
+                        <Route path="/requestchanges/:id" element={<RequestchangeUpdate />} />
+
                         <Route path="/cleanings" element={<Cleanings />} />
                         <Route path="/cleaning/create" element={<CleaningCreate />} />
+                        
                         <Route path="/payment/create" element={<PaymentCreate />} />
                         <Route path="/payments" element={<Payment />} />
+                        
                         <Route path="/users" element={<Users />} />
                         <Route path="/user/create" element={<UserCreate />} />
+                        
                         <Route path="/furnitures" element={<Furnitures />} />
                         <Route path="/furniture/create" element={<FurnitureCreate />} />
                         <Route path="/meters" element={<Meter />} />
