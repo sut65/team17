@@ -25,7 +25,7 @@ type User struct {
 	// GenderID เป็น FK
 	GenderID *uint
 	// ข้อมูลของ Gender เมื่อ join ตาราง
-	Gender Gender		
+	Gender Gender		`gorm:"referenes:id" valid:"-"`
 
 	// TitleID เป็น FK
 	TitleID *uint
