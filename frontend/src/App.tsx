@@ -336,15 +336,9 @@ function App() {
 
                         <Route path="/residents" element={<Residents />} />
                         <Route path="/resident/create" element={<ResidentCreate />} />
-<<<<<<< HEAD
-                        {/* <Route path="/residents/:id" element={<ResidentUpdate />} /> */}
-=======
                         <Route path="/residents/:id" element={<ResidentUpdate />} />
 
-<<<<<<< HEAD
 >>>>>>> 5a27d7007a4fa785ede729e24e36e81b934e210e
-=======
->>>>>>> 4b611d1f595e72800519d53d3c6ad57b24596f75
                         <Route path="/requestouts" element={< Requestout />} />
                         <Route path="/requestout/create" element={<RequestoutCreate />} />
                         <Route path="/requestouts/:id" element={<RequestoutUpdate />} />
@@ -356,14 +350,10 @@ function App() {
                         <Route path="/cleanings" element={<Cleanings />} />
                         <Route path="/cleaning/create" element={<CleaningCreate />} />
 <<<<<<< HEAD
-<<<<<<< HEAD
                         <Route path="/cleanings/:id" element={<CleaningUpdate />} />
 =======
                         
 >>>>>>> 5a27d7007a4fa785ede729e24e36e81b934e210e
-=======
-                        
->>>>>>> 4b611d1f595e72800519d53d3c6ad57b24596f75
                         <Route path="/payment/create" element={<PaymentCreate />} />
                         <Route path="/payments" element={<Payment />} />
                         
