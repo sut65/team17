@@ -146,11 +146,23 @@ func SetupDatabase() {
 		BirthdayTime: time.Date(1999,6,25,0,0,0,0,time.Local),
 	})
 
+	db.Model(&User{}).Create(&User{
+		Name:  "Ratchapol Piyaman",
+		Email: "start@gmail.com",
+		Tel: 		"0814498218",
+		Password: string(password),
+		Role:     "user",
+	})
+
 	var wallaya  	User
 	db.Raw("SELECT * FROM users WHERE email = ?", "wallaya@gmail.com").Scan(&wallaya)
 
 	var panadda 	User
 	db.Raw("SELECT * FROM users WHERE email = ?", "panadda@gmail.com").Scan(&panadda)
+
+	var ratchapol	User
+	db.Raw("SELECT * FROM users WHERE email = ?", "start@gmail.com").Scan(&ratchapol)
+
 
 	// Room Data
 	Room101 := Room{
@@ -454,28 +466,85 @@ func SetupDatabase() {
 
 
 
-	C := Object{
-		Name: "Tv",
-	}
-	db.Model(&Object{}).Create(&C)
 
-	D := Object{
-
-		Name: "Microwave",
-	}
-
-	db.Model(&Object{}).Create(&D)
+	
+    
 
 	//Emergency
 
-	E := Emergencytype{
+	Ec1 := Emergencytype{
 		Name: "อัคคีภัย",
 	}
-	db.Model(&Emergencytype{}).Create(&E)
+	db.Model(&Emergencytype{}).Create(&Ec1)
 
-	F := Emergencytype{
+	Ec2 := Emergencytype{
 		Name: "คนแปลกหน้า",
 	}
-	db.Model(&Emergencytype{}).Create(&F)
+	db.Model(&Emergencytype{}).Create(&Ec2)
+
+	Ec3 := Emergencytype{
+		Name: "ไฟรั่ว",
+	}
+	db.Model(&Emergencytype{}).Create(&Ec3)
+
+	Ec4 := Emergencytype{
+		Name: "สัตว์ร้าย",
+	}
+	db.Model(&Emergencytype{}).Create(&Ec4)
+
+	Ec5 := Emergencytype{
+		Name: "อุบัติเหตุ",
+	}
+	db.Model(&Emergencytype{}).Create(&Ec5)
+
+
+		//---Repair Data
+	
+		Ob1:= Object{
+
+		Name: "ไมโครเวฟ",
+	}
+
+	db.Model(&Object{}).Create(&Ob1)
+
+	Ob2 := Object{
+		Name: "โทรทัศน์",
+	}
+	db.Model(&Object{}).Create(&Ob2)
+
+	Ob3 := Object{
+		Name: "ฝักบัว",
+	}
+	db.Model(&Object{}).Create(&Ob3)
+
+	Ob4 := Object{
+		Name: "หลอดไฟ",
+	}
+	db.Model(&Object{}).Create(&Ob4)
+
+	Ob5 := Object{
+		Name: "ก๊อกน้ำ",
+	}
+	db.Model(&Object{}).Create(&Ob5)
+
+	Ob6 := Object{
+		Name: "เครื่องปรับอากาศ",
+	}
+	db.Model(&Object{}).Create(&Ob6)
+
+	Ob7 := Object{
+		Name: "พัดลม",
+	}
+	db.Model(&Object{}).Create(&Ob7)
+
+	Ob8 := Object{
+		Name: "ตู้เย็น",
+	}
+	db.Model(&Object{}).Create(&Ob8)
+
+	Ob9 := Object{
+		Name: "เพดานรั่ว",
+	}
+	db.Model(&Object{}).Create(&Ob9)
 
 }
