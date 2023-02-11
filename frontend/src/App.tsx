@@ -145,10 +145,11 @@ const menu = [
    // { name: "การชำระเงิน", icon: <PaymentIcon />, path: "/payments", role: 'admin' },
    { name: "บันทึกข้อมูลผู้เช่า", icon: <AccountCircleIcon />, path: "/users", role: 'user' },
    { name: "บันทึกข้อมูลผู้เช่า", icon: <AccountCircleIcon />, path: "/users", role: 'admin' },
-   { name: "บิลชำระ", icon: <ConstructionIcon />, path: "/repairs", role: 'user' },
-   { name: "บิลชำระ", icon: <ConstructionIcon />, path: "/repairs", role: 'admin' },
-   { name: "บิลชำระ", icon: <CampaignIcon />, path: "/emergencies", role: 'user' },
-   { name: "บิลชำระ", icon: <CampaignIcon />, path: "/emergencies", role: 'admin' },
+   { name: "แจ้งเหตุฉุกเฉิน", icon: <CampaignIcon />, path: "/emergencies", role: 'user' },
+   { name: "แจ้งซ่อม", icon: <ConstructionIcon />, path: "/repairs", role: 'user' },
+   
+   
+   
 ];
 
 
@@ -336,11 +337,9 @@ function App() {
                         <Route path="/residents" element={<Residents />} />
                         <Route path="/resident/create" element={<ResidentCreate />} />
 <<<<<<< HEAD
-                        {/* <Route path="/residents/:id" element={<ResidentUpdate />} /> */}
+                        
 =======
                         <Route path="/residents/:id" element={<ResidentUpdate />} />
-
->>>>>>> 5a27d7007a4fa785ede729e24e36e81b934e210e
                         <Route path="/requestouts" element={< Requestout />} />
                         <Route path="/requestout/create" element={<RequestoutCreate />} />
                         <Route path="/requestouts/:id" element={<RequestoutUpdate />} />
@@ -351,11 +350,6 @@ function App() {
 
                         <Route path="/cleanings" element={<Cleanings />} />
                         <Route path="/cleaning/create" element={<CleaningCreate />} />
-<<<<<<< HEAD
-                        <Route path="/cleanings/:id" element={<CleaningUpdate />} />
-=======
-                        
->>>>>>> 5a27d7007a4fa785ede729e24e36e81b934e210e
                         <Route path="/payment/create" element={<PaymentCreate />} />
                         <Route path="/payments" element={<Payment />} />
                         
@@ -368,9 +362,10 @@ function App() {
                         <Route path="/meter/create" element={<MeterCreate />} />
                         <Route path="/bills" element={<Bill />} />
                         <Route path="/bill/create" element={<BillCreate />} />
+                        
                         <Route path="/repairs" element={<Repair />} />
                         <Route path="/repair/create" element={<RepairCreate />} />
-                        <Route path="/emergencies" element={<Bill />} />
+                        <Route path="/emergencies" element={<Emergency />} />
                         <Route path="/emergencie/create" element={<EmergencyCreate />} />
                      </Routes>
                   </Box>

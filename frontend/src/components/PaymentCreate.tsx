@@ -53,7 +53,7 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
 
 function PaymentCreate() {
   // const classes = useStyles();
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [selectedDate, setSelectedDate] = useState<Date | null>(new Date);
   const [users, setUsers] = useState<UserInterface>(); //map
   const [bills, setBills] = useState<BillInterface[]>([]);
   const [bankings, setBankings] = useState<BankingInterface[]>([]);
@@ -301,6 +301,7 @@ function PaymentCreate() {
             </FormControl>
           </Grid>
 
+
           <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
               <InputLabel id="BillID">ค่าห้องพัก</InputLabel>
@@ -323,6 +324,7 @@ function PaymentCreate() {
               </Select>
             </FormControl>
           </Grid>
+
 
           <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
@@ -347,6 +349,7 @@ function PaymentCreate() {
             </FormControl>
           </Grid>
 
+
           <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
               <InputLabel id="BillID">ค่าไฟ</InputLabel>
@@ -370,6 +373,7 @@ function PaymentCreate() {
             </FormControl>
           </Grid>
 
+
           <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
               <InputLabel id="BillID">ค่าเฟอร์นิเจอร์</InputLabel>
@@ -392,6 +396,7 @@ function PaymentCreate() {
               </Select>
             </FormControl>
           </Grid>
+
 
           <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
@@ -441,6 +446,7 @@ function PaymentCreate() {
             </FormControl>
           </Grid>
 
+
           <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
               <InputLabel id="BankingID">เลือกธนาคาร</InputLabel>
@@ -472,13 +478,14 @@ function PaymentCreate() {
                   label="เลือกวันเวลา"
                   value={selectedDate}
                   onChange={(newValue) => setSelectedDate(newValue)}
-                  minDate={(new Date('31-12-2022T09:00'))}
+                  minDate={(new Date)}   //บันทึกค่าปัจจุบัน
                   renderInput={(params) =>
                     <TextField {...params} />}
                 />
               </LocalizationProvider>
             </FormControl>
           </Grid>
+
 
           <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
@@ -488,8 +495,6 @@ function PaymentCreate() {
               </Button>
             </FormControl>
           </Grid>
-
-
 
           <Grid item xs={12}>
             <Button
@@ -513,5 +518,5 @@ function PaymentCreate() {
     </Container>
   );
 }
-//dw
+
 export default PaymentCreate;

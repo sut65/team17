@@ -46,6 +46,8 @@ func CreateUser(c *gin.Context) {
 		Status:       status, // โยงความสัมพันธ์กับ Entity status
 		Gender:       gender, // โยงความสัมพันธ์กับ Entity gender
 		Title:        title,  // โยงความสัมพันธ์กับ Entity title
+		Name:         user.Name,	
+		Password: 	  user.Password,
 		Personal:     user.Personal,
 		Email:        user.Email,
 		Tel:          user.Tel,

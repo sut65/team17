@@ -108,10 +108,17 @@ function Rooms() {
    return (
 
       <div style={{
+         width: '100%',
          fontFamily: "PK Krung Thep Medium",
          fontSize: 20,
       }}>
-         <Box display="flex">
+         <Box sx={{
+            mt: '20px',
+            mb: '20px',
+            display: 'flex',
+            justifyContent: 'center',
+            // alignItems: 'center',
+         }}>
             <Box flexGrow={1}>
                <Typography
                   sx={{
@@ -133,9 +140,11 @@ function Rooms() {
                   variant="contained"
                   color="primary"
                   sx={{
+                     mr: '20px',
                      fontFamily: "PK Krung Thep Medium",
                      fontSize: 18,
-                     borderRadius: 15
+                     borderRadius: 15,
+                     height: '55px',
                   }}
                >
                   ทำสัญญา
@@ -143,24 +152,10 @@ function Rooms() {
             </Box>
          </Box>
 
-         <Paper elevation={3} style={{
-            'borderRadius': '20px',
-            backgroundImage: 'url("https://images.pexels.com/photos/4590785/pexels-photo-4590785.jpeg")',
-            backgroundRepeat: 'no-repeat',
-            backgroundSize: 'cover',
-
-         }}>
-            <div style={{
-               background: 'rgba(255, 255, 255, 0.5)',
-               borderRadius: 20,
-
-            }}>
-               <Grid container spacing={3} sx={{
-                  display: 'flex',
-                  justifyContent: 'center',
-               }}>
+         
+               <Grid container spacing={3}>
                   {residents.map((item: ResidentInterface) => (
-                     <Grid xs={9} sx={{
+                     <Grid xs={6} sx={{
                         display: 'flex',
                      }}>
 
@@ -183,9 +178,10 @@ function Rooms() {
                            }}
                         >
                            <Typography sx={{
+                              ml: '20px',
                               display: 'flex',
                               justifyContent: 'center',
-                              width: '40%',
+                              width: '30%',
                               fontFamily: "PK Krung Thep Medium",
                               fontSize: 30,
                            }}>
@@ -267,8 +263,6 @@ function Rooms() {
                   ))}
                </Grid>
             </div>
-         </Paper>
-      </div>
 
    );
 

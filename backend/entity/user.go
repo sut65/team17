@@ -8,14 +8,14 @@ import (
 
 type User struct {
 	gorm.Model
-	Name         string		`valid:"required~Name cannot be blank"`
-	Email        string		`valid:"required~Email cannot be blank"`
-	Tel          string		`valid:"required~Tel cannot be blank"`
-	Password     string		`valid:"required~Password cannot be blank"`
-	Role         string		`valid:"required~Role cannot be blank"`
-	Address      string		`valid:"required~Address cannot be blank"`
-	Personal     string		`valid:"required~Personal cannot be blank"`
-	BirthdayTime time.Time
+	Email        string			`valid:"required~Email cannot be blank"`
+	Tel          string			`valid:"required~Tel cannot be blank"`
+	Password     string			`valid:"required~Password cannot be blank"`
+	Name         string			`valid:"required~Name cannot be blank"`		
+	Role         string			
+	Address      string			`valid:"required~Address cannot be blank"`
+	Personal     string			`valid:"required~Personal cannot be blank"`
+	BirthdayTime time.Time	
 
 	// StatusID เป็น FK
 	StatusID *uint

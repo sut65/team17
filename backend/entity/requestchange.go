@@ -7,15 +7,15 @@ import (
 type Requestchange struct {
 	gorm.Model
 
-	Detail		string
+	Detail		string		`valid:"required~Detail cannot be blank"`
 	ReasonID	*uint
-	Reason		Reason
+	Reason		Reason		`gorm:"referenes:id" valid:"-"`
 	
 	RoomID		*uint
-	Room 		Room
+	Room 		Room		`gorm:"referenes:id" valid:"-"`
 
 	UserID		*uint
-	User		User
+	User		User		`gorm:"referenes:id" valid:"-"`
 
 	
 }

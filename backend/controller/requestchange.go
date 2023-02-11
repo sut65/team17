@@ -14,9 +14,9 @@ import (
 func CreateRequestchange(c *gin.Context) {
 
 	var requestchange	entity.Requestchange
-	var room entity.Room
-	var reason entity.Reason
-	var user	entity.User
+	var room 			entity.Room
+	var reason 			entity.Reason
+	var user			entity.User
 
 	// ผลลัพธ์ที่ได้จากขั้นตอนที่ 8 จะถูก bind เข้าตัวแปร requestchange
 	if err := c.ShouldBindJSON(&requestchange); err != nil {
@@ -100,23 +100,83 @@ func DeleteRequestchange(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"data": id})
 }
 
+
+
+
 // PATCH /requestchanges
 func UpdateRequestchange(c *gin.Context) {
-	var requestchange entity.Requestchange
+	var requestchange	entity.Requestchange
+	var room 		entity.Room
+	var reason 		entity.Reason
+	var user		entity.User
+
+
 	if err := c.ShouldBindJSON(&requestchange); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	if tx := entity.DB().Where("id = ?", requestchange.ID).First(&requestchange); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "requestchange not found"})
+	//ค้นหา room ด้วย id
+	if tx := entity.DB().Where("id = ?", requestchange.RoomID).First(&room); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "room not found"})
 		return
 	}
 
-	if err := entity.DB().Save(&requestchange).Error; err != nil {
+	// 11: ค้นหา user ด้วย id
+	if tx := entity.DB().Where("id = ?", requestchange.UserID).First(&user); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "user not found"})
+		return
+	}
+
+	//ค้นหา reason ด้วย id
+	if tx := entity.DB().Where("id = ?", requestchange.ReasonID).First(&reason); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "reason not found"})
+		return
+	}
+
+	// 12: สร้าง Requestout
+	update := entity.Requestchange{
+		Room:		room,					// โยงความสัมพันธ์กับ Entity Room
+		Reason:		reason,					// โยงความสัมพันธ์กับ Entity Reason
+		User:		user,               // โยงความสัมพันธ์กับ Entity User
+		Detail:     requestchange.Detail,	
+	}
+
+
+	// ขั้นตอนการ validate ที่นำมาจาก unit test
+	if _, err := govalidator.ValidateStruct(update); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"data": requestchange})
+
+	// update
+	if err := entity.DB().Where("id = ?", requestchange.ID).Updates(&update).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"data": update})
+
+	
 }
+
+// PATCH /requestchanges
+// func UpdateRequestchange(c *gin.Context) {
+// 	var requestchange entity.Requestchange
+// 	if err := c.ShouldBindJSON(&requestchange); err != nil {
+// 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+// 		return
+// 	}
+
+// 	if tx := entity.DB().Where("id = ?", requestchange.ID).First(&requestchange); tx.RowsAffected == 0 {
+// 		c.JSON(http.StatusBadRequest, gin.H{"error": "requestchange not found"})
+// 		return
+// 	}
+
+// 	if err := entity.DB().Save(&requestchange).Error; err != nil {
+// 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+// 		return
+// 	}
+
+// 	c.JSON(http.StatusOK, gin.H{"data": requestchange})
+// }
