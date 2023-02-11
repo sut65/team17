@@ -64,6 +64,7 @@ import PaymentCreate from "./components/PaymentCreate";
 import Payment from "./components/Payment";
 import Users from "./components/User";
 import UserCreate from "./components/UserCreate";
+import CleaningUpdate from "./components/Cleaning/CleaningUpdate";
 import { UserInterface } from "./models/IUser";
 import { AdminInterface } from "./models/IAdmin";
 
@@ -337,6 +338,7 @@ function App() {
                         <Route path="/resident/create" element={<ResidentCreate />} />
                         <Route path="/residents/:id" element={<ResidentUpdate />} />
 
+>>>>>>> 5a27d7007a4fa785ede729e24e36e81b934e210e
                         <Route path="/requestouts" element={< Requestout />} />
                         <Route path="/requestout/create" element={<RequestoutCreate />} />
                         <Route path="/requestouts/:id" element={<RequestoutUpdate />} />
@@ -347,7 +349,8 @@ function App() {
 
                         <Route path="/cleanings" element={<Cleanings />} />
                         <Route path="/cleaning/create" element={<CleaningCreate />} />
-                        
+<<<<<<< HEAD
+                        <Route path="/cleanings/:id" element={<CleaningUpdate />} />
                         <Route path="/payment/create" element={<PaymentCreate />} />
                         <Route path="/payments" element={<Payment />} />
                         
@@ -372,124 +375,7 @@ function App() {
          </Grid>
       </Router>
 
-      // <Router>
-      //   <ThemeProvider theme={mdTheme}>
-      //     <Box sx={{ display: "flex" }}>
-      //       <CssBaseline />
-      //       <AppBar position="absolute" open={open}>
-      //         <Toolbar
-      //           sx={{
-      //             pr: "24px", // keep right padding when drawer closed
-      //           }}
-      //         >
-      //           <IconButton
-      //             edge="start"
-      //             color="inherit"
-      //             aria-label="open drawer"
-      //             onClick={toggleDrawer}
-      //             sx={{
-      //               marginRight: "36px",
-      //               ...(open && { display: "none" }),
-      //             }}
-      //           >
-      //             <MenuIcon />
-      //           </IconButton>
-      //           <Typography
-      //             component="h1"
-      //             variant="h6"
-      //             color="inherit"
-      //             noWrap
-      //             sx={{ flexGrow: 1 }}
-      //           >
-      //             ระบบหอพัก
 
-      //           </Typography>
-      //           <Button color="inherit" onClick={signout}>
-      //             ออกจากระบบ
-      //           </Button>
-      //         </Toolbar>
-      //       </AppBar>
-      //       <Drawer variant="permanent" open={open}>
-      //         <Toolbar
-      //           sx={{
-      //             display: "flex",
-      //             alignItems: "center",
-      //             justifyContent: "flex-end",
-      //             px: [1],
-      //           }}
-      //         >
-      //           <IconButton onClick={toggleDrawer}>
-      //             <ChevronLeftIcon />
-      //           </IconButton>
-      //         </Toolbar>
-      //         <Divider />
-      //         <List>
-      //           {menu.map(
-      //             (item, index) => 
-      //             role === item.role && (
-      //             <Link
-      //               to={item.path}
-      //               key={item.name}
-      //               style={{ textDecoration: "none", color: "inherit" }}
-      //             >
-      //               <ListItem button>
-      //                 <ListItemIcon>{item.icon}</ListItemIcon>
-      //                 <ListItemText primary={item.name} />
-      //               </ListItem>
-      //             </Link>
-      //           ) 
-      //           )}
-      //         </List>
-      //       </Drawer>
-      //       <Box
-      //         component="main"
-      //         sx={{
-      //           backgroundColor: (theme) =>
-      //             theme.palette.mode === "light"
-      //               ? theme.palette.grey[100]
-      //               : theme.palette.grey[900],
-      //           flexGrow: 1,
-      //           height: "100vh",
-      //           overflow: "auto",
-      //         }}
-      //       >
-      //         <Toolbar />
-      //         <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-      //           <Routes>
-      //             <Route path="/" element={<Home />} />
-      //             <Route path="/manages" element={<Manages />} />
-      //             <Route path="/manage/create" element={<ManageCreate />} />
-      //             <Route path="/manages/:id" element={<ManageUpdate />} />
-      //             <Route path="/residents" element={<Residents />} />
-      //             <Route path="/resident/create" element={<ResidentCreate />} />
-      //             <Route path="/residents/:id" element={<ResidentUpdate />} />
-      //             <Route path="/requestouts" element={< Requestout />} />
-      //             <Route path="/requestout/create" element={<RequestoutCreate />} />
-      //             <Route path="/requestchanges" element={< Requestchange />} />
-      //             <Route path="/requestchange/create" element={<RequestchangeCreate />} />
-      //             <Route path="/cleanings" element={<Cleanings />} />
-      //             <Route path="/cleaning/create" element={<CleaningCreate />} />
-      //             <Route path="/payment/create" element={<PaymentCreate />} />
-      //             <Route path="/payments" element={<Payment />} />
-      //             <Route path="/users" element={<Users />} />
-      //             <Route path="/user/create" element={<UserCreate />} />
-      //             <Route path="/furnitures" element={<Furnitures />} />
-      //             <Route path="/furniture/create" element={<FurnitureCreate />} />
-      //             <Route path="/meters" element={<Meter />} />
-      //             <Route path="/meter/create" element={<MeterCreate />} />
-      //             <Route path="/bills" element={<Bill />} />
-      //             <Route path="/bill/create" element={<BillCreate />} />
-      //             <Route path="/repairs" element={<Repair />} />
-      //             <Route path="/repair/create" element={<RepairCreate />} />
-      //             <Route path="/emergencies" element={<Bill />} />
-      //             <Route path="/emergencie/create" element={<EmergencyCreate />} />
-
-      //           </Routes>
-      //         </Container>
-      //       </Box>
-      //     </Box>
-      //   </ThemeProvider>
-      // </Router>
    );
 }
 

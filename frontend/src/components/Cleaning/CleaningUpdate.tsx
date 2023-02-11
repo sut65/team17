@@ -16,6 +16,8 @@ import TextField from '@mui/material/TextField';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { FormHelperText, InputLabel } from "@material-ui/core";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { useParams } from "react-router-dom";
+
 
 import { UserInterface } from "../../models/IUser";
 import { RoomInterface } from "../../models/IRoom";
@@ -28,7 +30,8 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props,
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-function CleaningCreate() {
+function CleaningUpdate() {
+  const { id } = useParams();
   const [selectedDate, setSelectedDate] = useState<Date | null>();
   const [users, setUsers] = useState<UserInterface>();
   const [rooms, setRooms] = useState<RoomInterface[]>([]);
@@ -37,8 +40,6 @@ function CleaningCreate() {
   const [cleanings, setCleanings] = useState<Partial<CleaningInterface>>({});
   const [detail, setDetail] = useState<String>("");
   
-
-
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -121,11 +122,26 @@ function CleaningCreate() {
       });
   };
 
+  const getCleaningsByID = async () => {
+    const uid = localStorage.getItem("id");
+    fetch(`${apiUrl}/clening/${uid}`, requestOptions)
+       .then((response) => response.json())
+       .then((res) => {
+        cleanings.ID = res.data.ID
+          if (res.data) {
+             setCleanings(res.data);
+          } else {
+             console.log("else");
+          }
+       });
+ };
+
   useEffect(() => {
     getUsers();
     getRoom();
     getKind();
     getArea();
+    getCleaningsByID();
   }, []);
 
   const convertType = (data: string | number | undefined) => {
@@ -133,8 +149,9 @@ function CleaningCreate() {
     return val;
   };
 
-  function submit() {
+  function update() {
     let data = {
+        ID: convertType(id),
         UserID: convertType(cleanings.UserID),
         RoomID: convertType(cleanings.RoomID),
         KindID: convertType(cleanings.KindID),
@@ -147,7 +164,7 @@ function CleaningCreate() {
     console.log(data)
 
     const requestOptionsPost = {
-      method: "POST",
+      method: "PATCH",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
         "Content-Type": "application/json",
@@ -160,9 +177,13 @@ function CleaningCreate() {
       .then((res) => {
         if (res.data) {
           console.log("บันทึกได้")
-          setSuccess(true)
           setErrorMessage("")
-        } else {
+          setTimeout(() => {
+             window.location.reload();
+          }, 1000);
+          setSuccess(true)
+          window.location.href = "/cleanings";
+       } else {
           console.log("บันทึกไม่ได้")
           setError(true)
           setErrorMessage(res.error)
@@ -406,7 +427,7 @@ function CleaningCreate() {
               variant="contained"
               color="inherit"
             >
-              กลับ
+              <b>กลับ</b>
             </Button>
             <Button
             sx={{
@@ -414,11 +435,11 @@ function CleaningCreate() {
               fontSize:17
             }}
               style={{ float: "right" }}
-              onClick={submit}
+              onClick={update}
               variant="contained"
               color="primary"
             >
-              บันทึก
+              <b>แก้ไขข้อมูล</b>
             </Button>
           </Grid>
         </Grid>
@@ -427,4 +448,4 @@ function CleaningCreate() {
   );
 }
 
-export default CleaningCreate;
+export default CleaningUpdate;

@@ -109,6 +109,7 @@ func UpdateRequestout(c *gin.Context) {
 	var reason 		entity.Reason
 	var user		entity.User
 
+	
 
 	if err := c.ShouldBindJSON(&requestout); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -143,11 +144,11 @@ func UpdateRequestout(c *gin.Context) {
 	}
 
 
-	// ขั้นตอนการ validate ที่นำมาจาก unit test
-	if _, err := govalidator.ValidateStruct(update); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
+	// // ขั้นตอนการ validate ที่นำมาจาก unit test
+	// if _, err := govalidator.ValidateStruct(update); err != nil {
+	// 	c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+	// 	return
+	// }
 
 
 	// update

@@ -20,10 +20,10 @@ import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 
 
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { FormControlLabel, FormLabel, RadioGroup, Radio, FormGroup, Theme } from "@mui/material";
+import { FormControlLabel, FormLabel, FormGroup, } from "@mui/material";
 
 
-import CssBaseline from "@mui/material/CssBaseline";
+
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import { RequestoutInterface } from "../../models/IRequestout";
@@ -39,7 +39,7 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props,
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-const theme = createTheme();
+
 
 function RequestoutUpdate() {
   const { id } = useParams();
@@ -162,6 +162,7 @@ function RequestoutUpdate() {
 
   function update() {
     let data = {
+        ID: convertType(id),
         RoomID: convertType(requestouts.RoomID),
         ReasonID: convertType(requestouts.ReasonID),
         UserID: convertType(requestouts.UserID),
@@ -172,7 +173,7 @@ function RequestoutUpdate() {
 
     console.log(data)
 
-    const requestOptionsPatch = {
+    const requestOptionsUpdate = {
       method: "PATCH",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -181,7 +182,7 @@ function RequestoutUpdate() {
       body: JSON.stringify(data),
     };
 
-    fetch(`${apiUrl}/requestouts`, requestOptionsPatch)
+    fetch(`${apiUrl}/requestouts`, requestOptionsUpdate)
       .then((response) => response.json())
       .then((res) => {
         if (res.data) {
@@ -205,12 +206,10 @@ function RequestoutUpdate() {
  
 
   return (
-    <ThemeProvider theme={theme}>
-      
-  
-      <Grid container component="main"   sx={{ height: "100vh", width: "100vh" }}>
+    <div>
 
       <Snackbar
+
         open={success}
         autoHideDuration={3000}
         onClose={handleClose}
@@ -277,13 +276,16 @@ function RequestoutUpdate() {
             <p>ชื่อ - สกุล</p>
               <Select
                 native
-                disabled
+               
                 value={requestouts.UserID + ""}
                 onChange={handleChange}
                 inputProps={{
                   name: "UserID",
                 }}
               >
+                <option aria-label="None" value="">
+                           กรุณาเลือกชื่อ
+                        </option>
                 <option value={users?.ID} key={users?.ID} >
                     {users?.Name}
                     </option>
@@ -426,10 +428,10 @@ function RequestoutUpdate() {
         </Grid>
       
               </Grid>
-              </Grid>
-             
+   
 
-              </ThemeProvider>
+</div>
+           
      
     
   );
