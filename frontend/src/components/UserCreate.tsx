@@ -23,6 +23,7 @@ import { StatusInterface } from "../models/IStatus";
 import { TitleInterface } from "../models/ITitle";
 import { FormHelperText, InputLabel } from "@mui/material";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { DatePicker } from "@mui/x-date-pickers";
 
 // const Alert = (props: AlertProps) => {
 //   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -52,7 +53,7 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
 
 function UserCreate() {
   // const classes = useStyles();
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [selectedDate, setSelectedDate] = useState<Date | null>();
   const [genders, setGenders] = useState<GenderInterface[]>([]);
   const [status, setStatus] = useState<StatusInterface[]>([]);
   const [titles, setTitles] = useState<TitleInterface[]>([]);
@@ -148,11 +149,13 @@ function UserCreate() {
   };
 
   function submit() {
+   let date = new Date(selectedDate as Date).toISOString()
     let data = {
+      Role: "user",
       StatusID: convertType(users.StatusID),
       GenderID: convertType(users.GenderID),
       TitleID: convertType(users.TitleID),
-      BirthdaTime: selectedDate,
+      BirthdayTime: selectedDate,
       Name: name,
       Personal: personal,
       Email: email,
@@ -260,7 +263,7 @@ function UserCreate() {
                 required
                 id="outlined-required"
 
-                onChange={(event) => setName(event.target.value)}
+                onChange={(event) => setPersonal(event.target.value)}
               />
             </FormControl>
           </Grid>
@@ -268,11 +271,11 @@ function UserCreate() {
           <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
               <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <DateTimePicker
+                <DatePicker
                   label="เลือกวัน/เดือน/ปีเกิด"
                   value={selectedDate}
                   onChange={(newValue) => setSelectedDate(newValue)}
-                  minDate={(new Date('31-12-2022T09:00'))}
+                  // minDate={(new Date)}
                   renderInput={(params) =>
                     <TextField {...params} />}
                 />
@@ -333,7 +336,7 @@ function UserCreate() {
                 required
                 id="outlined-required"
 
-                onChange={(event) => setName(event.target.value)}
+                onChange={(event) => setEmail(event.target.value)}
               />
             </FormControl>
           </Grid>
@@ -345,7 +348,7 @@ function UserCreate() {
                 required
                 id="outlined-required"
 
-                onChange={(event) => setName(event.target.value)}
+                onChange={(event) => setPassword(event.target.value)}
               />
             </FormControl>
           </Grid>
@@ -357,7 +360,7 @@ function UserCreate() {
                 required
                 id="outlined-required"
 
-                onChange={(event) => setName(event.target.value)}
+                onChange={(event) => setTel(event.target.value)}
               />
             </FormControl>
           </Grid>
@@ -369,7 +372,7 @@ function UserCreate() {
                 required
                 id="outlined-required"
 
-                onChange={(event) => setName(event.target.value)}
+                onChange={(event) => setAddress(event.target.value)}
               />
             </FormControl>
           </Grid>

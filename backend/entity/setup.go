@@ -3,6 +3,8 @@ package entity
 import (
 	//"time"
 
+	"time"
+
 	"golang.org/x/crypto/bcrypt"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
@@ -29,7 +31,7 @@ func SetupDatabase() {
 	// Migrate the schema
 
 	database.AutoMigrate(
-		&User{}, &Room{}, &Category{}, &Size{}, &Lease{}, &Manage{}, &Resident{}, &Reason{}, &Requestout{}, &Kind{}, &Area{}, &Cleaning{},
+		&User{}, &Room{}, &Category{}, &Size{}, &Lease{}, &Manage{}, &Resident{}, &Reason{}, &Requestout{}, &Requestchange{}, &Kind{}, &Area{}, &Cleaning{},
 		&Banking{}, &Bill{}, &Payment{}, &Method{}, &Title{}, &Gender{}, &Status{}, &Amount{}, &Equipment{}, &Furniture{},
 		&Admin{}, &Meter{}, &Bill{}, &Object{}, &Emergencytype{}, &Repair{}, &Emergency{},
 	)
@@ -61,20 +63,93 @@ func SetupDatabase() {
 	db.Raw("SELECT * FROM Admins WHERE email = ?", "jackerchaiwan@gmail.com").Scan(&jakkrit)
 
 
+	//---Status Data
+	Single := Status{
+		Name: "โสด",
+	}
+	db.Model(&Status{}).Create(&Single)
+
+	Married := Status{
+		Name: "สมรส ",
+	}
+	db.Model(&Status{}).Create(&Married)
+
+	Widowed := Status{
+		Name: "หม้าย ",
+	}
+	db.Model(&Status{}).Create(&Widowed)
+
+	Divorce := Status{
+		Name: "หย่า ",
+	}
+	db.Model(&Status{}).Create(&Divorce)
+
+	Separated := Status{
+		Name: "แยกกันอยู่",
+	}
+	db.Model(&Status{}).Create(&Separated)
+
+	//---Title Data
+	Mr := Title{
+		Name: "นาย",
+	}
+	db.Model(&Title{}).Create(&Mr)
+
+	Mrs := Title{
+		Name: "นาง",
+	}
+	db.Model(&Title{}).Create(&Mrs)
+
+	Miss := Title{
+		Name: "นางสาว",
+	}
+	db.Model(&Title{}).Create(&Miss)
+
+	//---Gender Data
+	Male := Gender{
+		Name: "ชาย",
+	}
+	db.Model(&Gender{}).Create(&Male)
+
+	Female := Gender{
+		Name: "หญิง",
+	}
+	db.Model(&Gender{}).Create(&Female)
 	
 
 	db.Model(&User{}).Create(&User{
+		Status:     Single ,
+		Title:      Miss ,
+		Gender: 	Female ,
 		Name:     	"Wallaya Patisang",
-		Email:   		"wallaya.1999@gmail.com",
-		Tel: 		"0920000123",
+		Email:   	"wallaya.1999@gmail.com",
+		Tel: 		"0958713961",
 		Password: 	string(password),
 		Role:     	"user",
+		Address:    "Bankok",
+		Personal:   "12345678912345",
+		BirthdayTime: time.Date(1999,5,12,0,0,0,0,time.Local),
+			
 	})
 
 	db.Model(&User{}).Create(&User{
+		Status:     Single ,
+		Title:      Miss ,
+		Gender: 	Female ,
 		Name:  "Panadda Srisawat",
 		Email: "panadda@gmail.com",
+		Tel: 		"0966346799",
+		Password: string(password),
+		Role:     "user",
+		Address:    "Surat",
+		Personal:   "9876543215486",
+		BirthdayTime: time.Date(1999,6,25,0,0,0,0,time.Local),
+	})
 
+	db.Model(&User{}).Create(&User{
+		Name:  "Ratchapol Piyaman",
+		Email: "start@gmail.com",
+		Tel: 		"0814498218",
 		Password: string(password),
 		Role:     "user",
 	})
@@ -84,6 +159,10 @@ func SetupDatabase() {
 
 	var panadda 	User
 	db.Raw("SELECT * FROM users WHERE email = ?", "panadda@gmail.com").Scan(&panadda)
+
+	var ratchapol	User
+	db.Raw("SELECT * FROM users WHERE email = ?", "start@gmail.com").Scan(&ratchapol)
+
 
 	// Room Data
 	Room101 := Room{
@@ -385,81 +464,87 @@ func SetupDatabase() {
 	}
 	db.Model(&Method{}).Create(&Mobile_Banking)
 
-	//---Status Data
-	Single := Status{
-		Name: "โสด",
-	}
-	db.Model(&Status{}).Create(&Single)
 
-	Married := Status{
-		Name: "สมรส ",
-	}
-	db.Model(&Status{}).Create(&Married)
 
-	Widowed := Status{
-		Name: "หม้าย ",
-	}
-	db.Model(&Status{}).Create(&Widowed)
 
-	Divorce := Status{
-		Name: "หย่า ",
-	}
-	db.Model(&Status{}).Create(&Divorce)
-
-	Separated := Status{
-		Name: "แยกกันอยู่",
-	}
-	db.Model(&Status{}).Create(&Separated)
-
-	//---Title Data
-	Mr := Title{
-		Name: "นาย",
-	}
-	db.Model(&Title{}).Create(&Mr)
-
-	Mrs := Title{
-		Name: "นาง",
-	}
-	db.Model(&Title{}).Create(&Mrs)
-
-	Miss := Title{
-		Name: "นางสาว",
-	}
-	db.Model(&Title{}).Create(&Miss)
-
-	//---Gender Data
-	Male := Gender{
-		Name: "ชาย",
-	}
-	db.Model(&Gender{}).Create(&Male)
-
-	Female := Gender{
-		Name: "หญิง",
-	}
-	db.Model(&Gender{}).Create(&Female)
-
-	C := Object{
-		Name: "Tv",
-	}
-	db.Model(&Object{}).Create(&C)
-
-	D := Object{
-
-		Name: "Microwave",
-	}
-
-	db.Model(&Object{}).Create(&D)
+	
+    
 
 	//Emergency
 
-	E := Emergencytype{
+	Ec1 := Emergencytype{
 		Name: "อัคคีภัย",
 	}
-	db.Model(&Emergencytype{}).Create(&E)
+	db.Model(&Emergencytype{}).Create(&Ec1)
 
-	F := Emergencytype{
+	Ec2 := Emergencytype{
 		Name: "คนแปลกหน้า",
 	}
-	db.Model(&Emergencytype{}).Create(&F)
+	db.Model(&Emergencytype{}).Create(&Ec2)
+
+	Ec3 := Emergencytype{
+		Name: "ไฟรั่ว",
+	}
+	db.Model(&Emergencytype{}).Create(&Ec3)
+
+	Ec4 := Emergencytype{
+		Name: "สัตว์ร้าย",
+	}
+	db.Model(&Emergencytype{}).Create(&Ec4)
+
+	Ec5 := Emergencytype{
+		Name: "อุบัติเหตุ",
+	}
+	db.Model(&Emergencytype{}).Create(&Ec5)
+
+
+		//---Repair Data
+	
+		Ob1:= Object{
+
+		Name: "ไมโครเวฟ",
+	}
+
+	db.Model(&Object{}).Create(&Ob1)
+
+	Ob2 := Object{
+		Name: "โทรทัศน์",
+	}
+	db.Model(&Object{}).Create(&Ob2)
+
+	Ob3 := Object{
+		Name: "ฝักบัว",
+	}
+	db.Model(&Object{}).Create(&Ob3)
+
+	Ob4 := Object{
+		Name: "หลอดไฟ",
+	}
+	db.Model(&Object{}).Create(&Ob4)
+
+	Ob5 := Object{
+		Name: "ก๊อกน้ำ",
+	}
+	db.Model(&Object{}).Create(&Ob5)
+
+	Ob6 := Object{
+		Name: "เครื่องปรับอากาศ",
+	}
+	db.Model(&Object{}).Create(&Ob6)
+
+	Ob7 := Object{
+		Name: "พัดลม",
+	}
+	db.Model(&Object{}).Create(&Ob7)
+
+	Ob8 := Object{
+		Name: "ตู้เย็น",
+	}
+	db.Model(&Object{}).Create(&Ob8)
+
+	Ob9 := Object{
+		Name: "เพดานรั่ว",
+	}
+	db.Model(&Object{}).Create(&Ob9)
 
 }
