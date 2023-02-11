@@ -77,12 +77,13 @@ function Bills() {
                 <TableCell align="center" width="2%">
                   ลำดับ
                 </TableCell>
-                <TableCell align="center" width="18%">
-                  ชื่อผู้เช่า
-                </TableCell>
                 <TableCell align="center" width="9%">
                   เลขห้อง
                 </TableCell>
+                <TableCell align="center" width="18%">
+                  ชื่อผู้เช่า
+                </TableCell>
+                
                 <TableCell align="center" width="9%">
                   เบอร์โทร
                 </TableCell>
@@ -123,7 +124,7 @@ function Bills() {
                   <TableCell align="center">{item.Meter.User.Name}</TableCell>
                   <TableCell align="center">{item.Meter.User.Tel}</TableCell>
                   <TableCell align="center">{item.Meter.Manage.Price}</TableCell>
-                  <TableCell align="center">{item.Furniture.Equipment.Price}</TableCell>
+                  {/* <TableCell align="center">{item.Furniture.Equipment.Price}</TableCell> */}
                   <TableCell align="center">{item.Meter.After}</TableCell>
                   <TableCell align="center">{item.Meter.Before}</TableCell>
                   <TableCell align="center">{item.Meter.Total}</TableCell>

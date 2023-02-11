@@ -373,7 +373,7 @@ function PaymentCreate() {
           <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
               <InputLabel id="BillID">ค่าเฟอร์นิเจอร์</InputLabel>
-              <Select
+              {/* <Select
                 native
                 value={payments.BillID}
                 label="กรุณาเลือก..."
@@ -389,7 +389,7 @@ function PaymentCreate() {
                     {item.Furniture.Equipment.Price}
                   </option>
                 ))}
-              </Select>
+              </Select> */}
             </FormControl>
           </Grid>
 

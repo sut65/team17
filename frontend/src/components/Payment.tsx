@@ -134,7 +134,7 @@ function Payments() {
                   <TableCell align="center">{item.Bill.Meter.Manage.Price}</TableCell>
                   <TableCell align="center">{item.Bill.Meter.Water}</TableCell>
                   <TableCell align="center">{item.Bill.Meter.Electric}</TableCell>
-                  <TableCell align="center">{item.Bill.Furniture.Equipment.Price}</TableCell>
+                  {/* <TableCell align="center">{item.Bill.Furniture.Equipment.Price}</TableCell> */}
                   <TableCell align="center">{item.Bill.Cost}</TableCell>
                   <TableCell align="center">{item.Method.Name}</TableCell>
                   <TableCell align="center">{item.Banking.Name}</TableCell>

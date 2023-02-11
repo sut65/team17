@@ -34,6 +34,7 @@ function BillCreate() {
   const [selectedDate, setSelectedDate] = useState<Date | null>();
   const [admins, setAdmins] = useState<AdminInterface>();
   const [furnitures, setFurnitures] = useState<FurnitureInterface[]>([]);
+  const [totalFurnitures, setTotalFurnitures] = useState<number>(0)
   const [meters, setMeters] = useState<MeterInterface[]>([]);
   const [bills, setBills] = useState<Partial<BillInterface>>({});
   const [costs, setCosts] = useState<string>("");
@@ -83,67 +84,100 @@ function BillCreate() {
       });
   };
 
-  const getFurniture = async () => {
-    fetch(`${apiUrl}/furnitures`, requestOptions)
+  const getFurniture = async (value:number) => {
+    fetch(`${apiUrl}/furniture/sum/${value}`, requestOptions)
       .then((response) => response.json())
       .then((res) => {
-        if (res.data) {
-          setFurnitures(res.data);
+        if (res.sum) {
+          const datafur:FurnitureInterface[] = res.sum
+          let totalsum = 0
+          datafur.map(item => {
+            totalsum = totalsum + item.Total
+          })
+          setTotalFurnitures(totalsum)
+          setFurnitures(datafur)
+          const arrFur = datafur.map(item => {
+            return item.ID
+          })
+          setBills({...bills ,FurnitureID:arrFur})
         } else {
           console.log("else");
         }
       });
   };
 
-  const totalvalue = () => {
-    const room = meters.find((item) => item.ID === bills.MeterID);
-    console.log(
-      Number(room?.Manage.Price) + Number(room?.Water) + Number(room?.Electric)
-    );
+
+  const totalvalue = async () => {
+    const room = meters.find((item) => item.ID === Number(bills.MeterID));
+    if(room && totalFurnitures == 0){
+      await getFurniture(room?.Manage?.RoomID)
+    }
+
   };
 
   useEffect(() => {
     getMeters();
-    getFurniture();
+    setSelectedDate(new Date());
   }, []);
+
+  useEffect(() => {
+    if(bills?.MeterID){
+      totalvalue()
+    }else{
+      setTotalFurnitures(0)
+      setBills({...bills ,Cost:0})
+    }
+  },[bills])
+
+  useEffect(() => {
+    const room = meters.find((item) => item.ID === Number(bills.MeterID));
+   if(room){
+    const totalcost = totalFurnitures +  Number(room?.Manage.Price) + Number(room?.Water) + Number(room?.Electric)
+    setBills({...bills ,Cost:totalcost})
+   }
+  },[totalFurnitures])
 
   const convertType = (data: string | number | undefined) => {
     let val = typeof data === "string" ? parseInt(data) : data;
     return val;
   };
-
+//?.map(item => convertType(item))
+//Number(costs)
   function submit() {
-    let data = {
-      MeterID: convertType(bills.MeterID),
-      FurnitureID: convertType(bills.FurnitureID),
-      Cost: Number(costs),
-      BillTime: selectedDate,
-    };
-    console.log("DATA", data);
-
-    const requestOptionsPost = {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    };
-
-    fetch(`${apiUrl}/bills`, requestOptionsPost)
-      .then((response) => response.json())
-      .then((res) => {
-        if (res.data) {
-          console.log("บันทึกได้");
-          console.log(res.data)
-          setSuccess(true);
-          setErrorMessage("");
-        } else {
-          console.log("บันทึกไม่ได้");
-          setError(true);
-          setErrorMessage(res.error);
-        }
-      });
+    const arrFurnitureID = bills?.FurnitureID?.map(item => convertType(item)) || []
+    
+    arrFurnitureID.forEach(item => {
+      let data = {
+        MeterID: convertType(bills.MeterID),
+        FurnitureID: item, //ส่งไปเป็น array จากบรรทัด 146
+        Cost: bills.Cost, //คำนวณจาก 144
+        BillTime: selectedDate,
+      };
+  
+      const requestOptionsPost = {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      };
+  
+      fetch(`${apiUrl}/bills`, requestOptionsPost)
+        .then((response) => response.json())
+        .then((res) => {
+          if (res.data) {
+            console.log("บันทึกได้");
+            console.log(res.data)
+            setSuccess(true);
+            setErrorMessage("");
+          } else {
+            console.log("บันทึกไม่ได้");
+            setError(true);
+            setErrorMessage(res.error);
+          }
+        });
+    });
   }
 
   return (
@@ -294,23 +328,15 @@ function BillCreate() {
           <FormControl fullWidth variant="outlined">
             <p>ค่าเช่าเฟอร์นิเจอร์</p>
             {/* <InputLabel id="FurnitureID">ค่าเช่าเฟอร์นิเจอร์</InputLabel> */}
-            <Select
+             <TextField
               variant="outlined"
-              native
-              value={bills.FurnitureID + ""}
-              // label="ระบุค่าเช่าเฟอร์นิเจอร์"
-              onChange={handleChange}
+              id="FurnitureID"
               inputProps={{
                 name: "FurnitureID",
               }}
-            >
-              <option aria-label="None" value=""></option>
-              {furnitures.map((item: FurnitureInterface) => (
-                <option value={item.ID} key={item.ID}>
-                  {item.Equipment.Price}
-                </option>
-              ))}
-            </Select>
+              value = {totalFurnitures}
+              onChange={(event) => setCosts(event.target.value)}
+            />
           </FormControl>
         </Grid>
 
@@ -464,6 +490,7 @@ function BillCreate() {
               variant="outlined"
               id="BillID"
               onChange={(event) => setCosts(event.target.value)}
+              value = {bills.Cost}
             />
           </FormControl>
         </Grid>

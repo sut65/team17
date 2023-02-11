@@ -65,7 +65,6 @@ func CreateFurniture(c *gin.Context) {
 		FurnitureTime: furniture.FurnitureTime, // ตั้งค่าฟิลด์ furnitureTime
 	}
 
-
 	// ขั้นตอนการ validate ที่นำมาจาก unit test
 	if _, err := govalidator.ValidateStruct(bk); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -92,8 +91,9 @@ func GetFurniture(c *gin.Context) {
 }
 
 func SumFurnitures(c *gin.Context) {
-	var sum int
-	entity.DB().Table("furnitures").Select("sum(total)").Where("room_id=?", c.Param("room_id")).Row().Scan(&sum)
+	var sum []entity.Furniture
+	// entity.DB().Table("furnitures").Select("*").Where("room_id=?", c.Param("room_id")).Row().Scan(&sum)
+	entity.DB().Preload("Admin").Preload("User").Preload("Room").Preload("Equipment").Preload("Amount").Raw("SELECT * FROM furnitures WHERE room_id = ?", c.Param("room_id")).Find(&sum)
 	fmt.Printf("sum: %#v\n", sum)
 	c.JSON(http.StatusOK, gin.H{"sum": sum})
 }

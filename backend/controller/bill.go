@@ -133,7 +133,6 @@ import (
 
 // POST /bill
 func CreateBill(c *gin.Context) {
-
 	var bill entity.Bill
 	var meter entity.Meter
 	var furniture entity.Furniture
@@ -156,18 +155,31 @@ func CreateBill(c *gin.Context) {
 		return
 	}
 
-	// 12: สร้าง Meter
+	// //new
+	// var groupfur := []
+
+	// for _, item := range bill.Furniture {
+	// 	if err := entity.DB().Raw("SELECT id FROM furnitures WHERE id = ?", item.ID).Find(&furniture).Error; err != nil {
+	// 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+	// 		return
+	// 	}
+	// 	groupfur = append(groupfur, furniture)
+
+	// }
+
+	// 12: สร้าง Bill
 	bl := entity.Bill{
 		Meter:     meter,     // โยงความสัมพันธ์กับ Entity User
 		Furniture: furniture, // โยงความสัมพันธ์กับ Entity Furniture
 		Cost:      bill.Cost,
+		BillTime:  bill.BillTime,
 	}
-	// // ขั้นตอนการ validate ที่นำมาจาก unit test
+
+	// ขั้นตอนการ validate ที่นำมาจาก unit test
 	if _, err := govalidator.ValidateStruct(bl); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-
 	// 13: บันทึก
 	if err := entity.DB().Create(&bl).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})

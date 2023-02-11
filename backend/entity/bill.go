@@ -19,4 +19,7 @@ type Bill struct {
 
 	AdminID *uint
 	Admin   Admin `gorm:"referenes:id" valid:"-"`
+
+	// FurnitureID int
+	// Furniture   []Furniture `gorm:"foreignKey:BillID; constraint:OnDelete:CASCADE" valid:"-"`
 }

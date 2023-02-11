@@ -27,6 +27,12 @@ type Furniture struct {
 	EquipmentID *uint
 	Equipment   Equipment
 
-	Bills	[]Bill	`gorm:"foreignKey:FurnitureID"`
-}
+	// BillID *uint
+	// Bill   Bill `gorm:"references:ID" valid:"-"`
 
+	// Bills []Bill `gorm:"foreignKey:FurnitureID"`
+
+	// oderFurnitureID *uint
+	// oderFurniture   Bill `gorm:"references:ID" valid:"-"`
+
+}
