@@ -47,6 +47,7 @@ import RequestchangeCreate from "./components/Requestchange/Requestchangecreate"
 import RequestchangeUpdate from "./components/Requestchange/RequestchangeUpdate";
 import Cleanings from "./components/Cleaning/Cleanings";
 import CleaningCreate from "./components/Cleaning/CleaningCreate";
+import CleaningUpdate from "./components/Cleaning/CleaningUpdate";
 import Furnitures from "./components/Furniture/Furnitures";
 import FurnitureCreate from "./components/Furniture/FurnitureCreate";
 import Meter from "./components/Meter/Meter";
@@ -64,7 +65,6 @@ import PaymentCreate from "./components/PaymentCreate";
 import Payment from "./components/Payment";
 import Users from "./components/User";
 import UserCreate from "./components/UserCreate";
-import CleaningUpdate from "./components/Cleaning/CleaningUpdate";
 import { UserInterface } from "./models/IUser";
 import { AdminInterface } from "./models/IAdmin";
 
@@ -338,7 +338,6 @@ function App() {
                         <Route path="/resident/create" element={<ResidentCreate />} />
                         <Route path="/residents/:id" element={<ResidentUpdate />} />
 
->>>>>>> 5a27d7007a4fa785ede729e24e36e81b934e210e
                         <Route path="/requestouts" element={< Requestout />} />
                         <Route path="/requestout/create" element={<RequestoutCreate />} />
                         <Route path="/requestouts/:id" element={<RequestoutUpdate />} />
@@ -349,8 +348,8 @@ function App() {
 
                         <Route path="/cleanings" element={<Cleanings />} />
                         <Route path="/cleaning/create" element={<CleaningCreate />} />
-<<<<<<< HEAD
                         <Route path="/cleanings/:id" element={<CleaningUpdate />} />
+
                         <Route path="/payment/create" element={<PaymentCreate />} />
                         <Route path="/payments" element={<Payment />} />
                         
@@ -359,13 +358,16 @@ function App() {
                         
                         <Route path="/furnitures" element={<Furnitures />} />
                         <Route path="/furniture/create" element={<FurnitureCreate />} />
+
                         <Route path="/meters" element={<Meter />} />
                         <Route path="/meter/create" element={<MeterCreate />} />
+
                         <Route path="/bills" element={<Bill />} />
                         <Route path="/bill/create" element={<BillCreate />} />
                         
                         <Route path="/repairs" element={<Repair />} />
                         <Route path="/repair/create" element={<RepairCreate />} />
+
                         <Route path="/emergencies" element={<Emergency />} />
                         <Route path="/emergencie/create" element={<EmergencyCreate />} />
                      </Routes>

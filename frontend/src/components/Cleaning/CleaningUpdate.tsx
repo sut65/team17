@@ -163,7 +163,7 @@ function CleaningUpdate() {
 
     console.log(data)
 
-    const requestOptionsPost = {
+    const requestOptionsUpdate = {
       method: "PATCH",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -172,7 +172,7 @@ function CleaningUpdate() {
       body: JSON.stringify(data),
     };
 
-    fetch(`${apiUrl}/cleanings`, requestOptionsPost)
+    fetch(`${apiUrl}/cleanings`, requestOptionsUpdate)
       .then((response) => response.json())
       .then((res) => {
         if (res.data) {
@@ -192,11 +192,12 @@ function CleaningUpdate() {
   }
 
   return (
-    <Container maxWidth="md" 
-    sx={{
-      fontFamily: "PK Krung Thep Medium",
-      fontSize: "20px"
-    }}>
+    <Box
+      sx={{
+        fontFamily: "PK Krung Thep Medium",
+        fontSize: "20px",
+      }}
+    >
       <Snackbar
         open={success}
         autoHideDuration={3000}
@@ -217,234 +218,230 @@ function CleaningUpdate() {
           {errorMessage}
         </Alert>
       </Snackbar>
-      <Paper>
-        <Box
-          display="flex"
-          sx={{
-            marginTop: 2,
-          }}
-        >
-          <Box sx={{ paddingX: 2, paddingY: 1 }}>
-            <Typography
-              component="h2"
-              variant="h6"
-              color="primary"
-              gutterBottom
+
+      <Box
+        display="flex"
+        sx={{
+          marginTop: 2,
+        }}
+      >
+        <Box sx={{ paddingX: 2, paddingY: 1 }}>
+          <Typography
+            component="h2"
+            variant="h6"
+            color="primary"
+            gutterBottom
+            sx={{
+              fontFamily: "PK Krung Thep Medium",
+              fontSize: "30px",
+            }}
+          >
+            <b>บันทึกการจองทำความสะอาด</b>
+          </Typography>
+        </Box>
+      </Box>
+      <Divider />
+      <Grid container spacing={3} sx={{ padding: 2 }}>
+        <Grid item xs={6}>
+          <FormControl fullWidth variant="outlined">
+            <p>ชื่อ - สกุล</p>
+            <Select
               sx={{
                 fontFamily: "PK Krung Thep Medium",
-                fontSize: "30px"
+                fontSize: "16px",
+              }}
+              style={{ borderRadius: "30px" }}
+              native
+              disabled
+              value={cleanings.UserID + ""}
+              onChange={handleChange}
+              inputProps={{
+                name: "UserID",
               }}
             >
-              <b>บันทึกการจองทำความสะอาด</b>
+              <option value={users?.ID} key={users?.ID}>
+                {users?.Name}
+              </option>
+            </Select>
+          </FormControl>
+        </Grid>
 
-            </Typography>
-          </Box>
-        </Box>
-        <Divider />
-        <Grid container spacing={3} sx={{ padding: 2 }}>
-
-          <Grid item xs={6}>
-            <FormControl fullWidth variant="outlined">
-            <p>ชื่อ - สกุล</p>
-              <Select
-              sx={{
-                fontFamily: "PK Krung Thep Medium",
-                fontSize: "16px"
-              }}
-                style={{borderRadius: "30px"}}
-                native
-                disabled
-                value={cleanings.UserID + ""}
-                onChange={handleChange}
-                inputProps={{
-                  name: "UserID",
-                }}
-              >
-                <option value={users?.ID} key={users?.ID} >
-                    {users?.Name}
-                    </option>
-              </Select>
-            </FormControl>
-          </Grid>
-
-          <Grid item xs={6}>
-            <FormControl fullWidth variant="outlined">
+        <Grid item xs={6}>
+          <FormControl fullWidth variant="outlined">
             <p>เบอร์โทรศัพท์</p>
-              <Select
+            <Select
               sx={{
                 fontFamily: "PK Krung Thep Medium",
-                fontSize: "16px"
+                fontSize: "16px",
               }}
-                style={{borderRadius: "30px"}}
-                native
-                disabled
-                value={cleanings.UserID + ""}
-                onChange={handleChange}
-                inputProps={{
-                  name: "UserID",
-                }}
-              >
-                <option value={users?.ID} key={users?.ID} >
-                    {users?.Tel}
-                    </option>
-              </Select>
-            </FormControl>
-          </Grid>
+              style={{ borderRadius: "30px" }}
+              native
+              disabled
+              value={cleanings.UserID + ""}
+              onChange={handleChange}
+              inputProps={{
+                name: "UserID",
+              }}
+            >
+              <option value={users?.ID} key={users?.ID}>
+                {users?.Tel}
+              </option>
+            </Select>
+          </FormControl>
+        </Grid>
 
-          <Grid item xs={6}>
-            <FormControl fullWidth variant="outlined">
-              <p>เลือกห้อง</p>
-              <Select
+        <Grid item xs={6}>
+          <FormControl fullWidth variant="outlined">
+            <p>เลือกห้อง</p>
+            <Select
               sx={{
                 fontFamily: "PK Krung Thep Medium",
-                fontSize: "16px"
+                fontSize: "16px",
               }}
-                style={{borderRadius: "30px"}}  
-                native
-                labelId="RoomID"
-                id="RoomID"
-                label=""
-                placeholder=""
-                value={cleanings.RoomID + ""}
-                onChange={handleChange}
-                inputProps={{
-                  name: "RoomID",
-                }}
-              >
-                <option aria-label="None" value="">
+              style={{ borderRadius: "30px" }}
+              native
+              labelId="RoomID"
+              id="RoomID"
+              label=""
+              placeholder=""
+              value={cleanings.RoomID + ""}
+              onChange={handleChange}
+              inputProps={{
+                name: "RoomID",
+              }}
+            >
+              <option aria-label="None" value="">
                 โปรดระบุ
+              </option>
+              {rooms.map((item: RoomInterface) => (
+                <option value={item.ID} key={item.ID}>
+                  {item.Number}
                 </option>
-                {rooms.map((item: RoomInterface) => (
-                  <option value={item.ID} key={item.ID}>
-                    {item.Number}
-                  </option>
-                ))}
-              </Select>
-            </FormControl>
-          </Grid>
+              ))}
+            </Select>
+          </FormControl>
+        </Grid>
 
-          <Grid item xs={6}>
-            <FormControl fullWidth variant="outlined">
-              <p>เลือกประเภทการทำความสะอาด</p>
-              <Select
+        <Grid item xs={6}>
+          <FormControl fullWidth variant="outlined">
+            <p>เลือกประเภทการทำความสะอาด</p>
+            <Select
               sx={{
                 fontFamily: "PK Krung Thep Medium",
-                fontSize: "16px"
+                fontSize: "16px",
               }}
-                style={{borderRadius: "30px"}}
-                native
-                labelId="KindID"
-                id="KindID"
-                placeholder=""
-                value={cleanings.KindID + ""}
-                onChange={handleChange}
-                inputProps={{
-                  name: "KindID",
-                }}
-              >
-                <option aria-label="None" value="">
-                  โปรดระบุ
+              style={{ borderRadius: "30px" }}
+              native
+              labelId="KindID"
+              id="KindID"
+              placeholder=""
+              value={cleanings.KindID + ""}
+              onChange={handleChange}
+              inputProps={{
+                name: "KindID",
+              }}
+            >
+              <option aria-label="None" value="">
+                โปรดระบุ
+              </option>
+              {kinds.map((item: KindInterface) => (
+                <option value={item.ID} key={item.ID}>
+                  {item.Kind}
                 </option>
-                {kinds.map((item: KindInterface) => (
-                  <option value={item.ID} key={item.ID}>
-                    {item.Kind}
-                  </option>
-                ))}
-              </Select>
-            </FormControl>
-          </Grid>
+              ))}
+            </Select>
+          </FormControl>
+        </Grid>
 
-          <Grid item xs={6}>
-            <FormControl fullWidth variant="outlined">
-              <p>เลือกบริเวณที่ต้องการทำความสะอาด</p>
-              <Select
+        <Grid item xs={6}>
+          <FormControl fullWidth variant="outlined">
+            <p>เลือกบริเวณที่ต้องการทำความสะอาด</p>
+            <Select
               sx={{
                 fontFamily: "PK Krung Thep Medium",
-                fontSize: "16px"
+                fontSize: "16px",
               }}
-                style={{borderRadius: "30px"}}
-                native
-                value={cleanings.AreaID + ""}
-                onChange={handleChange}
-                inputProps={{
-                  name: "AreaID",
-                }}
-                
-              >
-                <option aria-label="None" value="">
-                  โปรดระบุ
+              style={{ borderRadius: "30px" }}
+              native
+              value={cleanings.AreaID + ""}
+              onChange={handleChange}
+              inputProps={{
+                name: "AreaID",
+              }}
+            >
+              <option aria-label="None" value="">
+                โปรดระบุ
+              </option>
+              {areas.map((item: AreaInterface) => (
+                <option value={item.ID} key={item.ID}>
+                  {item.Area}
                 </option>
-                {areas.map((item: AreaInterface) => (
-                  <option value={item.ID} key={item.ID}>
-                    {item.Area}
-                  </option>
-                ))}
-              </Select>
-            </FormControl>
-          </Grid>
-      
-          <Grid item xs={6}>
-            <FormControl fullWidth variant="outlined">
-              <p>วันที่และเวลา</p>
-              <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <DateTimePicker
-                 value={selectedDate}
-                 onChange={(newValue) => setSelectedDate(newValue)}
+              ))}
+            </Select>
+          </FormControl>
+        </Grid>
+
+        <Grid item xs={6}>
+          <FormControl fullWidth variant="outlined">
+            <p>วันที่และเวลา</p>
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
+              <DateTimePicker
+                value={selectedDate}
+                onChange={(newValue) => setSelectedDate(newValue)}
                 //  minDate={(new Date('31-12-2022T09:00'))}
-                  renderInput={(params) => <TextField {...params} />}
-                />
-              </LocalizationProvider>
-            </FormControl>
-          </Grid>
+                renderInput={(params) => <TextField {...params} />}
+              />
+            </LocalizationProvider>
+          </FormControl>
+        </Grid>
 
-          <Grid item xs={6}>
-           <FormControl fullWidth variant="outlined">
-           <p>เพิ่มเติม</p>
+        <Grid item xs={6}>
+          <FormControl fullWidth variant="outlined">
+            <p>เพิ่มเติม</p>
             <TextField
-            sx={{
-              fontFamily: "PK Krung Thep Medium", 
-              fontSize:17
-            }}
-                id="CleaningID"
-                label=""
-                rows={2}
-                placeholder=""
-                multiline
-                onChange={(event) => setDetail(event.target.value)}
+              sx={{
+                fontFamily: "PK Krung Thep Medium",
+                fontSize: 17,
+              }}
+              id="CleaningID"
+              label=""
+              rows={2}
+              placeholder=""
+              multiline
+              onChange={(event) => setDetail(event.target.value)}
             />
             <FormHelperText error>*ไม่จำเป็นต้องระบุ</FormHelperText>
-           </FormControl>
-          </Grid>
-
-          <Grid item xs={12}>
-            <Button
-            sx={{
-              fontFamily: "PK Krung Thep Medium", 
-              fontSize:17
-            }}
-              component={RouterLink}
-              to="/cleanings"
-              variant="contained"
-              color="inherit"
-            >
-              <b>กลับ</b>
-            </Button>
-            <Button
-            sx={{
-              fontFamily: "PK Krung Thep Medium", 
-              fontSize:17
-            }}
-              style={{ float: "right" }}
-              onClick={update}
-              variant="contained"
-              color="primary"
-            >
-              <b>แก้ไขข้อมูล</b>
-            </Button>
-          </Grid>
+          </FormControl>
         </Grid>
-      </Paper>
-    </Container>
+
+        <Grid item xs={12}>
+          <Button
+            sx={{
+              fontFamily: "PK Krung Thep Medium",
+              fontSize: 17,
+            }}
+            component={RouterLink}
+            to="/cleanings"
+            variant="contained"
+            color="inherit"
+          >
+            กลับ
+          </Button>
+          <Button
+            sx={{
+              fontFamily: "PK Krung Thep Medium",
+              fontSize: 17,
+            }}
+            style={{ float: "right" }}
+            onClick={update}
+            variant="contained"
+            color="primary"
+          >
+            <b>แก้ไขข้อมูล</b>
+          </Button>
+        </Grid>
+      </Grid>
+    </Box>
   );
 }
 
