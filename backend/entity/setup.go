@@ -3,6 +3,8 @@ package entity
 import (
 	//"time"
 
+	"time"
+
 	"golang.org/x/crypto/bcrypt"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
@@ -61,22 +63,87 @@ func SetupDatabase() {
 	db.Raw("SELECT * FROM Admins WHERE email = ?", "jackerchaiwan@gmail.com").Scan(&jakkrit)
 
 
+	//---Status Data
+	Single := Status{
+		Name: "โสด",
+	}
+	db.Model(&Status{}).Create(&Single)
+
+	Married := Status{
+		Name: "สมรส ",
+	}
+	db.Model(&Status{}).Create(&Married)
+
+	Widowed := Status{
+		Name: "หม้าย ",
+	}
+	db.Model(&Status{}).Create(&Widowed)
+
+	Divorce := Status{
+		Name: "หย่า ",
+	}
+	db.Model(&Status{}).Create(&Divorce)
+
+	Separated := Status{
+		Name: "แยกกันอยู่",
+	}
+	db.Model(&Status{}).Create(&Separated)
+
+	//---Title Data
+	Mr := Title{
+		Name: "นาย",
+	}
+	db.Model(&Title{}).Create(&Mr)
+
+	Mrs := Title{
+		Name: "นาง",
+	}
+	db.Model(&Title{}).Create(&Mrs)
+
+	Miss := Title{
+		Name: "นางสาว",
+	}
+	db.Model(&Title{}).Create(&Miss)
+
+	//---Gender Data
+	Male := Gender{
+		Name: "ชาย",
+	}
+	db.Model(&Gender{}).Create(&Male)
+
+	Female := Gender{
+		Name: "หญิง",
+	}
+	db.Model(&Gender{}).Create(&Female)
 	
 
 	db.Model(&User{}).Create(&User{
+		Status:     Single ,
+		Title:      Miss ,
+		Gender: 	Female ,
 		Name:     	"Wallaya Patisang",
 		Email:   	"wallaya.1999@gmail.com",
 		Tel: 		"0958713961",
 		Password: 	string(password),
 		Role:     	"user",
+		Address:    "Bankok",
+		Personal:   "12345678912345",
+		BirthdayTime: time.Date(1999,5,12,0,0,0,0,time.Local),
+			
 	})
 
 	db.Model(&User{}).Create(&User{
+		Status:     Single ,
+		Title:      Miss ,
+		Gender: 	Female ,
 		Name:  "Panadda Srisawat",
 		Email: "panadda@gmail.com",
 		Tel: 		"0966346799",
 		Password: string(password),
 		Role:     "user",
+		Address:    "Surat",
+		Personal:   "9876543215486",
+		BirthdayTime: time.Date(1999,6,25,0,0,0,0,time.Local),
 	})
 
 	var wallaya  	User
@@ -386,58 +453,6 @@ func SetupDatabase() {
 	db.Model(&Method{}).Create(&Mobile_Banking)
 
 
-	//---Status Data
-	Single := Status{
-		Name: "โสด",
-	}
-	db.Model(&Status{}).Create(&Single)
-
-	Married := Status{
-		Name: "สมรส ",
-	}
-	db.Model(&Status{}).Create(&Married)
-
-	Widowed := Status{
-		Name: "หม้าย ",
-	}
-	db.Model(&Status{}).Create(&Widowed)
-
-	Divorce := Status{
-		Name: "หย่า ",
-	}
-	db.Model(&Status{}).Create(&Divorce)
-
-	Separated := Status{
-		Name: "แยกกันอยู่",
-	}
-	db.Model(&Status{}).Create(&Separated)
-
-	//---Title Data
-	Mr := Title{
-		Name: "นาย",
-	}
-	db.Model(&Title{}).Create(&Mr)
-
-	Mrs := Title{
-		Name: "นาง",
-	}
-	db.Model(&Title{}).Create(&Mrs)
-
-	Miss := Title{
-		Name: "นางสาว",
-	}
-	db.Model(&Title{}).Create(&Miss)
-
-	//---Gender Data
-	Male := Gender{
-		Name: "ชาย",
-	}
-	db.Model(&Gender{}).Create(&Male)
-
-	Female := Gender{
-		Name: "หญิง",
-	}
-	db.Model(&Gender{}).Create(&Female)
 
 	C := Object{
 		Name: "Tv",

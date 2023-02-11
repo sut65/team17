@@ -149,11 +149,13 @@ function UserCreate() {
   };
 
   function submit() {
+   let date = new Date(selectedDate as Date).toISOString()
     let data = {
+      Role: "user",
       StatusID: convertType(users.StatusID),
       GenderID: convertType(users.GenderID),
       TitleID: convertType(users.TitleID),
-      BirthdaTime: selectedDate,
+      BirthdayTime: selectedDate,
       Name: name,
       Personal: personal,
       Email: email,

@@ -2,7 +2,6 @@ package controller
 
 import (
 	"net/http"
-
 	"github.com/gin-gonic/gin"
 	"github.com/asaskevich/govalidator"
 	"github.com/sut65/team17/entity"
@@ -43,6 +42,7 @@ func CreateUser(c *gin.Context) {
 
 	// 12: สร้าง user
 	dt := entity.User{
+		Role:  		 user.Role,
 		Status:       status, // โยงความสัมพันธ์กับ Entity status
 		Gender:       gender, // โยงความสัมพันธ์กับ Entity gender
 		Title:        title,  // โยงความสัมพันธ์กับ Entity title
