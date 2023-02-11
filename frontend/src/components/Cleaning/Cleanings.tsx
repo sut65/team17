@@ -81,7 +81,9 @@ function Cleanings() {
   return (
     <Box sx={{ width: "100%" }}>
       {/* <Container sx={{ marginTop: 2 }} > */}
-      <Box display="flex">
+      <Box display="flex" sx={{
+        mt: "30px",
+      }}>
         <Box flexGrow={1}>
           <Typography
             component="h2"
@@ -120,28 +122,28 @@ function Cleanings() {
         <Table aria-label="simple table">
           <TableHead>
             <TableRow >
-              <TableCell sx={{ marginTop: 2, fontFamily: "PK Krung Thep Medium"}} align="center" width="2%">
+              <TableCell sx={{ marginTop: 2, fontFamily: "PK Krung Thep Medium",fontWeight: "bold"}} align="center" width="2%">
                 ลำดับ
               </TableCell>
-              <TableCell sx={{ marginTop: 2, fontFamily: "PK Krung Thep Medium"}} align="center" width="15%">
+              <TableCell sx={{ marginTop: 2, fontFamily: "PK Krung Thep Medium",fontWeight: "bold"}} align="center" width="15%">
                 ชื่อ - นามสกุล
               </TableCell>
-              <TableCell sx={{ marginTop: 2, fontFamily: "PK Krung Thep Medium"}} align="center" width="8%">
+              <TableCell sx={{ marginTop: 2, fontFamily: "PK Krung Thep Medium",fontWeight: "bold"}} align="center" width="8%">
                 เบอร์โทร
               </TableCell>
-              <TableCell sx={{ marginTop: 2, fontFamily: "PK Krung Thep Medium"}} align="center" width="7%">
+              <TableCell sx={{ marginTop: 2, fontFamily: "PK Krung Thep Medium",fontWeight: "bold"}} align="center" width="7%">
                 ห้องพัก
               </TableCell>
-              <TableCell sx={{ marginTop: 2, fontFamily: "PK Krung Thep Medium"}} align="center" width="19%">
+              <TableCell sx={{ marginTop: 2, fontFamily: "PK Krung Thep Medium",fontWeight: "bold"}} align="center" width="19%">
                 ประเภทการทำความสะอาด
               </TableCell>
-              <TableCell sx={{ marginTop: 2, fontFamily: "PK Krung Thep Medium"}} align="center" width="21%">
+              <TableCell sx={{ marginTop: 2, fontFamily: "PK Krung Thep Medium",fontWeight: "bold"}} align="center" width="22%">
                 บริเวณที่ต้องการทำความสะอาด
               </TableCell>
-              <TableCell sx={{ marginTop: 2, fontFamily: "PK Krung Thep Medium"}} align="center" width="13%">
+              <TableCell sx={{ marginTop: 2, fontFamily: "PK Krung Thep Medium",fontWeight: "bold"}} align="center" width="13%">
                 เพิ่มเติม
               </TableCell>
-              <TableCell sx={{ marginTop: 2, fontFamily: "PK Krung Thep Medium"}} align="center" width="22%">
+              <TableCell sx={{ marginTop: 2, fontFamily: "PK Krung Thep Medium",fontWeight: "bold"}} align="center" width="22%">
                 วันที่และเวลา
               </TableCell>
               <TableCell align="center" width="1%"></TableCell>
