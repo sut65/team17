@@ -13,12 +13,21 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { MeterInterface } from "../../models/IMeter";
 import { format } from 'date-fns'
+import { useParams, useNavigate } from "react-router-dom";
 
-
+import DeleteIcon from '@mui/icons-material/Delete';
+import SaveAsOutlinedIcon from '@mui/icons-material/SaveAsOutlined';
 
 function Meters() {
   // const classes = useStyles();
+  let navigate = useNavigate();
+  const { id } = useParams();
   const [meters, setMeters] = useState<MeterInterface[]>([]);
+ 
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState(false);
+  const [ErrorMessage, setErrorMessage] = useState("");
+
   const apiUrl = "http://localhost:8080";
   const requestOptions = {
     method: "GET",
@@ -40,6 +49,35 @@ function Meters() {
         }
       });
   };
+
+  const DeleteMeter = async (id: string | number | undefined) => {
+    const requestOptions = {
+       method: "DELETE",
+       headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "application/json",
+       },
+    };
+
+    fetch(`${apiUrl}/meters/${id}`, requestOptions)
+       .then((response) => response.json())
+       .then(
+          (res) => {
+             if (res.data) {
+                setSuccess(true)
+                console.log("ยกเลิกสำเร็จ")
+                setErrorMessage("")
+             }
+             else {
+                setErrorMessage(res.error)
+                setError(true)
+                console.log("ยกเลิกไม่สำเร็จ")
+             }
+             getMeters();
+          }
+       )
+
+ }
 
   useEffect(() => {
     getMeters();
@@ -126,6 +164,56 @@ function Meters() {
                   <TableCell align="center">{item.Electric}</TableCell>
                   <TableCell align="center">{item.Water}</TableCell>
                   <TableCell align="center">{format((new Date(item.Metertime)), 'dd MMMM yyyy hh:mm')}</TableCell>
+                  <TableCell align="center">
+                  <Button
+                        variant="outlined"
+                        size="medium"
+                        startIcon={<SaveAsOutlinedIcon />}
+                        sx={{
+                           fontFamily: "PK Krung Thep Medium",
+                           fontSize: 20,
+                           borderRadius: 20,
+                           fontWeight: "bold",
+                           color: 'black',
+                           width: '100px',
+                           marginBottom: 1,
+                           borderColor: 'black',
+                           '&:hover': {
+                              background: 'rgba(0, 208, 132, 0.5)',
+                              borderColor: 'rgba(0, 208, 132, 0.4)',
+                           },
+                        }}
+                        onClick={() => navigate(`${item.ID}`)}
+                     >
+                        แก้ไข
+                     </Button>
+
+                     <Button
+                        variant="outlined"
+                        size="medium"
+                        startIcon={<DeleteIcon />}
+                        sx={{
+                           fontFamily: "PK Krung Thep Medium",
+                           fontSize: 20,
+                           borderRadius: 20,
+                           fontWeight: "bold",
+                           marginTop: 1,
+                           width: '100px',
+                           color: 'black',
+                           borderColor: 'black',
+                           '&:hover': {
+                              background: 'rgba(0, 208, 132, 0.5)',
+                              borderColor: 'rgba(0, 208, 132, 0.4)',
+                           },
+                        }}
+                        aria-label="delete"
+                        onClick={() => DeleteMeter(item.ID)}
+                     >
+                        ลบ
+                     </Button>
+                    </TableCell>
+
+              
                 </TableRow>
               ))}
             </TableBody>
@@ -137,3 +225,19 @@ function Meters() {
 }
 
 export default Meters;
+
+function setSuccess(arg0: boolean) {
+  throw new Error("Function not implemented.");
+}
+function setErrorMessage(arg0: string) {
+  throw new Error("Function not implemented.");
+}
+
+function setError(arg0: boolean) {
+  throw new Error("Function not implemented.");
+}
+
+function getManages() {
+  throw new Error("Function not implemented.");
+}
+

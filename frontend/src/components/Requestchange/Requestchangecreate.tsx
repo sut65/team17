@@ -11,17 +11,10 @@ import Divider from "@mui/material/Divider";
 import Snackbar from "@mui/material/Snackbar";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+
 import TextField from '@mui/material/TextField';
 
 import { createStyles, FormHelperText, InputLabel } from "@material-ui/core";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
-
-import dayjs, { Dayjs } from 'dayjs';
-
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-
 
 
 import { RequestchangeInterface } from "../../models/IRequestchange";
@@ -41,21 +34,15 @@ function RequestchangeCreate() {
   const [rooms, setRooms] = useState<RoomInterface[]>([]);
   const [reasons, setReasons] = useState<ReasonInterface[]>([]);
   const [users, setUsers] = useState<UserInterface>();
-
-  const [requestchanges, setRequestchanges] = useState<Partial<RequestchangeInterface>>({});
-
   const [details, setDetail] = useState<String>("");
-
-
-  const [value, setValue] = React.useState<Dayjs | null>(dayjs('2022-04-07'));
-
-  
+  const [requestchanges, setRequestchanges] = useState<Partial<RequestchangeInterface>>({});
 
 
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
+  
   const apiUrl = "http://localhost:8080";
 
   const requestOptions = {
@@ -275,7 +262,7 @@ function RequestchangeCreate() {
             </FormControl>
           </Grid>
 
-          <Grid item xs={6}>
+          {/* <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
               <p>ห้องพักที่ต้องการ</p>
               <Select sx={{
@@ -301,7 +288,7 @@ function RequestchangeCreate() {
                 ))}
               </Select>
             </FormControl>
-          </Grid>
+          </Grid> */}
 
           <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">

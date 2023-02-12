@@ -19,17 +19,17 @@ type Meter struct {
 	// AdminID เป็น FK
 	AdminID *uint
 	// ข้อมูลของ Admin เมื่อ join ตาราง
-	Admin Admin		`gorm:"referenes:id"`
+	Admin Admin `gorm:"referenes:id" valid:"-"`
 
 	// UserID เป็น FK
 	UserID *uint
 	// ข้อมูลของ User เมื่อ join ตาราง
-	User User		`gorm:"referenes:id"`
+	User User `gorm:"referenes:id" valid:"-"`
 
 	// ManageID  เป็น FK
 	ManageID *uint
 	// ข้อมูลของ Manage เมื่อ join ตาราง
-	Manage Manage	`gorm:"referenes:id"`
+	Manage Manage `gorm:"referenes:id" valid:"-"`
 
 	Bills []Bill `gorm:"foreignKey:MeterID"`
 }

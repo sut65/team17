@@ -17,7 +17,6 @@ import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { FormHelperText, InputLabel } from "@material-ui/core";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 
-
 import { UserInterface } from "../../models/IUser";
 import { AdminInterface } from "../../models/IAdmin";
 import { RoomInterface } from "../../models/IRoom";
@@ -35,6 +34,7 @@ function FurnitureCreate() {
   const [Totals, setTotals] = useState<string>("");
   const [Prices, setPrices] = useState<string>("");
   const [Furnitures, setFurnitures] = useState<Partial<FurnitureInterface>>({});
+  
   const [Success, setSuccess] = useState(false);
   const [Error, setError] = useState(false);
   const [ErrorMessage, setErrorMessage] = useState("");
@@ -69,10 +69,7 @@ function FurnitureCreate() {
     });
     console.log("ONCHANGE: ",event.target.value);
     
-    // if(name == "SymptomID"){
-    //   getDepartment(event.target.value)
-    // }
-    
+
   };
 
 
@@ -179,7 +176,11 @@ function FurnitureCreate() {
   }
 
   return (
-    <Container maxWidth="md">
+    <Container maxWidth="md" 
+    sx={{
+      fontFamily: "PK Krung Thep Medium",
+      fontSize: "20px"
+    }}>
       <Snackbar
         open={Success}
         autoHideDuration={3000}
@@ -212,19 +213,29 @@ function FurnitureCreate() {
               component="h2"
               variant="h6"
               color="primary"
-              gutterBottom
+              gutterBottom               
+              sx={{
+                fontFamily: "PK Krung Thep Medium",
+                fontSize: "30px"
+              }}
             >
-              บันทึกเบิกจ่ายอุปกรณ์ในห้องพัก
+              <b>บันทึกเบิกจ่ายอุปกรณ์ในห้องพัก</b>
 
             </Typography>
           </Box>
         </Box>
         <Divider />
         <Grid container spacing={3} sx={{ padding: 2 }}>
+          
           <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
             <p>ชื่อ - สกุล</p>
               <Select
+              sx={{
+                fontFamily: "PK Krung Thep Medium",
+                fontSize: "16px"
+              }}
+                style={{borderRadius: "30px"}}
                 native
                 value={Furnitures.UserID + ""}
                 onChange={handleChange}
@@ -246,7 +257,12 @@ function FurnitureCreate() {
           <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
             <p>เบอร์โทรศัพท์</p>
-              <Select
+              <Select              
+              sx={{
+                fontFamily: "PK Krung Thep Medium",
+                fontSize: "16px"
+              }}
+                style={{borderRadius: "30px"}}
                 native
                 disabled
                 value={Furnitures.UserID + ""}
@@ -269,7 +285,12 @@ function FurnitureCreate() {
           <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
               <p>เลือกห้อง</p>
-              <Select
+              <Select 
+              sx={{
+                fontFamily: "PK Krung Thep Medium",
+                fontSize: "16px"
+              }}
+                style={{borderRadius: "30px"}}
                 native
                 labelId="RoomID"
                 id="RoomID"
@@ -282,6 +303,7 @@ function FurnitureCreate() {
                 }}
               >
                 <option aria-label="None" value="">
+                  โปรดระบุ
                 </option>
                 {Rooms.map((item: RoomInterface) => (
                   <option value={item.ID} key={item.ID}>
@@ -295,7 +317,12 @@ function FurnitureCreate() {
           <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
               <p>เลือกเฟอร์นิเจอร์</p>
-              <Select
+              <Select 
+              sx={{
+                fontFamily: "PK Krung Thep Medium",
+                fontSize: "16px"
+              }}
+                style={{borderRadius: "30px"}}
                 native
                 labelId="EquipmentID"
                 id="EquipmentID"
@@ -307,6 +334,7 @@ function FurnitureCreate() {
                 }}
                 >
                 <option aria-label="None" value="">
+                  โปรดระบุ
                 </option>
                 {Equipments.map((item: EquipmentInterface) => (
                   <option value={item.ID} key={item.ID}>
@@ -320,7 +348,12 @@ function FurnitureCreate() {
           <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
               <p>เลือกจำนวน</p>
-              <Select
+              <Select 
+              sx={{
+                fontFamily: "PK Krung Thep Medium",
+                fontSize: "16px"
+              }}
+                style={{borderRadius: "30px"}}
                 native
                 value={Furnitures.AmountID + ""}
                 onChange={handleChange}
@@ -330,6 +363,7 @@ function FurnitureCreate() {
                 
               >
                 <option aria-label="None" value="">
+                  โปรดระบุ
                 </option>
                 {Amounts.map((item: AmountInterface) => (
                   <option value={item.ID} key={item.ID}>
@@ -343,7 +377,12 @@ function FurnitureCreate() {
           <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
               <p>ราคา</p>
-              <Select
+              <Select 
+              sx={{
+                fontFamily: "PK Krung Thep Medium",
+                fontSize: "16px"
+              }}
+                style={{borderRadius: "30px"}}
                 native
                 disabled
                 labelId="EquipmentID"
@@ -381,8 +420,13 @@ function FurnitureCreate() {
           </Grid>       
         </Grid>
         <Grid container spacing={3} sx={{padding:2}}> 
+
         <Grid item xs={12}>
-            <Button
+            <Button 
+            sx={{
+              fontFamily: "PK Krung Thep Medium", 
+              fontSize:17
+            }}
               component={RouterLink}
               to="/furnitures"
               variant="contained"
@@ -390,7 +434,11 @@ function FurnitureCreate() {
             >
               กลับ
             </Button>
-            <Button
+            <Button 
+            sx={{
+              fontFamily: "PK Krung Thep Medium", 
+              fontSize:17
+            }}
               style={{ float: "right" }}
               onClick={submit}
               variant="contained"

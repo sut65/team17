@@ -30,7 +30,7 @@ func main() {
 			// Authoritie Routes
 			protected.GET("/admins", controller.ListAdmins)
 			protected.GET("/admin/:id", controller.GetAdmin)
-			protected.POST("/admins", controller.CreateAdmin) 
+			// protected.POST("/admins", controller.CreateAdmin) 
 			protected.PATCH("/admins", controller.UpdateAdmin)
 			protected.DELETE("/admins/:id", controller.DeleteAdmin)
 
@@ -96,6 +96,13 @@ func main() {
 			protected.POST("/requestouts", controller.CreateRequestout)
 			protected.PATCH("/requestouts", controller.UpdateRequestout)
 			protected.DELETE("/requestouts/:id", controller.DeleteRequestout)
+
+			// Requestchange Routes
+			protected.GET("/requestchanges", controller.ListRequestchanges)
+			protected.GET("/requestchange/:id", controller.GetRequestchange)
+			protected.POST("/requestchanges", controller.CreateRequestchange)
+			protected.PATCH("/requestchanges", controller.UpdateRequestchange)
+			protected.DELETE("/requestchanges/:id", controller.DeleteRequestchange)
 
 			// Reason Routes
 			protected.GET("/reasons", controller.ListReasons)
@@ -225,8 +232,12 @@ func main() {
 	// users Routes
 	r.POST("/users", controller.CreateUser)
 
+	// admins Routes
+	r.POST("/admins", controller.CreateAdmin)
+
 	// Authentication Routes
 	r.POST("/login", controller.Login)
+	r.POST("/adminLogin", controller.LoginAdmin)
 
 	// Run the server
 	r.Run()

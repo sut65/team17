@@ -52,9 +52,12 @@ function Furnitures() {
               component="h2"
               variant="h6"
               color="primary"
-              gutterBottom
+              gutterBottom               
+              sx={{
+                fontFamily: "PK Krung Thep Medium",
+             }}
             >
-              ระบบเบิกจ่ายอุปกรณ์ในห้องพัก
+              <b>ระบบเบิกจ่ายอุปกรณ์ในห้องพัก</b>
             </Typography>
           </Box>
           <Box>
@@ -63,6 +66,9 @@ function Furnitures() {
               to="/furniture/create"
               variant="contained"
               color="primary"
+              sx={{
+                fontFamily: "PK Krung Thep Medium",
+             }}
             >
               เบิกจ่ายอุปกรณ์
             </Button>

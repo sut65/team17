@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Button from "@mui/material/Button";
 import FormControl from "@mui/material/FormControl";
 import Container from "@mui/material/Container";
@@ -13,15 +14,24 @@ import Select, { SelectChangeEvent } from "@mui/material/Select";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import TextField from '@mui/material/TextField';
+
 import { createStyles, FormHelperText, InputLabel } from "@material-ui/core";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 
+
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { RequestoutInterface } from "../../models/IRequestout";
 import { FormControlLabel, FormLabel, RadioGroup, Radio, FormGroup, Theme } from "@mui/material";
+
+
+import CssBaseline from "@mui/material/CssBaseline";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+
+import { RequestoutInterface } from "../../models/IRequestout";
 import { ReasonInterface } from "../../models/IReason";
 import { UserInterface } from "../../models/IUser";
 import { RoomInterface } from "../../models/IRoom";
+
+
 
 
 
@@ -29,23 +39,22 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props,
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-function RequestoutCreate() {
+const theme = createTheme();
+
+function RequestoutUpdate() {
+  const { id } = useParams();
   const [selectedDate, setSelectedDate] = useState<Date | null>();
   const [rooms, setRooms] = useState<RoomInterface[]>([]);
   const [reasons, setReasons] = useState<ReasonInterface[]>([]);
   const [users, setUsers] = useState<UserInterface>();
-
   const [requestouts, setRequestouts] = useState<Partial<RequestoutInterface>>({});
-
   const [details, setDetail] = useState<String>("");
   const NowDate = Date.now();
-
   
-
-
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  
 
   const apiUrl = "http://localhost:8080";
 
@@ -116,12 +125,34 @@ function RequestoutCreate() {
       });
   };
 
+
+
+  const getRequestoutsByID = async () => {
+    const uid = localStorage.getItem("id");
+    fetch(`${apiUrl}/requestout/${uid}`, requestOptions)
+       .then((response) => response.json())
+       .then((res) => {
+          requestouts.ID = res.data.ID
+          if (res.data) {
+             setRequestouts(res.data);
+          } else {
+             console.log("else");
+          }
+       });
+ };
+
+ 
+
+
+  
+
  
 
   useEffect(() => {
     getUsers();
     getRoom();
     getReason();
+    getRequestoutsByID();
   }, []);
 
   const convertType = (data: string | number | undefined) => {
@@ -129,7 +160,7 @@ function RequestoutCreate() {
     return val;
   };
 
-  function submit() {
+  function update() {
     let data = {
         RoomID: convertType(requestouts.RoomID),
         ReasonID: convertType(requestouts.ReasonID),
@@ -141,8 +172,8 @@ function RequestoutCreate() {
 
     console.log(data)
 
-    const requestOptionsPost = {
-      method: "POST",
+    const requestOptionsPatch = {
+      method: "PATCH",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
         "Content-Type": "application/json",
@@ -150,33 +181,41 @@ function RequestoutCreate() {
       body: JSON.stringify(data),
     };
 
-    fetch(`${apiUrl}/requestouts`, requestOptionsPost)
+    fetch(`${apiUrl}/requestouts`, requestOptionsPatch)
       .then((response) => response.json())
       .then((res) => {
         if (res.data) {
           console.log("บันทึกได้")
-          setSuccess(true)
           setErrorMessage("")
+               setTimeout(() => {
+                  window.location.reload();
+               }, 1000);
+               setSuccess(true)
+               window.location.href = "/requestouts";
         } else {
           console.log("บันทึกไม่ได้")
           setError(true)
           setErrorMessage(res.error)
+          
         }
       });
   }
 
+
+ 
+
   return (
-    <Container maxWidth="md" sx={{
-      fontFamily: "PK Krung Thep Medium",
-      fontSize: "20px"
-      // fontStyle: "bold"
-    }}>
+    <ThemeProvider theme={theme}>
+      
+  
+      <Grid container component="main"   sx={{ height: "100vh", width: "100vh" }}>
+
       <Snackbar
         open={success}
         autoHideDuration={3000}
         onClose={handleClose}
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
-      >
+        >
         <Alert onClose={handleClose} severity="success">
           บันทึกข้อมูลสำเร็จ
         </Alert>
@@ -191,11 +230,24 @@ function RequestoutCreate() {
           {errorMessage}
         </Alert>
       </Snackbar>
-      <Paper>
+
+      
+    
+    <Grid  component={Paper} elevation={6} square >
+
         <Box
           display="flex"
           sx={{
+            
+              my: 8,
+              mx: 4,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              alignSelf: "center",
+            
             marginTop: 2,
+            
           }}
         >
           <Box sx={{ paddingX: 2, paddingY: 1 }}>
@@ -207,6 +259,7 @@ function RequestoutCreate() {
               sx={{
                 fontFamily: "PK Krung Thep Medium",
                 fontSize: "30px"
+                
               }}
             >
               <b>แบบคำขอออก</b>
@@ -224,7 +277,7 @@ function RequestoutCreate() {
             <p>ชื่อ - สกุล</p>
               <Select
                 native
-                
+                disabled
                 value={requestouts.UserID + ""}
                 onChange={handleChange}
                 inputProps={{
@@ -307,7 +360,7 @@ function RequestoutCreate() {
                 placeholder="ไม่มี"   
                 onChange={(event) => setDetail(event.target.value)}
                 
-              />
+                />
             </FormControl>
           </Grid>
 
@@ -326,7 +379,7 @@ function RequestoutCreate() {
                     renderInput={(params) => <TextField {...params} />}
 
                     minDate={new Date(NowDate)}
-                    
+                    // maxDate={(new Date('2024-12-31'))}
                  
               />
               </LocalizationProvider>
@@ -344,7 +397,7 @@ function RequestoutCreate() {
               fontFamily: "PK Krung Thep Medium", 
               fontSize:17
             }}
-              component={RouterLink}
+            component={RouterLink}
               to="/requestouts"
               variant="contained"
               color="inherit"
@@ -361,19 +414,25 @@ function RequestoutCreate() {
 
             }}
               style={{ float: "right"}}
-              onClick={submit}
+              onClick={update}
               variant="contained"
               color="primary"
             >
-              <b>บันทึก</b>
+              <b>Update</b>
             </Button>
             
           </Grid>
           
         </Grid>
-      </Paper>
-    </Container>
+      
+              </Grid>
+              </Grid>
+             
+
+              </ThemeProvider>
+     
+    
   );
 }
 
-export default RequestoutCreate;
+export default RequestoutUpdate;

@@ -9,7 +9,7 @@ export interface BillInterface {
     BillTime:       Date,
 
 
-    FurnitureID:            number,
+    FurnitureID:            number[],
     Furniture:              FurnitureInterface,                                                    
 
     AdminID:        number,

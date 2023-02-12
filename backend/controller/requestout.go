@@ -99,23 +99,84 @@ func DeleteRequestout(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"data": id})
 }
 
+
+
+
 // PATCH /requestouts
 func UpdateRequestout(c *gin.Context) {
-	var requestout entity.Requestout
+	var requestout	entity.Requestout
+	var room 		entity.Room
+	var reason 		entity.Reason
+	var user		entity.User
+
+
 	if err := c.ShouldBindJSON(&requestout); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	if tx := entity.DB().Where("id = ?", requestout.ID).First(&requestout); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "requestout not found"})
+	//ค้นหา room ด้วย id
+	if tx := entity.DB().Where("id = ?", requestout.RoomID).First(&room); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "room not found"})
 		return
 	}
 
-	if err := entity.DB().Save(&requestout).Error; err != nil {
+	// 11: ค้นหา user ด้วย id
+	if tx := entity.DB().Where("id = ?", requestout.UserID).First(&user); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "user not found"})
+		return
+	}
+
+	//ค้นหา reason ด้วย id
+	if tx := entity.DB().Where("id = ?", requestout.ReasonID).First(&reason); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "reason not found"})
+		return
+	}
+
+	// 12: สร้าง Requestout
+	update := entity.Requestout{
+		Room:		room,					// โยงความสัมพันธ์กับ Entity Room
+		Reason:		reason,					// โยงความสัมพันธ์กับ Entity Reason
+		User:		user,               // โยงความสัมพันธ์กับ Entity User
+		Outtime:	requestout.Outtime,
+		Detail:     requestout.Detail,	
+	}
+
+
+	// ขั้นตอนการ validate ที่นำมาจาก unit test
+	if _, err := govalidator.ValidateStruct(update); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"data": requestout})
+
+	// update
+	if err := entity.DB().Where("id = ?", requestout.ID).Updates(&update).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"data": update})
+
+	
 }
+
+// // PATCH /requestouts
+// func UpdateRequestout(c *gin.Context) {
+// 	var requestout entity.Requestout
+// 	if err := c.ShouldBindJSON(&requestout); err != nil {
+// 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+// 		return
+// 	}
+
+// 	if tx := entity.DB().Where("id = ?", requestout.ID).First(&requestout); tx.RowsAffected == 0 {
+// 		c.JSON(http.StatusBadRequest, gin.H{"error": "requestout not found"})
+// 		return
+// 	}
+
+// 	if err := entity.DB().Save(&requestout).Error; err != nil {
+// 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+// 		return
+// 	}
+
+// 	c.JSON(http.StatusOK, gin.H{"data": requestout})
+// }

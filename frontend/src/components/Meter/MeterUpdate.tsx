@@ -13,6 +13,7 @@ import Select, { SelectChangeEvent } from "@mui/material/Select";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import TextField from '@mui/material/TextField';
+import { useParams } from "react-router-dom";
 
 import { ManageInterface } from "../../models/IManage";
 import { AdminInterface } from "../../models/IAdmin";
@@ -31,7 +32,8 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props,
 })
 
 
-function MeterCreate() {
+function MeterUpdate() {
+    const { id } = useParams();
   const [selectedDate, setSelectedDate] = useState<Date | null>();
   const [admins, setAdmins] = useState<AdminInterface>();
   const [users, setUsers] = useState<UserInterface[]>([]);
@@ -125,8 +127,6 @@ function MeterCreate() {
       });
   };
 
-
-
   useEffect(() => {
 
     getUsers();
@@ -139,9 +139,10 @@ function MeterCreate() {
     return val;
   };
 
-  function submit() {
+  function update() {
     let data = {
 
+        ID: convertType(id),
         UserID: convertType(meters.UserID),
         AdminID: convertType(meters.AdminID),
         ManageID: convertType(meters.ManageID),
@@ -159,7 +160,7 @@ function MeterCreate() {
     console.log(data)
 
     const requestOptionsPost = {
-      method: "POST",
+      method: "PATCH",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
         "Content-Type": "application/json",
@@ -425,7 +426,7 @@ function MeterCreate() {
             <Button
               style={{ float: "right" }}
               variant="contained"
-              onClick={submit}
+              onClick={update}
               color="primary"
             >
               บันทึก
@@ -437,4 +438,4 @@ function MeterCreate() {
   );
 }
 
-export default MeterCreate;
+export default MeterUpdate;
