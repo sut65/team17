@@ -144,13 +144,6 @@ func UpdateRequestout(c *gin.Context) {
 	}
 
 
-	// // ขั้นตอนการ validate ที่นำมาจาก unit test
-	// if _, err := govalidator.ValidateStruct(update); err != nil {
-	// 	c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-	// 	return
-	// }
-
-
 	// update
 	if err := entity.DB().Where("id = ?", requestout.ID).Updates(&update).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -161,23 +154,3 @@ func UpdateRequestout(c *gin.Context) {
 	
 }
 
-// // PATCH /requestouts
-// func UpdateRequestout(c *gin.Context) {
-// 	var requestout entity.Requestout
-// 	if err := c.ShouldBindJSON(&requestout); err != nil {
-// 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-// 		return
-// 	}
-
-// 	if tx := entity.DB().Where("id = ?", requestout.ID).First(&requestout); tx.RowsAffected == 0 {
-// 		c.JSON(http.StatusBadRequest, gin.H{"error": "requestout not found"})
-// 		return
-// 	}
-
-// 	if err := entity.DB().Save(&requestout).Error; err != nil {
-// 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-// 		return
-// 	}
-
-// 	c.JSON(http.StatusOK, gin.H{"data": requestout})
-// }

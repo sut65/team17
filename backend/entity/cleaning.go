@@ -13,14 +13,14 @@ type Cleaning struct {
 	Detail				string		
 
 	UserID				*uint
-	User				User	`gorm:"referenes:id" valid:"-"`	
+	User				User	
 
 	RoomID				*uint
-	Room				Room	`gorm:"referenes:id" valid:"-"`	
+	Room				Room	
 
 	KindID				*uint
-	Kind				Kind	`gorm:"referenes:id" valid:"-"`
+	Kind				Kind	
 
 	AreaID				*uint
-	Area				Area	`gorm:"referenes:id" valid:"-"`
+	Area				Area	
 }

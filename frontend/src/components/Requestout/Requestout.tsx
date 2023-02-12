@@ -106,8 +106,13 @@ function Requestout() {
   }, []);
 
   return (
-    <div>
-      
+    
+    <Box sx={{ width: "100%" }}>
+    {/* <Container sx={{ marginTop: 2 }} > */}
+    <Box display="flex" sx={{
+      mt: "30px",
+    }}>
+          
       
 
     <Snackbar
@@ -130,14 +135,16 @@ function Requestout() {
       ลบข้อมูลผิดพลาด
     </Alert>
   </Snackbar>
-    <Container sx={{ marginTop: 2 }} maxWidth="md">
-      <Box display="flex">
-        <Box flexGrow={1}>
+    
+     
+        <Box flexGrow={1} >
           <Typography
             component="h2"
             variant="h6"
             color="primary"
             gutterBottom
+            sx={{fontFamily: "PK Krung Thep Medium",
+                fontSize: "36px",}}
           >
             ข้อมูลการแจ้งออก
           </Typography>
@@ -146,18 +153,27 @@ function Requestout() {
           <Button
             component={RouterLink}
             to="/requestout/create"
-            variant="contained"
-            color="primary"
+            variant="contained"   
+            sx={{fontFamily: "PK Krung Thep Medium",
+                fontSize: "20px",
+                background: '#2448f9',   
+                '&:hover': {
+                   background: '#45be3c',
+                   color: "#2448f9",
+                   
+                },}}
+              style={{borderRadius: '30px'}}
           >
             เพิ่มข้อมูล
           </Button>
         </Box>
-      </Box>
-      <TableContainer component={Paper} sx={{ minWidth: 650 }}>
-        <Table sx={{ marginTop: 2 }} aria-label="simple table">
+        </Box>
+        
+        
+        <Table sx={{ marginTop: 1 }} aria-label="simple table" >
           <TableHead>
             <TableRow>
-            <TableCell align="center" width="2%">
+            <TableCell align="center" width="2%" >
                 ลำดับ
               </TableCell>
               <TableCell align="center" width="15%">
@@ -198,8 +214,7 @@ function Requestout() {
 
                 <TableCell align="center">
                 <IconButton aria-label="แก้ไข" size="large" 
-                sx={{
-                  background: 'white',   
+                sx={{ 
                            '&:hover': {
                               background: "#00aaff",
                               color: "white",
@@ -214,7 +229,6 @@ function Requestout() {
                 <TableCell align="center">
                 <IconButton  aria-label="delete" size="large"
                 sx={{
-                  background: 'white',   
                            '&:hover': {
                               background: "#ff3838",
                               color: "white",
@@ -230,10 +244,11 @@ function Requestout() {
             ))}
           </TableBody>
         </Table>
+        
       
-      </TableContainer>
-    </Container>
-  </div>
+      
+    </Box>
+    
   );
 }
 export default Requestout;

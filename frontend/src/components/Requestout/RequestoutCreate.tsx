@@ -16,6 +16,7 @@ import TextField from '@mui/material/TextField';
 import { createStyles, FormHelperText, InputLabel } from "@material-ui/core";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 
+
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { RequestoutInterface } from "../../models/IRequestout";
 import { FormControlLabel, FormLabel, RadioGroup, Radio, FormGroup, Theme } from "@mui/material";
@@ -135,7 +136,7 @@ function RequestoutCreate() {
         ReasonID: convertType(requestouts.ReasonID),
         UserID: convertType(requestouts.UserID),
         Outtime: selectedDate,
-        Detail: details,
+        Detail: details + "-",
 
     };
 
@@ -166,11 +167,12 @@ function RequestoutCreate() {
   }
 
   return (
-    <Container maxWidth="md" sx={{
-      fontFamily: "PK Krung Thep Medium",
-      fontSize: "20px"
-      // fontStyle: "bold"
+    <Box sx={{ width: "100%" }}>
+    
+    <Box display="flex" sx={{
+      mt: "30px",
     }}>
+
       <Snackbar
         open={success}
         autoHideDuration={3000}
@@ -191,7 +193,7 @@ function RequestoutCreate() {
           {errorMessage}
         </Alert>
       </Snackbar>
-      <Paper>
+     
         <Box
           display="flex"
           sx={{
@@ -214,37 +216,39 @@ function RequestoutCreate() {
             </Typography>
           </Box>
         </Box>
+        </Box>
         <Divider />
         <Grid container spacing={3} sx={{ padding: 2 }}>
-
-         
-
-          <Grid item xs={6}>
+        <Grid item xs={6} sx={{fontFamily: "PK Krung Thep Medium", fontSize: "18px"}}>
           <FormControl fullWidth variant="outlined">
             <p>ชื่อ - สกุล</p>
-              <Select
-                native
-                
-                value={requestouts.UserID + ""}
-                onChange={handleChange}
-                inputProps={{
-                  name: "UserID",
-                }}
-              >
-                <option value={users?.ID} key={users?.ID} >
-                    {users?.Name}
-                    </option>
-              </Select>
-            </FormControl>
-              
-          </Grid>
+            <Select
+              sx={{
+                fontFamily: "PK Krung Thep Medium",
+                fontSize: "16px",
+              }}
+              style={{ borderRadius: "30px" }}
+              native
+              disabled
+              value={requestouts.UserID + ""}
+              onChange={handleChange}
+              inputProps={{
+                name: "UserID",
+              }}
+            >
+              <option value={users?.ID} key={users?.ID}>
+                {users?.Name}
+              </option>
+            </Select>
+          </FormControl>
+        </Grid>
 
-          <Grid item xs={6}>
+          <Grid item xs={6} sx={{fontFamily: "PK Krung Thep Medium", fontSize: "18px"}}>
             <FormControl fullWidth variant="outlined">
               <p>ห้องพัก</p>
               <Select sx={{
                 fontFamily: "PK Krung Thep Medium",
-                fontSize: "18px"
+                fontSize: "18px",
               }}
                 style={{borderRadius: "30px"}}
                 native
@@ -267,7 +271,7 @@ function RequestoutCreate() {
             </FormControl>
           </Grid>
 
-          <Grid item xs={6}>
+          <Grid item xs={6} sx={{fontFamily: "PK Krung Thep Medium", fontSize: "18px"}}>
             <FormControl fullWidth variant="outlined">
               <p>เหตุผล</p>
               <Select sx={{
@@ -284,7 +288,7 @@ function RequestoutCreate() {
                 }}
               >
                 <option aria-label="None" value="">
-                  
+                  -
                 </option>
                 {reasons.map((item:ReasonInterface) => (
                   <option value={item.ID} key={item.ID}>
@@ -295,29 +299,14 @@ function RequestoutCreate() {
             </FormControl>
           </Grid>
 
-
-          <Grid item xs={6}>
-            <p>หากอื่นๆโปรดระบุ (*ไม่จำเป็น)</p>
-            <FormControl fullWidth variant="outlined">
-              <TextField
-                id="detail"
-                variant="outlined"
-                type="string"
-                size="medium"
-                placeholder="ไม่มี"   
-                onChange={(event) => setDetail(event.target.value)}
-                
-              />
-            </FormControl>
-          </Grid>
-
-          <Grid item xs={6}>
-            <FormControl fullWidth variant="outlined">
+          <Grid item xs={6} sx={{fontFamily: "PK Krung Thep Medium", fontSize: "18px"}}>
+            <FormControl fullWidth variant="outlined" >
             <p>วัน เดือน  ปี ที่ต้องการ</p>
             
             <LocalizationProvider dateAdapter={AdapterDateFns}>
                 
             <DatePicker
+                    
                     label="Select Date"
                     value={selectedDate}
                     onChange={(newValue) => {
@@ -333,6 +322,23 @@ function RequestoutCreate() {
             </FormControl>
           </Grid>
 
+          <Grid item xs={6} sx={{color: "red", fontFamily: "PK Krung Thep Medium", fontSize: "18px"}}>
+            <p>เหตุผลเพิ่มเติม (*ไม่จำเป็น)</p>
+            <FormControl fullWidth variant="outlined">
+              <TextField  
+                id="detail"
+                variant="outlined"
+                type="string"
+                size="medium"
+                placeholder="ไม่มี"   
+                rows={4}
+                multiline
+                onChange={(event) => setDetail(event.target.value)}
+                
+              />
+            </FormControl>
+          </Grid>
+
 
 
 
@@ -342,14 +348,22 @@ function RequestoutCreate() {
           
             <Button sx={{
               fontFamily: "PK Krung Thep Medium", 
-              fontSize:17
+              fontSize:20,
+              color: '#white',
+              background: '#f54d4d',   
+                         '&:hover': {
+                            background: "white",
+                            color: "#f54d4d",
+                            
+                         },
             }}
+            style={{borderRadius: "30px"}}
               component={RouterLink}
               to="/requestouts"
               variant="contained"
-              color="inherit"
+              
             >
-              <b>กลับ</b>
+              <b>BACK</b>
             </Button>
 
             
@@ -357,22 +371,29 @@ function RequestoutCreate() {
             
             <Button sx={{ 
               fontFamily: "PK Krung Thep Medium", 
-              fontSize:17
-
+              fontSize:20,
+              color: 'black',
+              background: '#00b803',   
+                         '&:hover': {
+                            background: "black",
+                            color: "#00b803",
+                            
+                         },
             }}
-              style={{ float: "right"}}
+              style={{ float: "right", borderRadius: "30px"}}
               onClick={submit}
               variant="contained"
               color="primary"
             >
-              <b>บันทึก</b>
+              <b>SUBMIT</b>
             </Button>
             
           </Grid>
           
         </Grid>
-      </Paper>
-    </Container>
+      
+   
+  </Box>
   );
 }
 
