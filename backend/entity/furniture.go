@@ -25,7 +25,7 @@ type Furniture struct {
 	Amount   Amount				`gorm:"referenes:id" valid:"-"`
 
 	EquipmentID *uint
-	Equipment   Equipment
+	Equipment   Equipment		`gorm:"referenes:id" valid:"-"`
 
 	Bills	[]Bill				`gorm:"foreignKey:FurnitureID"`
 }
