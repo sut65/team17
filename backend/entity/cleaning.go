@@ -13,7 +13,7 @@ type Cleaning struct {
 	Detail				string		
 
 	UserID				*uint
-	User				User	
+	User				User	`gorm:"referenes:id" valid:"-"`	
 
 	RoomID				*uint
 	Room				Room	
