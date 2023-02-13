@@ -22,5 +22,5 @@ type Cleaning struct {
 	Kind				Kind	`gorm:"referenes:id" valid:"-"`	
 
 	AreaID				*uint
-	Area				Area	
+	Area				Area	`gorm:"referenes:id" valid:"-"`
 }
