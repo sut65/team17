@@ -16,7 +16,7 @@ type Cleaning struct {
 	User				User	`gorm:"referenes:id" valid:"-"`	
 
 	RoomID				*uint
-	Room				Room	
+	Room				Room	`gorm:"referenes:id" valid:"-"`
 
 	KindID				*uint
 	Kind				Kind	
