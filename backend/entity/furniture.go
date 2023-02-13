@@ -19,7 +19,7 @@ type Furniture struct {
 	User   User					`gorm:"referenes:id" valid:"-"`
 
 	RoomID *uint
-	Room   Room
+	Room   Room					`gorm:"referenes:id" valid:"-"`
 
 	AmountID *uint
 	Amount   Amount
@@ -27,6 +27,6 @@ type Furniture struct {
 	EquipmentID *uint
 	Equipment   Equipment
 
-	Bills	[]Bill	`gorm:"foreignKey:FurnitureID"`
+	Bills	[]Bill				`gorm:"foreignKey:FurnitureID"`
 }
 
