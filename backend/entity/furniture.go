@@ -22,7 +22,7 @@ type Furniture struct {
 	Room   Room					`gorm:"referenes:id" valid:"-"`
 
 	AmountID *uint
-	Amount   Amount
+	Amount   Amount				`gorm:"referenes:id" valid:"-"`
 
 	EquipmentID *uint
 	Equipment   Equipment
