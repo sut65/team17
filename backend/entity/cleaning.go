@@ -18,8 +18,8 @@ type Cleaning struct {
 	RoomID				*uint
 	Room				Room	`gorm:"referenes:id" valid:"-"`
 
-	KindID				*uint
-	Kind				Kind	
+	KindID				*uint	
+	Kind				Kind	`gorm:"referenes:id" valid:"-"`	
 
 	AreaID				*uint
 	Area				Area	
