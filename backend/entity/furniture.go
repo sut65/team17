@@ -13,10 +13,10 @@ type Furniture struct {
 	Total         *uint
 
 	AdminID *uint
-	Admin   Admin
+	Admin   Admin				`gorm:"referenes:id" valid:"-"`
 
 	UserID *uint
-	User   User
+	User   User					`gorm:"referenes:id" valid:"-"`
 
 	RoomID *uint
 	Room   Room
