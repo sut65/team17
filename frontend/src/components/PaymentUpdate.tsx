@@ -25,6 +25,8 @@ import { MethodInterface } from "../models/IMethod";
 import { FormHelperText, InputLabel } from "@mui/material";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 
+import { useParams } from "react-router-dom";
+
 // const Alert = (props: AlertProps) => {
 //   return <MuiAlert elevation={6} variant="filled" {...props} />;
 // };
@@ -51,8 +53,9 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
 //   })
 // );
 
-function PaymentCreate() {
+function PaymentUpdate() {
   // const classes = useStyles();
+  const { id } = useParams();
   const [selectedDate, setSelectedDate] = useState<Date | null>(new Date);
   const [users, setUsers] = useState<UserInterface>(); //map
   const [bills, setBills] = useState<BillInterface[]>([]);
@@ -66,6 +69,7 @@ function PaymentCreate() {
   const [errorMessage, setErrorMessage] = useState("");
 
   const apiUrl = "http://localhost:8080";
+
   const requestOptions = {
     method: "GET",
     headers: {
@@ -150,11 +154,26 @@ function PaymentCreate() {
       });
   };
 
+   const getPaymentsByID = async () => {
+    const uid = localStorage.getItem("id");
+    fetch(`${apiUrl}/payment/${uid}`, requestOptions)
+       .then((response) => response.json())
+       .then((res) => {
+          payments.ID = res.data.ID
+          if (res.data) {
+             setPayments(res.data);
+          } else {
+             console.log("else");
+          }
+       });
+ };
+
   useEffect(() => {
     getUsers();
     getBill();
     getMethod();
     getBanking();
+    getPaymentsByID();
   }, []);
 
   const onFileChange = (e: any) => {
@@ -187,8 +206,9 @@ function PaymentCreate() {
     return val;
   };
 
-  function submit() {
+  function update() {
     let data = {
+      ID: convertType(id),
       BankingID: convertType(payments.BankingID),
       UserID: convertType(payments.UserID),
       BillID: convertType(payments.BillID),
@@ -199,8 +219,8 @@ function PaymentCreate() {
 
     console.log(data)
 
-    const requestOptionsPost = {
-      method: "POST",
+    const requestOptionsPatch = {
+      method: "PATCH",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
         "Content-Type": "application/json",
@@ -208,7 +228,7 @@ function PaymentCreate() {
       body: JSON.stringify(data),
     };
 
-    fetch(`${apiUrl}/payments`, requestOptionsPost)
+    fetch(`${apiUrl}/payments`, requestOptionsPatch)
       .then((response) => response.json())
       .then((res) => {
         if (res.data) {
@@ -501,14 +521,20 @@ function PaymentCreate() {
             >
               กลับ
             </Button>
-            <Button
-              style={{ float: "right" }}
+            
+             <Button sx={{ 
+              fontFamily: "PK Krung Thep Medium", 
+              fontSize:17
+
+            }}
+              style={{ float: "right"}}
+              onClick={update}
               variant="contained"
-              onClick={submit}
               color="primary"
             >
-              บันทึกข้อมูล
+              <b>แก้ไขข้อมูล</b>
             </Button>
+            
           </Grid>
         </Grid>
       </Paper>
@@ -516,4 +542,4 @@ function PaymentCreate() {
   );
 }
 
-export default PaymentCreate;
+export default PaymentUpdate;
