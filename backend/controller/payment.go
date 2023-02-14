@@ -48,7 +48,7 @@ func CreatePayment(c *gin.Context) {
 		Banking:		banking,					// โยงความสัมพันธ์กับ Entity banking
 		Method:			method,						// โยงความสัมพันธ์กับ Entity method
 		Bill:			bill,						// โยงความสัมพันธ์กับ Entity bill
-		Evidence: 			payment.Evidence,
+		Evidence: 		payment.Evidence,
 		PaymentTime:	payment.PaymentTime,
 	}
 
@@ -99,23 +99,58 @@ func DeletePayment(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"data": id})
 }
 
-// PATCH /payments
 func UpdatePayment(c *gin.Context) {
+
 	var payment entity.Payment
+	var banking entity.Banking
+	var method entity.Method
+	var bill entity.Bill
+
+	// ผลลัพธ์ที่ได้จากขั้นตอนที่ 8 จะถูก bind เข้าตัวแปร payment
 	if err := c.ShouldBindJSON(&payment); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	if tx := entity.DB().Where("id = ?", payment.ID).First(&payment); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "payment not found"})
+	// 9: ค้นหา banking ด้วย id
+	if tx := entity.DB().Where("id = ?", payment.BankingID).First(&banking); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "banking not found"})
+		return
+	}
+	
+
+	// 10: ค้นหา method ด้วย id
+	if tx := entity.DB().Where("id = ?", payment.MethodID).First(&method); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "method not found"})
 		return
 	}
 
-	if err := entity.DB().Save(&payment).Error; err != nil {
+	// 11: ค้นหา bill ด้วย id
+	if tx := entity.DB().Where("id = ?",payment.BillID).First(&bill); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "bill not found"})
+		return
+	}
+
+
+	// 12: สร้าง Payment
+	update := entity.Payment{
+		Banking:		banking,					// โยงความสัมพันธ์กับ Entity banking
+		Method:			method,						// โยงความสัมพันธ์กับ Entity method
+		Bill:			bill,						// โยงความสัมพันธ์กับ Entity bill
+		Evidence: 		payment.Evidence,
+		PaymentTime:	payment.PaymentTime,
+	}
+
+	// ขั้นตอนการ validate ที่นำมาจาก unit test
+	if _, err := govalidator.ValidateStruct(update); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"data": payment})
+	// update
+	if err := entity.DB().Where("id = ?", payment.ID).Updates(&payment).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"data": update})
 }
