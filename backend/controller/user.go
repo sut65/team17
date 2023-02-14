@@ -103,23 +103,59 @@ func DeleteUser(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"data": id})
 }
 
-// PATCH /users
+
 func UpdateUser(c *gin.Context) {
+
+	var status entity.Status
+	var gender entity.Gender
 	var user entity.User
+	var title entity.Title
+
+	// ผลลัพธ์ที่ได้จากขั้นตอนที่ 8 จะถูก bind เข้าตัวแปร user
 	if err := c.ShouldBindJSON(&user); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	if tx := entity.DB().Where("id = ?", user.ID).First(&user); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "user not found"})
+	// 9: ค้นหา status ด้วย id
+	if tx := entity.DB().Where("id = ?", user.StatusID).First(&status); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "status not found"})
 		return
 	}
 
-	if err := entity.DB().Save(&user).Error; err != nil {
+	// 10: ค้นหา gender ด้วย id
+	if tx := entity.DB().Where("id = ?", user.GenderID).First(&gender); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "gender not found"})
+		return
+	}
+
+	
+	// 11: ค้นหา title ด้วย id
+	if tx := entity.DB().Where("id = ?", user.TitleID).First(&title); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "title not found"})
+		return
+	}
+
+	// 12: สร้าง user
+	update := entity.User{
+		Role:  		 user.Role,
+		Status:       status, // โยงความสัมพันธ์กับ Entity status
+		Gender:       gender, // โยงความสัมพันธ์กับ Entity gender
+		Title:        title,  // โยงความสัมพันธ์กับ Entity title
+		Name:         user.Name,	
+		Password: 	  user.Password,
+		Personal:     user.Personal,
+		Email:        user.Email,
+		Tel:          user.Tel,
+		Address:      user.Address,
+		BirthdayTime: user.BirthdayTime,
+	}
+
+	// update
+	if err := entity.DB().Where("id = ?", user.ID).Updates(&update).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-
-	c.JSON(http.StatusOK, gin.H{"data": user})
+	c.JSON(http.StatusOK, gin.H{"data": update})
+	
 }

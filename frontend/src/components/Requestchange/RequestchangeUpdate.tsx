@@ -16,11 +16,10 @@ import TextField from '@mui/material/TextField';
 
 import { createStyles, FormHelperText, InputLabel } from "@material-ui/core";
 
-import { FormControlLabel, FormLabel, RadioGroup, Radio, FormGroup, Theme } from "@mui/material";
+import { FormControlLabel, FormLabel, RadioGroup, FormGroup, Theme } from "@mui/material";
 
 
-import CssBaseline from "@mui/material/CssBaseline";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+
 
 import { RequestchangeInterface } from "../../models/IRequestchange";
 import { ReasonInterface } from "../../models/IReason";
@@ -35,7 +34,7 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props,
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-const theme = createTheme();
+
 
 function RequestchangeUpdate() {
   const { id } = useParams();
@@ -201,7 +200,7 @@ function RequestchangeUpdate() {
  
 
   return (
-    <ThemeProvider theme={theme}>
+    
       
   
       <Grid container component="main"   sx={{ height: "100vh", width: "100vh" }}>
@@ -273,16 +272,19 @@ function RequestchangeUpdate() {
             <p>ชื่อ - สกุล</p>
               <Select
                 native
-                disabled
+                
                 value={requestchanges.UserID + ""}
                 onChange={handleChange}
                 inputProps={{
                   name: "UserID",
                 }}
               >
+                {/* <option aria-label="None" value="">
+                    กรุณาเลือกชื่อ
+                </option> */}
                 <option value={users?.ID} key={users?.ID} >
                     {users?.Name}
-                    </option>
+                </option>
               </Select>
             </FormControl>
               
@@ -405,7 +407,7 @@ function RequestchangeUpdate() {
               </Grid>
           
 
-              </ThemeProvider>
+            
      
     
   );

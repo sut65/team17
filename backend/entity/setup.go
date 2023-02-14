@@ -49,18 +49,19 @@ func SetupDatabase() {
 	})
 
 	db.Model(&Admin{}).Create(&Admin{
-		Name:     "Jakkrit Chaiwan",
-		Email:    "jackerchaiwan@gmail.com",
-		Tel:      "0610255279",
-		Password: string(password),
-		Role:     "admin",
+		Name:     	"Jakkrit Chaiwan",
+		Email:   		"jackerchaiwan@gmail.com",
+		Tel:      	"0610255279",
+		Password: 	string(password),
+		Role:		"admin",
 	})
 
 	var promporn Admin
 	db.Raw("SELECT * FROM admins WHERE email = ?", "promporn@gmail.com").Scan(&promporn)
 
-	var jakkrit Admin
-	db.Raw("SELECT * FROM admins WHERE email = ?", "jackerchaiwan@gmail.com").Scan(&jakkrit)
+	var jakkrit  		Admin
+	db.Raw("SELECT * FROM Admins WHERE email = ?", "jackerchaiwan@gmail.com").Scan(&jakkrit)
+
 
 	//---Status Data
 	Single := Status{
@@ -114,51 +115,54 @@ func SetupDatabase() {
 		Name: "หญิง",
 	}
 	db.Model(&Gender{}).Create(&Female)
+	
 
 	db.Model(&User{}).Create(&User{
-		Status:       Single,
-		Title:        Miss,
-		Gender:       Female,
-		Name:         "Wallaya Patisang",
-		Email:        "wallaya.1999@gmail.com",
-		Tel:          "0958713961",
-		Password:     string(password),
-		Role:         "user",
-		Address:      "Bankok",
-		Personal:     "12345678912345",
-		BirthdayTime: time.Date(1999, 5, 12, 0, 0, 0, 0, time.Local),
+		Status:     Single ,
+		Title:      Miss ,
+		Gender: 	Female ,
+		Name:     	"Wallaya Patisang",
+		Email:   	"wallaya.1999@gmail.com",
+		Tel: 		"0958713961",
+		Password: 	string(password),
+		Role:     	"user",
+		Address:    "Bankok",
+		Personal:   "12345678912345",
+		BirthdayTime: time.Date(1999,5,12,0,0,0,0,time.Local),
+			
 	})
 
 	db.Model(&User{}).Create(&User{
-		Status:       Single,
-		Title:        Miss,
-		Gender:       Female,
-		Name:         "Panadda Srisawat",
-		Email:        "panadda@gmail.com",
-		Tel:          "0966346799",
-		Password:     string(password),
-		Role:         "user",
-		Address:      "Surat",
-		Personal:     "9876543215486",
-		BirthdayTime: time.Date(1999, 6, 25, 0, 0, 0, 0, time.Local),
+		Status:     Single ,
+		Title:      Miss ,
+		Gender: 	Female ,
+		Name:  "Panadda Srisawat",
+		Email: "panadda@gmail.com",
+		Tel: 		"0966346799",
+		Password: string(password),
+		Role:     "user",
+		Address:    "Surat",
+		Personal:   "9876543215486",
+		BirthdayTime: time.Date(1999,6,25,0,0,0,0,time.Local),
 	})
 
 	db.Model(&User{}).Create(&User{
-		Name:     "Ratchapol Piyaman",
-		Email:    "start@gmail.com",
-		Tel:      "0814498218",
+		Name:  "Ratchapol Piyaman",
+		Email: "start@gmail.com",
+		Tel: 		"0814498218",
 		Password: string(password),
 		Role:     "user",
 	})
 
-	var wallaya User
+	var wallaya  	User
 	db.Raw("SELECT * FROM users WHERE email = ?", "wallaya@gmail.com").Scan(&wallaya)
 
-	var panadda User
+	var panadda 	User
 	db.Raw("SELECT * FROM users WHERE email = ?", "panadda@gmail.com").Scan(&panadda)
 
-	var ratchapol User
+	var ratchapol	User
 	db.Raw("SELECT * FROM users WHERE email = ?", "start@gmail.com").Scan(&ratchapol)
+
 
 	// Room Data
 	Room101 := Room{
@@ -460,6 +464,12 @@ func SetupDatabase() {
 	}
 	db.Model(&Method{}).Create(&Mobile_Banking)
 
+
+
+
+	
+    
+
 	//Emergency
 
 	Ec1 := Emergencytype{
@@ -487,9 +497,10 @@ func SetupDatabase() {
 	}
 	db.Model(&Emergencytype{}).Create(&Ec5)
 
-	//---Repair Data
 
-	Ob1 := Object{
+		//---Repair Data
+	
+		Ob1:= Object{
 
 		Name: "ไมโครเวฟ",
 	}

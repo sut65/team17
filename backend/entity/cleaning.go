@@ -10,17 +10,17 @@ type Cleaning struct {
 	gorm.Model
 
 	CleaningTime 		time.Time	
-	Detail				string		`valid:"required~Detail cannot be blank"`
+	Detail				string		
 
 	UserID				*uint
-	User				User
+	User				User	
 
 	RoomID				*uint
-	Room				Room
+	Room				Room	
 
 	KindID				*uint
-	Kind				Kind
+	Kind				Kind	
 
 	AreaID				*uint
-	Area				Area
+	Area				Area	
 }
