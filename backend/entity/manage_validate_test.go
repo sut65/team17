@@ -37,4 +37,18 @@ func TestManageValidate(t *testing.T) {
 		g.Expect(err).ToNot(BeNil())
 		g.Expect(err.Error()).To(Equal("Price is valid"))
 	})
+	
+	t.Run("check detail cannot be blank", func(t *testing.T) {
+		manage := Manage {
+			Status:	"ว่าง",
+			Price:	3000,
+			Detail: 	"",
+		}
+
+		ok, err := govalidator.ValidateStruct(manage)
+
+		g.Expect(ok).NotTo(BeTrue())
+		g.Expect(err).ToNot(BeNil())
+		g.Expect(err.Error()).To(Equal("Detail cannot be blank"))
+	})
 }
