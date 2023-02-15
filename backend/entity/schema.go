@@ -88,22 +88,22 @@ type Requestout struct {
 }
 
 
-// type Requestchange struct {
-// 	gorm.Model
+type Requestchange struct {
+	gorm.Model
 
-// 	Detail		string		`valid:"required~Detail cannot be blank"`
+	Detail		string		`valid:"required~Detail cannot be blank"`
 
-// 	ReasonID	*uint
-// 	Reason		Reason		`gorm:"referenes:id" valid:"-"`
+	ReasonID	*uint
+	Reason		Reason		`gorm:"referenes:id" valid:"-"`
 	
-// 	RoomID		*uint
-// 	Room 		Room		`gorm:"referenes:id" valid:"-"`
+	RoomID		*uint
+	Room 		Room		`gorm:"referenes:id" valid:"-"`
 
-// 	UserID		*uint
-// 	User		User		`gorm:"referenes:id" valid:"-"`
+	UserID		*uint
+	User		User		`gorm:"referenes:id" valid:"-"`
 
 	
-// }
+}
 
 
 type Reason struct {
