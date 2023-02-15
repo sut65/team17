@@ -39,7 +39,7 @@ type Meter struct {
 	gorm.Model
 	Before    int       `valid:"required~Before cannot be zero, Before~Before cannot be negative"`
 	After     int       `valid:"required~After cannot be zero, After~After cannot be negative"`
-	Total     int       `valid:"required~Total cannot be blank"`
+	Total     int       `valid:"required~Total cannot be zero, Total~Total cannot be negative"`
 	Unit      int       `valid:"required~Unit cannot be blank"`
 	Electric  int       `valid:"required~Electric cannot be blank"`
 	Water     int       `valid:"required~Water cannot be blank"`
@@ -207,6 +207,11 @@ func init() {
 	})
 
 	govalidator.CustomTypeTagMap.Set("After", func(i interface{}, o interface{}) bool {
+		a := i.(int)
+		return a >= 1
+	})
+
+	govalidator.CustomTypeTagMap.Set("Total", func(i interface{}, o interface{}) bool {
 		a := i.(int)
 		return a >= 1
 	})
