@@ -24,7 +24,7 @@ func TestMeterValidate(t *testing.T) {
 				   Before: 	fixture,     
 				   After: 		100,          
 				   Total: 		200,           
-				   Unit:   	7,    
+				   Unit:   	      7,    
 				   Electric:	1400,         
 				   Water:		100,	           
 				   Metertime: 	time.Now(), 
@@ -57,10 +57,10 @@ func TestMeterValidate(t *testing.T) {
 	   for _, fixture := range fixtures {
    
 			   meter := Meter{
-				   Before: 			100,     
+				   Before: 		100,     
 				   After: 		fixture,          
 				   Total: 		200,           
-				   Unit:   	7,    
+				   Unit:   		7,    
 				   Electric:	1400,         
 				   Water:		100,	           
 				   Metertime: 	time.Now(), 
@@ -77,6 +77,41 @@ func TestMeterValidate(t *testing.T) {
 			   g.Expect(err.Error()).To(Equal("After cannot be zero"))
 		   } else if err.Error() == "After cannot be negative" {
 			   g.Expect(err.Error()).To(Equal("After cannot be negative"))
+		   }
+	   }
+	})
+
+	t.Run("Total cannot be zero", func(t *testing.T) {
+		fixtures := []int{
+			0,
+		   -5,
+		   -4,
+		   -2,
+	   }
+   
+	   for _, fixture := range fixtures {
+   
+			   meter := Meter{
+				   Before: 		100,     
+				   After: 		200,          
+				   Total: 		fixture,           
+				   Unit:   		7,    
+				   Electric:	1400,         
+				   Water:		100,	           
+				   Metertime: 	time.Now(), 
+		   }
+		   ok, err := govalidator.ValidateStruct(meter)
+   
+		   // ok ต้องไม่เป็นค่า true แปลว่าต้องจับ error ได้
+		   g.Expect(ok).ToNot(BeTrue())
+   
+		   // err ต้องไม่เป็นค่า nil แปลว่าต้องจับ error ได้
+		   g.Expect(err).ToNot(BeNil())
+   
+		   if err.Error() == "Total cannot be zero" {
+			   g.Expect(err.Error()).To(Equal("Total cannot be zero"))
+		   } else if err.Error() == "Total cannot be negative" {
+			   g.Expect(err.Error()).To(Equal("Total cannot be negative"))
 		   }
 	   }
 	})
