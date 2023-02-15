@@ -1,0 +1,26 @@
+package entity
+
+import (
+	"testing"
+
+	"github.com/asaskevich/govalidator"
+	. "github.com/onsi/gomega"
+)
+
+func TestManageValidate(t *testing.T) {
+	g := NewGomegaWithT(t)
+
+	t.Run("check status cannot be blank", func(t *testing.T) {
+		manage := Manage {
+			Status:	"",
+			Price:	5000,
+			Detail: "โต๊ะ(1), เก้าอี้(1)",
+		}
+
+		ok, err := govalidator.ValidateStruct(manage)
+
+		g.Expect(ok).NotTo(BeTrue())
+		g.Expect(err).ToNot(BeNil())
+		g.Expect(err.Error()).To(Equal("Status cannot be blank"))
+	})
+}
