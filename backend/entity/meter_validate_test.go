@@ -152,4 +152,40 @@ func TestMeterValidate(t *testing.T) {
 	   }
 	})
 
+
+	t.Run("Electric cannot be zero", func(t *testing.T) {
+		fixtures := []int{
+			0,
+		   -5,
+		   -4,
+		   -2,
+	   }
+   
+	   for _, fixture := range fixtures {
+   
+			   meter := Meter{
+				   Before: 		100,     
+				   After: 		200,          
+				   Total: 		100,           
+				   Unit:   		7,    
+				   Electric:	fixture,         
+				   Water:		100,	           
+				   Metertime: 	time.Now(), 
+		   }
+		   ok, err := govalidator.ValidateStruct(meter)
+   
+		   // ok ต้องไม่เป็นค่า true แปลว่าต้องจับ error ได้
+		   g.Expect(ok).ToNot(BeTrue())
+   
+		   // err ต้องไม่เป็นค่า nil แปลว่าต้องจับ error ได้
+		   g.Expect(err).ToNot(BeNil())
+   
+		   if err.Error() == "Electric cannot be zero" {
+			   g.Expect(err.Error()).To(Equal("Electric cannot be zero"))
+		   } else if err.Error() == "Electric cannot be negative" {
+			   g.Expect(err.Error()).To(Equal("Electric cannot be negative"))
+		   }
+	   }
+	})
+
 }

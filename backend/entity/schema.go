@@ -41,7 +41,7 @@ type Meter struct {
 	After     int       `valid:"required~After cannot be zero, After~After cannot be negative"`
 	Total     int       `valid:"required~Total cannot be zero, Total~Total cannot be negative"`
 	Unit      int       `valid:"required~Unit cannot be zero, Unit~Unit cannot be negative"`
-	Electric  int       `valid:"required~Electric cannot be blank"`
+	Electric  int       `valid:"required~Electric cannot be zero, Electric~Electric cannot be negative"`
 	Water     int       `valid:"required~Water cannot be blank"`
 	Metertime time.Time `valid:"required~Metertime cannot be blank"`
 
@@ -217,6 +217,11 @@ func init() {
 	})
 
 	govalidator.CustomTypeTagMap.Set("Unit", func(i interface{}, o interface{}) bool {
+		a := i.(int)
+		return a >= 1
+	})
+
+	govalidator.CustomTypeTagMap.Set("Electric", func(i interface{}, o interface{}) bool {
 		a := i.(int)
 		return a >= 1
 	})
