@@ -4,6 +4,8 @@ import (
 
 	"time"
 	"gorm.io/gorm"
+	
+	"github.com/asaskevich/govalidator"
 )
 type Admin struct {
 	gorm.Model
@@ -35,7 +37,7 @@ type Bill struct {
 
 type Meter struct {
 	gorm.Model
-	Before    int       `valid:"required~Before cannot be blank"`
+	Before    int       `valid:"required~Before cannot be zero, Before~Before cannot be negative"`
 	After     int       `valid:"required~After cannot be blank"`
 	Total     int       `valid:"required~Total cannot be blank"`
 	Unit      int       `valid:"required~Unit cannot be blank"`
@@ -171,3 +173,37 @@ type Reason struct {
 	Requestchange 	[]Requestchange 	`gorm:"foreignKey:ReasonID"`
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+func init() {
+
+	govalidator.CustomTypeTagMap.Set("Before", func(i interface{}, o interface{}) bool {
+		a := i.(int)
+		return a >= 1
+	})
+	
+}
