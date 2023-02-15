@@ -5,6 +5,61 @@ import (
 	"time"
 	"gorm.io/gorm"
 )
+type Admin struct {
+	gorm.Model
+	Name     string
+	Email    string `gorm:"uniqeIndex"`
+	Password string
+	Tel      string
+	Role     string
+
+	Meters []Meter `gorm:"foreignKey:AdminID"`
+	Bills  []Bill  `gorm:"foreignKey:AdminID"`
+}
+
+
+type Bill struct {
+	gorm.Model
+	Cost     int `valid:"required~cost cannot be blank"`
+	BillTime time.Time
+
+	MeterID *uint
+	Meter   Meter `gorm:"referenes:id" valid:"-"`
+
+	FurnitureID *uint
+	Furniture   Furniture `gorm:"referenes:id" valid:"-"`
+
+	AdminID *uint
+	Admin   Admin `gorm:"referenes:id" valid:"-"`
+}
+
+type Meter struct {
+	gorm.Model
+	Before    int       `valid:"required~Before cannot be blank"`
+	After     int       `valid:"required~After cannot be blank"`
+	Total     int       `valid:"required~Total cannot be blank"`
+	Unit      int       `valid:"required~Unit cannot be blank"`
+	Electric  int       `valid:"required~Electric cannot be blank"`
+	Water     int       `valid:"required~Water cannot be blank"`
+	Metertime time.Time `valid:"required~Metertime cannot be blank"`
+
+	// AdminID เป็น FK
+	AdminID *uint
+	// ข้อมูลของ Admin เมื่อ join ตาราง
+	Admin Admin `gorm:"referenes:id" valid:"-"`
+
+	// UserID เป็น FK
+	UserID *uint
+	// ข้อมูลของ User เมื่อ join ตาราง
+	User User `gorm:"referenes:id" valid:"-"`
+
+	// ManageID  เป็น FK
+	ManageID *uint
+	// ข้อมูลของ Manage เมื่อ join ตาราง
+	Manage Manage `gorm:"referenes:id" valid:"-"`
+
+	Bills []Bill `gorm:"foreignKey:MeterID"`
+}
 
 type Room struct {
 	gorm.Model
