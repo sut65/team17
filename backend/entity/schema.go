@@ -38,7 +38,7 @@ type Bill struct {
 type Meter struct {
 	gorm.Model
 	Before    int       `valid:"required~Before cannot be zero, Before~Before cannot be negative"`
-	After     int       `valid:"required~After cannot be blank"`
+	After     int       `valid:"required~After cannot be zero, After~After cannot be negative"`
 	Total     int       `valid:"required~Total cannot be blank"`
 	Unit      int       `valid:"required~Unit cannot be blank"`
 	Electric  int       `valid:"required~Electric cannot be blank"`
@@ -202,6 +202,11 @@ type Reason struct {
 func init() {
 
 	govalidator.CustomTypeTagMap.Set("Before", func(i interface{}, o interface{}) bool {
+		a := i.(int)
+		return a >= 1
+	})
+
+	govalidator.CustomTypeTagMap.Set("After", func(i interface{}, o interface{}) bool {
 		a := i.(int)
 		return a >= 1
 	})
