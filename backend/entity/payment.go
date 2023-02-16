@@ -3,6 +3,7 @@ package entity
 import (
 	"time"
 
+	"github.com/asaskevich/govalidator"
 	"gorm.io/gorm"
 )
 
@@ -10,6 +11,7 @@ type Payment struct {
 	gorm.Model
 	Evidence       string	`valid:"required~Evidence cannot be blank"`
 	PaymentTime	   time.Time	
+
 
 	// UserID เป็น FK
 	UserID *uint
@@ -30,4 +32,10 @@ type Payment struct {
 	MethodID *uint
 	// ข้อมูลของ Method เมื่อ join ตาราง
 	Method Method	`gorm:"referenes:id" valid:"-"`
+}
+func init() {
+	govalidator.CustomTypeTagMap.Set("past", func(i interface{}, o interface{}) bool {
+		t := i.(time.Time)
+		return t.Before(time.Now())
+	})
 }

@@ -109,8 +109,6 @@ func UpdateRequestout(c *gin.Context) {
 	var reason 		entity.Reason
 	var user		entity.User
 
-	
-
 	if err := c.ShouldBindJSON(&requestout); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return

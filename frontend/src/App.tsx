@@ -64,8 +64,12 @@ import { Grid } from "@mui/material";
 import SignIn from "./components/SignIn";
 import PaymentCreate from "./components/PaymentCreate";
 import Payment from "./components/Payment";
+import PaymentUpdate from "./components/PaymentUpdate";
+
 import Users from "./components/User";
 import UserCreate from "./components/UserCreate";
+import UserUpdate from "./components/UserUpdate";
+
 import { UserInterface } from "./models/IUser";
 import { AdminInterface } from "./models/IAdmin";
 
@@ -353,9 +357,11 @@ function App() {
 
                         <Route path="/payment/create" element={<PaymentCreate />} />
                         <Route path="/payments" element={<Payment />} />
-                        
+                        <Route path="/payments/:id" element={<PaymentUpdate />} />
+
                         <Route path="/users" element={<Users />} />
                         <Route path="/user/create" element={<UserCreate />} />
+                        <Route path="/users/:id" element={<UserUpdate />} />
                         
                         <Route path="/furnitures" element={<Furnitures />} />
                         <Route path="/furniture/create" element={<FurnitureCreate />} />
@@ -378,7 +384,6 @@ function App() {
             </Grid>
          </Grid>
       </Router>
-
 
    );
 }

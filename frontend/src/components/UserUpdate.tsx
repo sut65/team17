@@ -25,6 +25,8 @@ import { FormHelperText, InputLabel } from "@mui/material";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { DatePicker } from "@mui/x-date-pickers";
 
+import { useParams } from "react-router-dom";
+
 // const Alert = (props: AlertProps) => {
 //   return <MuiAlert elevation={6} variant="filled" {...props} />;
 // };
@@ -51,8 +53,9 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
 //   })
 // );
 
-function UserCreate() {
+function UserUpdate() {
   // const classes = useStyles();
+  const { id } = useParams();
   const [selectedDate, setSelectedDate] = useState<Date | null>();
   const [genders, setGenders] = useState<GenderInterface[]>([]);
   const [status, setStatus] = useState<StatusInterface[]>([]);
@@ -70,6 +73,7 @@ function UserCreate() {
   const [errorMessage, setErrorMessage] = useState("");
 
   const apiUrl = "http://localhost:8080";
+
   const requestOptions = {
     method: "GET",
     headers: {
@@ -94,11 +98,6 @@ function UserCreate() {
       ...users,
       [name]: event.target.value,
     });
-  };
-
-  const handleDateChange = (date: Date | null) => {
-    console.log(date);
-    setSelectedDate(date);
   };
 
   const getStatus = async () => {
@@ -137,10 +136,25 @@ function UserCreate() {
       });
   };
 
+  const getUsersByID = async () => {
+    const uid = localStorage.getItem("id");
+    fetch(`${apiUrl}/user/${uid}`, requestOptions)
+       .then((response) => response.json())
+       .then((res) => {
+          users.ID = res.data.ID
+          if (res.data) {
+             setUsers(res.data);
+          } else {
+             console.log("else");
+          }
+       });
+ };
+
   useEffect(() => {
     getStatus();
     getGender();
     getTitle();
+    getUsersByID();
   }, []);
 
   const convertType = (data: string | number | undefined) => {
@@ -148,9 +162,10 @@ function UserCreate() {
     return val;
   };
 
-  function submit() {
+  function update() {
       let data = {
       Role: "user",
+      ID: convertType(id),
       StatusID: convertType(users.StatusID),
       GenderID: convertType(users.GenderID),
       TitleID: convertType(users.TitleID),
@@ -165,8 +180,8 @@ function UserCreate() {
 
     console.log(data)
 
-    const requestOptionsPost = {
-      method: "POST",
+    const requestOptionsPatch = {
+      method: "PATCH",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
         "Content-Type": "application/json",
@@ -174,7 +189,7 @@ function UserCreate() {
       body: JSON.stringify(data),
     };
 
-    fetch(`${apiUrl}/users`, requestOptionsPost)
+    fetch(`${apiUrl}/users`, requestOptionsPatch)
       .then((response) => response.json())
       .then((res) => {
         if (res.data) {
@@ -384,14 +399,20 @@ function UserCreate() {
             >
               กลับ
             </Button>
-            <Button
-              style={{ float: "right" }}
+           
+            <Button sx={{ 
+              fontFamily: "PK Krung Thep Medium", 
+              fontSize:17
+
+            }}
+              style={{ float: "right"}}
+              onClick={update}
               variant="contained"
-              onClick={submit}
               color="primary"
             >
-              บันทึกข้อมูล
+              <b>แก้ไขข้อมูล</b>
             </Button>
+
           </Grid>
         </Grid>
       </Paper>
@@ -400,4 +421,4 @@ function UserCreate() {
   );
 }
 
-export default UserCreate;
+export default UserUpdate;

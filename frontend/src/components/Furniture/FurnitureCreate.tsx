@@ -35,7 +35,6 @@ function FurnitureCreate() {
   const [Totals, setTotals] = useState<string>("");
   const [Prices, setPrices] = useState<string>("");
   const [Furnitures, setFurnitures] = useState<Partial<FurnitureInterface>>({});
-
   const [Success, setSuccess] = useState(false);
   const [Error, setError] = useState(false);
   const [ErrorMessage, setErrorMessage] = useState("");
@@ -238,6 +237,7 @@ function FurnitureCreate() {
         </Box>
         <Divider />
         <Grid container spacing={3} sx={{ padding: 2 }}>
+          
           <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
               <p>ชื่อ - สกุล</p>

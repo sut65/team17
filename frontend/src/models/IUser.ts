@@ -11,7 +11,7 @@ export interface UserInterface{
     Role:           string,
 	Address:        string,
 	Personal:       string,
-    BirthdayTime:   Date,
+    BirthdayTime:   Date | null,
 
     StatusID:       number,
     Status:         StatusInterface,
