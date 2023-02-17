@@ -92,13 +92,8 @@ type Size struct {
 type Manage struct {
 	gorm.Model
 	Status 			string 			`valid:"required~Status cannot be blank"`
-<<<<<<< HEAD
-	Price  			int 				`valid:"range(3000|5000)~Price is valid"`
-	Detail 			string 			`valid:"required~Detail cannot be blank"`
-=======
 	Price  			string 			`valid:"required~Price cannot be blank"`
-	Detail 			string 			
->>>>>>> issue-111
+	Detail 			string 			`valid:"required~Detail cannot be blank"`
 
 	//Entity Room
 	RoomID 			*uint
