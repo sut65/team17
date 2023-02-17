@@ -104,18 +104,48 @@ func DeleteRepair(c *gin.Context) {
 
 func UpdateRepair(c *gin.Context) {
 
-	var repair entity.Repair
+	var user entity.User
+	var resident entity.Resident
+	var object entity.Object
+	var repair   entity.Repair
+
+	// ผลลัพธ์ที่ได้จากขั้นตอนที่ 8 จะถูก bind เข้าตัวแปร appointment
 	if err := c.ShouldBindJSON(&repair); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	if tx := entity.DB().Where("id = ?", repair.ID).First(&repair); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "repair not found"})
+
+	if tx := entity.DB().Where("id = ?", repair.UserID).First(&user); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "user not found"})
 		return
 	}
-	if err := entity.DB().Save(&repair).Error; err != nil {
+
+	// 9: ค้นหา patient ด้วย id
+	if tx := entity.DB().Where("id = ?", repair.ResidentID).First(&resident); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "resident not found"})
+		return
+	}
+
+	// 10: ค้นหา department ด้วย id
+	if tx := entity.DB().Where("id = ?", repair.ObjectID).First(&object); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "object not found"})
+		return
+	}
+
+	
+	
+	update := entity.Repair{
+		User:         user,
+		Object:       object,    
+		Resident:     resident,     
+		Repairtime:   repair.Repairtime,
+		Detail:       repair.Detail,
+	}
+
+	
+	if err := entity.DB().Where("id = ?", repair.ID).Updates(&update).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{"data": repair})
+	c.JSON(http.StatusOK, gin.H{"data": update})
 }

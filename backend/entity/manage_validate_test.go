@@ -41,7 +41,7 @@ func TestManageValidate(t *testing.T) {
 	t.Run("check detail cannot be blank", func(t *testing.T) {
 		manage := Manage {
 			Status:	"ว่าง",
-			Price:	3000,
+			Price:	"3000",
 			Detail: 	"",
 		}
 
