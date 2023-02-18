@@ -30,7 +30,7 @@ func TestCleaningBeBlank(t *testing.T) {
 		cleaning := Cleaning{
 
 			CleaningTime: time.Now().AddDate(0, 0, +8),
-			Detail:	"Good",
+			Detail:	"OK",
 		}
 		
 		ok, err := govalidator.ValidateStruct(cleaning)
