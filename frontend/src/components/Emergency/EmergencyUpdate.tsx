@@ -15,15 +15,16 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import TextField from '@mui/material/TextField';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 
-import { UserInterface } from "../models/IUser";
-import { ResidentInterface } from "../models/IResident";
-import { EmergencytypeInterface } from "../models/IEmergencytype";
+import { UserInterface } from "../../models/IUser";
+import { ResidentInterface } from "../../models/IResident";
+import { EmergencytypeInterface } from "../../models/IEmergencytype";
 
-import { EmergencyInterface } from "../models/IEmergency";
+import { EmergencyInterface } from "../../models/IEmergency";
 
 import { FormHelperText, InputLabel } from "@material-ui/core";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { DesktopDatePicker } from "@mui/x-date-pickers";
+import { useParams } from "react-router-dom";
 
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props, ref) {
@@ -31,6 +32,7 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props,
 });
 
 function EmergencyCreate() {
+  const { id } = useParams();
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [users, setUsers] = useState<UserInterface>();
   const [residents, setResidents] = useState<ResidentInterface[]>([]);
@@ -138,8 +140,9 @@ function EmergencyCreate() {
     return val;
   };
 
-  function submit() {
+  function Update() {
     let data = {
+        ID: convertType(id),
         UserID:     convertType(emergencys.UserID),
         ResidentID: convertType(emergencys.ResidentID),
         EmergencytypeID:   convertType(emergencys. EmergencytypeID),
@@ -152,7 +155,7 @@ function EmergencyCreate() {
     console.log(data)
 
     const requestOptionsPost = {
-      method: "POST",
+      method: "PATCH",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
         "Content-Type": "application/json",
@@ -330,7 +333,7 @@ function EmergencyCreate() {
             </Button>
             <Button
               style={{ float: "right" }}
-              onClick={submit}
+              onClick={Update}
               variant="contained"
               color="primary"
             >
