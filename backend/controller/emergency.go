@@ -104,18 +104,54 @@ func DeleteEmergency(c *gin.Context) {
 
 func UpdateEmergency(c *gin.Context) {
 
-	var emergency entity.Emergency
+	var user entity.User
+	var resident entity.Resident
+	var emergencytype entity.Emergencytype
+	var emergency   entity.Emergency
+
+	// ผลลัพธ์ที่ได้จากขั้นตอนที่ 8 จะถูก bind เข้าตัวแปร appointment
 	if err := c.ShouldBindJSON(&emergency); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	if tx := entity.DB().Where("id = ?", emergency.ID).First(&emergency); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "emergency not found"})
+
+	if tx := entity.DB().Where("id = ?", emergency.UserID).First(&user); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "user not found"})
 		return
 	}
-	if err := entity.DB().Save(&emergency).Error; err != nil {
+
+	// 9: ค้นหา patient ด้วย id
+	if tx := entity.DB().Where("id = ?", emergency.ResidentID).First(&resident); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "resident not found"})
+		return
+	}
+
+	// 10: ค้นหา department ด้วย id
+	if tx := entity.DB().Where("id = ?", emergency.EmergencytypeID).First(&emergencytype); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "emergencytype not found"})
+		return
+	}
+
+	
+	// 12: สร้าง Emergency
+     update := entity.Emergency{
+		User:            user,
+		Emergencytype:   emergencytype,   // โยงความสัมพันธ์กับ Entity Patient
+		Resident:        resident,     // โยงความสัมพันธ์กับ Entity Department
+		Emergencytime:      emergency.Emergencytime,
+		Detail:          emergency.Detail,
+	}
+
+	
+	
+
+	// 13: บันทึก
+	if err := entity.DB().Where("id = ?", emergency.ID).Updates(&update).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{"data": emergency})
+	c.JSON(http.StatusOK, gin.H{"data": update})
 }
+
+
+	
