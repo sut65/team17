@@ -417,8 +417,10 @@ function FurnitureCreate() {
               <p>วันที่และเวลา</p>
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DateTimePicker
+                  disabled
                   value={SelectedDate}
                   onChange={(newValue) => setSelectedDate(newValue)}
+                  minDate={(new Date)}
                   //  minDate={(new Date('31-12-2022T09:00'))}
                   renderInput={(params) => <TextField {...params} />}
                 />
