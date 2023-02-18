@@ -58,8 +58,9 @@ import BillCreate from "./components/Bill/BillCreate";
 import Repair from "./components/Repair/Repair";
 import RepairCreate from "./components/Repair/RepairCreate";
 import RepairUpdate from "../../frontend/src/components/Repair/RepairUpdate";
-import Emergency from "./components/Emergency";
-import EmergencyCreate from "./components/EmergencyCreate";
+import Emergency from "./components/Emergency/Emergency";
+import EmergencyCreate from "./components/Emergency/EmergencyCreate";
+import EmergencyUpdate from "./components/Emergency/EmergencyUpdate";
 import { Grid } from "@mui/material";
 
 import SignIn from "./components/SignIn";
@@ -380,6 +381,7 @@ function App() {
 
                         <Route path="/emergencies" element={<Emergency />} />
                         <Route path="/emergencie/create" element={<EmergencyCreate />} />
+                        <Route path="/emergencies/:id" element={<EmergencyUpdate />} />
                      </Routes>
                   </Box>
                </Box>
