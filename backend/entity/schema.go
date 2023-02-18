@@ -67,10 +67,10 @@ type Room struct {
 	gorm.Model
 	
 	Number			string
-	Manages			[]Manage				`gorm:"foreignKey:RoomID"`
+	Manages			[]Manage			`gorm:"foreignKey:RoomID"`
 	Furnitures		[]Furniture			`gorm:"foreignKey:RoomID"`
-	Requestouts		[]Requestout			`gorm:"foreignKey:RoomID"`
-	Requestchanges		[]Requestchange		`gorm:"foreignKey:RoomID"`
+	Requestouts		[]Requestout		`gorm:"foreignKey:RoomID"`
+	Requestchanges	[]Requestchange		`gorm:"foreignKey:RoomID"`
 }
 
 type Lease struct {
@@ -92,7 +92,7 @@ type Size struct {
 type Manage struct {
 	gorm.Model
 	Status 			string 			`valid:"required~Status cannot be blank"`
-	Price  			int 				`valid:"range(3000|5000)~Price is valid"`
+	Price  			int 			`valid:"range(3000|5000)~Price is valid"`
 	Detail 			string 			`valid:"required~Detail cannot be blank"`
 
 	//Entity Room
@@ -100,10 +100,10 @@ type Manage struct {
 	Room   			Room
 
 	CategoryID 		*uint
-	Category   		Category			`gorm:"referenes:id" valid:"-"`
+	Category   		Category		`gorm:"referenes:id" valid:"-"`
 
 	SizeID 			*uint
-	Size   			Size				`gorm:"referenes:id" valid:"-"`
+	Size   			Size			`gorm:"referenes:id" valid:"-"`
 
 	Residents 		[]Resident 		`gorm:"foreignKey:ManageID"`
 	Meters    		[]Meter    		`gorm:"foreignKey:ManageID"`
@@ -113,10 +113,10 @@ type Resident struct {
 	gorm.Model
 	
 	LeaseTime 		time.Time
-	Bail				string 			`valid:"required~Bail cannot be blank"`
+	Bail				string 		`valid:"required~Bail cannot be blank"`
 
 	UserID			*uint
-	User				User				`gorm:"referenes:id" valid:"-"`
+	User				User		`gorm:"referenes:id" valid:"-"`
 
 	LeaseID			*uint
 	Lease			Lease			`gorm:"referenes:id" valid:"-"`
@@ -174,9 +174,41 @@ type Reason struct {
 }
 
 
+type Area struct {
+	gorm.Model
+	
+	Area				string
+	Cleanings			[]Cleaning 			`gorm:"foreignKey:AreaID"`
+	
+}
 
+type Kind struct {
+	gorm.Model
+		
+	Kind				string
+	Cleanings			[]Cleaning 			`gorm:"foreignKey:KindID"`
+	
+}
 
+type Cleaning struct {
+	gorm.Model
 
+	CleaningTime 		time.Time	`valid:"Vatime~DateTime is valid"`
+	
+	Detail				string		`valid:"required~Detail cannot be blank"`	
+
+	UserID				*uint
+	User				User	`gorm:"referenes:id" valid:"-"`	
+
+	RoomID				*uint
+	Room				Room	`gorm:"referenes:id" valid:"-"`
+
+	KindID				*uint	
+	Kind				Kind	`gorm:"referenes:id" valid:"-"`	
+
+	AreaID				*uint
+	Area				Area	`gorm:"referenes:id" valid:"-"`
+}
 
 
 
@@ -230,6 +262,12 @@ func init() {
 		a := i.(int)
 		return a >= 1
 	})
+
+	govalidator.CustomTypeTagMap.Set("Vatime", func(i interface{}, o interface{}) bool {
+        t := i.(time.Time)
+        // ย้อนหลังไม่เกิน 1 วัน
+        return t.Before(time.Now().AddDate(0, 0, +7))
+    })
 	
 	
 }

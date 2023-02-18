@@ -141,7 +141,7 @@ function CleaningCreate() {
       KindID: convertType(cleanings.KindID),
       AreaID: convertType(cleanings.AreaID),
       CleaningTime: selectedDate,
-      Detail: detail + "-",
+      Detail: detail,
     };
 
     console.log(data);
@@ -367,6 +367,7 @@ function CleaningCreate() {
               <DateTimePicker
                 value={selectedDate}
                 onChange={(newValue) => setSelectedDate(newValue)}
+                minDate={(new Date)}
                 //  minDate={(new Date('31-12-2022T09:00'))}
                 renderInput={(params) => <TextField {...params} />}
               />
