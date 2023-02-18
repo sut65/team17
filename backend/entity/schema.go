@@ -212,6 +212,47 @@ type Cleaning struct {
 
 
 
+type Amount struct {
+	gorm.Model
+
+	Amount     		string
+	Furnitures 		[]Furniture `gorm:"foreignKey:AmountID"`
+}
+
+type Equipment struct {
+	gorm.Model
+
+	Equipment  		string
+	Price        	int
+	Furnitures 		[]Furniture `gorm:"foreignKey:EquipmentID"`
+}
+
+
+type Furniture struct {
+	gorm.Model
+
+	FurnitureTime time.Time		`valid:"timeNow~DateTime is valid"`
+	Total         *uint			
+
+	AdminID *uint
+	Admin   Admin				`gorm:"referenes:id" valid:"-"`
+
+	UserID *uint
+	User   User					`gorm:"referenes:id" valid:"-"`
+
+	RoomID *uint
+	Room   Room					`gorm:"referenes:id" valid:"-"`
+
+	AmountID *uint
+	Amount   Amount				`gorm:"referenes:id" valid:"-"`
+
+	EquipmentID *uint
+	Equipment   Equipment		`gorm:"referenes:id" valid:"-"`
+
+	Bills	[]Bill				`gorm:"foreignKey:FurnitureID"`
+}
+
+
 
 
 
@@ -265,8 +306,14 @@ func init() {
 
 	govalidator.CustomTypeTagMap.Set("Vatime", func(i interface{}, o interface{}) bool {
         t := i.(time.Time)
-        // ย้อนหลังไม่เกิน 1 วัน
+        // ล่วงหน้าไม่เกิน 7 วัน
         return t.Before(time.Now().AddDate(0, 0, +7))
+    })
+
+	govalidator.CustomTypeTagMap.Set("timeNow", func(i interface{}, o interface{}) bool {
+        t := i.(time.Time)
+        // วันเวลาปัจจุบัน
+        return t.Equal(time.Now())
     })
 	
 	
