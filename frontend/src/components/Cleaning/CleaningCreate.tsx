@@ -390,7 +390,7 @@ function CleaningCreate() {
               multiline
               onChange={(event) => setDetail(event.target.value)}
             />
-            <FormHelperText error>*ไม่จำเป็นต้องระบุ</FormHelperText>
+            <FormHelperText error></FormHelperText>
           </FormControl>
         </Grid>
 

@@ -198,16 +198,16 @@ type Cleaning struct {
 	Detail				string		`valid:"required~Detail cannot be blank"`	
 
 	UserID				*uint
-	User				User	`gorm:"referenes:id" valid:"-"`	
+	User				User		`gorm:"referenes:id" valid:"-"`	
 
 	RoomID				*uint
-	Room				Room	`gorm:"referenes:id" valid:"-"`
+	Room				Room		`gorm:"referenes:id" valid:"-"`
 
 	KindID				*uint	
-	Kind				Kind	`gorm:"referenes:id" valid:"-"`	
+	Kind				Kind		`gorm:"referenes:id" valid:"-"`	
 
 	AreaID				*uint
-	Area				Area	`gorm:"referenes:id" valid:"-"`
+	Area				Area		`gorm:"referenes:id" valid:"-"`
 }
 
 
