@@ -56,6 +56,7 @@ import MeterCreate from "./components/Meter/MeterCreate";
 import MeterUpdate from "./components/Meter/MeterUpdate";
 import Bill from "./components/Bill/Bill";
 import BillCreate from "./components/Bill/BillCreate";
+import BillUpdate from "./components/Bill/BillUpdate";
 import Repair from "./components/Repair/Repair";
 import RepairCreate from "./components/Repair/RepairCreate";
 import RepairUpdate from "../../frontend/src/components/Repair/RepairUpdate";
@@ -376,6 +377,7 @@ function App() {
 
                         <Route path="/bills" element={<Bill />} />
                         <Route path="/bill/create" element={<BillCreate />} />
+                        <Route path="/bills/:id" element={<BillUpdate />} />
                         
                         <Route path="/repairs" element={<Repair />} />
                         <Route path="/repair/create" element={<RepairCreate />} />
