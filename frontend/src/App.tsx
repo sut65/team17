@@ -53,6 +53,7 @@ import FurnitureCreate from "./components/Furniture/FurnitureCreate";
 import FurnitureUpdate from "./components/Furniture/FurnitureUpdate";
 import Meter from "./components/Meter/Meter";
 import MeterCreate from "./components/Meter/MeterCreate";
+import MeterUpdate from "./components/Meter/MeterUpdate";
 import Bill from "./components/Bill/Bill";
 import BillCreate from "./components/Bill/BillCreate";
 import Repair from "./components/Repair/Repair";
@@ -371,6 +372,7 @@ function App() {
 
                         <Route path="/meters" element={<Meter />} />
                         <Route path="/meter/create" element={<MeterCreate />} />
+                        <Route path="/meters/:id" element={<MeterUpdate />} />
 
                         <Route path="/bills" element={<Bill />} />
                         <Route path="/bill/create" element={<BillCreate />} />
