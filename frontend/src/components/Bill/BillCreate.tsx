@@ -505,7 +505,7 @@ function BillCreate() {
                 label="เดือน/วัน/ปี"
                 value={selectedDate}
                 onChange={(newValue) => setSelectedDate(newValue)}
-                minDate={new Date()}
+                minDate={new Date('2022-12-20')}
                 renderInput={(params) => <TextField {...params} />}
               />
             </LocalizationProvider>
