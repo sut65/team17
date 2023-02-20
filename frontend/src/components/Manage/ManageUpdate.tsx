@@ -189,7 +189,8 @@ function ManageUpdate() {
          backgroundRepeat: "no-repeat",
          backgroundSize: "cover",
          backgroundPosition: "center",
-         // width: '60%',
+         // background: '#e0e0e0',
+         width: '100%',
          fontFamily: "PK Krung Thep Medium",
          fontSize: 20,
          display: 'flex',
@@ -218,11 +219,13 @@ function ManageUpdate() {
          </Snackbar>
 
          <Box sx={{
+            mt: '70px',
+            mr: '10px',
             background: 'rgba(255, 255, 255, 0.8)',
-            width: '70%',
+            width: '45%',
+            height: '80%',
             borderRadius: '20px',
             boxShadow: 20,
-            backdropFilter: 'blur(5px)',
          }}>
             <Box
                display="flex"
@@ -273,7 +276,6 @@ function ManageUpdate() {
                         style={{ borderRadius: "20px" }}
                         native
                         value={manages.RoomID + ""}
-                        defaultValue={manages.ID + ''}
                         onChange={handleChange}
                         inputProps={{
                            name: "RoomID",
@@ -393,8 +395,45 @@ function ManageUpdate() {
                      />
                   </FormControl>
                </Grid>
+            </Grid>
+         </Box>
 
-               <Grid item xs={6} >
+                        {/* Detail */}
+         <Box sx={{
+            mt: '70px',
+            ml: '10px',
+            background: 'rgba(255, 255, 255, 0.8)',
+            width: '45%',
+            height: '80%',
+            borderRadius: '20px',
+            boxShadow: 20,
+            display: 'table-column',
+            alignItems: 'center',
+         }}>
+            <Box
+               display="flex"
+               justifyContent="center"
+               sx={{
+                  height: 'auto',
+               }}
+            >
+               <Box sx={{ paddingX: 2, }}>
+                  <Typography
+                     component="h2"
+                     variant="h6"
+                     gutterBottom
+                     sx={{
+                        fontFamily: "PK Krung Thep Medium",
+                        fontSize: "30px",
+                        color: '#0693e3',
+                     }}
+                  >
+                     <h1><b>รายละเอียดเพิ่มเติม</b></h1>
+                  </Typography>
+               </Box>
+            </Box>
+            <Grid container spacing={3} sx={{ padding: 2, }}>
+            <Grid item xs={6} >
                   <FormControl>
                      <Typography align="center"
                         sx={{
@@ -463,14 +502,16 @@ function ManageUpdate() {
                </Grid>
 
                <Grid item xs={12} sx={{
-                  mt: '20px',
+                  mt: '15px',
+                  mb: '5px',
                }}>
                   <Button sx={{
                      fontFamily: "PK Krung Thep Medium",
                      fontSize: 20,
                      width: 100,
                      marginLeft: '25%',
-                     borderRadius: 10
+                     borderRadius: 10,
+                     boxShadow: '20px 20px 25px #979797',
                   }}
                      component={RouterLink}
                      to="/manages"
@@ -485,8 +526,9 @@ function ManageUpdate() {
                      width: 100,
                      marginRight: '25%',
                      borderRadius: 10,
-                     bgcolor: "#0693e3",
+                     bgcolor: '#0693e3',
                      color: 'white',
+                     boxShadow: '20px 20px 25px #979797',
                   }}
                      style={{ float: "right" }}
                      onClick={update}

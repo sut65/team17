@@ -89,24 +89,24 @@ function Manages() {
 
    return (
       <div style={{
-         // backgroundImage: "url(https://images.hdqwalls.com/wallpapers/bthumb/flower-minimal-white-blur-c1.jpg)",
-         // backgroundImage: "url(https://images.hdqwalls.com/download/simple-drop-white-10k-n8-1280x720.jpg)",
-         // backgroundRepeat: "no-repeat",
-         // backgroundSize: "cover",
-         // backgroundPosition: "center",
-         background: '#e0e0e0',
+         // backgroundImage: "url(https://cdn.pixabay.com/photo/2018/09/24/08/52/mountains-3699372_960_720.jpg)",
+         backgroundImage: "url(https://images.hdqwalls.com/download/simple-drop-white-10k-n8-1280x720.jpg)",
+         backgroundRepeat: "no-repeat",
+         backgroundSize: "cover",
+         backgroundPosition: "center",
+         // background: '#e0e0e0',
          width: '100%',
          fontFamily: "PK Krung Thep Medium",
          fontSize: 20,
          display: 'grid',
          justifyContent: 'center',
-         alignItems: 'center',
+         // alignItems: 'center',
       }}>
          <Box sx={{
-            mt: '50px',
-            // bgcolor: 'lightgreen',
-            height: '90%',
-            width: '1400px',
+            mt: '60px',
+            height: '650px',
+           overflowY: 'scroll',
+            // bgcolor: 'lightGray',
          }}>
             <Box sx={{
                mt: '10px',
@@ -201,7 +201,8 @@ function Manages() {
 
                            borderRadius: '50px',
                            background: '#e5faff',
-                           boxShadow:  '20px 20px 20px #CECECE',
+                           // boxShadow:  '20px 20px 20px #CECECE',
+                           boxShadow: '5px',
                            '&:hover': {
                               background: 'rgba(142, 209, 252, 0.9)',
                               transform: 'scale(0.98)',
