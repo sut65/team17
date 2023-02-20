@@ -7,33 +7,32 @@ import (
 	. "github.com/onsi/gomega"
 )
 
-func TestDetailCannotBeBlank(t *testing.T) {
+func TestDetailCannotBlank(t *testing.T) {
 
 	g := NewGomegaWithT(t)
 	
-	requestout := Requestout{
+	requestchange := Requestchange{
 		Detail:	"",
-		
 	}
 	
-	ok, err := govalidator.ValidateStruct(requestout)
+	ok, err := govalidator.ValidateStruct(requestchange)
 
 	g.Expect(ok).ToNot(BeTrue())								//ok ห้ามเป็น True คือไม่มี err
 	g.Expect(err).ToNot(BeNil())								//err ต้องไม่เป็น null คือ ไม่มี err
 	g.Expect(err.Error()).To(Equal("Detail cannot be blank"))	//message err.Error ออกมา
 }
 
-
-func TestOutPass(t *testing.T) {
+func TestChangePass(t *testing.T) {
 
 	g := NewGomegaWithT(t)
 	
-	requestout := Requestout{
-		Detail:	"ย้ายหอ",
+	requestchange := Requestchange{
+		Detail:	"notthing",
 	}
 	
-	ok, err := govalidator.ValidateStruct(requestout)
+	ok, err := govalidator.ValidateStruct(requestchange)
 
 	g.Expect(ok).To(BeTrue())								//ok เป็น True คือไม่มี err
 	g.Expect(err).To(BeNil())								//err เป็น null คือ ไม่มี err
 }
+
