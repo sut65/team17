@@ -6,12 +6,15 @@ import Button from "@mui/material/Button";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Grid from '@mui/material/Unstable_Grid2';
+import Divider from '@mui/material/Divider';
 import { useParams, useNavigate } from "react-router-dom";
 
+import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import DeleteIcon from '@mui/icons-material/Delete';
 import SaveAsOutlinedIcon from '@mui/icons-material/SaveAsOutlined';
 
 import { ManageInterface } from "../../models/IManage";
+import { Card } from '@mui/material';
 
 
 
@@ -86,184 +89,213 @@ function Manages() {
 
    return (
       <div style={{
+         // backgroundImage: "url(https://images.hdqwalls.com/wallpapers/bthumb/flower-minimal-white-blur-c1.jpg)",
+         // backgroundImage: "url(https://images.hdqwalls.com/download/simple-drop-white-10k-n8-1280x720.jpg)",
+         // backgroundRepeat: "no-repeat",
+         // backgroundSize: "cover",
+         // backgroundPosition: "center",
+         background: '#e0e0e0',
          width: '100%',
          fontFamily: "PK Krung Thep Medium",
          fontSize: 20,
+         display: 'grid',
+         justifyContent: 'center',
+         alignItems: 'center',
       }}>
          <Box sx={{
-            mt: '20px',
-            mb: '20px',
-            display: 'flex',
-            justifyContent: 'center',
-            // alignItems: 'center',
-         }}
-         >
+            mt: '50px',
+            // bgcolor: 'lightgreen',
+            height: '90%',
+            width: '1400px',
+         }}>
             <Box sx={{
-               width: '30%'
-            }}>
-
-            </Box>
-            <Typography
-               sx={{
-                  width: '100%',
-                  fontFamily: "PK Krung Thep Medium",
-               }}
-               component="h2"
-               variant="h3"
-               color="primary"
-               gutterBottom
-               align='center'
-            >
-               <b>ระบบจัดการห้องพัก</b>
-            </Typography>
-
-
-            <Box sx={{
+               mt: '10px',
+               mb: '20px',
                display: 'flex',
-               justifyContent: 'right',
-               width: '30%',
+               justifyContent: 'center',
+               alignItems: 'center',
             }}>
-               <Button
-                  component={RouterLink}
-                  to="/manage/create"
-                  variant="contained"
-                  color="primary"
-                  sx={{
-                     mr: '20px',
-                     width: 'auto',
-                     height: '55px',
-                     fontFamily: "PK Krung Thep Medium",
-                     fontSize: 18,
-                     borderRadius: 15
-                  }}
-               >
-                  จัดการห้องพัก
-               </Button>
-            </Box>
-         </Box>
 
-         
-         <Grid container spacing={3}>
-            {manages.map((item: ManageInterface) => (
-               <Grid xs={6} sx={{
+               <Paper sx={{
+                  mr: '20px',
                   display: 'flex',
-               }}>
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  borderRadius: '50px',
+                  boxShadow: '20px 20px 35px #45504a',
 
-                  <Button
-                     component="span"
+               }}>
+                  <Box sx={{
+                     ml: '20px',
+                     display: 'flex',
+                     justifyContent: 'center',
+                     alignItems: 'center',
+                  }}>
+                     {<SearchOutlinedIcon />}
+                  </Box>
+
+                  <Typography
                      sx={{
-                        height: '160px',
+                        ml: '20px',
+                        width: '700px',
+                        height: '100%',
                         fontFamily: "PK Krung Thep Medium",
-                        fontSize: 30,
-                        display: 'flex',
-                        justifyContent: 'left',
-                        alignItems: 'center',
-                        width: 'auto',
-                        flexGrow: 2,
-                        m: 0.5,
-                        background: 'rgba(255, 255, 255,0.7)',
-                        boxShadow: 5,
-                        borderRadius: 10,
-                        '&:hover': {
-                           background: 'rgba(142, 209, 252, 0.5)',
-                        },
+                        fontSize: '30px',
                      }}
                   >
-                     <Typography align='center' sx={{
-                        ml: '10px',
-                        width: '20%',
-                        fontFamily: "PK Krung Thep Medium",
-                        fontSize: 55,
-                     }}>
-                        <b>{item.Status}</b>
-                     </Typography>
+                     <center>
+                        ระบบจัดการห้องพัก
+                     </center>
+                  </Typography>
+               </Paper>
 
-                     <Typography sx={{
+
+
+               <Box sx={{
+                  display: 'flex',
+                  justifyContent: 'right',
+               }}>
+                  <Button
+                     component={RouterLink}
+                     to="/manage/create"
+                     variant="contained"
+                     color="primary"
+                     sx={{
+                        mr: '20px',
                         width: 'auto',
+                        height: 'auto',
                         fontFamily: "PK Krung Thep Medium",
                         fontSize: 18,
-                        margin: 3,
-                        color: 'black',
+                        borderRadius: 15,
+                        bgcolor: '#0693e3',
+                        color: 'white',
+                        boxShadow: '20px 20px 35px #45504a',
                      }}
-                     >
-                        ห้อง: <b>{item.Room.Number}</b> <br />
-                        ราคาเช่า: <b>{item.Price}/เดือน</b><br />
-                        ขนาดห้อง: <b>{item.Size.Size}</b><br />
-                        ประเภทห้อง: <b>{item.Category.Category}</b><br />
-                     </Typography>
-
-                     <Typography sx={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        width: '35%',
-                        fontFamily: "PK Krung Thep Medium",
-                        fontSize: 20,
-                        margin: 2,
-                        color: 'black',
-                     }}
-                     >
-                        {item.Detail}
-                     </Typography>
-
+                  >
+                     จัดการห้องพัก
                   </Button>
+               </Box>
+            </Box>
 
-                  <div style={{
+            <Grid container spacing={2}>
+               {manages.map((item: ManageInterface) => (
+                  <Grid xs={4} sx={{
                      display: 'grid',
-                     marginTop: 'auto',
-                     marginBottom: 'auto',
-                     marginLeft: 5,
-                     marginRight: 10,
+                     justifyContent: 'center',
                   }}>
-                     <Button
-                        variant="outlined"
-                        size="medium"
-                        startIcon={<SaveAsOutlinedIcon />}
+
+                     <Card
+                        component="span"
                         sx={{
+                           height: '350px',
+                           width: '380px',
                            fontFamily: "PK Krung Thep Medium",
-                           fontSize: 20,
-                           borderRadius: 20,
-                           fontWeight: "bold",
-                           color: 'black',
-                           width: '100px',
-                           marginBottom: 1,
-                           borderColor: 'black',
+                           fontSize: 30,
+                           display: 'grid',
+                           justifyContent: 'center',
+                           alignItems: 'center',
+                           flexGrow: 2,
+                           transition: 'all .6s',
+                           m: 0.5,
+                           backdropFilter: 'blur(2px)',
+
+                           borderRadius: '50px',
+                           background: '#e5faff',
+                           boxShadow:  '20px 20px 20px #CECECE',
                            '&:hover': {
-                              background: 'rgba(0, 208, 132, 0.5)',
-                              borderColor: 'rgba(0, 208, 132, 0.4)',
+                              background: 'rgba(142, 209, 252, 0.9)',
+                              transform: 'scale(0.98)',
+                              boxShadow: '0px 0px 30px 1px rgba(0, 255, 117, 0.30)'
                            },
                         }}
-                        onClick={() => navigate(`${item.ID}`)}
                      >
-                        แก้ไข
-                     </Button>
-                     <Button
-                        variant="outlined"
-                        size="medium"
-                        startIcon={<DeleteIcon />}
-                        sx={{
+                        <Typography align='center' sx={{
                            fontFamily: "PK Krung Thep Medium",
-                           fontSize: 20,
-                           borderRadius: 20,
-                           fontWeight: "bold",
-                           marginTop: 1,
-                           width: '100px',
+                           fontSize: 50,
+                           color: '#0693e3',
+                        }}>
+                           <b>{item.Status}</b>
+                        </Typography>
+
+                        <Typography align='center' sx={{
+                           fontFamily: "PK Krung Thep Medium",
+                           fontSize: 18,
+                           margin: 2,
                            color: 'black',
-                           borderColor: 'black',
-                           '&:hover': {
-                              background: 'rgba(0, 208, 132, 0.5)',
-                              borderColor: 'rgba(0, 208, 132, 0.4)',
-                           },
                         }}
-                        aria-label="delete"
-                        onClick={() => DeleteManage(item.ID)}
-                     >
-                        ลบ
-                     </Button>
-                  </div>
-               </Grid>
-            ))}
-         </Grid>
+                        >
+                           ห้อง: <b>{item.Room.Number}</b> <br />
+                           ราคาเช่า: <b>{item.Price}/เดือน</b><br />
+                           ขนาดห้อง: <b>{item.Size.Size}</b><br />
+                           ประเภทห้อง: <b>{item.Category.Category}</b><br />
+                           {item.Detail}
+
+                        </Typography>
+                        <div style={{
+                           display: 'flex',
+                           justifyContent: 'center',
+                           marginTop: 2,
+                           marginBottom: 'auto',
+                           marginLeft: 5,
+                           marginRight: 10,
+                        }}>
+                           <Button
+                              size="medium"
+                              sx={{
+                                 ml: 1,
+                                 fontSize: 20,
+                                 borderRadius: '0.7em',
+                                 width: 'auto',
+                                 color: 'black',
+                                 bgcolor: 'white',
+                                 border: '2px solid #ffffff',
+                                 transition: 'all 0.5s',
+                                 boxShadow: '6px 6px 12px #c5c5c5;',
+                                 '&:hover': {
+                                    bgcolor: 'white',
+                                    border: '2px solid #0693e3',
+                                 },
+                                 '&:active': {
+                                    boxShadow: '4px 4px 12px #c5c5c5, -4px -4px 12px #ffffff',
+                                 }
+                              }}
+                              onClick={() => navigate(`${item.ID}`)}
+                           >
+                              {<SaveAsOutlinedIcon />}
+                           </Button>
+                           <Button
+                              size="medium"
+                              sx={{
+                                 ml: 1,
+                                 fontSize: 20,
+                                 borderRadius: '0.7em',
+                                 width: 'auto',
+                                 color: 'black',
+                                 bgcolor: 'white',
+                                 border: '2px solid #ffffff',
+                                 transition: 'all 0.5s',
+                                 boxShadow: '6px 6px 12px #c5c5c5;',
+                                 '&:hover': {
+                                    bgcolor: 'white',
+                                    border: '2px solid #0693e3',
+                                 },
+                                 '&:active': {
+                                    boxShadow: '4px 4px 12px #c5c5c5, -4px -4px 12px #ffffff',
+                                 }
+                              }}
+                              aria-label="delete"
+                              onClick={() => DeleteManage(item.ID)}
+                           >
+                              {<DeleteIcon />}
+                           </Button>
+                        </div>
+                     </Card>
+                  </Grid>
+               ))}
+            </Grid>
+         </Box>
+
       </div>
-   );   
+   );
 }
 export default Manages;
