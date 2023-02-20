@@ -281,7 +281,34 @@ type Object struct{
 
 }
 
+type  Emergencytype struct{
+	gorm.Model
+	Name				string
+	      		 
 
+	
+	
+	Emergencys         	[]Emergency		    `gorm:"foreignKey:EmergencytypeID"`
+
+
+}
+
+type Emergency struct{
+	gorm.Model
+	Emergencytime			time.Time              `valid:"timenotpast~Date is invalid"`
+	Detail				string                     `valid:"required~โปรดระบุรายละเอียดเพิ่มเติม"`            
+
+	// PatientID เป็น FK
+	UserID			*uint
+	User				User                       `gorm:"referenes:id" valid:"-"`
+	// DepartmentID เป็น FK
+	ResidentID		*uint
+	Resident			Resident                   `gorm:"referenes:id" valid:"-"`
+	// SymptomID เป็น FK
+	EmergencytypeID		*uint
+	Emergencytype			  Emergencytype          `gorm:"referenes:id" valid:"-"`
+
+}
 
 
 

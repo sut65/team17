@@ -33,7 +33,7 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props,
 
 function EmergencyCreate() {
   const { id } = useParams();
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [selectedDate, setSelectedDate] = useState<Date | null>(new Date);
   const [users, setUsers] = useState<UserInterface>();
   const [residents, setResidents] = useState<ResidentInterface[]>([]);
   const [emergencytypes, setEmergencytypes] = useState<EmergencytypeInterface[]>([]);
@@ -305,7 +305,7 @@ function EmergencyCreate() {
               <p>วันที่แจ้งเหตุฉุกเฉิน</p>
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DesktopDatePicker
-                  // disabled
+                   disabled
                   label="เดือน/วัน/ปี"
                   value={selectedDate}
                   onChange={(newValue) => setSelectedDate(newValue)}
