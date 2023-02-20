@@ -33,7 +33,7 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props,
 
 function RepairUpdate() {
   const { id } = useParams();
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [selectedDate, setSelectedDate] = useState<Date | null>(new Date);
   const [users, setUsers] = useState<UserInterface>();
   const [residents, setResidents] = useState<ResidentInterface[]>([]);
   const [objects, setObjects] = useState<ObjectInterface[]>([]);
@@ -304,7 +304,7 @@ function RepairUpdate() {
               <p>วันที่แจ้งซ่อม</p>
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DesktopDatePicker
-                  // disabled
+                   disabled
                   label="เดือน/วัน/ปี"
                   value={selectedDate}
                   onChange={(newValue) => setSelectedDate(newValue)}
