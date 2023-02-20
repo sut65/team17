@@ -31,7 +31,7 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props,
 });
 
 function RepairCreate() {
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [selectedDate, setSelectedDate] = useState<Date | null>(new Date);
   const [users, setUsers] = useState<UserInterface>();
   const [residents, setResidents] = useState<ResidentInterface[]>([]);
   const [objects, setObjects] = useState<ObjectInterface[]>([]);
@@ -194,7 +194,7 @@ function RepairCreate() {
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
       >
         <Alert onClose={handleClose} severity="error">
-          บันทึกข้อมูลไม่สำเร็จ
+          {errorMessage}
         </Alert>
       </Snackbar>
       <Paper>
@@ -301,11 +301,11 @@ function RepairCreate() {
               <p>วันที่แจ้งซ่อม</p>
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DesktopDatePicker
-                  // disabled
+                   disabled
                   label="เดือน/วัน/ปี"
                   value={selectedDate}
                   onChange={(newValue) => setSelectedDate(newValue)}
-                  minDate={(new Date('2022-12-20'))}
+                  minDate={(new Date())}
                   renderInput={(params) => <TextField {...params} />}
                 />
               </LocalizationProvider>
