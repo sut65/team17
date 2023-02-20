@@ -322,7 +322,8 @@ function App() {
                      component="main"
                      sx={{
                         width: '100%',
-                        height: '100%',
+                        maxHeight: '100%',
+                        mt: '30px',
                         // bgcolor: 'skyblue',
                         display: 'flex',
                         justifyContent: 'center',

@@ -22,7 +22,7 @@ type Admin struct {
 
 type Bill struct {
 	gorm.Model
-	Cost     int `valid:"required~cost cannot be blank"`
+	Cost     int `valid:"required~cost cannot be zero, Cost~cost cannot be negative"`
 	BillTime time.Time
 
 	MeterID *uint
@@ -321,6 +321,12 @@ func init() {
 	// วันเวลาปัจจุบัน ห้ามเป็นอดีต
 	return t.After(time.Now().AddDate(0, 0, -1))
  })
+
+ 	govalidator.CustomTypeTagMap.Set("Cost", func(i interface{}, o interface{}) bool {
+	a := i.(int)
+	return a >= 1
+})
+
 	
 	
 }
