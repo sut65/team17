@@ -112,7 +112,7 @@ type Manage struct {
 type Resident struct {
 	gorm.Model
 	
-	LeaseTime 		time.Time
+	LeaseTime 		time.Time		`valid:"timenotpast~Date is invalid"`
 	Bail				string 		`valid:"required~Bail cannot be blank"`
 
 	UserID			*uint
@@ -316,7 +316,10 @@ func init() {
         return t.Equal(time.Now())
     })
 
-    
+    govalidator.CustomTypeTagMap.Set("timenotpast", func(i interface{}, o interface{}) bool {
+	t := i.(time.Time)
+	// วันเวลาปัจจุบัน ห้ามเป็นอดีต
+	return t.After(time.Now().AddDate(0, 0, -1))
  })
 	
 	
