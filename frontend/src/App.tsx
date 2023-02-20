@@ -53,13 +53,16 @@ import FurnitureCreate from "./components/Furniture/FurnitureCreate";
 import FurnitureUpdate from "./components/Furniture/FurnitureUpdate";
 import Meter from "./components/Meter/Meter";
 import MeterCreate from "./components/Meter/MeterCreate";
+import MeterUpdate from "./components/Meter/MeterUpdate";
 import Bill from "./components/Bill/Bill";
 import BillCreate from "./components/Bill/BillCreate";
+import BillUpdate from "./components/Bill/BillUpdate";
 import Repair from "./components/Repair/Repair";
 import RepairCreate from "./components/Repair/RepairCreate";
 import RepairUpdate from "../../frontend/src/components/Repair/RepairUpdate";
-import Emergency from "./components/Emergency";
-import EmergencyCreate from "./components/EmergencyCreate";
+import Emergency from "./components/Emergency/Emergency";
+import EmergencyCreate from "./components/Emergency/EmergencyCreate";
+import EmergencyUpdate from "./components/Emergency/EmergencyUpdate";
 import { Grid } from "@mui/material";
 
 import SignIn from "./components/SignIn";
@@ -192,11 +195,17 @@ function App() {
    return (
       <Router>
          <Box>
-            <AppBar position="absolute" open={open}>
+            <AppBar position="absolute" open={open} 
+            // sx={{
+            //    width: '95%',
+            //    bgcolor: 'lightgrey',
+            // }}
+            >
                <Toolbar
                   sx={{
-                     pr: "24px", // keep right padding when drawer closed
-                     height: '50px'
+                     // bgcolor: '#194D33',
+                     pr: "24px",
+                     height: '50px',
                   }}
                >
                   
@@ -222,21 +231,25 @@ function App() {
                                     <Button
                                        variant="outlined"
                                        sx={{
-                                          // display: 'grid',
                                           fontFamily: "PK Krung Thep Medium",
                                           fontSize: "18px",
                                           height: 'auto',
                                           width: 'auto',
                                           color: 'white',
                                           borderRadius: "20px",
+                                          transition: 'all 0.5s',
                                           '&:hover': {
-                                             borderColor: 'white',
-                                             borderWidth: '2px',
+                                             bgcolor: 'white',
+                                             color: 'black',
                                              borderRadius: "20px",
                                           },
+                                          '&:active': {
+                                             boxShadow: '4px 4px 12px #c5c5c5, -4px -4px 12px #ffffff',
+                                          }
                                        }}
                                     >
                                        <Typography sx={{
+                                          fontFamily: "PK Krung Thep Medium",
                                           display: 'flex',
                                           justifyContent: 'center',
                                           alignItems: 'center',
@@ -250,26 +263,6 @@ function App() {
                         )}
                      </List>
                   </Box>
-                  {/* <Button variant="outlined"
-                     component={Link}
-                     to="/"
-                     sx={{
-                        mr: '10px',
-                        fontFamily: "PK Krung Thep Medium",
-                        fontSize: "20px",
-                        height: 'auto',
-                        width: '10%',
-                        color: 'white',
-                        borderRadius: "20px",
-                        '&:hover': {
-                           borderColor: 'white',
-                           borderWidth: '2px',
-                           borderRadius: "20px",
-                        },
-                     }}
-                  >
-                     หน้าแรก
-                  </Button> */}
 
                   <Button variant="outlined" onClick={signout}
                      sx={{
@@ -303,13 +296,14 @@ function App() {
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "top",
-                  backgroundImage: "url(https://cdn.pixabay.com/photo/2019/08/28/12/20/fog-4436636_960_720.jpg)",
+                  // backgroundImage: "url(https://img.freepik.com/premium-photo/3d-chat-bubbles-minimal-concept-social-media-quote-3d-illustrations_677520-42.jpg?w=1380)",
                   backgroundRepeat: "no-repeat",
                   backgroundSize: "cover",
                   backgroundPosition: "center",
+                  background: '#e0e0e0',
                }}
             >
-               <Box sx={{
+               {/* <Box sx={{
                   // height: '85vh',
                   mt: '100px',
                   mb: '50px',
@@ -321,13 +315,13 @@ function App() {
                   // alignItems: 'center',
                   borderRadius: 10,
 
-               }}>
+               }}> */}
 
 
                   <Box 
                      component="main"
                      sx={{
-                        width: '90%',
+                        width: '100%',
                         height: '100%',
                         // bgcolor: 'skyblue',
                         display: 'flex',
@@ -370,9 +364,11 @@ function App() {
 
                         <Route path="/meters" element={<Meter />} />
                         <Route path="/meter/create" element={<MeterCreate />} />
+                        <Route path="/meters/:id" element={<MeterUpdate />} />
 
                         <Route path="/bills" element={<Bill />} />
                         <Route path="/bill/create" element={<BillCreate />} />
+                        <Route path="/bills/:id" element={<BillUpdate />} />
                         
                         <Route path="/repairs" element={<Repair />} />
                         <Route path="/repair/create" element={<RepairCreate />} />
@@ -380,9 +376,10 @@ function App() {
 
                         <Route path="/emergencies" element={<Emergency />} />
                         <Route path="/emergencie/create" element={<EmergencyCreate />} />
+                        <Route path="/emergencies/:id" element={<EmergencyUpdate />} />
                      </Routes>
                   </Box>
-               </Box>
+               {/* </Box> */}
             </Grid>
          </Grid>
       </Router>

@@ -81,9 +81,12 @@ function Cleanings() {
   return (
     <Box sx={{ width: "100%" }}>
       {/* <Container sx={{ marginTop: 2 }} > */}
-      <Box display="flex" sx={{
-        mt: "30px",
-      }}>
+      <Box
+        display="flex"
+        sx={{
+          mt: "30px",
+        }}
+      >
         <Box flexGrow={1}>
           <Typography
             component="h2"
@@ -121,29 +124,93 @@ function Cleanings() {
       >
         <Table aria-label="simple table">
           <TableHead>
-            <TableRow >
-              <TableCell sx={{ marginTop: 2, fontFamily: "PK Krung Thep Medium",fontWeight: "bold"}} align="center" width="2%">
+            <TableRow>
+              <TableCell
+                sx={{
+                  marginTop: 2,
+                  fontFamily: "PK Krung Thep Medium",
+                  fontWeight: "bold",
+                }}
+                align="center"
+                width="2%"
+              >
                 ลำดับ
               </TableCell>
-              <TableCell sx={{ marginTop: 2, fontFamily: "PK Krung Thep Medium",fontWeight: "bold"}} align="center" width="15%">
+              <TableCell
+                sx={{
+                  marginTop: 2,
+                  fontFamily: "PK Krung Thep Medium",
+                  fontWeight: "bold",
+                }}
+                align="center"
+                width="15%"
+              >
                 ชื่อ - นามสกุล
               </TableCell>
-              <TableCell sx={{ marginTop: 2, fontFamily: "PK Krung Thep Medium",fontWeight: "bold"}} align="center" width="8%">
+              <TableCell
+                sx={{
+                  marginTop: 2,
+                  fontFamily: "PK Krung Thep Medium",
+                  fontWeight: "bold",
+                }}
+                align="center"
+                width="8%"
+              >
                 เบอร์โทร
               </TableCell>
-              <TableCell sx={{ marginTop: 2, fontFamily: "PK Krung Thep Medium",fontWeight: "bold"}} align="center" width="7%">
+              <TableCell
+                sx={{
+                  marginTop: 2,
+                  fontFamily: "PK Krung Thep Medium",
+                  fontWeight: "bold",
+                }}
+                align="center"
+                width="7%"
+              >
                 ห้องพัก
               </TableCell>
-              <TableCell sx={{ marginTop: 2, fontFamily: "PK Krung Thep Medium",fontWeight: "bold"}} align="center" width="19%">
+              <TableCell
+                sx={{
+                  marginTop: 2,
+                  fontFamily: "PK Krung Thep Medium",
+                  fontWeight: "bold",
+                }}
+                align="center"
+                width="19%"
+              >
                 ประเภทการทำความสะอาด
               </TableCell>
-              <TableCell sx={{ marginTop: 2, fontFamily: "PK Krung Thep Medium",fontWeight: "bold"}} align="center" width="22%">
+              <TableCell
+                sx={{
+                  marginTop: 2,
+                  fontFamily: "PK Krung Thep Medium",
+                  fontWeight: "bold",
+                }}
+                align="center"
+                width="22%"
+              >
                 บริเวณที่ต้องการทำความสะอาด
               </TableCell>
-              <TableCell sx={{ marginTop: 2, fontFamily: "PK Krung Thep Medium",fontWeight: "bold"}} align="center" width="13%">
+              <TableCell
+                sx={{
+                  marginTop: 2,
+                  fontFamily: "PK Krung Thep Medium",
+                  fontWeight: "bold",
+                }}
+                align="center"
+                width="13%"
+              >
                 เพิ่มเติม
               </TableCell>
-              <TableCell sx={{ marginTop: 2, fontFamily: "PK Krung Thep Medium",fontWeight: "bold"}} align="center" width="22%">
+              <TableCell
+                sx={{
+                  marginTop: 2,
+                  fontFamily: "PK Krung Thep Medium",
+                  fontWeight: "bold",
+                }}
+                align="center"
+                width="22%"
+              >
                 วันที่และเวลา
               </TableCell>
               <TableCell align="center" width="1%"></TableCell>
@@ -153,14 +220,52 @@ function Cleanings() {
           <TableBody>
             {cleanings.map((item: CleaningInterface) => (
               <TableRow key={item.ID}>
-                <TableCell sx={{ marginTop: 2, fontFamily: "PK Krung Thep Medium"}} align="center">{item.ID}</TableCell>
-                <TableCell sx={{ marginTop: 2, fontFamily: "PK Krung Thep Medium"}} align="center">{item.User.Name}</TableCell>
-                <TableCell sx={{ marginTop: 2, fontFamily: "PK Krung Thep Medium"}} align="center">{item.User.Tel}</TableCell>
-                <TableCell sx={{ marginTop: 2, fontFamily: "PK Krung Thep Medium"}} align="center">{item.Room.Number}</TableCell>
-                <TableCell sx={{ marginTop: 2, fontFamily: "PK Krung Thep Medium"}} align="center">{item.Kind.Kind}</TableCell>
-                <TableCell sx={{ marginTop: 2, fontFamily: "PK Krung Thep Medium"}} align="center">{item.Area.Area}</TableCell>
-                <TableCell sx={{ marginTop: 2, fontFamily: "PK Krung Thep Medium"}} align="center">{item.Detail}</TableCell>
-                <TableCell sx={{ marginTop: 2, fontFamily: "PK Krung Thep Medium"}} align="center">
+                <TableCell
+                  sx={{ marginTop: 2, fontFamily: "PK Krung Thep Medium" }}
+                  align="center"
+                >
+                  {item.ID}
+                </TableCell>
+                <TableCell
+                  sx={{ marginTop: 2, fontFamily: "PK Krung Thep Medium" }}
+                  align="center"
+                >
+                  {item.User.Name}
+                </TableCell>
+                <TableCell
+                  sx={{ marginTop: 2, fontFamily: "PK Krung Thep Medium" }}
+                  align="center"
+                >
+                  {item.User.Tel}
+                </TableCell>
+                <TableCell
+                  sx={{ marginTop: 2, fontFamily: "PK Krung Thep Medium" }}
+                  align="center"
+                >
+                  {item.Room.Number}
+                </TableCell>
+                <TableCell
+                  sx={{ marginTop: 2, fontFamily: "PK Krung Thep Medium" }}
+                  align="center"
+                >
+                  {item.Kind.Kind}
+                </TableCell>
+                <TableCell
+                  sx={{ marginTop: 2, fontFamily: "PK Krung Thep Medium" }}
+                  align="center"
+                >
+                  {item.Area.Area}
+                </TableCell>
+                <TableCell
+                  sx={{ marginTop: 2, fontFamily: "PK Krung Thep Medium" }}
+                  align="center"
+                >
+                  {item.Detail}
+                </TableCell>
+                <TableCell
+                  sx={{ marginTop: 2, fontFamily: "PK Krung Thep Medium" }}
+                  align="center"
+                >
                   {moment(item.CleaningTime).format("DD MMMM yyyy hh:mm")}
                 </TableCell>
                 {/* <TableCell align="center">{format((new Date(item.BookingTime)), 'DD MMMM yyyy hh:mm')}</TableCell> */}
@@ -172,54 +277,54 @@ function Cleanings() {
                     bgcolor: "green",
                   }}
                 > */}
-                  <TableCell align="center">
-                    <Button
-                      variant="outlined"
-                      size="small"
-                      startIcon={<SaveAsOutlinedIcon />}
-                      sx={{
-                        fontFamily: "PK Krung Thep Medium",
-                        fontSize: 10,
-                        borderRadius: 20,
-                        fontWeight: "bold",
-                        color: "black",
-                        width: "auto",
-                        // marginTop: "50%",
-                        marginBottom: "4px",
-                        borderColor: "black",
-                        "&:hover": {
-                          background: "rgba(0, 208, 132, 0.5)",
-                          borderColor: "rgba(0, 208, 132, 0.4)",
-                        },
-                      }}
-                      onClick={() => navigate(`${item.ID}`)}
-                    >
-                      แก้ไข
-                    </Button>
-                  </TableCell>
-                  <TableCell align="center">
-                    <Button
-                      variant="outlined"
-                      size="small"
-                      startIcon={<DeleteIcon />}
-                      sx={{
-                        fontFamily: "PK Krung Thep Medium",
-                        fontSize: 10,
-                        borderRadius: 20,
-                        fontWeight: "bold",
-                        color: "black",
-                        width: "auto",
-                        borderColor: "black",
-                        "&:hover": {
-                          background: "rgba(0, 208, 132, 0.5)",
-                          borderColor: "rgba(0, 208, 132, 0.4)",
-                        },
-                      }}
-                      onClick={() => DeleteCleanings(`${item.ID}`)}
-                    >
-                      ลบ
-                    </Button>
-                  </TableCell>
+                <TableCell align="center">
+                  <Button
+                    variant="outlined"
+                    size="small"
+                    startIcon={<SaveAsOutlinedIcon />}
+                    sx={{
+                      fontFamily: "PK Krung Thep Medium",
+                      fontSize: 10,
+                      borderRadius: 20,
+                      fontWeight: "bold",
+                      color: "black",
+                      width: "auto",
+                      // marginTop: "50%",
+                      marginBottom: "4px",
+                      borderColor: "black",
+                      "&:hover": {
+                        background: "rgba(0, 208, 132, 0.5)",
+                        borderColor: "rgba(0, 208, 132, 0.4)",
+                      },
+                    }}
+                    onClick={() => navigate(`${item.ID}`)}
+                  >
+                    แก้ไข
+                  </Button>
+                </TableCell>
+                <TableCell align="center">
+                  <Button
+                    variant="outlined"
+                    size="small"
+                    startIcon={<DeleteIcon />}
+                    sx={{
+                      fontFamily: "PK Krung Thep Medium",
+                      fontSize: 10,
+                      borderRadius: 20,
+                      fontWeight: "bold",
+                      color: "black",
+                      width: "auto",
+                      borderColor: "black",
+                      "&:hover": {
+                        background: "rgba(205, 92, 92, 1)",
+                        borderColor: "rgba(205, 92, 92, 1)",
+                      },
+                    }}
+                    onClick={() => DeleteCleanings(`${item.ID}`)}
+                  >
+                    ลบ
+                  </Button>
+                </TableCell>
                 {/* </Box> */}
               </TableRow>
             ))}
