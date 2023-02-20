@@ -1,0 +1,43 @@
+package entity
+
+import (
+	"testing"
+    "time"
+	"github.com/asaskevich/govalidator"
+	. "github.com/onsi/gomega"
+)
+
+func TestRepairValidate(t *testing.T) {
+	g := NewGomegaWithT(t)
+
+	t.Run("check time is invalid", func(t *testing.T) {
+		repair := Repair {
+			Repairtime:	time.Now().AddDate(0, 0, -1),
+			
+			Detail: "ก๊อกรั่ว(1), ทีวีจอแตก(1)",
+		}
+
+		ok, err := govalidator.ValidateStruct(repair)
+
+		g.Expect(ok).NotTo(BeTrue())
+		g.Expect(err).ToNot(BeNil())
+		g.Expect(err.Error()).To(Equal("Date is invalid"))
+	})
+
+	t.Run("check detail cannot be blank", func(t *testing.T) {
+		repair := Repair {
+			Repairtime:	time.Now(),
+			
+			Detail: "", 
+		}
+
+		ok, err := govalidator.ValidateStruct(repair)
+
+		g.Expect(ok).NotTo(BeTrue())
+		g.Expect(err).ToNot(BeNil())
+		g.Expect(err.Error()).To(Equal("โปรดระบุรายละเอียดเพิ่มเติม"))
+	})
+
+	
+	
+}
