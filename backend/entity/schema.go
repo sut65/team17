@@ -141,7 +141,7 @@ type Requestout struct {
 	UserID		*uint
 	User		User		`gorm:"referenes:id" valid:"-"`
 
-	Outtime		time.Time
+	Outtime		time.Time		
 }
 
 
