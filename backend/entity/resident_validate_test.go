@@ -24,5 +24,16 @@ func TestResidentValidate(t *testing.T) {
 		g.Expect(err.Error()).To(Equal("Bail cannot be blank"))
 	})
 
-	
+	t.Run("check Date is invalid", func(t *testing.T) {
+		resident := Resident {
+			Bail: "5000",
+			LeaseTime: time.Now().AddDate(0, 0, -1),
+		}
+
+		ok, err := govalidator.ValidateStruct(resident)
+
+		g.Expect(ok).NotTo(BeTrue())
+		g.Expect(err).ToNot(BeNil())
+		g.Expect(err.Error()).To(Equal("Date is invalid"))
+	})
 }
