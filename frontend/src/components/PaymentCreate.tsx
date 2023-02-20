@@ -198,6 +198,7 @@ function PaymentCreate() {
     };
 
     console.log("Payment",data) //ประกาศชื่อให้ log
+    console.log("Payments",payments) //ประกาศชื่อให้ log
 
     const requestOptionsPost = {
       method: "POST",
@@ -453,7 +454,7 @@ function PaymentCreate() {
                 label="กรุณาเลือก..."
                 onChange={handleChange}
                 inputProps={{
-                  name: "BankinkID",
+                  name: "BankingID",
                 }}
               >
                 <option aria-label="None" value="">

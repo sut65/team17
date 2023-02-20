@@ -473,7 +473,7 @@ function PaymentUpdate() {
                 label="กรุณาเลือก..."
                 onChange={handleChange}
                 inputProps={{
-                  name: "BankinkID",
+                  name: "BankingID",
                 }}
               >
                 <option aria-label="None" value="">
