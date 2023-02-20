@@ -197,7 +197,7 @@ function PaymentCreate() {
       Evidence: evidences,
     };
 
-    console.log(data)
+    console.log("Payment",data) //ประกาศชื่อให้ log
 
     const requestOptionsPost = {
       method: "POST",
