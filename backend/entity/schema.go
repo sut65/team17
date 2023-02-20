@@ -43,7 +43,7 @@ type Meter struct {
 	Unit      int       `valid:"required~Unit cannot be zero, Unit~Unit cannot be negative"`
 	Electric  int       `valid:"required~Electric cannot be zero, Electric~Electric cannot be negative"`
 	Water     int       `valid:"required~Water cannot be zero, Water~Water cannot be negative"`
-	Metertime time.Time `valid:"required~Metertime cannot be blank"`
+	Metertime time.Time `valid:"timenotpast~Date is invalid"`
 
 	// AdminID เป็น FK
 	AdminID *uint
