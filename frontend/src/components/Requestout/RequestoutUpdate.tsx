@@ -20,10 +20,10 @@ import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 
 
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { FormControlLabel, FormLabel, RadioGroup, Radio, FormGroup, Theme } from "@mui/material";
+import { FormControlLabel, FormLabel, FormGroup, } from "@mui/material";
 
 
-import CssBaseline from "@mui/material/CssBaseline";
+
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import { RequestoutInterface } from "../../models/IRequestout";
@@ -39,7 +39,6 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props,
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-const theme = createTheme();
 
 function RequestoutUpdate() {
   const { id } = useParams();
@@ -162,17 +161,18 @@ function RequestoutUpdate() {
 
   function update() {
     let data = {
+        ID: convertType(id),
+        UserID: convertType(requestouts.UserID),
         RoomID: convertType(requestouts.RoomID),
         ReasonID: convertType(requestouts.ReasonID),
-        UserID: convertType(requestouts.UserID),
         Outtime: selectedDate,
-        Detail: details,
+        Detail: details + "-",
 
     };
 
     console.log(data)
 
-    const requestOptionsPatch = {
+    const requestOptionsUpdate = {
       method: "PATCH",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -181,7 +181,7 @@ function RequestoutUpdate() {
       body: JSON.stringify(data),
     };
 
-    fetch(`${apiUrl}/requestouts`, requestOptionsPatch)
+    fetch(`${apiUrl}/requestouts`, requestOptionsUpdate)
       .then((response) => response.json())
       .then((res) => {
         if (res.data) {
@@ -205,12 +205,19 @@ function RequestoutUpdate() {
  
 
   return (
-    <ThemeProvider theme={theme}>
-      
-  
-      <Grid container component="main"   sx={{ height: "100vh", width: "100vh" }}>
+   
+    <Box
+      sx={{
+        fontFamily: "PK Krung Thep Medium",
+        fontSize: "20px",
+         
+        
+      }}
+    >
+    
 
       <Snackbar
+
         open={success}
         autoHideDuration={3000}
         onClose={handleClose}
@@ -233,23 +240,14 @@ function RequestoutUpdate() {
 
       
     
-    <Grid  component={Paper} elevation={6} square >
 
-        <Box
-          display="flex"
-          sx={{
-            
-              my: 8,
-              mx: 4,
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              alignSelf: "center",
-            
-            marginTop: 2,
-            
-          }}
-        >
+    <Box
+        display="flex"
+        sx={{
+          marginTop: 2,
+        
+        }}
+      >
           <Box sx={{ paddingX: 2, paddingY: 1 }}>
             <Typography
               component="h2"
@@ -260,6 +258,7 @@ function RequestoutUpdate() {
                 fontFamily: "PK Krung Thep Medium",
                 fontSize: "30px"
                 
+                
               }}
             >
               <b>แบบคำขอออก</b>
@@ -269,35 +268,39 @@ function RequestoutUpdate() {
         </Box>
         <Divider />
         <Grid container spacing={3} sx={{ padding: 2 }}>
-
-         
-
-          <Grid item xs={6}>
+        <Grid item xs={6}>
           <FormControl fullWidth variant="outlined">
             <p>ชื่อ - สกุล</p>
-              <Select
-                native
-                disabled
-                value={requestouts.UserID + ""}
-                onChange={handleChange}
-                inputProps={{
-                  name: "UserID",
-                }}
-              >
-                <option value={users?.ID} key={users?.ID} >
-                    {users?.Name}
-                    </option>
-              </Select>
-            </FormControl>
-              
-          </Grid>
+            <Select
+              sx={{
+                fontFamily: "PK Krung Thep Medium",
+                fontSize: "16px",
+                
+              }}
+              style={{ borderRadius: "30px" }}
+              native
+              disabled
+              value={requestouts.UserID + ""}
+              onChange={handleChange}
+              inputProps={{
+                name: "UserID",
+              }}
+            >
+              <option value={users?.ID} key={users?.ID}>
+                {users?.Name}
+              </option>
+            </Select>
+          </FormControl>
+        </Grid>
 
           <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
               <p>ห้องพัก</p>
               <Select sx={{
                 fontFamily: "PK Krung Thep Medium",
-                fontSize: "18px"
+                fontSize: "18px",
+                
+                
               }}
                 style={{borderRadius: "30px"}}
                 native
@@ -348,22 +351,6 @@ function RequestoutUpdate() {
             </FormControl>
           </Grid>
 
-
-          <Grid item xs={6}>
-            <p>หากอื่นๆโปรดระบุ (*ไม่จำเป็น)</p>
-            <FormControl fullWidth variant="outlined">
-              <TextField
-                id="detail"
-                variant="outlined"
-                type="string"
-                size="medium"
-                placeholder="ไม่มี"   
-                onChange={(event) => setDetail(event.target.value)}
-                
-                />
-            </FormControl>
-          </Grid>
-
           <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
             <p>วัน เดือน  ปี ที่ต้องการ</p>
@@ -386,6 +373,27 @@ function RequestoutUpdate() {
             </FormControl>
           </Grid>
 
+          <Grid item xs={6} 
+          sx={{
+            color: 'red'
+          }}>
+            <p>เหตุผลเพิ่มเติม (*ไม่ต้องการระบุกรุณาใส่ -)</p>
+            
+            <FormControl fullWidth variant="outlined">
+              <TextField
+                id="detail"
+                variant="outlined"
+                type="string"
+                label=""
+                rows={4}
+                placeholder=""
+                multiline   
+                onChange={(event) => setDetail(event.target.value)}
+                
+                />
+            </FormControl>
+          </Grid>
+
 
 
 
@@ -395,14 +403,25 @@ function RequestoutUpdate() {
           
             <Button sx={{
               fontFamily: "PK Krung Thep Medium", 
-              fontSize:17
+              fontSize:20,
+              fontStyle: 'Bold',
+              color: '#white',
+              background: '#f54d4d',   
+                         '&:hover': {
+                            background: "white",
+                            color: "#f54d4d",
+                            
+                         },
             }}
+            style={{ 
+              borderRadius: "30px",
+              }}
             component={RouterLink}
               to="/requestouts"
               variant="contained"
-              color="inherit"
+              
             >
-              <b>กลับ</b>
+              <b>BACK</b>
             </Button>
 
             
@@ -410,13 +429,22 @@ function RequestoutUpdate() {
             
             <Button sx={{ 
               fontFamily: "PK Krung Thep Medium", 
-              fontSize:17
-
+              fontSize:20 ,
+              fontStyle: 'Bold',
+              color: '#white',
+              background: '#584df5',   
+                         '&:hover': {
+                            background: "white",
+                            color: "#5842ff",
+                            
+                         },
             }}
-              style={{ float: "right"}}
+              style={{ float: "right",
+              borderRadius: "30px",
+              }}
               onClick={update}
               variant="contained"
-              color="primary"
+              
             >
               <b>Update</b>
             </Button>
@@ -424,14 +452,9 @@ function RequestoutUpdate() {
           </Grid>
           
         </Grid>
+    </Box>
+   
       
-              </Grid>
-              </Grid>
-             
-
-              </ThemeProvider>
-     
-    
   );
 }
 

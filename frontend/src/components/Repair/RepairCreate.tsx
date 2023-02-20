@@ -15,11 +15,11 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import TextField from '@mui/material/TextField';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 
-import { UserInterface } from "../models/IUser";
-import { ResidentInterface } from "../models/IResident";
-import { EmergencytypeInterface } from "../models/IEmergencytype";
+import { UserInterface } from "../../models/IUser";
+import { ResidentInterface } from "../../models/IResident";
+import { ObjectInterface } from "../../models/IObject";
 
-import { EmergencyInterface } from "../models/IEmergency";
+import { RepairInterface } from "../../models/IRepair";
 
 import { FormHelperText, InputLabel } from "@material-ui/core";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
@@ -30,13 +30,13 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props,
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-function EmergencyCreate() {
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+function RepairCreate() {
+  const [selectedDate, setSelectedDate] = useState<Date | null>(new Date);
   const [users, setUsers] = useState<UserInterface>();
   const [residents, setResidents] = useState<ResidentInterface[]>([]);
-  const [emergencytypes, setEmergencytypes] = useState<EmergencytypeInterface[]>([]);
+  const [objects, setObjects] = useState<ObjectInterface[]>([]);
   const [details, setDetails] = useState<String>("");
-  const [emergencys, setEmergencys] = useState<Partial<EmergencyInterface>>({});
+  const [repairs, setRepairs] = useState<Partial<RepairInterface>>({});
   
 
 
@@ -62,9 +62,9 @@ function EmergencyCreate() {
   };
 
   const handleChange = (event: SelectChangeEvent) => {
-    const name = event.target.name as keyof typeof emergencys;
-    setEmergencys({
-      ...emergencys,
+    const name = event.target.name as keyof typeof repairs;
+    setRepairs({
+      ...repairs,
       [name]: event.target.value,
     });
     console.log(event.target.value);
@@ -91,7 +91,7 @@ function EmergencyCreate() {
     fetch(`${apiUrl}/user/${uid}`, requestOptions)
       .then((response) => response.json())
       .then((res) => {
-        emergencys.UserID = res.data.ID
+        repairs.UserID = res.data.ID
         if (res.data) {
             setUsers(res.data);
         } else {
@@ -112,12 +112,12 @@ function EmergencyCreate() {
       });
   };
 
-  const getEmergencytype = async () => {
-    fetch(`${apiUrl}/emergencytypes`, requestOptions)
+  const getObject = async () => {
+    fetch(`${apiUrl}/objects`, requestOptions)
       .then((response) => response.json())
       .then((res) => {
         if (res.data) {
-          setEmergencytypes(res.data);
+          setObjects(res.data);
         } else {
           console.log("else");
         }
@@ -129,7 +129,7 @@ function EmergencyCreate() {
   useEffect(() => {
     getUsers();
     getResident();
-    getEmergencytype();
+    getObject();
     
   }, []);
 
@@ -140,11 +140,11 @@ function EmergencyCreate() {
 
   function submit() {
     let data = {
-        UserID:     convertType(emergencys.UserID),
-        ResidentID: convertType(emergencys.ResidentID),
-        EmergencytypeID:   convertType(emergencys. EmergencytypeID),
+        UserID:     convertType(repairs.UserID),
+        ResidentID: convertType(repairs.ResidentID),
+        ObjectID:   convertType(repairs. ObjectID),
         Detail:     details,
-        Emergencytime: selectedDate
+        Repairtime: selectedDate
         
 
     };
@@ -160,7 +160,7 @@ function EmergencyCreate() {
       body: JSON.stringify(data),
     };
 
-    fetch(`${apiUrl}/emergencies`, requestOptionsPost)
+    fetch(`${apiUrl}/repairs`, requestOptionsPost)
       .then((response) => response.json())
       .then((res) => {
         if (res.data) {
@@ -211,7 +211,7 @@ function EmergencyCreate() {
               color="primary"
               gutterBottom
             >
-              บันทึกการแจ้งเหตุฉุกเฉิน
+              บันทึกการแจ้งซ่อม
 
             </Typography>
           </Box>
@@ -225,8 +225,7 @@ function EmergencyCreate() {
               <Select
                 native
                 disabled
-                
-                value={emergencys.UserID + ""}
+                value={repairs.UserID + ""}
                 onChange={handleChange}
                 inputProps={{
                   name: "UserID",
@@ -244,7 +243,7 @@ function EmergencyCreate() {
             <p>ห้อง</p>
               <Select
                 native
-                value={emergencys.ResidentID + ""}
+                value={repairs.ResidentID + ""}
                 onChange={handleChange}
                 inputProps={{
                   name: "ResidentID",
@@ -263,19 +262,19 @@ function EmergencyCreate() {
 
           <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
-              <p>เลือกประเภทเหตุฉุกเฉิน</p>
+              <p>เลือกเฟอร์นิเจอร์ที่จะแจ้งซ่อม</p>
               <Select
                 native
                 
                 onChange={handleChange}
                 inputProps={{
-                  name: "EmergencytypeID",
+                  name: "ObjectID",
                 }}
                 
               >
                 <option aria-label="None" value="">
                 </option>
-                {emergencytypes.map((item: EmergencytypeInterface) => (
+                {objects.map((item: ObjectInterface) => (
                 <option value={item.ID} key={item.ID}>
                     {item.Name}
                 </option>
@@ -299,14 +298,14 @@ function EmergencyCreate() {
 
             <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
-              <p>วันที่แจ้งเหตุฉุกเฉิน</p>
+              <p>วันที่แจ้งซ่อม</p>
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DesktopDatePicker
-                  // disabled
+                   disabled
                   label="เดือน/วัน/ปี"
                   value={selectedDate}
                   onChange={(newValue) => setSelectedDate(newValue)}
-                  minDate={(new Date('2022-12-20'))}
+                  minDate={(new Date())}
                   renderInput={(params) => <TextField {...params} />}
                 />
               </LocalizationProvider>
@@ -322,7 +321,7 @@ function EmergencyCreate() {
           <Grid item xs={12}>
             <Button
               component={RouterLink}
-              to="/emergencies"
+              to="/repairs"
               variant="contained"
               color="inherit"
             >
@@ -343,4 +342,8 @@ function EmergencyCreate() {
   );
 }
 
-export default EmergencyCreate;
+export default RepairCreate;
+
+
+
+

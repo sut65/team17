@@ -84,19 +84,29 @@ func CreateFurniture(c *gin.Context) {
 func GetFurniture(c *gin.Context) {
 	var furniture entity.Furniture
 	id := c.Param("id")
-	if err := entity.DB().Preload("Admin").Preload("User").Preload("Room").Preload("Equipment").Preload("Amount").Raw("SELECT * FROM furnitures WHERE room_id = ? GROUP BY room_id", id).Scan(&furniture).Error; err != nil {
+	if err := entity.DB().Preload("Admin").Preload("User").Preload("Room").Preload("Equipment").Preload("Amount").Raw("SELECT * FROM furnitures WHERE room_id = ?", id).Scan(&furniture).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 	c.JSON(http.StatusOK, gin.H{"data": furniture})
 }
 
+// func SumFurnitures(c *gin.Context) {
+// 	var sum int
+// 	entity.DB().Table("furnitures").Select("sum(total)").Where("room_id=?", c.Param("room_id")).Row().Scan(&sum)
+// 	fmt.Printf("sum: %#v\n", sum)
+// 	c.JSON(http.StatusOK, gin.H{"sum": sum})
+// }
+
 func SumFurnitures(c *gin.Context) {
-	var sum int
-	entity.DB().Table("furnitures").Select("sum(total)").Where("room_id=?", c.Param("room_id")).Row().Scan(&sum)
+	var sum []entity.Furniture
+	// entity.DB().Table("furnitures").Select("*").Where("room_id=?", c.Param("room_id")).Row().Scan(&sum)
+	entity.DB().Preload("Admin").Preload("User").Preload("Room").Preload("Equipment").Preload("Amount").Raw("SELECT * FROM furnitures WHERE room_id = ?", c.Param("room_id")).Find(&sum)
 	fmt.Printf("sum: %#v\n", sum)
 	c.JSON(http.StatusOK, gin.H{"sum": sum})
 }
+
+
 
 // GET /furnitures
 func ListFurnitures(c *gin.Context) {
@@ -122,21 +132,57 @@ func DeleteFurniture(c *gin.Context) {
 
 // PATCH /furnitures
 func UpdateFurniture(c *gin.Context) {
-	var furniture entity.Furniture
-	if err := c.ShouldBindJSON(&furniture); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
+		var furniture entity.Furniture
+		// var admin entity.Admin
+		var user entity.User
+		var room entity.Room
+		var equipment entity.Equipment
+		var amount entity.Amount
+	
+		// bind เข้าตัวแปร furniture
+		if err := c.ShouldBindJSON(&furniture); err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
+	
+		//  ค้นหา room ด้วย id
+		if tx := entity.DB().Where("id = ?", furniture.RoomID).First(&room); tx.RowsAffected == 0 {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "room not found"})
+			return
+		}
+	
+		//  ค้นหา Equipment ด้วย id
+		if tx := entity.DB().Where("id = ?", furniture.EquipmentID).First(&equipment); tx.RowsAffected == 0 {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "Equipment not found"})
+			return
+		}
+	
+		//  ค้นหา Amount ด้วย id
+		if tx := entity.DB().Where("id = ?", furniture.AmountID).First(&amount); tx.RowsAffected == 0 {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "Amount not found"})
+			return
+		}
+	
+		// 13: ค้นหา User ด้วย id
+		if tx := entity.DB().Where("id = ?", furniture.UserID).First(&user); tx.RowsAffected == 0 {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "User not found"})
+			return
+		}
+		// 14: สร้าง furniture
+		update := entity.Furniture{
+			// Admin:        	admin,		// โยงความสัมพันธ์กับ Entity Admin
+			User:          user,      // โยงความสัมพันธ์กับ Entity User
+			Room:          room,      // โยงความสัมพันธ์กับ Entity Room
+			Equipment:     equipment, // โยงความสัมพันธ์กับ Entity Equipment
+			Amount:        amount,
+			Total:         furniture.Total,         // โยงความสัมพันธ์กับ Entity Total
+			FurnitureTime: furniture.FurnitureTime, // ตั้งค่าฟิลด์ furnitureTime
+		}
+	
+		// 15: บันทึก
+		if err := entity.DB().Where("id = ?", furniture.ID).Updates(&update).Error; err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
+		c.JSON(http.StatusOK, gin.H{"data":update})
 	}
-
-	if tx := entity.DB().Where("id = ?", furniture.ID).First(&furniture); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "furniture not found"})
-		return
-	}
-
-	if err := entity.DB().Save(&furniture).Error; err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
-
-	c.JSON(http.StatusOK, gin.H{"data": furniture})
-}

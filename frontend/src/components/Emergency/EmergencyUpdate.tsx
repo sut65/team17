@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
-import { useParams } from "react-router-dom";
 import Button from "@mui/material/Button";
 import FormControl from "@mui/material/FormControl";
 import Container from "@mui/material/Container";
@@ -12,47 +11,42 @@ import Divider from "@mui/material/Divider";
 import Snackbar from "@mui/material/Snackbar";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import TextField from '@mui/material/TextField';
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 
-import { createStyles, FormHelperText, InputLabel } from "@material-ui/core";
-
-import { FormControlLabel, FormLabel, RadioGroup, FormGroup, Theme } from "@mui/material";
-
-
-
-
-import { RequestchangeInterface } from "../../models/IRequestchange";
-import { ReasonInterface } from "../../models/IReason";
 import { UserInterface } from "../../models/IUser";
-import { RoomInterface } from "../../models/IRoom";
+import { ResidentInterface } from "../../models/IResident";
+import { EmergencytypeInterface } from "../../models/IEmergencytype";
 
+import { EmergencyInterface } from "../../models/IEmergency";
 
-
+import { FormHelperText, InputLabel } from "@material-ui/core";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { DesktopDatePicker } from "@mui/x-date-pickers";
+import { useParams } from "react-router-dom";
 
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-
-
-function RequestchangeUpdate() {
+function EmergencyCreate() {
   const { id } = useParams();
-  
-  const [rooms, setRooms] = useState<RoomInterface[]>([]);
-  const [reasons, setReasons] = useState<ReasonInterface[]>([]);
+  const [selectedDate, setSelectedDate] = useState<Date | null>(new Date);
   const [users, setUsers] = useState<UserInterface>();
-  const [requestchanges, setRequestchanges] = useState<Partial<RequestchangeInterface>>({});
-  const [details, setDetail] = useState<String>("");
+  const [residents, setResidents] = useState<ResidentInterface[]>([]);
+  const [emergencytypes, setEmergencytypes] = useState<EmergencytypeInterface[]>([]);
+  const [details, setDetails] = useState<String>("");
+  const [emergencys, setEmergencys] = useState<Partial<EmergencyInterface>>({});
   
-  
+
+
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  
 
   const apiUrl = "http://localhost:8080";
-
   const requestOptions = {
     method: "GET",
     headers: {
@@ -70,16 +64,28 @@ function RequestchangeUpdate() {
   };
 
   const handleChange = (event: SelectChangeEvent) => {
-    const name = event.target.name as keyof typeof requestchanges;
-    setRequestchanges({
-      ...requestchanges,
+    const name = event.target.name as keyof typeof emergencys;
+    setEmergencys({
+      ...emergencys,
       [name]: event.target.value,
     });
     console.log(event.target.value);
-
-   
+    
+    // if(name == "SymptomID"){
+    //   getDepartment(event.target.value)
+    // }
     
   };
+
+  // const handleChange = (
+  //   event: SelectChangeEvent<number>
+  // ) => {
+  //   const name = event.target.name as keyof typeof symptoms;
+  //   setSymptoms({
+  //     ...symptoms,
+  //     [name]: event.target.value,
+  //   });
+  // };
 
 
   const getUsers = async () => {
@@ -87,7 +93,7 @@ function RequestchangeUpdate() {
     fetch(`${apiUrl}/user/${uid}`, requestOptions)
       .then((response) => response.json())
       .then((res) => {
-        requestchanges.UserID = res.data.ID
+        emergencys.UserID = res.data.ID
         if (res.data) {
             setUsers(res.data);
         } else {
@@ -96,58 +102,37 @@ function RequestchangeUpdate() {
       });
   };
 
-  const getRoom = async () => {
-    fetch(`${apiUrl}/rooms`, requestOptions)
+  const getResident = async () => {
+    fetch(`${apiUrl}/residents`, requestOptions)
       .then((response) => response.json())
       .then((res) => {
         if (res.data) {
-          setRooms(res.data);
+          setResidents(res.data);
         } else {
           console.log("else");
         }
       });
   };
 
-  const getReason = async () => {
-    fetch(`${apiUrl}/reasons`, requestOptions)
+  const getEmergencytype = async () => {
+    fetch(`${apiUrl}/emergencytypes`, requestOptions)
       .then((response) => response.json())
       .then((res) => {
         if (res.data) {
-          setReasons(res.data);
+          setEmergencytypes(res.data);
         } else {
           console.log("else");
         }
       });
   };
-
-
-
-  const getRequestchangesByID = async () => {
-    const uid = localStorage.getItem("id");
-    fetch(`${apiUrl}/requestchange/${uid}`, requestOptions)
-       .then((response) => response.json())
-       .then((res) => {
-          requestchanges.ID = res.data.ID
-          if (res.data) {
-             setRequestchanges(res.data);
-          } else {
-             console.log("else");
-          }
-       });
- };
-
- 
-
 
   
 
- 
-
   useEffect(() => {
     getUsers();
-    getRoom();
-    getReason();
-    getRequestchangesByID();
+    getResident();
+    getEmergencytype();
+    
   }, []);
 
   const convertType = (data: string | number | undefined) => {
@@ -155,19 +140,21 @@ function RequestchangeUpdate() {
     return val;
   };
 
-  function update() {
+  function Update() {
     let data = {
-        RoomID: convertType(requestchanges.RoomID),
-        ReasonID: convertType(requestchanges.ReasonID),
-        UserID: convertType(requestchanges.UserID),
-       
-        Detail: details,
+        ID: convertType(id),
+        UserID:     convertType(emergencys.UserID),
+        ResidentID: convertType(emergencys.ResidentID),
+        EmergencytypeID:   convertType(emergencys. EmergencytypeID),
+        Detail:     details,
+        Emergencytime: selectedDate
+        
 
     };
 
     console.log(data)
 
-    const requestOptionsPatch = {
+    const requestOptionsPost = {
       method: "PATCH",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -176,41 +163,29 @@ function RequestchangeUpdate() {
       body: JSON.stringify(data),
     };
 
-    fetch(`${apiUrl}/requestchanges`, requestOptionsPatch)
+    fetch(`${apiUrl}/emergencies`, requestOptionsPost)
       .then((response) => response.json())
       .then((res) => {
         if (res.data) {
           console.log("บันทึกได้")
+          setSuccess(true)
           setErrorMessage("")
-               setTimeout(() => {
-                  window.location.reload();
-               }, 1000);
-               setSuccess(true)
-               window.location.href = "/requestchanges";
         } else {
           console.log("บันทึกไม่ได้")
           setError(true)
           setErrorMessage(res.error)
-          
         }
       });
   }
 
-
- 
-
   return (
-    
-      
-  
-      <Grid container component="main"   sx={{ height: "100vh", width: "100vh" }}>
-
+    <Container maxWidth="md">
       <Snackbar
         open={success}
         autoHideDuration={3000}
         onClose={handleClose}
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
-        >
+      >
         <Alert onClose={handleClose} severity="success">
           บันทึกข้อมูลสำเร็จ
         </Alert>
@@ -225,24 +200,11 @@ function RequestchangeUpdate() {
           {errorMessage}
         </Alert>
       </Snackbar>
-
-     
-    
-    <Grid  component={Paper} elevation={6} square >
-
+      <Paper>
         <Box
           display="flex"
           sx={{
-            
-              my: 8,
-              mx: 4,
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              alignSelf: "center",
-            
             marginTop: 2,
-            
           }}
         >
           <Box sx={{ paddingX: 2, paddingY: 1 }}>
@@ -251,13 +213,8 @@ function RequestchangeUpdate() {
               variant="h6"
               color="primary"
               gutterBottom
-              sx={{
-                fontFamily: "PK Krung Thep Medium",
-                fontSize: "30px"
-                
-              }}
             >
-              <b>แบบคำขอย้ายห้อง</b>
+              บันทึกการแจ้งเหตุฉุกเฉิน
 
             </Typography>
           </Box>
@@ -265,54 +222,43 @@ function RequestchangeUpdate() {
         <Divider />
         <Grid container spacing={3} sx={{ padding: 2 }}>
 
-         
-
           <Grid item xs={6}>
-          <FormControl fullWidth variant="outlined">
+            <FormControl fullWidth variant="outlined">
             <p>ชื่อ - สกุล</p>
               <Select
                 native
+                disabled
                 
-                value={requestchanges.UserID + ""}
+                value={emergencys.UserID + ""}
                 onChange={handleChange}
                 inputProps={{
                   name: "UserID",
                 }}
               >
-                {/* <option aria-label="None" value="">
-                    กรุณาเลือกชื่อ
-                </option> */}
                 <option value={users?.ID} key={users?.ID} >
                     {users?.Name}
-                </option>
+                    </option>
               </Select>
             </FormControl>
-              
           </Grid>
 
           <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
-              <p>ห้องพัก</p>
-              <Select sx={{
-                fontFamily: "PK Krung Thep Medium",
-                fontSize: "18px"
-              }}
-                style={{borderRadius: "30px"}}
+            <p>ห้อง</p>
+              <Select
                 native
-                placeholder=""
-                value={requestchanges.RoomID + ""}
+                value={emergencys.ResidentID + ""}
                 onChange={handleChange}
                 inputProps={{
-                  name: "RoomID",
+                  name: "ResidentID",
                 }}
               >
                 <option aria-label="None" value="">
-                  โปรดระบุ
                 </option>
-                {rooms.map((item:RoomInterface) => (
-                  <option value={item.ID} key={item.ID}>
-                    {item.Number}
-                  </option>
+                {residents.map((item: ResidentInterface) => (
+                <option value={item.ID} key={item.ID}>
+                    {item.Manage.Room.Number}
+                </option>
                 ))}
               </Select>
             </FormControl>
@@ -320,97 +266,84 @@ function RequestchangeUpdate() {
 
           <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
-              <p>เหตุผล</p>
-              <Select sx={{
-                fontFamily: "PK Krung Thep Medium",
-                fontSize: "16px"
-              }}
-                style={{borderRadius: "30px"}}
+              <p>เลือกประเภทเหตุฉุกเฉิน</p>
+              <Select
                 native
-                placeholder="โปรดระบุ"
-                value={requestchanges.ReasonID + ""}
-                onChange={handleChange}
-                inputProps={{
-                  name: "ReasonID",
-                }}
-              >
-                <option aria-label="None" value="">
-                  
-                </option>
-                {reasons.map((item:ReasonInterface) => (
-                  <option value={item.ID} key={item.ID}>
-                    {item.Reason}
-                  </option>
-                ))}
-              </Select>
-            </FormControl>
-          </Grid>
-
-
-          <Grid item xs={6}>
-            <p>หากอื่นๆโปรดระบุ (*ไม่จำเป็น)</p>
-            <FormControl fullWidth variant="outlined">
-              <TextField
-                id="detail"
-                variant="outlined"
-                type="string"
-                size="medium"
-                placeholder="ไม่มี"   
-                onChange={(event) => setDetail(event.target.value)}
                 
-                />
+                onChange={handleChange}
+                inputProps={{
+                  name: "EmergencytypeID",
+                }}
+                
+              >
+                <option aria-label="None" value="">
+                </option>
+                {emergencytypes.map((item: EmergencytypeInterface) => (
+                <option value={item.ID} key={item.ID}>
+                    {item.Name}
+                </option>
+                ))}
+              </Select>
             </FormControl>
           </Grid>
 
+          <Grid item xs={6}>
+            <FormControl fullWidth variant="outlined">
+            <p>ระบุรายละเอียดเพิ่มเติม</p>
+              <TextField
+                  id="ResidentID"
+                  multiline
+                  label="ระบุรายละเอียดเพิ่มเติม"
+                  onChange={(event) => setDetails(event.target.value)}
+              />
+            </FormControl>
+            </Grid>
+
+
+            <Grid item xs={6}>
+            <FormControl fullWidth variant="outlined">
+              <p>วันที่แจ้งเหตุฉุกเฉิน</p>
+              <LocalizationProvider dateAdapter={AdapterDateFns}>
+                <DesktopDatePicker
+                   disabled
+                  label="เดือน/วัน/ปี"
+                  value={selectedDate}
+                  onChange={(newValue) => setSelectedDate(newValue)}
+                  minDate={(new Date('2022-12-20'))}
+                  renderInput={(params) => <TextField {...params} />}
+                />
+              </LocalizationProvider>
+            </FormControl>
+          </Grid>
+         
           
 
 
-
-
+        
           
           
           <Grid item xs={12}>
-          
-            <Button sx={{
-              fontFamily: "PK Krung Thep Medium", 
-              fontSize:17
-            }}
-            component={RouterLink}
-              to="/requestchanges"
+            <Button
+              component={RouterLink}
+              to="/emergencies"
               variant="contained"
               color="inherit"
             >
-              <b>กลับ</b>
+              กลับ
             </Button>
-
-            
-             
-            
-            <Button sx={{ 
-              fontFamily: "PK Krung Thep Medium", 
-              fontSize:17
-
-            }}
-              style={{ float: "right"}}
-              onClick={update}
+            <Button
+              style={{ float: "right" }}
+              onClick={Update}
               variant="contained"
               color="primary"
             >
-              <b>Update</b>
+              บันทึก
             </Button>
-            
           </Grid>
-          
         </Grid>
-      
-              </Grid>
-              </Grid>
-          
-
-            
-     
-    
+      </Paper>
+    </Container>
   );
 }
 
-export default RequestchangeUpdate;
+export default EmergencyCreate;

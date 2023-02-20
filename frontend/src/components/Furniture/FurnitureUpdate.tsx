@@ -25,7 +25,8 @@ import { EquipmentInterface } from "../../models/IEquipment";
 import { AmountInterface } from "../../models/IAmount";
 import { FurnitureInterface } from "../../models/IFurniture";
 
-function FurnitureCreate() {
+function FurnitureUpdate() {
+  const { id } = useParams();
   const [SelectedDate, setSelectedDate] = useState<Date | null>();
   const [Admins, setAdmins] = useState<AdminInterface>();
   const [Users, setUsers] = useState<UserInterface[]>([]);
@@ -35,6 +36,7 @@ function FurnitureCreate() {
   const [Totals, setTotals] = useState<string>("");
   const [Prices, setPrices] = useState<string>("");
   const [Furnitures, setFurnitures] = useState<Partial<FurnitureInterface>>({});
+
   const [Success, setSuccess] = useState(false);
   const [Error, setError] = useState(false);
   const [ErrorMessage, setErrorMessage] = useState("");
@@ -125,11 +127,26 @@ function FurnitureCreate() {
       });
   };
 
+  const getFurnituresByID = async () => {
+    const uid = localStorage.getItem("id");
+    fetch(`${apiUrl}/furniture/${uid}`, requestOptions)
+       .then((response) => response.json())
+       .then((res) => {
+        Furnitures.ID = res.data.ID
+          if (res.data) {
+             setFurnitures(res.data);
+          } else {
+             console.log("else");
+          }
+       });
+ };
+
   useEffect(() => {
     getUsers();
     getRoom();
     getEquipment();
     getAmount();
+    getFurnituresByID();
   }, []);
 
   const convertType = (data: string | number | undefined) => {
@@ -137,7 +154,7 @@ function FurnitureCreate() {
     return val;
   };
 
-  function submit() {
+  function update() {
     const Amountselect = Amounts.find(
       (item) => item.ID === Number(Furnitures.AmountID)
     );
@@ -148,6 +165,7 @@ function FurnitureCreate() {
     console.log(Equipmentselect);
     const total = Number(Amountselect?.Amount) * Number(Equipmentselect?.Price);
     let data = {
+      ID: convertType(id),
       UserID: convertType(Furnitures.UserID),
       RoomID: convertType(Furnitures.RoomID),
       EquipmentID: convertType(Furnitures.EquipmentID),
@@ -158,8 +176,8 @@ function FurnitureCreate() {
 
     console.log(data);
 
-    const requestOptionsPost = {
-      method: "POST",
+    const requestOptionsUpdate = {
+      method: "PATCH",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
         "Content-Type": "application/json",
@@ -167,20 +185,21 @@ function FurnitureCreate() {
       body: JSON.stringify(data),
     };
 
-    fetch(`${apiUrl}/furnitures`, requestOptionsPost)
+    fetch(`${apiUrl}/furnitures`, requestOptionsUpdate)
       .then((response) => response.json())
       .then((res) => {
         if (res.data) {
-          console.log("บันทึกได้");
-          setSuccess(true);
-          setErrorMessage("");
+          console.log("บันทึกได้")
+          setErrorMessage("")
           setTimeout(() => {
-            window.location.reload();
-         }, 800);
-        } else {
-          console.log("บันทึกไม่ได้");
-          setError(true);
-          setErrorMessage(res.error);
+             window.location.reload();
+          }, 1000);
+          setSuccess(true)
+          window.location.href = "/furnitures";
+       } else {
+          console.log("บันทึกไม่ได้")
+          setError(true)
+          setErrorMessage(res.error)
         }
       });
   }
@@ -237,7 +256,6 @@ function FurnitureCreate() {
         </Box>
         <Divider />
         <Grid container spacing={3} sx={{ padding: 2 }}>
-          
           <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
               <p>ชื่อ - สกุล</p>
@@ -417,10 +435,8 @@ function FurnitureCreate() {
               <p>วันที่และเวลา</p>
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DateTimePicker
-                  disabled
                   value={SelectedDate}
                   onChange={(newValue) => setSelectedDate(newValue)}
-                  minDate={(new Date)}
                   //  minDate={(new Date('31-12-2022T09:00'))}
                   renderInput={(params) => <TextField {...params} />}
                 />
@@ -448,7 +464,7 @@ function FurnitureCreate() {
                 fontSize: 16,
               }}
               style={{ float: "right" }}
-              onClick={submit}
+              onClick={update}
               variant="contained"
               color="primary"
             >
@@ -461,4 +477,4 @@ function FurnitureCreate() {
   );
 }
 //dw
-export default FurnitureCreate;
+export default FurnitureUpdate;

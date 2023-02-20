@@ -47,16 +47,22 @@ import RequestchangeCreate from "./components/Requestchange/Requestchangecreate"
 import RequestchangeUpdate from "./components/Requestchange/RequestchangeUpdate";
 import Cleanings from "./components/Cleaning/Cleanings";
 import CleaningCreate from "./components/Cleaning/CleaningCreate";
+import CleaningUpdate from "./components/Cleaning/CleaningUpdate";
 import Furnitures from "./components/Furniture/Furnitures";
 import FurnitureCreate from "./components/Furniture/FurnitureCreate";
+import FurnitureUpdate from "./components/Furniture/FurnitureUpdate";
 import Meter from "./components/Meter/Meter";
 import MeterCreate from "./components/Meter/MeterCreate";
+import MeterUpdate from "./components/Meter/MeterUpdate";
 import Bill from "./components/Bill/Bill";
 import BillCreate from "./components/Bill/BillCreate";
-import Repair from "./components/Repair";
-import RepairCreate from "./components/RepairCreate";
-import Emergency from "./components/Emergency";
-import EmergencyCreate from "./components/EmergencyCreate";
+import BillUpdate from "./components/Bill/BillUpdate";
+import Repair from "./components/Repair/Repair";
+import RepairCreate from "./components/Repair/RepairCreate";
+import RepairUpdate from "../../frontend/src/components/Repair/RepairUpdate";
+import Emergency from "./components/Emergency/Emergency";
+import EmergencyCreate from "./components/Emergency/EmergencyCreate";
+import EmergencyUpdate from "./components/Emergency/EmergencyUpdate";
 import { Grid } from "@mui/material";
 
 import SignIn from "./components/SignIn";
@@ -189,11 +195,17 @@ function App() {
    return (
       <Router>
          <Box>
-            <AppBar position="absolute" open={open}>
+            <AppBar position="absolute" open={open} 
+            // sx={{
+            //    width: '95%',
+            //    bgcolor: 'lightgrey',
+            // }}
+            >
                <Toolbar
                   sx={{
-                     pr: "24px", // keep right padding when drawer closed
-                     height: '50px'
+                     // bgcolor: '#194D33',
+                     pr: "24px",
+                     height: '50px',
                   }}
                >
                   
@@ -219,21 +231,25 @@ function App() {
                                     <Button
                                        variant="outlined"
                                        sx={{
-                                          // display: 'grid',
                                           fontFamily: "PK Krung Thep Medium",
                                           fontSize: "18px",
                                           height: 'auto',
                                           width: 'auto',
                                           color: 'white',
                                           borderRadius: "20px",
+                                          transition: 'all 0.5s',
                                           '&:hover': {
-                                             borderColor: 'white',
-                                             borderWidth: '2px',
+                                             bgcolor: 'white',
+                                             color: 'black',
                                              borderRadius: "20px",
                                           },
+                                          '&:active': {
+                                             boxShadow: '4px 4px 12px #c5c5c5, -4px -4px 12px #ffffff',
+                                          }
                                        }}
                                     >
                                        <Typography sx={{
+                                          fontFamily: "PK Krung Thep Medium",
                                           display: 'flex',
                                           justifyContent: 'center',
                                           alignItems: 'center',
@@ -247,26 +263,6 @@ function App() {
                         )}
                      </List>
                   </Box>
-                  {/* <Button variant="outlined"
-                     component={Link}
-                     to="/"
-                     sx={{
-                        mr: '10px',
-                        fontFamily: "PK Krung Thep Medium",
-                        fontSize: "20px",
-                        height: 'auto',
-                        width: '10%',
-                        color: 'white',
-                        borderRadius: "20px",
-                        '&:hover': {
-                           borderColor: 'white',
-                           borderWidth: '2px',
-                           borderRadius: "20px",
-                        },
-                     }}
-                  >
-                     หน้าแรก
-                  </Button> */}
 
                   <Button variant="outlined" onClick={signout}
                      sx={{
@@ -300,13 +296,14 @@ function App() {
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "top",
-                  backgroundImage: "url(https://cdn.pixabay.com/photo/2019/08/28/12/20/fog-4436636_960_720.jpg)",
+                  // backgroundImage: "url(https://img.freepik.com/premium-photo/3d-chat-bubbles-minimal-concept-social-media-quote-3d-illustrations_677520-42.jpg?w=1380)",
                   backgroundRepeat: "no-repeat",
                   backgroundSize: "cover",
                   backgroundPosition: "center",
+                  background: '#e0e0e0',
                }}
             >
-               <Box sx={{
+               {/* <Box sx={{
                   // height: '85vh',
                   mt: '100px',
                   mb: '50px',
@@ -318,14 +315,15 @@ function App() {
                   // alignItems: 'center',
                   borderRadius: 10,
 
-               }}>
+               }}> */}
 
 
                   <Box 
                      component="main"
                      sx={{
-                        width: '90%',
-                        height: '100%',
+                        width: '100%',
+                        maxHeight: '100%',
+                        mt: '30px',
                         // bgcolor: 'skyblue',
                         display: 'flex',
                         justifyContent: 'center',
@@ -351,7 +349,8 @@ function App() {
 
                         <Route path="/cleanings" element={<Cleanings />} />
                         <Route path="/cleaning/create" element={<CleaningCreate />} />
-                        
+                        <Route path="/cleanings/:id" element={<CleaningUpdate />} />
+
                         <Route path="/payment/create" element={<PaymentCreate />} />
                         <Route path="/payments" element={<Payment />} />
                         <Route path="/payments/:id" element={<PaymentUpdate />} />
@@ -362,140 +361,30 @@ function App() {
                         
                         <Route path="/furnitures" element={<Furnitures />} />
                         <Route path="/furniture/create" element={<FurnitureCreate />} />
+                        <Route path="/furnitures/:id" element={<FurnitureUpdate />} />
+
                         <Route path="/meters" element={<Meter />} />
                         <Route path="/meter/create" element={<MeterCreate />} />
+                        <Route path="/meters/:id" element={<MeterUpdate />} />
+
                         <Route path="/bills" element={<Bill />} />
                         <Route path="/bill/create" element={<BillCreate />} />
+                        <Route path="/bills/:id" element={<BillUpdate />} />
                         
                         <Route path="/repairs" element={<Repair />} />
                         <Route path="/repair/create" element={<RepairCreate />} />
+                        <Route path="/repairs/:id" element={<RepairUpdate />} />
+
                         <Route path="/emergencies" element={<Emergency />} />
                         <Route path="/emergencie/create" element={<EmergencyCreate />} />
+                        <Route path="/emergencies/:id" element={<EmergencyUpdate />} />
                      </Routes>
                   </Box>
-               </Box>
+               {/* </Box> */}
             </Grid>
          </Grid>
       </Router>
 
-      // <Router>
-      //   <ThemeProvider theme={mdTheme}>
-      //     <Box sx={{ display: "flex" }}>
-      //       <CssBaseline />
-      //       <AppBar position="absolute" open={open}>
-      //         <Toolbar
-      //           sx={{
-      //             pr: "24px", // keep right padding when drawer closed
-      //           }}
-      //         >
-      //           <IconButton
-      //             edge="start"
-      //             color="inherit"
-      //             aria-label="open drawer"
-      //             onClick={toggleDrawer}
-      //             sx={{
-      //               marginRight: "36px",
-      //               ...(open && { display: "none" }),
-      //             }}
-      //           >
-      //             <MenuIcon />
-      //           </IconButton>
-      //           <Typography
-      //             component="h1"
-      //             variant="h6"
-      //             color="inherit"
-      //             noWrap
-      //             sx={{ flexGrow: 1 }}
-      //           >
-      //             ระบบหอพัก
-
-      //           </Typography>
-      //           <Button color="inherit" onClick={signout}>
-      //             ออกจากระบบ
-      //           </Button>
-      //         </Toolbar>
-      //       </AppBar>
-      //       <Drawer variant="permanent" open={open}>
-      //         <Toolbar
-      //           sx={{
-      //             display: "flex",
-      //             alignItems: "center",
-      //             justifyContent: "flex-end",
-      //             px: [1],
-      //           }}
-      //         >
-      //           <IconButton onClick={toggleDrawer}>
-      //             <ChevronLeftIcon />
-      //           </IconButton>
-      //         </Toolbar>
-      //         <Divider />
-      //         <List>
-      //           {menu.map(
-      //             (item, index) => 
-      //             role === item.role && (
-      //             <Link
-      //               to={item.path}
-      //               key={item.name}
-      //               style={{ textDecoration: "none", color: "inherit" }}
-      //             >
-      //               <ListItem button>
-      //                 <ListItemIcon>{item.icon}</ListItemIcon>
-      //                 <ListItemText primary={item.name} />
-      //               </ListItem>
-      //             </Link>
-      //           ) 
-      //           )}
-      //         </List>
-      //       </Drawer>
-      //       <Box
-      //         component="main"
-      //         sx={{
-      //           backgroundColor: (theme) =>
-      //             theme.palette.mode === "light"
-      //               ? theme.palette.grey[100]
-      //               : theme.palette.grey[900],
-      //           flexGrow: 1,
-      //           height: "100vh",
-      //           overflow: "auto",
-      //         }}
-      //       >
-      //         <Toolbar />
-      //         <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-      //           <Routes>
-      //             <Route path="/" element={<Home />} />
-      //             <Route path="/manages" element={<Manages />} />
-      //             <Route path="/manage/create" element={<ManageCreate />} />
-      //             <Route path="/manages/:id" element={<ManageUpdate />} />
-      //             <Route path="/residents" element={<Residents />} />
-      //             <Route path="/resident/create" element={<ResidentCreate />} />
-      //             <Route path="/residents/:id" element={<ResidentUpdate />} />
-      //             <Route path="/requestouts" element={< Requestout />} />
-      //             <Route path="/requestout/create" element={<RequestoutCreate />} />
-      //             <Route path="/requestchanges" element={< Requestchange />} />
-      //             <Route path="/requestchange/create" element={<RequestchangeCreate />} />
-      //             <Route path="/cleanings" element={<Cleanings />} />
-      //             <Route path="/cleaning/create" element={<CleaningCreate />} />
-      //             <Route path="/payment/create" element={<PaymentCreate />} />
-      //             <Route path="/payments" element={<Payment />} />
-      //             <Route path="/users" element={<Users />} />
-      //             <Route path="/user/create" element={<UserCreate />} />
-      //             <Route path="/furnitures" element={<Furnitures />} />
-      //             <Route path="/furniture/create" element={<FurnitureCreate />} />
-      //             <Route path="/meters" element={<Meter />} />
-      //             <Route path="/meter/create" element={<MeterCreate />} />
-      //             <Route path="/bills" element={<Bill />} />
-      //             <Route path="/bill/create" element={<BillCreate />} />
-      //             <Route path="/repairs" element={<Repair />} />
-      //             <Route path="/repair/create" element={<RepairCreate />} />
-      //             <Route path="/emergencies" element={<Bill />} />
-      //             <Route path="/emergencie/create" element={<EmergencyCreate />} />
-
-      //           </Routes>
-      //         </Container>
-      //       </Box>
-      //     </Box>
-      //   </ThemeProvider>
-      // </Router>
    );
 }
 

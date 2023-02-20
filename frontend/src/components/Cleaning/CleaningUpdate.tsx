@@ -11,11 +11,13 @@ import Divider from "@mui/material/Divider";
 import Snackbar from "@mui/material/Snackbar";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import TextField from "@mui/material/TextField";
-import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import TextField from '@mui/material/TextField';
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { FormHelperText, InputLabel } from "@material-ui/core";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { useParams } from "react-router-dom";
+
 
 import { UserInterface } from "../../models/IUser";
 import { RoomInterface } from "../../models/IRoom";
@@ -23,14 +25,13 @@ import { KindInterface } from "../../models/IKind";
 import { AreaInterface } from "../../models/IArea";
 import { CleaningInterface } from "../../models/ICleaning";
 
-const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
-  props,
-  ref
-) {
+
+const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-function CleaningCreate() {
+function CleaningUpdate() {
+  const { id } = useParams();
   const [selectedDate, setSelectedDate] = useState<Date | null>();
   const [users, setUsers] = useState<UserInterface>();
   const [rooms, setRooms] = useState<RoomInterface[]>([]);
@@ -38,7 +39,7 @@ function CleaningCreate() {
   const [areas, setAreas] = useState<AreaInterface[]>([]);
   const [cleanings, setCleanings] = useState<Partial<CleaningInterface>>({});
   const [detail, setDetail] = useState<String>("");
-
+  
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -53,10 +54,7 @@ function CleaningCreate() {
     },
   };
 
-  const handleClose = (
-    event?: React.SyntheticEvent | Event,
-    reason?: string
-  ) => {
+  const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
     if (reason === "clickaway") {
       return;
     }
@@ -71,16 +69,18 @@ function CleaningCreate() {
       [name]: event.target.value,
     });
     console.log(event.target.value);
+    
   };
+
 
   const getUsers = async () => {
     const uid = localStorage.getItem("uid");
     fetch(`${apiUrl}/user/${uid}`, requestOptions)
       .then((response) => response.json())
       .then((res) => {
-        cleanings.UserID = res.data.ID;
+        cleanings.UserID = res.data.ID
         if (res.data) {
-          setUsers(res.data);
+            setUsers(res.data);
         } else {
           console.log("else");
         }
@@ -122,11 +122,26 @@ function CleaningCreate() {
       });
   };
 
+  const getCleaningsByID = async () => {
+    const uid = localStorage.getItem("id");
+    fetch(`${apiUrl}/clening/${uid}`, requestOptions)
+       .then((response) => response.json())
+       .then((res) => {
+        cleanings.ID = res.data.ID
+          if (res.data) {
+             setCleanings(res.data);
+          } else {
+             console.log("else");
+          }
+       });
+ };
+
   useEffect(() => {
     getUsers();
     getRoom();
     getKind();
     getArea();
+    getCleaningsByID();
   }, []);
 
   const convertType = (data: string | number | undefined) => {
@@ -134,20 +149,22 @@ function CleaningCreate() {
     return val;
   };
 
-  function submit() {
+  function update() {
     let data = {
-      UserID: convertType(cleanings.UserID),
-      RoomID: convertType(cleanings.RoomID),
-      KindID: convertType(cleanings.KindID),
-      AreaID: convertType(cleanings.AreaID),
-      CleaningTime: selectedDate,
-      Detail: detail,
+        ID: convertType(id),
+        UserID: convertType(cleanings.UserID),
+        RoomID: convertType(cleanings.RoomID),
+        KindID: convertType(cleanings.KindID),
+        AreaID: convertType(cleanings.AreaID),
+        CleaningTime: selectedDate,        
+        Detail:  detail + "-"
+
     };
 
-    console.log(data);
+    console.log(data)
 
-    const requestOptionsPost = {
-      method: "POST",
+    const requestOptionsUpdate = {
+      method: "PATCH",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
         "Content-Type": "application/json",
@@ -155,17 +172,21 @@ function CleaningCreate() {
       body: JSON.stringify(data),
     };
 
-    fetch(`${apiUrl}/cleanings`, requestOptionsPost)
+    fetch(`${apiUrl}/cleanings`, requestOptionsUpdate)
       .then((response) => response.json())
       .then((res) => {
         if (res.data) {
-          console.log("บันทึกได้");
-          setSuccess(true);
-          setErrorMessage("");
-        } else {
-          console.log("บันทึกไม่ได้");
-          setError(true);
-          setErrorMessage(res.error);
+          console.log("บันทึกได้")
+          setErrorMessage("")
+          setTimeout(() => {
+             window.location.reload();
+          }, 1000);
+          setSuccess(true)
+          window.location.href = "/cleanings";
+       } else {
+          console.log("บันทึกไม่ได้")
+          setError(true)
+          setErrorMessage(res.error)
         }
       });
   }
@@ -367,7 +388,6 @@ function CleaningCreate() {
               <DateTimePicker
                 value={selectedDate}
                 onChange={(newValue) => setSelectedDate(newValue)}
-                minDate={(new Date)}
                 //  minDate={(new Date('31-12-2022T09:00'))}
                 renderInput={(params) => <TextField {...params} />}
               />
@@ -390,7 +410,7 @@ function CleaningCreate() {
               multiline
               onChange={(event) => setDetail(event.target.value)}
             />
-            <FormHelperText error></FormHelperText>
+            <FormHelperText error>*ไม่จำเป็นต้องระบุ</FormHelperText>
           </FormControl>
         </Grid>
 
@@ -413,11 +433,11 @@ function CleaningCreate() {
               fontSize: 17,
             }}
             style={{ float: "right" }}
-            onClick={submit}
+            onClick={update}
             variant="contained"
             color="primary"
           >
-            บันทึก
+            <b>แก้ไขข้อมูล</b>
           </Button>
         </Grid>
       </Grid>
@@ -425,4 +445,4 @@ function CleaningCreate() {
   );
 }
 
-export default CleaningCreate;
+export default CleaningUpdate;

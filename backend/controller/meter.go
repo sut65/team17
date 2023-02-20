@@ -96,21 +96,66 @@ func DeleteMeter(c *gin.Context) {
 
 // PATCH /Meters
 func UpdateMeter(c *gin.Context) {
+	
 	var meter entity.Meter
+	var user entity.User
+	var manage entity.Manage
+	
+	// ผลลัพธ์ที่ได้จากขั้นตอนที่ 8 จะถูก bind เข้าตัวแปร meter
 	if err := c.ShouldBindJSON(&meter); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	if tx := entity.DB().Where("id = ?", meter.ID).First(&meter); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "meter not found"})
+	// 9: ค้นหา user ด้วย id
+	if tx := entity.DB().Where("id = ?", meter.UserID).First(&user); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "user not found"})
 		return
 	}
 
-	if err := entity.DB().Save(&meter).Error; err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+	// 11: ค้นหา manage ด้วย id
+	if tx := entity.DB().Where("id = ?", meter.ManageID).First(&manage); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "category not found"})
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"data": meter})
+	// 12: สร้าง Meter
+	update := entity.Meter{
+		User:     user,   // โยงความสัมพันธ์กับ Entity User
+		Manage:   manage, // โยงความสัมพันธ์กับ Entity Manage
+		Before:   meter.Before,
+		After:    meter.After,
+		Total:    meter.Total,
+		Unit:     meter.Unit,
+		Electric: meter.Electric,
+		Water:    meter.Water,
+
+		Metertime: meter.Metertime, // ตั้งค่าฟิลด์ Metertime
+	}
+
+// 13: update
+if err := entity.DB().Where("id = ?", meter.ID).Updates(&update).Error; err != nil {
+	c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+	return
 }
+c.JSON(http.StatusOK, gin.H{"data": update})
+}
+
+
+// 	if err := c.ShouldBindJSON(&meter); err != nil {
+// 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+// 		return
+// 	}
+
+// 	if tx := entity.DB().Where("id = ?", meter.ID).First(&meter); tx.RowsAffected == 0 {
+// 		c.JSON(http.StatusBadRequest, gin.H{"error": "meter not found"})
+// 		return
+// 	}
+
+// 	if err := entity.DB().Save(&meter).Error; err != nil {
+// 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+// 		return
+// 	}
+
+// 	c.JSON(http.StatusOK, gin.H{"data": meter})
+// }

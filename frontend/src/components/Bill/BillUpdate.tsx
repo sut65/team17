@@ -13,6 +13,7 @@ import Select, { SelectChangeEvent } from "@mui/material/Select";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import TextField from "@mui/material/TextField";
+import { useParams } from "react-router-dom";
 
 import { MeterInterface } from "../../models/IMeter";
 import { AdminInterface } from "../../models/IAdmin";
@@ -30,7 +31,8 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-function BillCreate() {
+function BillUpdate() {
+    const { id } = useParams();
   const [selectedDate, setSelectedDate] = useState<Date | null>();
   const [admins, setAdmins] = useState<AdminInterface>();
   const [furnitures, setFurnitures] = useState<FurnitureInterface[]>([]);
@@ -144,11 +146,12 @@ function BillCreate() {
   };
 //?.map(item => convertType(item))
 //Number(costs)
-  function submit() {
+  function update() {
     const arrFurnitureID = bills?.FurnitureID?.map(item => convertType(item)) || []
     
     arrFurnitureID.forEach(item => {
       let data = {
+        ID: convertType(id),
         MeterID: convertType(bills.MeterID),
         FurnitureID: item, //ส่งไปเป็น array จากบรรทัด 146
         Cost: bills.Cost, //คำนวณจาก 144
@@ -156,7 +159,7 @@ function BillCreate() {
       };
   
       const requestOptionsPost = {
-        method: "POST",
+        method: "PATCH",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
           "Content-Type": "application/json",
@@ -209,7 +212,26 @@ function BillCreate() {
         <Divider />
       </Paper>
       <Grid container spacing={3} sx={{ flexGrow: 1 }}>
-        
+        <Grid item xs={6}>
+          <FormControl fullWidth variant="outlined">
+            <Select
+              native
+              disabled
+              variant="outlined"
+              value={bills.AdminID + ""}
+              // label="ชื่อ - นามสกุล"
+              onChange={handleChange}
+              inputProps={{
+                name: "AdminID",
+              }}
+            >
+              <option value={admins?.ID} key={admins?.ID}>
+                {admins?.Name}
+              </option>
+            </Select>
+          </FormControl>
+        </Grid>
+
         <Grid item xs={6}>
           <FormControl fullWidth variant="outlined">
             <p>เลขห้อง</p>
@@ -482,11 +504,11 @@ function BillCreate() {
             <p>วันที่</p>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DesktopDatePicker
-                disabled
+                // disabled
                 label="เดือน/วัน/ปี"
                 value={selectedDate}
                 onChange={(newValue) => setSelectedDate(newValue)}
-                minDate={new Date('2022-12-20')}
+                minDate={new Date()}
                 renderInput={(params) => <TextField {...params} />}
               />
             </LocalizationProvider>
@@ -500,7 +522,7 @@ function BillCreate() {
           <Button
             style={{ float: "right" }}
             variant="contained"
-            onClick={submit}
+            onClick={update}
             color="primary"
           >
             บันทึก
@@ -510,4 +532,4 @@ function BillCreate() {
     </Container>
   );
 }
-export default BillCreate;
+export default BillUpdate;

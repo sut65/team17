@@ -42,7 +42,7 @@ func SetupDatabase() {
 
 	db.Model(&Admin{}).Create(&Admin{
 		Name:     "Promporn Phinitphong",
-		Email:    "Promporn@gmail.com",
+		Email:    "promporn@gmail.com",
 		Tel:      "0932941944",
 		Password: string(password),
 		Role:     "admin",
@@ -57,7 +57,7 @@ func SetupDatabase() {
 	})
 
 	var promporn Admin
-	db.Raw("SELECT * FROM Admins WHERE email = ?", "promporn@gmail.com").Scan(&promporn)
+	db.Raw("SELECT * FROM admins WHERE email = ?", "promporn@gmail.com").Scan(&promporn)
 
 	var jakkrit  		Admin
 	db.Raw("SELECT * FROM Admins WHERE email = ?", "jackerchaiwan@gmail.com").Scan(&jakkrit)

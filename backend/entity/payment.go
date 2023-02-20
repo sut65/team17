@@ -32,8 +32,6 @@ type Payment struct {
 	// ข้อมูลของ Method เมื่อ join ตาราง
 	Method Method	`gorm:"referenes:id" valid:"-"`
 }
-
-//เงื่อนไขเวลาไม่เป็นอดีต
 func init() {
 	govalidator.CustomTypeTagMap.Set("past", func(i interface{}, o interface{}) bool {
 		t := i.(time.Time)
