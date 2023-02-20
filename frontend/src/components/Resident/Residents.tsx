@@ -12,10 +12,11 @@ import EditIcon from '@mui/icons-material/Edit';
 import moment from "moment";
 import { useParams, useNavigate } from "react-router-dom";
 import { Alert, IconButton, Snackbar } from "@mui/material";
-
+import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 
 
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
+import { Card } from '@mui/material';
 
 
 
@@ -106,340 +107,218 @@ function Rooms() {
 
 
    return (
-
       <div style={{
+         backgroundImage: "url(https://images.hdqwalls.com/download/simple-drop-white-10k-n8-1280x720.jpg)",
+         backgroundRepeat: "no-repeat",
+         backgroundSize: "cover",
+         backgroundPosition: "center",
+         // background: '#e0e0e0',
          width: '100%',
          fontFamily: "PK Krung Thep Medium",
          fontSize: 20,
+         display: 'grid',
+         justifyContent: 'center',
+         alignItems: 'center',
       }}>
          <Box sx={{
-            mt: '20px',
-            mb: '20px',
-            display: 'flex',
-            justifyContent: 'center',
-            // alignItems: 'center',
+            mt: '50px',
+            height: '90%',
+            // bgcolor: 'lightgreen',
+            width: '1400px',
          }}>
-            <Box flexGrow={1}>
-               <Typography
-                  sx={{
-                     fontFamily: "PK Krung Thep Medium",
-                  }}
-                  component="h2"
-                  variant="h3"
-                  color="primary"
-                  gutterBottom
-                  align='center'
-               >
-                  <b>ระบบสัญญาเช่า</b>
-               </Typography>
+            <Box sx={{
+               mt: '10px',
+               mb: '20px',
+               display: 'flex',
+               justifyContent: 'center',
+               alignItems: 'center',
+            }}>
+
+               <Paper sx={{
+                  mr: '20px',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  borderRadius: '50px',
+                  boxShadow: '20px 20px 35px #45504a',
+
+               }}>
+                  <Box sx={{
+                     ml: '20px',
+                     display: 'flex',
+                     justifyContent: 'center',
+                     alignItems: 'center',
+                  }}>
+                     {<SearchOutlinedIcon />}
+                  </Box>
+
+                  <Typography
+                     sx={{
+                        ml: '20px',
+                        width: '700px',
+                        height: '100%',
+                        fontFamily: "PK Krung Thep Medium",
+                        fontSize: '30px',
+                     }}
+                  >
+                     <center>
+                        ระบบสัญญาเช่า
+                     </center>
+                  </Typography>
+               </Paper>
+
+
+
+               <Box sx={{
+                  display: 'flex',
+                  justifyContent: 'right',
+               }}>
+                  <Button
+                     component={RouterLink}
+                     to="/resident/create"
+                     variant="contained"
+                     color="primary"
+                     sx={{
+                        mr: '20px',
+                        width: 'auto',
+                        height: 'auto',
+                        fontFamily: "PK Krung Thep Medium",
+                        fontSize: 18,
+                        borderRadius: 15,
+                        bgcolor: '#0693e3',
+                        color: 'white',
+                        boxShadow: '20px 20px 35px #45504a',
+                     }}
+                  >
+                     ทำสัญญา
+                  </Button>
+               </Box>
             </Box>
-            <Box>
-               <Button
-                  component={RouterLink}
-                  to="/resident/create"
-                  variant="contained"
-                  color="primary"
-                  sx={{
-                     mr: '20px',
-                     fontFamily: "PK Krung Thep Medium",
-                     fontSize: 18,
-                     borderRadius: 15,
-                     height: '55px',
-                  }}
-               >
-                  ทำสัญญา
-               </Button>
-            </Box>
-         </Box>
 
-         
-               <Grid container spacing={3}>
-                  {residents.map((item: ResidentInterface) => (
-                     <Grid xs={6} sx={{
-                        display: 'flex',
-                     }}>
+            <Grid container spacing={2}>
+               {residents.map((item: ResidentInterface) => (
+                  <Grid xs={4} sx={{
+                     display: 'flex',
+                     justifyContent: 'center',
+                  }}>
 
-                        <Button
-                           component="span"
-                           sx={{
-                              fontFamily: "PK Krung Thep Medium",
-                              fontSize: 30,
-                              display: 'flex',
-                              justifyContent: 'left',
-                              width: 'auto',
-                              flexGrow: 2,
-                              m: 0.5,
-                              background: 'rgba(255, 255, 255,0.7)',
-                              boxShadow: 5,
-                              borderRadius: 10,
-                              '&:hover': {
-                                 background: 'rgba(142, 209, 252, 0.5)',
-                              },
-                           }}
-                        >
-                           <Typography sx={{
-                              ml: '20px',
-                              display: 'flex',
-                              justifyContent: 'center',
-                              width: '30%',
-                              fontFamily: "PK Krung Thep Medium",
-                              fontSize: 30,
-                           }}>
-                              <h1><b>ห้อง{item.Manage.Room.Number}</b></h1>
-                           </Typography>
-
-                           <Typography sx={{
-                              width: 'auto',
-                              fontFamily: "PK Krung Thep Medium",
-                              fontSize: 20,
-                              margin: 3,
-                              color: 'black',
-                           }}
-                           >
-                              ชื่อผู้เช่า: <b>{item.User.Name}</b> <br />
-                              เบอร์โทร: <b>{item.User.Tel}</b><br />
-                              ระยะเวลาสัญญา: <b>{item.Lease.Lease}</b><br />
-                              เงินประกัน: <b>{item.Bail}</b><br />
-                              วันที่ทำสัญญา: <b>{moment(item.LeaseTime).format('DD MMMM yyyy')}</b><br />
-                           </Typography>
-
-                        </Button>
-
-                        <div style={{
+                     <Card
+                        component="span"
+                        sx={{
+                           height: '350px',
+                           width: '380px',
+                           fontFamily: "PK Krung Thep Medium",
+                           fontSize: 30,
                            display: 'grid',
-                           marginTop: 'auto',
-                           marginBottom: 'auto',
-                           marginLeft: 5,
-                           marginRight: 10,
+                           justifyContent: 'center',
+                           alignItems: 'center',
+                           flexGrow: 2,
+                           transition: 'all .6s',
+                           m: 0.5,
+                           backdropFilter: 'blur(2px)',
+
+                           borderRadius: '50px',
+                           background: '#e5faff',
+                           boxShadow: '20px 20px 20px #CECECE',
+                           '&:hover': {
+                              background: 'rgba(229, 250, 255, 0.9)',
+                              transform: 'scale(0.98)',
+                              boxShadow: '0px 0px 30px 1px rgba(0, 255, 117, 0.30)'
+                           },
+                        }}
+
+                     >
+                        <Typography align="center" sx={{
+                           fontFamily: "PK Krung Thep Medium",
+                           fontSize: 50,
+                           color: '#0693e3',
+                        }}>
+                           <b>ห้อง{item.Manage.Room.Number}</b>
+                        </Typography>
+
+                        <Typography align="center" sx={{
+                           fontFamily: "PK Krung Thep Medium",
+                           fontSize: 18,
+                           margin: 2,
+                           color: 'black',
+                        }}
+                        >
+                           ชื่อผู้เช่า: <b>{item.User.Name}</b> <br />
+                           เบอร์โทร: <b>{item.User.Tel}</b><br />
+                           ระยะเวลาสัญญา: <b>{item.Lease.Lease}</b><br />
+                           เงินประกัน: <b>{item.Bail}</b><br />
+                           วันที่ทำสัญญา: <b>{moment(item.LeaseTime).format('DD MMMM yyyy')}</b><br />
+                        </Typography>
+                        <div style={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            marginTop: 2,
+                            marginBottom: 'auto',
+                            marginLeft: 5,
+                            marginRight: 10,
                         }}>
                            <Button
-                              variant="outlined"
                               size="medium"
-                              startIcon={<EditIcon />}
                               sx={{
-                                 fontFamily: "PK Krung Thep Medium",
+                                 ml: 1,
                                  fontSize: 20,
-                                 borderRadius: 20,
-                                 fontWeight: "bold",
+                                 borderRadius: '0.7em',
+                                 width: 'auto',
                                  color: 'black',
-                                 width: '100px',
-                                 marginBottom: 1,
-                                 borderColor: 'black',
+                                 bgcolor: 'white',
+                                 border: '2px solid #ffffff',
+                                 transition: 'all 0.5s',
+                                 boxShadow: '6px 6px 12px #c5c5c5;',
                                  '&:hover': {
-                                    background: 'rgba(0, 208, 132, 0.5)',
-                                    borderColor: 'rgba(0, 208, 132, 0.4)',
+                                    bgcolor: 'white',
+                                    border: '2px solid #0693e3',
                                  },
+                                 '&:active': {
+                                    boxShadow: '4px 4px 12px #c5c5c5, -4px -4px 12px #ffffff',
+                                 }
                               }}
                               onClick={() => navigate(`${item.ID}`)}
 
                            >
-                              แก้ไข
+                              {<EditIcon />}
                            </Button>
                            <Button
                               variant="outlined"
                               size="medium"
-                              startIcon={<DeleteIcon />}
                               sx={{
-                                 fontFamily: "PK Krung Thep Medium",
+                                 ml: 1,
                                  fontSize: 20,
-                                 borderRadius: 20,
-                                 fontWeight: "bold",
-                                 marginTop: 1,
-                                 width: '100px',
+                                 borderRadius: '0.7em',
+                                 width: 'auto',
                                  color: 'black',
-                                 borderColor: 'black',
+                                 bgcolor: 'white',
+                                 border: '2px solid #ffffff',
+                                 transition: 'all 0.5s',
+                                 boxShadow: '6px 6px 12px #c5c5c5;',
                                  '&:hover': {
-                                    background: 'rgba(0, 208, 132, 0.5)',
-                                    borderColor: 'rgba(0, 208, 132, 0.4)',
+                                    bgcolor: 'white',
+                                    border: '2px solid #0693e3',
                                  },
+                                 '&:active': {
+                                    boxShadow: '4px 4px 12px #c5c5c5, -4px -4px 12px #ffffff',
+                                 }
                               }}
                               aria-label="delete"
                               onClick={() => DeleteResident(item.ID)}
                            >
-                              ลบ
+                              {<DeleteIcon />}
                            </Button>
                         </div>
-                     </Grid>
-                  ))}
-               </Grid>
-            </div>
-
+                     </Card>
+                  </Grid>
+               ))}
+            </Grid>
+         </Box>
+      </div>
    );
 
 
-   // return (
-   //    <div>
-   //       <Container sx={{ marginTop: 2 }} maxWidth="md">
-   //          <Snackbar open={success} autoHideDuration={6000} onClose={handleClose}>
-   //             <Alert onClose={handleClose} severity="success">
-   //                ยกเลิกชำระเงินค่ายาสำเร็จ
-   //             </Alert>
-   //          </Snackbar>
 
-   //          <Snackbar open={error} autoHideDuration={6000} onClose={handleClose}>
-   //             <Alert onClose={handleClose} severity="error">
-   //                {ErrorMessage}
-   //             </Alert>
-   //          </Snackbar>
-   //          <Box display="flex">
-   //             <Box flexGrow={1}>
-   //                <Typography sx={{
-   //                   fontFamily: "PK Krung Thep Medium",
-   //                }}
-   //                   component="h2"
-   //                   variant="h3"
-   //                   color="primary"
-   //                   gutterBottom
-   //                >
-   //                   <b>ข้อมูลการทำสัญญาเช่า</b>
-   //                </Typography>
-   //             </Box>
-   //             <Box>
-   //                <Button
-   //                   component={RouterLink}
-   //                   to="/resident/create"
-   //                   variant="contained"
-   //                   color="primary"
-   //                   sx={{
-   //                      fontFamily: "PK Krung Thep Medium",
-   //                      fontSize: 18,
-   //                      borderRadius: 10,
-   //                   }}
-   //                >
-   //                   ทำสัญญา
-   //                </Button>
-   //             </Box>
-   //          </Box>
-
-
-   //          <Paper elevation={5} style={{
-   //             'borderRadius': '20px',
-   //             backgroundImage: 'url("https://images.pexels.com/photos/4590785/pexels-photo-4590785.jpeg")',
-   //             backgroundRepeat: 'no-repeat',
-   //             backgroundSize: 'cover',
-
-   //          }}>
-   //             <div style={{
-   //                background: 'rgba(255, 255, 255, 0.6)',
-   //                borderRadius: '20px',
-   //             }}>
-   //                <Box sx={{
-   //                   m: 1.5
-   //                }}>
-
-   //                   <Grid container spacing={3}>
-   //                      {residents.map((item: ResidentInterface, index) => (
-   //                         <Grid xs={4}>
-   //                            <Typography
-   //                               align="center"
-   //                               sx={{
-   //                                  fontFamily: "PK Krung Thep Medium",
-   //                                  fontSize: 35,
-   //                               }}
-   //                            >
-   //                               <b>ห้อง {item.Manage.Room.Number}</b>
-   //                            </Typography>
-   //                            <Button
-   //                               component="span"
-   //                               sx={{
-   //                                  display: 'flex',
-   //                                  justifyContent: 'center',
-   //                                  flexGrow: 1,
-   //                                  m: 0.5,
-   //                                  background: 'rgba(255, 255, 255,0.7)',
-   //                                  boxShadow: 5,
-   //                                  borderRadius: 4,
-   //                                  '&:hover': {
-   //                                     background: 'rgba(224, 242, 241, 0.5)',
-   //                                  },
-   //                               }}
-   //                            >
-   //                               <Typography
-   //                                  sx={{
-   //                                     fontFamily: "PK Krung Thep Medium",
-   //                                     fontSize: 18,
-   //                                  }}
-   //                                  color="black"
-   //                               >
-   //                                  <p> ชื่อผู้เช่า: <b>{item.User.Name}</b><br />
-   //                                     เบอร์โทร: <b>{item.User.Tel}</b><br />
-   //                                     สัญญา: <b>{item.Lease.Lease}</b><br />
-   //                                     ประกันห้อง: <b>{item.Bail}</b> บาท<br />
-   //                                  </p>
-   //                                  วันที่ทำสัญญา: <b>{moment(item.LeaseTime).format('DD MMM yyyy')}</b>
-   //                               </Typography>
-   //                            </Button>
-
-
-
-
-   //                            <Grid container spacing={3} sx={{ padding: 2 }}>
-   //                               <Grid xs={12}>
-   //                                  <ButtonGroup
-   //                                     disableElevation
-   //                                     // variant="contained"
-   //                                     aria-label="Disabled elevation buttons"
-   //                                     sx={{
-   //                                        display: "flex",
-   //                                        justifyContent: "center",
-
-   //                                     }}
-   //                                  >
-   //                                     <Button
-   //                                        // color="success"
-   //                                        variant="contained"
-   //                                        size="medium"
-   //                                        sx={{
-   //                                           fontFamily: "PK Krung Thep Medium",
-   //                                           fontSize: 18,
-   //                                           fontWeight: "bold",
-   //                                           borderRadius: 5,
-   //                                           color: 'black',
-   //                                           bgcolor: '#00d084',
-   //                                           '&:hover': {
-   //                                              background: 'rgba(3, 175, 112, 1)',
-   //                                           },
-   //                                        }}
-   //                                        startIcon={<EditIcon />}
-   //                                     >
-   //                                        แก้ไข
-   //                                     </Button>
-   //                                     <Button
-   //                                        // color="success"
-   //                                        variant="contained"
-   //                                        sx={{
-   //                                           fontFamily: "PK Krung Thep Medium",
-   //                                           fontSize: 18,
-   //                                           fontWeight: "bold",
-   //                                           borderRadius: 5,
-   //                                           bgcolor: '#00d084',
-   //                                           color: 'black',
-   //                                           '&:hover': {
-   //                                              background: 'rgba(3, 175, 112, 1)',
-   //                                           },
-   //                                        }}
-   //                                        startIcon={<DeleteIcon />}
-   //                                        aria-label="delete"
-   //                                        onClick={() => DeleteResident(item.ID)}
-   //                                     >
-   //                                        ลบ
-   //                                     </Button>
-
-   //                                  </ButtonGroup>
-   //                               </Grid >
-   //                            </Grid>
-   //                         </Grid>
-   //                      ))}
-   //                   </Grid>
-   //                </Box>
-   //             </div>
-   //          </Paper>
-
-
-
-   //       </Container>
-   //    </div>
-   // );
 }
 
 export default Rooms;
