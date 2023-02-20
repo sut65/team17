@@ -209,26 +209,7 @@ function BillCreate() {
         <Divider />
       </Paper>
       <Grid container spacing={3} sx={{ flexGrow: 1 }}>
-        <Grid item xs={6}>
-          <FormControl fullWidth variant="outlined">
-            <Select
-              native
-              disabled
-              variant="outlined"
-              value={bills.AdminID + ""}
-              // label="ชื่อ - นามสกุล"
-              onChange={handleChange}
-              inputProps={{
-                name: "AdminID",
-              }}
-            >
-              <option value={admins?.ID} key={admins?.ID}>
-                {admins?.Name}
-              </option>
-            </Select>
-          </FormControl>
-        </Grid>
-
+        
         <Grid item xs={6}>
           <FormControl fullWidth variant="outlined">
             <p>เลขห้อง</p>
@@ -501,7 +482,7 @@ function BillCreate() {
             <p>วันที่</p>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DesktopDatePicker
-                // disabled
+                disabled
                 label="เดือน/วัน/ปี"
                 value={selectedDate}
                 onChange={(newValue) => setSelectedDate(newValue)}

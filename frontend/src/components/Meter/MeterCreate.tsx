@@ -281,11 +281,10 @@ function MeterCreate() {
 
             <Grid item xs={6}>
                 <FormControl fullWidth variant="outlined">
-                <InputLabel id="ManageID">ค่าเช่าห้อง</InputLabel>
+                <p>ค่าเช่าห้อง</p>
                 <Select
                     native
                     value={meters.ManageID}
-                    label="ค่าเช่าห้อง"
                     onChange={handleChange}
                     inputProps={{
                     name: "ManageID",

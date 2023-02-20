@@ -6,6 +6,7 @@ import (
 	"github.com/asaskevich/govalidator"
 	"github.com/gin-gonic/gin"
 	"github.com/sut65/team17/entity"
+	
 )
 
 // POST /bill
@@ -38,6 +39,9 @@ func CreateBill(c *gin.Context) {
 		Meter:     meter,     // โยงความสัมพันธ์กับ Entity User
 		Furniture: furniture, // โยงความสัมพันธ์กับ Entity Furniture
 		Cost:      bill.Cost,
+		BillTime: bill.BillTime,
+		
+
 	}
 	// // ขั้นตอนการ validate ที่นำมาจาก unit test
 	if _, err := govalidator.ValidateStruct(bl); err != nil {
@@ -121,6 +125,7 @@ func UpdateBill(c *gin.Context) {
 		Meter:     meter,     // โยงความสัมพันธ์กับ Entity User
 		Furniture: furniture, // โยงความสัมพันธ์กับ Entity Furniture
 		Cost:      bill.Cost,
+		BillTime: bill.BillTime,
 	}
 	// 13: update
 if err := entity.DB().Where("id = ?", meter.ID).Updates(&update).Error; err != nil {

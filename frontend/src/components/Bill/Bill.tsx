@@ -152,8 +152,10 @@ function Bills() {
                 <TableCell align="center" width="9%">
                   ยอดรวม
                 </TableCell>
-                
-  
+                <TableCell align="center" width="9%">
+                  วันที่บันทึก
+                </TableCell>
+              
               </TableRow>
             </TableHead>
             <TableBody>
