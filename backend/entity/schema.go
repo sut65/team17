@@ -116,7 +116,7 @@ type Resident struct {
 	Bail				string 		`valid:"required~Bail cannot be blank"`
 
 	UserID			*uint
-	User				User		`gorm:"referenes:id" valid:"-"`
+	User				User			`gorm:"referenes:id" valid:"-"`
 
 	LeaseID			*uint
 	Lease			Lease			`gorm:"referenes:id" valid:"-"`
@@ -315,6 +315,9 @@ func init() {
         // วันเวลาปัจจุบัน
         return t.Equal(time.Now())
     })
+
+    
+ })
 	
 	
 }
