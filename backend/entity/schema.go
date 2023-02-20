@@ -23,7 +23,7 @@ type Admin struct {
 type Bill struct {
 	gorm.Model
 	Cost     int `valid:"required~cost cannot be zero, Cost~cost cannot be negative"`
-	BillTime time.Time
+	BillTime time.Time    `valid:"timenotpast~Date is invalid"`
 
 	MeterID *uint
 	Meter   Meter `gorm:"referenes:id" valid:"-"`

@@ -39,4 +39,19 @@ func TestBillValidate(t *testing.T) {
 			}
 		}
 	})
+
+
+	t.Run("check Date is invalid", func(t *testing.T) {
+		bill := Bill {
+			Cost:     6630,
+			BillTime: time.Now().AddDate(0, 0, -1),
+		}
+
+		ok, err := govalidator.ValidateStruct(bill)
+
+		g.Expect(ok).NotTo(BeTrue())
+		g.Expect(err).ToNot(BeNil())
+		g.Expect(err.Error()).To(Equal("Date is invalid"))
+	})
+
 }
