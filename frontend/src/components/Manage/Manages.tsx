@@ -105,8 +105,7 @@ function Manages() {
          <Box sx={{
             mt: '60px',
             height: '650px',
-           overflowY: 'scroll',
-            // bgcolor: 'lightGray',
+            overflowY: 'auto',
          }}>
             <Box sx={{
                mt: '10px',
@@ -182,6 +181,7 @@ function Manages() {
                   <Grid xs={4} sx={{
                      display: 'grid',
                      justifyContent: 'center',
+                     alignItems: 'center',
                   }}>
 
                      <Card
@@ -200,11 +200,11 @@ function Manages() {
                            backdropFilter: 'blur(2px)',
 
                            borderRadius: '50px',
-                           background: '#e5faff',
+                           background: '##e0e0e0',
                            // boxShadow:  '20px 20px 20px #CECECE',
                            boxShadow: '5px',
                            '&:hover': {
-                              background: 'rgba(142, 209, 252, 0.9)',
+                              background: 'rgba(217, 227, 240, 0.9)',
                               transform: 'scale(0.98)',
                               boxShadow: '0px 0px 30px 1px rgba(0, 255, 117, 0.30)'
                            },
