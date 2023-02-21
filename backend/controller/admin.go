@@ -34,7 +34,7 @@ func GetAdmin(c *gin.Context) {
 
 	var admin entity.Admin
 	id := c.Param("id")
-	if err := entity.DB().Raw("SELECT * FROM admin WHERE id = ?", id).Scan(&admin).Error; err != nil {
+	if err := entity.DB().Raw("SELECT * FROM admins WHERE id = ?", id).Scan(&admin).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
