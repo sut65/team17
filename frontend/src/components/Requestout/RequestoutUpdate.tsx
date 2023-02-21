@@ -205,6 +205,32 @@ function RequestoutUpdate() {
  
 
   return (
+
+    <div style={{
+      backgroundImage: "url(https://images.hdqwalls.com/download/blue-red-material-design-8k-kf-1920x1080.jpg)",
+      backgroundRepeat: "no-repeat",
+      backgroundSize: "cover",
+      width: '100%',
+      fontFamily: "PK Krung Thep Medium",
+      fontSize: 20,
+      display: 'grid',
+   }}>
+    
+ 
+
+    <Box sx={{
+      
+      mt: '100px',
+      mb: '100px',
+      minHeight: '50%',
+      width: '100%',
+      background: 'rgba(29, 131, 240, 0.3)',
+      
+      display: 'flex',
+      justifyContent: 'center',
+      borderRadius: 10,
+
+   }}>
    
     <Box
       sx={{
@@ -252,11 +278,11 @@ function RequestoutUpdate() {
             <Typography
               component="h2"
               variant="h6"
-              color="primary"
               gutterBottom
               sx={{
                 fontFamily: "PK Krung Thep Medium",
-                fontSize: "30px"
+                fontSize: "48px",
+                color: '#000000'
                 
                 
               }}
@@ -279,13 +305,16 @@ function RequestoutUpdate() {
               }}
               style={{ borderRadius: "30px" }}
               native
-              disabled
+              
               value={requestouts.UserID + ""}
               onChange={handleChange}
               inputProps={{
                 name: "UserID",
               }}
             >
+              <option aria-label="None" value="">
+                  กรุณาเลือกชื่อ
+                </option>
               <option value={users?.ID} key={users?.ID}>
                 {users?.Name}
               </option>
@@ -453,7 +482,8 @@ function RequestoutUpdate() {
           
         </Grid>
     </Box>
-   
+   </Box>
+   </div>
       
   );
 }

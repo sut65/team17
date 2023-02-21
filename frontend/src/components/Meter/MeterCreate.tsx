@@ -183,33 +183,75 @@ function MeterCreate() {
   }
 
   return (
-    <Container sx={{ marginTop: 2 }} maxWidth="md">
-      <Snackbar open={success} autoHideDuration={6000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="success">
-          บันทึกข้อมูลสำเร็จ
-        </Alert>
+    <Box sx={{
+      backgroundImage: "url(https://images.hdqwalls.com/download/simple-drop-white-10k-n8-1280x720.jpg)",
+      backgroundRepeat: "no-repeat",
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+      // background: '#e0e0e0',
+      width: '100%',
+      fontFamily: "PK Krung Thep Medium",
+      fontSize: 20,
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+   }}>
+      <Snackbar
+         open={success}
+         autoHideDuration={3000}
+         onClose={handleClose}
+         anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      >
+         <Alert onClose={handleClose} severity="success">
+            บันทึกข้อมูลสำเร็จ
+         </Alert>
       </Snackbar>
-      <Snackbar open={error} autoHideDuration={6000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="error">
-          {errorMessage}
-        </Alert>
+      <Snackbar
+         open={error}
+         autoHideDuration={6000}
+         onClose={handleClose}
+         anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      >
+         <Alert onClose={handleClose} severity="error">
+            {errorMessage}
+         </Alert>
       </Snackbar>
-      <Paper sx={{ padding: 2, color: "text.secondary" }}>
-        <Box display="flex">
-          <Box flexGrow={1}>
-            <Typography
-              component="h6"
-              variant="h5"
-              color="primary"
-              gutterBottom
+
+      <Box sx={{
+         mt: '70px',
+         mr: '10px',
+         background: 'rgba(255, 255, 255, 0.8)',
+         width: '45%',
+         height: '80%',
+         borderRadius: '20px',
+         boxShadow: 20,
+      }}>
+         <Box
+            display="flex"
+            justifyContent="center"
+            sx={{
+               height: 'auto',
+            }}
+         >
+            <Box sx={{ paddingX: 2, }}>
+               <Typography
+                  component="h2"
+                  variant="h6"
+                  gutterBottom
+                  sx={{
+                     fontFamily: "PK Krung Thep Medium",
+                     fontSize: "30px",
+                     color: '#0693e3',
+                  }}
               
             >
-              บันทึกการจดมิเตอร์
+               <h1><b>บันทึกการจดมิเตอร์</b></h1>
 
             </Typography>
           </Box>
         </Box>
         <Divider />
+
         <Grid container spacing={3}  sx={{ flexGrow: 1 }}>
 
             {/* <Grid item xs={6}>
@@ -431,8 +473,8 @@ function MeterCreate() {
             </Button>
           </Grid>
         </Grid>
-      </Paper>
-    </Container>
+      </Box>
+    </Box>
   );
 }
 
