@@ -193,7 +193,7 @@ type Kind struct {
 type Cleaning struct {
 	gorm.Model
 
-	CleaningTime 		time.Time	`valid:"Vatime~DateTime is valid"`
+	CleaningTime 		time.Time	`valid:"Vatime~DateTime is valid,timenotpast~DateTime cannot be past"`
 	
 	Detail				string		`valid:"required~Detail cannot be blank"`	
 
