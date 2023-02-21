@@ -29,16 +29,19 @@ import PaymentIcon from '@mui/icons-material/Payment';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import CleaningServicesOutlinedIcon from '@mui/icons-material/CleaningServicesOutlined';
 import ReceiptIcon from '@mui/icons-material/Receipt';
-import ElectricMeterIcon from '@mui/icons-material/ElectricMeter';
+import MeetingRoomIcon from '@mui/icons-material/MeetingRoom';
 import EditLocationIcon from '@mui/icons-material/EditLocation';
 
 import Home from "./components/Home";
 import Manages from "../../frontend/src/components/Manage/Manages";
+import ManageView from "../../frontend/src/components/Manage/ManageView";
 import ManageCreate from "../../frontend/src/components/Manage/ManageCreate";
 import ManageUpdate from "../../frontend/src/components/Manage/ManageUpdate";
+
 import Residents from "./components/Resident/Residents";
 import ResidentCreate from "./components/Resident/ResidentCreate";
 import ResidentUpdate from "./components/Resident/ResidentUpdate";
+
 import Requestout from "./components/Requestout/Requestout";
 import RequestoutCreate from "./components/Requestout/RequestoutCreate";
 import RequestoutUpdate from "./components/Requestout/RequestoutUpdate";
@@ -134,31 +137,29 @@ const mdTheme = createTheme();
 const menu = [
    { name: "หน้าแรก", icon: <HomeIcon />, path: "/", role: 'user' },
    { name: "หน้าแรก", icon: <HomeIcon />, path: "/", role: 'admin' },
+
    { name: "จัดการห้องพัก", icon: <RoomPreferencesIcon />, path: "/manages", role: 'admin' },
+   { name: "ห้องพัก", icon: <MeetingRoomIcon />, path: "/manage-view", role: 'user' },
    { name: "สัญญาเช่า", icon: <ContactPageIcon />, path: "/residents", role: 'admin' },
 
    { name: "แจ้งออก", icon: <RemoveCircleOutlineIcon />, path: "/requestouts", role: 'user' },
-   // { name: "แจ้งออก", icon: <RemoveCircleOutlineIcon />, path: "/requestouts", role: 'admin' },
    { name: "แจ้งย้ายห้อง", icon: <EditLocationIcon />, path: "/requestchanges", role: 'user' },
-   // { name: "แจ้งย้ายห้อง", icon: <EditLocationIcon />, path: "/requestchanges", role: 'admin' },
 
    { name: "จองทำความสะอาด", icon: <CleaningServicesOutlinedIcon />, path: "/cleanings", role: 'user' },
-   // { name: "จองทำความสะอาด", icon: <CleaningServicesOutlinedIcon />, path: "/cleanings", role: 'admin' },
-   // { name: "เบิกจ่ายอุปกรณ์ในห้องพัก", icon: <ChairOutlinedIcon />, path: "/furnitures", role: 'user' },
    { name: "เบิกจ่ายอุปกรณ์ในห้องพัก", icon: <ChairOutlinedIcon />, path: "/furnitures", role: 'admin' },
-   // { name: "มิเตอร์", icon: <ChairOutlinedIcon />, path: "/meters", role: 'user' },
+
    { name: "มิเตอร์", icon: <ChairOutlinedIcon />, path: "/meters", role: 'admin' },
-   // { name: "บิลชำระ", icon: <ChairOutlinedIcon />, path: "/bills", role: 'user' },
    { name: "บิลชำระ", icon: <ChairOutlinedIcon />, path: "/bills", role: 'admin' },
+
    { name: "การชำระเงิน", icon: <PaymentIcon />, path: "/payments", role: 'user' },
-   // { name: "การชำระเงิน", icon: <PaymentIcon />, path: "/payments", role: 'admin' },
    { name: "บันทึกข้อมูลผู้เช่า", icon: <AccountCircleIcon />, path: "/users", role: 'user' },
    { name: "บันทึกข้อมูลผู้เช่า", icon: <AccountCircleIcon />, path: "/users", role: 'admin' },
+   
    { name: "แจ้งเหตุฉุกเฉิน", icon: <CampaignIcon />, path: "/emergencies", role: 'user' },
    { name: "แจ้งซ่อม", icon: <ConstructionIcon />, path: "/repairs", role: 'user' },
-   
-   
-   
+
+
+
 ];
 
 
@@ -195,7 +196,7 @@ function App() {
    return (
       <Router>
          <Box>
-            <AppBar position="absolute" open={open} 
+            <AppBar position="absolute" open={open}
             // sx={{
             //    width: '95%',
             //    bgcolor: 'lightgrey',
@@ -208,7 +209,7 @@ function App() {
                      height: '50px',
                   }}
                >
-                  
+
                   <Box sx={{
                      height: '100%',
                      // bgcolor: 'lightgreen',
@@ -256,7 +257,7 @@ function App() {
                                        }}>
                                           {item.icon} {item.name}
                                        </Typography>
-                                       
+
                                     </Button>
                                  </Link>
                               )
@@ -303,82 +304,68 @@ function App() {
                   background: '#e0e0e0',
                }}
             >
-               {/* <Box sx={{
-                  // height: '85vh',
-                  mt: '100px',
-                  mb: '50px',
-                  minHeight: '50%',
-                  width: '90%',
-                  backgroundColor: 'rgba(255, 255, 255, 0.8)',
-                  display: 'flex',
-                  justifyContent: 'center',
-                  // alignItems: 'center',
-                  borderRadius: 10,
+               <Box
+                  component="main"
+                  sx={{
+                     width: '100%',
+                     height: 'auto',
+                     display: 'flex',
+                     overflow: 'hidden',
+                     justifyContent: 'center',
+                     // alignItems: 'center',
+                  }}>
+                  <Routes>
+                     <Route path="/" element={<Home />} />
+                     <Route path="/manages" element={<Manages />} />
+                     <Route path="/manage-view" element={<ManageView />} />
+                     <Route path="/manage/create" element={<ManageCreate />} />
+                     <Route path="/manages/:id" element={<ManageUpdate />} />
 
-               }}> */}
+                     <Route path="/residents" element={<Residents />} />
+                     <Route path="/resident/create" element={<ResidentCreate />} />
+                     <Route path="/residents/:id" element={<ResidentUpdate />} />
 
+                     <Route path="/requestouts" element={< Requestout />} />
+                     <Route path="/requestout/create" element={<RequestoutCreate />} />
+                     <Route path="/requestouts/:id" element={<RequestoutUpdate />} />
 
-                  <Box 
-                     component="main"
-                     sx={{
-                        width: '100%',
-                        height: '100%',
-                        display: 'flex',
-                        justifyContent: 'center',
-                        // alignItems: 'center',
-                     }}>
-                     <Routes>
-                        <Route path="/" element={<Home />} />
-                        <Route path="/manages" element={<Manages />} />
-                        <Route path="/manage/create" element={<ManageCreate />} />
-                        <Route path="/manages/:id" element={<ManageUpdate />} />
+                     <Route path="/requestchanges" element={< Requestchange />} />
+                     <Route path="/requestchange/create" element={<RequestchangeCreate />} />
+                     <Route path="/requestchanges/:id" element={<RequestchangeUpdate />} />
 
-                        <Route path="/residents" element={<Residents />} />
-                        <Route path="/resident/create" element={<ResidentCreate />} />
-                        <Route path="/residents/:id" element={<ResidentUpdate />} />
+                     <Route path="/cleanings" element={<Cleanings />} />
+                     <Route path="/cleaning/create" element={<CleaningCreate />} />
+                     <Route path="/cleanings/:id" element={<CleaningUpdate />} />
 
-                        <Route path="/requestouts" element={< Requestout />} />
-                        <Route path="/requestout/create" element={<RequestoutCreate />} />
-                        <Route path="/requestouts/:id" element={<RequestoutUpdate />} />
+                     <Route path="/payment/create" element={<PaymentCreate />} />
+                     <Route path="/payments" element={<Payment />} />
+                     <Route path="/payments/:id" element={<PaymentUpdate />} />
 
-                        <Route path="/requestchanges" element={< Requestchange />} />
-                        <Route path="/requestchange/create" element={<RequestchangeCreate />} />
-                        <Route path="/requestchanges/:id" element={<RequestchangeUpdate />} />
+                     <Route path="/users" element={<Users />} />
+                     <Route path="/user/create" element={<UserCreate />} />
+                     <Route path="/users/:id" element={<UserUpdate />} />
 
-                        <Route path="/cleanings" element={<Cleanings />} />
-                        <Route path="/cleaning/create" element={<CleaningCreate />} />
-                        <Route path="/cleanings/:id" element={<CleaningUpdate />} />
+                     <Route path="/furnitures" element={<Furnitures />} />
+                     <Route path="/furniture/create" element={<FurnitureCreate />} />
+                     <Route path="/furnitures/:id" element={<FurnitureUpdate />} />
 
-                        <Route path="/payment/create" element={<PaymentCreate />} />
-                        <Route path="/payments" element={<Payment />} />
-                        <Route path="/payments/:id" element={<PaymentUpdate />} />
+                     <Route path="/meters" element={<Meter />} />
+                     <Route path="/meter/create" element={<MeterCreate />} />
+                     <Route path="/meters/:id" element={<MeterUpdate />} />
 
-                        <Route path="/users" element={<Users />} />
-                        <Route path="/user/create" element={<UserCreate />} />
-                        <Route path="/users/:id" element={<UserUpdate />} />
-                        
-                        <Route path="/furnitures" element={<Furnitures />} />
-                        <Route path="/furniture/create" element={<FurnitureCreate />} />
-                        <Route path="/furnitures/:id" element={<FurnitureUpdate />} />
+                     <Route path="/bills" element={<Bill />} />
+                     <Route path="/bill/create" element={<BillCreate />} />
+                     <Route path="/bills/:id" element={<BillUpdate />} />
 
-                        <Route path="/meters" element={<Meter />} />
-                        <Route path="/meter/create" element={<MeterCreate />} />
-                        <Route path="/meters/:id" element={<MeterUpdate />} />
+                     <Route path="/repairs" element={<Repair />} />
+                     <Route path="/repair/create" element={<RepairCreate />} />
+                     <Route path="/repairs/:id" element={<RepairUpdate />} />
 
-                        <Route path="/bills" element={<Bill />} />
-                        <Route path="/bill/create" element={<BillCreate />} />
-                        <Route path="/bills/:id" element={<BillUpdate />} />
-                        
-                        <Route path="/repairs" element={<Repair />} />
-                        <Route path="/repair/create" element={<RepairCreate />} />
-                        <Route path="/repairs/:id" element={<RepairUpdate />} />
-
-                        <Route path="/emergencies" element={<Emergency />} />
-                        <Route path="/emergencie/create" element={<EmergencyCreate />} />
-                        <Route path="/emergencies/:id" element={<EmergencyUpdate />} />
-                     </Routes>
-                  </Box>
-               {/* </Box> */}
+                     <Route path="/emergencies" element={<Emergency />} />
+                     <Route path="/emergencie/create" element={<EmergencyCreate />} />
+                     <Route path="/emergencies/:id" element={<EmergencyUpdate />} />
+                  </Routes>
+               </Box>
             </Grid>
          </Grid>
       </Router>
