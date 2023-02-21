@@ -200,6 +200,7 @@ function RequestoutCreate() {
     }}>
 
       <Snackbar
+        id="success"
         open={success}
         autoHideDuration={3000}
         onClose={handleClose}
@@ -210,6 +211,7 @@ function RequestoutCreate() {
         </Alert>
       </Snackbar>
       <Snackbar
+        id="error"
         open={error}
         autoHideDuration={6000}
         onClose={handleClose}
@@ -341,7 +343,7 @@ function RequestoutCreate() {
                     }}
                     renderInput={(params) => <TextField {...params} />}
 
-                    minDate={new Date(NowDate)}
+                    //minDate={new Date(NowDate)}
                     
                  
               />
