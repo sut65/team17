@@ -135,7 +135,7 @@ function RequestoutCreate() {
         ReasonID: convertType(requestouts.ReasonID),
         UserID: convertType(requestouts.UserID),
         Outtime: selectedDate,
-        Detail: details + "-",
+        Detail: details,
 
     };
 
@@ -166,6 +166,33 @@ function RequestoutCreate() {
   }
 
   return (
+
+    <div style={{
+      backgroundImage: "url(https://images.hdqwalls.com/download/material-minimal-shape-8k-lv-1920x1080.jpg)",
+      backgroundRepeat: "no-repeat",
+      backgroundSize: "cover",
+      width: '100%',
+      fontFamily: "PK Krung Thep Medium",
+      fontSize: 20,
+      display: 'grid',
+   }}>
+    
+ 
+
+    <Box sx={{
+      
+      mt: '100px',
+      mb: '100px',
+      minHeight: '50%',
+      width: '100%',
+      background: 'rgba(255, 255, 255, 0.3)',
+      
+      display: 'flex',
+      justifyContent: 'center',
+      borderRadius: 10,
+
+   }}>
+
     <Box sx={{ width: "100%" }}>
     
     <Box display="flex" sx={{
@@ -203,11 +230,12 @@ function RequestoutCreate() {
             <Typography
               component="h2"
               variant="h6"
-              color="primary"
+              
               gutterBottom
               sx={{
                 fontFamily: "PK Krung Thep Medium",
-                fontSize: "30px"
+                fontSize: "40px",
+                color: '#8b1fb2'
               }}
             >
               <b>แบบคำขอออก</b>
@@ -218,7 +246,7 @@ function RequestoutCreate() {
         </Box>
         <Divider />
         <Grid container spacing={3} sx={{ padding: 2 }}>
-        <Grid item xs={6} sx={{fontFamily: "PK Krung Thep Medium", fontSize: "18px"}}>
+        <Grid item xs={6} sx={{fontFamily: "PK Krung Thep Medium", fontSize: "20px"}}>
           <FormControl fullWidth variant="outlined">
             <p>ชื่อ - สกุล</p>
             <Select
@@ -242,7 +270,7 @@ function RequestoutCreate() {
           </FormControl>
         </Grid>
 
-          <Grid item xs={6} sx={{fontFamily: "PK Krung Thep Medium", fontSize: "18px"}}>
+          <Grid item xs={6} sx={{fontFamily: "PK Krung Thep Medium", fontSize: "20px"}}>
             <FormControl fullWidth variant="outlined">
               <p>ห้องพัก</p>
               <Select sx={{
@@ -270,7 +298,7 @@ function RequestoutCreate() {
             </FormControl>
           </Grid>
 
-          <Grid item xs={6} sx={{fontFamily: "PK Krung Thep Medium", fontSize: "18px"}}>
+          <Grid item xs={6} sx={{fontFamily: "PK Krung Thep Medium", fontSize: "20px"}}>
             <FormControl fullWidth variant="outlined">
               <p>เหตุผล</p>
               <Select sx={{
@@ -298,7 +326,7 @@ function RequestoutCreate() {
             </FormControl>
           </Grid>
 
-          <Grid item xs={6} sx={{fontFamily: "PK Krung Thep Medium", fontSize: "18px"}}>
+          <Grid item xs={6} sx={{fontFamily: "PK Krung Thep Medium", fontSize: "20px"}}>
             <FormControl fullWidth variant="outlined" >
             <p>วัน เดือน  ปี ที่ต้องการ</p>
             
@@ -321,8 +349,8 @@ function RequestoutCreate() {
             </FormControl>
           </Grid>
 
-          <Grid item xs={6} sx={{color: "red", fontFamily: "PK Krung Thep Medium", fontSize: "18px"}}>
-            <p>เหตุผลเพิ่มเติม (*ไม่จำเป็น)</p>
+          <Grid item xs={6} sx={{color: "red", fontFamily: "PK Krung Thep Medium", fontSize: "20px"}}>
+            <p>เหตุผลเพิ่มเติม (*ไม่ต้องการกรุณาใส่ -)</p>
             <FormControl fullWidth variant="outlined">
               <TextField  
                 id="detail"
@@ -393,6 +421,8 @@ function RequestoutCreate() {
       
    
   </Box>
+   </Box>
+   </div>
   );
 }
 

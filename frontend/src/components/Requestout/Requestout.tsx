@@ -8,6 +8,7 @@ import Container from "@mui/material/Container";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Snackbar from "@mui/material/Snackbar";
+import { Grid } from "@mui/material";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -106,8 +107,33 @@ function Requestout() {
   }, []);
 
   return (
+    <div style={{
+      backgroundImage: "url(https://images.hdqwalls.com/download/color-pages-abstract-8k-ye-1920x1080.jpg)",
+      backgroundRepeat: "no-repeat",
+      backgroundSize: "cover",
+      width: '100%',
+      fontFamily: "PK Krung Thep Medium",
+      fontSize: 20,
+      display: 'grid',
+   }}>
     
-    <Box sx={{ width: "100%" }}>
+ 
+
+    <Box sx={{
+      
+      mt: '100px',
+      mb: '100px',
+      minHeight: '50%',
+      width: '100%',
+      background: 'rgba(76, 122, 201, 0.3)',
+      
+      display: 'flex',
+      justifyContent: 'center',
+      borderRadius: 10,
+
+   }}>
+    
+    <Box sx={{ width: "50%", marginTop: 1 }}>
     {/* <Container sx={{ marginTop: 2 }} > */}
     <Box display="flex" sx={{
       mt: "30px",
@@ -215,13 +241,14 @@ function Requestout() {
                 <TableCell align="center">
                 <IconButton aria-label="แก้ไข" size="large" 
                 sx={{ 
+                  color: '#8b1fb2',
                            '&:hover': {
-                              background: "#00aaff",
+                              background: "#8b1fb2",
                               color: "white",
                               
                            },
                
-                }} onClick={() => navigate(`${item.ID}`)} color="info">
+                }} onClick={() => navigate(`${item.ID}`)} >
                 <EditIcon fontSize="inherit" />
                 </IconButton>
                 </TableCell>
@@ -246,8 +273,10 @@ function Requestout() {
         </Table>
         
       
-      
+      </Box>
     </Box>
+      </div>
+      
     
   );
 }
