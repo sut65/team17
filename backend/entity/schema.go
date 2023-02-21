@@ -1,12 +1,13 @@
 package entity
 
 import (
-
 	"time"
+
 	"gorm.io/gorm"
-	
+
 	"github.com/asaskevich/govalidator"
 )
+
 type Admin struct {
 	gorm.Model
 	Name     string
@@ -19,11 +20,10 @@ type Admin struct {
 	Bills  []Bill  `gorm:"foreignKey:AdminID"`
 }
 
-
 type Bill struct {
 	gorm.Model
-	Cost     int `valid:"required~cost cannot be zero, Cost~cost cannot be negative"`
-	BillTime time.Time    `valid:"timenotpast~Date is invalid"`
+	Cost     int       `valid:"required~cost cannot be zero, Cost~cost cannot be negative"`
+	BillTime time.Time `valid:"timenotpast~Date is invalid"`
 
 	MeterID *uint
 	Meter   Meter `gorm:"referenes:id" valid:"-"`
@@ -65,267 +65,223 @@ type Meter struct {
 
 type Room struct {
 	gorm.Model
-	
-	Number			string
-	Manages			[]Manage			`gorm:"foreignKey:RoomID"`
-	Furnitures		[]Furniture			`gorm:"foreignKey:RoomID"`
-	Requestouts		[]Requestout		`gorm:"foreignKey:RoomID"`
-	Requestchanges	[]Requestchange		`gorm:"foreignKey:RoomID"`
+
+	Number         string
+	Manages        []Manage        `gorm:"foreignKey:RoomID"`
+	Furnitures     []Furniture     `gorm:"foreignKey:RoomID"`
+	Requestouts    []Requestout    `gorm:"foreignKey:RoomID"`
+	Requestchanges []Requestchange `gorm:"foreignKey:RoomID"`
 }
 
 type Lease struct {
 	gorm.Model
-	
-	Lease			string
-	Residents			[]Resident		`gorm:"foreignKey:LeaseID"`
 
+	Lease     string
+	Residents []Resident `gorm:"foreignKey:LeaseID"`
 }
 
 type Size struct {
 	gorm.Model
-	
-	Size				string
-	Manages			[]Manage			`gorm:"foreignKey:SizeID"`
 
+	Size    string
+	Manages []Manage `gorm:"foreignKey:SizeID"`
 }
 
 type Manage struct {
 	gorm.Model
-	Status 			string 			`valid:"required~Status cannot be blank"`
-	Price  			string 			`valid:"required~Price cannot be blank"`
-	Detail 			string 			`valid:"required~Detail cannot be blank"`
+	Status string `valid:"required~Status cannot be blank"`
+	Price  string `valid:"required~Price cannot be blank"`
+	Detail string `valid:"required~Detail cannot be blank"`
 
 	//Entity Room
-	RoomID 			*uint
-	Room   			Room
+	RoomID *uint
+	Room   Room
 
-	CategoryID 		*uint
-	Category   		Category		`gorm:"referenes:id" valid:"-"`
+	CategoryID *uint
+	Category   Category `gorm:"referenes:id" valid:"-"`
 
-	SizeID 			*uint
-	Size   			Size			`gorm:"referenes:id" valid:"-"`
+	SizeID *uint
+	Size   Size `gorm:"referenes:id" valid:"-"`
 
-	Residents 		[]Resident 		`gorm:"foreignKey:ManageID"`
-	Meters    		[]Meter    		`gorm:"foreignKey:ManageID"`
+	Residents []Resident `gorm:"foreignKey:ManageID"`
+	Meters    []Meter    `gorm:"foreignKey:ManageID"`
 }
 
 type Resident struct {
 	gorm.Model
-	
-	LeaseTime 		time.Time		`valid:"timenotpast~Date is invalid"`
-	Bail				string 		`valid:"required~Bail cannot be blank"`
 
-	UserID			*uint
-	User				User			`gorm:"referenes:id" valid:"-"`
+	LeaseTime time.Time `valid:"timenotpast~Date is invalid"`
+	Bail      string    `valid:"required~Bail cannot be blank"`
 
-	LeaseID			*uint
-	Lease			Lease			`gorm:"referenes:id" valid:"-"`
+	UserID *uint
+	User   User `gorm:"referenes:id" valid:"-"`
 
-	ManageID			*uint
-	Manage			Manage			`gorm:"referenes:id" valid:"-"`
+	LeaseID *uint
+	Lease   Lease `gorm:"referenes:id" valid:"-"`
 
+	ManageID *uint
+	Manage   Manage `gorm:"referenes:id" valid:"-"`
 }
-
 
 type Requestout struct {
 	gorm.Model
-	
-	Detail		string		`valid:"required~Detail cannot be blank"`
-	
-	ReasonID 	*uint
-	Reason   	Reason		`gorm:"referenes:id" valid:"-"`
 
-	RoomID 		*uint
-	Room   		Room		`gorm:"referenes:id" valid:"-"`
+	Detail string `valid:"required~Detail cannot be blank"`
 
-	UserID		*uint
-	User		User		`gorm:"referenes:id" valid:"-"`
+	ReasonID *uint
+	Reason   Reason `gorm:"referenes:id" valid:"-"`
 
-	Outtime		time.Time		`valid:"timenotpast~Date not past"`
+	RoomID *uint
+	Room   Room `gorm:"referenes:id" valid:"-"`
+
+	UserID *uint
+	User   User `gorm:"referenes:id" valid:"-"`
+
+	Outtime time.Time `valid:"timenotpast~Date not past"`
 }
-
 
 type Requestchange struct {
 	gorm.Model
 
-	Detail		string		`valid:"required~Detail cannot be blank"`
+	Detail string `valid:"required~Detail cannot be blank"`
 
-	ReasonID	*uint
-	Reason		Reason		`gorm:"referenes:id" valid:"-"`
-	
-	RoomID		*uint
-	Room 		Room		`gorm:"referenes:id" valid:"-"`
+	ReasonID *uint
+	Reason   Reason `gorm:"referenes:id" valid:"-"`
 
-	UserID		*uint
-	User		User		`gorm:"referenes:id" valid:"-"`
+	RoomID *uint
+	Room   Room `gorm:"referenes:id" valid:"-"`
 
-	
+	UserID *uint
+	User   User `gorm:"referenes:id" valid:"-"`
 }
-
 
 type Reason struct {
 	gorm.Model
 
 	Reason string
-	
 
-	Requestouts 	[]Requestout 		`gorm:"foreignKey:ReasonID"`
-	Requestchange 	[]Requestchange 	`gorm:"foreignKey:ReasonID"`
+	Requestouts   []Requestout    `gorm:"foreignKey:ReasonID"`
+	Requestchange []Requestchange `gorm:"foreignKey:ReasonID"`
 }
-
 
 type Area struct {
 	gorm.Model
-	
-	Area				string
-	Cleanings			[]Cleaning 			`gorm:"foreignKey:AreaID"`
-	
+
+	Area      string
+	Cleanings []Cleaning `gorm:"foreignKey:AreaID"`
 }
 
 type Kind struct {
 	gorm.Model
-		
-	Kind				string
-	Cleanings			[]Cleaning 			`gorm:"foreignKey:KindID"`
-	
+
+	Kind      string
+	Cleanings []Cleaning `gorm:"foreignKey:KindID"`
 }
 
 type Cleaning struct {
 	gorm.Model
 
-	CleaningTime 		time.Time	`valid:"Vatime~DateTime is valid,timenotpast~DateTime cannot be past"`
-	
-	Detail				string		`valid:"required~Detail cannot be blank"`	
+	CleaningTime time.Time `valid:"Vatime~DateTime is valid,timenotpast~DateTime cannot be past"`
 
-	UserID				*uint
-	User				User		`gorm:"referenes:id" valid:"-"`	
+	Detail string `valid:"required~Detail cannot be blank"`
 
-	RoomID				*uint
-	Room				Room		`gorm:"referenes:id" valid:"-"`
+	UserID *uint
+	User   User `gorm:"referenes:id" valid:"-"`
 
-	KindID				*uint	
-	Kind				Kind		`gorm:"referenes:id" valid:"-"`	
+	RoomID *uint
+	Room   Room `gorm:"referenes:id" valid:"-"`
 
-	AreaID				*uint
-	Area				Area		`gorm:"referenes:id" valid:"-"`
+	KindID *uint
+	Kind   Kind `gorm:"referenes:id" valid:"-"`
+
+	AreaID *uint
+	Area   Area `gorm:"referenes:id" valid:"-"`
 }
-
-
 
 type Amount struct {
 	gorm.Model
 
-	Amount     		string
-	Furnitures 		[]Furniture `gorm:"foreignKey:AmountID"`
+	Amount     string
+	Furnitures []Furniture `gorm:"foreignKey:AmountID"`
 }
 
 type Equipment struct {
 	gorm.Model
 
-	Equipment  		string
-	Price        	int
-	Furnitures 		[]Furniture `gorm:"foreignKey:EquipmentID"`
+	Equipment  string
+	Price      int
+	Furnitures []Furniture `gorm:"foreignKey:EquipmentID"`
 }
-
 
 type Furniture struct {
 	gorm.Model
 
-	FurnitureTime time.Time		`valid:"timeNow~DateTime is valid"`
-	Total         *uint			
+	FurnitureTime time.Time `valid:"Vatime~DateTime is valid,timenotpast~DateTime cannot be past"`
+	Total         *uint
 
 	AdminID *uint
-	Admin   Admin				`gorm:"referenes:id" valid:"-"`
+	Admin   Admin `gorm:"referenes:id" valid:"-"`
 
 	UserID *uint
-	User   User					`gorm:"referenes:id" valid:"-"`
+	User   User `gorm:"referenes:id" valid:"-"`
 
 	RoomID *uint
-	Room   Room					`gorm:"referenes:id" valid:"-"`
+	Room   Room `gorm:"referenes:id" valid:"-"`
 
 	AmountID *uint
-	Amount   Amount				`gorm:"referenes:id" valid:"-"`
+	Amount   Amount `gorm:"referenes:id" valid:"-"`
 
 	EquipmentID *uint
-	Equipment   Equipment		`gorm:"referenes:id" valid:"-"`
+	Equipment   Equipment `gorm:"referenes:id" valid:"-"`
 
-	Bills	[]Bill				`gorm:"foreignKey:FurnitureID"`
+	Bills []Bill `gorm:"foreignKey:FurnitureID"`
 }
 
-type Repair struct{
+type Repair struct {
 	gorm.Model
-	Repairtime			time.Time          `valid:"timenotpast~Date is invalid"`
-	Detail				string             `valid:"required~โปรดระบุรายละเอียดเพิ่มเติม"`
+	Repairtime time.Time `valid:"timenotpast~Date is invalid"`
+	Detail     string    `valid:"required~โปรดระบุรายละเอียดเพิ่มเติม"`
 
 	// PatientID เป็น FK
-	UserID			*uint
-	User				User               `gorm:"referenes:id" valid:"-"`
+	UserID *uint
+	User   User `gorm:"referenes:id" valid:"-"`
 	// DepartmentID เป็น FK
-	ResidentID		*uint
-	Resident			Resident            `gorm:"referenes:id" valid:"-"`
+	ResidentID *uint
+	Resident   Resident `gorm:"referenes:id" valid:"-"`
 	// SymptomID เป็น FK
-	ObjectID		*uint
-	Object			  Object               `gorm:"referenes:id" valid:"-"`
-
+	ObjectID *uint
+	Object   Object `gorm:"referenes:id" valid:"-"`
 }
 
-type Object struct{
+type Object struct {
 	gorm.Model
-	Name				string
-	      		 
+	Name string
 
-	
-	
-	Repairs         	[]Repair		    `gorm:"foreignKey:ObjectID"`
-
-
+	Repairs []Repair `gorm:"foreignKey:ObjectID"`
 }
 
-type  Emergencytype struct{
+type Emergencytype struct {
 	gorm.Model
-	Name				string
-	      		 
+	Name string
 
-	
-	
-	Emergencys         	[]Emergency		    `gorm:"foreignKey:EmergencytypeID"`
-
-
+	Emergencys []Emergency `gorm:"foreignKey:EmergencytypeID"`
 }
 
-type Emergency struct{
+type Emergency struct {
 	gorm.Model
-	Emergencytime			time.Time              `valid:"timenotpast~Date is invalid"`
-	Detail				string                     `valid:"required~โปรดระบุรายละเอียดเพิ่มเติม"`            
+	Emergencytime time.Time `valid:"timenotpast~Date is invalid"`
+	Detail        string    `valid:"required~โปรดระบุรายละเอียดเพิ่มเติม"`
 
 	// PatientID เป็น FK
-	UserID			*uint
-	User				User                       `gorm:"referenes:id" valid:"-"`
+	UserID *uint
+	User   User `gorm:"referenes:id" valid:"-"`
 	// DepartmentID เป็น FK
-	ResidentID		*uint
-	Resident			Resident                   `gorm:"referenes:id" valid:"-"`
+	ResidentID *uint
+	Resident   Resident `gorm:"referenes:id" valid:"-"`
 	// SymptomID เป็น FK
-	EmergencytypeID		*uint
-	Emergencytype			  Emergencytype          `gorm:"referenes:id" valid:"-"`
-
+	EmergencytypeID *uint
+	Emergencytype   Emergencytype `gorm:"referenes:id" valid:"-"`
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 func init() {
 
@@ -360,28 +316,26 @@ func init() {
 	})
 
 	govalidator.CustomTypeTagMap.Set("Vatime", func(i interface{}, o interface{}) bool {
-        t := i.(time.Time)
-        // ล่วงหน้าไม่เกิน 7 วัน
-        return t.Before(time.Now().AddDate(0, 0, +7))
-    })
+		t := i.(time.Time)
+		// ล่วงหน้าไม่เกิน 7 วัน
+		return t.Before(time.Now().AddDate(0, 0, +7))
+	})
 
 	govalidator.CustomTypeTagMap.Set("timeNow", func(i interface{}, o interface{}) bool {
-        t := i.(time.Time)
-        // วันเวลาปัจจุบัน
-        return t.Equal(time.Now())
-    })
+		t := i.(time.Time)
+		// วันเวลาปัจจุบัน
+		return t.Equal(time.Now())
+	})
 
-    govalidator.CustomTypeTagMap.Set("timenotpast", func(i interface{}, o interface{}) bool {
-	t := i.(time.Time)
-	// วันเวลาปัจจุบัน ห้ามเป็นอดีต
-	return t.After(time.Now().AddDate(0, 0, -1))
- })
+	govalidator.CustomTypeTagMap.Set("timenotpast", func(i interface{}, o interface{}) bool {
+		t := i.(time.Time)
+		// วันเวลาปัจจุบัน ห้ามเป็นอดีต
+		return t.After(time.Now().AddDate(0, 0, -1))
+	})
 
- 	govalidator.CustomTypeTagMap.Set("Cost", func(i interface{}, o interface{}) bool {
-	a := i.(int)
-	return a >= 1
-})
+	govalidator.CustomTypeTagMap.Set("Cost", func(i interface{}, o interface{}) bool {
+		a := i.(int)
+		return a >= 1
+	})
 
-	
-	
 }
