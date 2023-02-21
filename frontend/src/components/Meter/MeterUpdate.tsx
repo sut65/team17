@@ -96,7 +96,8 @@ function MeterUpdate() {
       .then((res) => {
         meters.AdminID = res.data.ID
         if (res.data) {
-            setUsers(res.data);
+            // setUsers(res.data);
+            setAdmins(res.data)
         } else {
           console.log("else");
         }
@@ -282,7 +283,7 @@ function MeterUpdate() {
 
             <Grid item xs={6}>
                 <FormControl fullWidth variant="outlined">
-                <InputLabel id="ManageID">ค่าเช่าห้อง</InputLabel>
+                <p>ค่าเช่าห้อง</p>
                 <Select
                     native
                     value={meters.ManageID}
