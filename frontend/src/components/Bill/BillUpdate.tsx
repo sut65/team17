@@ -74,6 +74,20 @@ function BillUpdate() {
     console.log(event.target.value);
   };
 
+  const getAdmins = async () => {
+    const uid = localStorage.getItem("uid")
+    fetch(`${apiUrl}/admin/${uid}`, requestOptions)
+      .then((response) => response.json())
+      .then((res) => {
+        bills.AdminID = res.data.ID
+        if (res.data) {
+          setAdmins(res.data);
+        } else {
+          console.log("else");
+        }
+      });
+  };
+
   const getMeters = async () => {
     fetch(`${apiUrl}/meters`, requestOptions)
       .then((response) => response.json())
@@ -119,6 +133,7 @@ function BillUpdate() {
   };
 
   useEffect(() => {
+    getAdmins();
     getMeters();
     setSelectedDate(new Date());
   }, []);
@@ -185,351 +200,379 @@ function BillUpdate() {
   }
 
   return (
-    <Container sx={{ marginTop: 2 }} maxWidth="md">
-      <Snackbar open={success} autoHideDuration={6000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="success">
-          บันทึกข้อมูลสำเร็จ
-        </Alert>
-      </Snackbar>
-      <Snackbar open={error} autoHideDuration={6000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="error">
-          บันทึกข้อมูลไม่สำเร็จ: {errorMessage}
-        </Alert>
-      </Snackbar>
-      <Paper sx={{ padding: 2, color: "text.secondary" }}>
-        <Box display="flex">
-          <Box flexGrow={1}>
-            <Typography
-              component="h6"
-              variant="h5"
-              color="primary"
-              gutterBottom
-            >
-              บันทึกบิลชำระค่าเช่า
-            </Typography>
+    <Box sx={{
+      backgroundImage: "url(https://images.hdqwalls.com/download/simple-drop-white-10k-n8-1280x720.jpg)",
+         backgroundRepeat: "no-repeat",
+         backgroundSize: "cover",
+         backgroundPosition: "center",
+         // background: '#e0e0e0',
+         width: '100%',
+         fontFamily: "PK Krung Thep Medium",
+         fontSize: 20,
+         display: 'flex',
+         justifyContent: 'center',
+         alignItems: 'center',
+    }}>
+
+          <Snackbar open={success} autoHideDuration={6000} onClose={handleClose}>
+            <Alert onClose={handleClose} severity="success">
+              บันทึกข้อมูลสำเร็จ
+            </Alert>
+          </Snackbar>
+          <Snackbar open={error} autoHideDuration={6000} onClose={handleClose}>
+            <Alert onClose={handleClose} severity="error">
+              บันทึกข้อมูลไม่สำเร็จ: {errorMessage}
+            </Alert>
+          </Snackbar>
+
+        <Box sx={{
+          width: '90%',
+          mt: '70px',
+          mb: '20px',
+
+          background: 'rgba(255, 255, 255, 0.8)',
+        }}>
+          <Box display="flex">
+            <Box flexGrow={1}>
+              <Typography
+                component="h6"
+                variant="h5"
+                color="primary"
+                gutterBottom
+              sx={{
+                display: 'flex',
+                justifyContent: 'center',
+              }}
+              >
+                <h1>บันทึกบิลชำระค่าเช่า</h1>
+              </Typography>
+            </Box>
           </Box>
-        </Box>
-        <Divider />
-      </Paper>
-      <Grid container spacing={3} sx={{ flexGrow: 1 }}>
-        <Grid item xs={6}>
-          <FormControl fullWidth variant="outlined">
-            <Select
-              native
-              disabled
-              variant="outlined"
-              value={bills.AdminID + ""}
-              // label="ชื่อ - นามสกุล"
-              onChange={handleChange}
-              inputProps={{
-                name: "AdminID",
-              }}
-            >
-              <option value={admins?.ID} key={admins?.ID}>
-                {admins?.Name}
-              </option>
-            </Select>
-          </FormControl>
-        </Grid>
+          <Divider />
+        <Grid container spacing={3} sx={{ flexGrow: 1, padding: 2 }}>
 
         <Grid item xs={6}>
-          <FormControl fullWidth variant="outlined">
-            <p>เลขห้อง</p>
-            {/* <InputLabel id="MeterID">ห้อง</InputLabel> */}
-            <Select
-              native
-              variant="outlined"
-              value={bills.MeterID + ""}
-              // label="ห้อง"
-              onChange={handleChange}
-              inputProps={{
-                name: "MeterID",
-              }}
-            >
-              <option aria-label="None" value=""></option>
-              {meters.map((item: MeterInterface) => (
-                <option value={item.ID} key={item.ID}>
-                  {item.Manage.Room.Number}
+            <FormControl fullWidth variant="outlined">
+              <p>ผู้บันทึกข้อมูล</p>
+              {/* <InputLabel id="MeterID">ห้อง</InputLabel> */}
+              <Select
+                native
+                disabled
+                variant="outlined"
+                value={bills.AdminID + ""}
+                // label="ห้อง"
+                onChange={handleChange}
+                inputProps={{
+                  name: "AdminID",
+                }}
+              >
+                <option value={admins?.ID} key={admins?.ID}>
+                  {admins?.Name}
                 </option>
-              ))}
-            </Select>
-          </FormControl>
-        </Grid>
+              
+              </Select>
+            </FormControl>
+          </Grid>
+          
+          <Grid item xs={6}>
+            <FormControl fullWidth variant="outlined">
+              <p>เลขห้อง</p>
+              {/* <InputLabel id="MeterID">ห้อง</InputLabel> */}
+              <Select
+                native
+                variant="outlined"
+                value={bills.MeterID + ""}
+                // label="ห้อง"
+                onChange={handleChange}
+                inputProps={{
+                  name: "MeterID",
+                }}
+              >
+                <option aria-label="None" value=""></option>
+                {meters.map((item: MeterInterface) => (
+                  <option value={item.ID} key={item.ID}>
+                    {item.Manage.Room.Number}
+                  </option>
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
 
-        <Grid item xs={6}>
-          <FormControl fullWidth variant="outlined">
-            <p>ผู้เช่า</p>
-            {/* <InputLabel id="MeterID">ผู้เช่า</InputLabel> */}
-            <Select
-              native
-              variant="outlined"
-              value={bills.MeterID + ""}
-              // label="ระบุผู้เช่า"
-            //   onChange={handleChange}
-              inputProps={{
-                name: "MeterID",
-              }}
-            >
-              <option aria-label="None" value=""></option>
-              {meters.map((item: MeterInterface) => (
-                <option value={item.ID} key={item.ID}>
-                  {item.User.Name}
-                </option>
-              ))}
-            </Select>
-          </FormControl>
-        </Grid>
+          <Grid item xs={6}>
+            <FormControl fullWidth variant="outlined">
+              <p>ผู้เช่า</p>
+              {/* <InputLabel id="MeterID">ผู้เช่า</InputLabel> */}
+              <Select
+                native
+                variant="outlined"
+                value={bills.MeterID + ""}
+                // label="ระบุผู้เช่า"
+              //   onChange={handleChange}
+                inputProps={{
+                  name: "MeterID",
+                }}
+              >
+                <option aria-label="None" value=""></option>
+                {meters.map((item: MeterInterface) => (
+                  <option value={item.ID} key={item.ID}>
+                    {item.User.Name}
+                  </option>
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
 
-        <Grid item xs={6}>
-          <FormControl fullWidth variant="outlined">
-            <p>เบอร์โทรศัพท์</p>
-            {/* <InputLabel id="MeterID">เบอร์โทรศัพท์</InputLabel> */}
-            <Select
-              native
-              variant="outlined"
-              value={bills.MeterID + ""}
-              // label="ระบุเบอร์โทรศัพท์"
-            //   onChange={handleChange}
-              inputProps={{
-                name: "MeterID",
-              }}
-            >
-              <option aria-label="None" value=""></option>
-              {meters.map((item: MeterInterface) => (
-                <option value={item.ID} key={item.ID}>
-                  {item.User.Tel}
-                </option>
-              ))}
-            </Select>
-          </FormControl>
-        </Grid>
+          <Grid item xs={6}>
+            <FormControl fullWidth variant="outlined">
+              <p>เบอร์โทรศัพท์</p>
+              {/* <InputLabel id="MeterID">เบอร์โทรศัพท์</InputLabel> */}
+              <Select
+                native
+                variant="outlined"
+                value={bills.MeterID + ""}
+                // label="ระบุเบอร์โทรศัพท์"
+              //   onChange={handleChange}
+                inputProps={{
+                  name: "MeterID",
+                }}
+              >
+                <option aria-label="None" value=""></option>
+                {meters.map((item: MeterInterface) => (
+                  <option value={item.ID} key={item.ID}>
+                    {item.User.Tel}
+                  </option>
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
 
-        <Grid item xs={6}>
-          <FormControl fullWidth variant="outlined">
-            <p>ค่าเช่าห้อง</p>
-            {/* <InputLabel id="MeterID">ค่าเช่าห้อง</InputLabel> */}
-            <Select
-              native
-              variant="outlined"
-              value={bills.MeterID + ""}
-              // label="ระบุค่าเช่าห้อง"
-            //   onChange={handleChange}
-              inputProps={{
-                name: "MeterID",
-              }}
-            >
-              <option aria-label="None" value=""></option>
-              {meters.map((item: MeterInterface) => (
-                <option value={item.ID} key={item.ID}>
-                  {item.Manage.Price}
-                </option>
-              ))}
-            </Select>
-          </FormControl>
-        </Grid>
+          <Grid item xs={6}>
+            <FormControl fullWidth variant="outlined">
+              <p>ค่าเช่าห้อง</p>
+              {/* <InputLabel id="MeterID">ค่าเช่าห้อง</InputLabel> */}
+              <Select
+                native
+                variant="outlined"
+                value={bills.MeterID + ""}
+                // label="ระบุค่าเช่าห้อง"
+              //   onChange={handleChange}
+                inputProps={{
+                  name: "MeterID",
+                }}
+              >
+                <option aria-label="None" value=""></option>
+                {meters.map((item: MeterInterface) => (
+                  <option value={item.ID} key={item.ID}>
+                    {item.Manage.Price}
+                  </option>
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
 
-        <Grid item xs={6}>
-          <FormControl fullWidth variant="outlined">
-            <p>ค่าเช่าเฟอร์นิเจอร์</p>
-            {/* <InputLabel id="FurnitureID">ค่าเช่าเฟอร์นิเจอร์</InputLabel> */}
-             <TextField
-              variant="outlined"
-              id="FurnitureID"
-              inputProps={{
-                name: "FurnitureID",
-              }}
-              value = {totalFurnitures}
-              onChange={(event) => setCosts(event.target.value)}
-            />
-          </FormControl>
-        </Grid>
-
-        <Grid item xs={6}>
-          <FormControl fullWidth variant="outlined">
-            <p>มิเตอร์ครั้งก่อน</p>
-            {/* <InputLabel id="MeterID">บิลครั้งก่อน</InputLabel> */}
-            <Select
-              variant="outlined"
-              native
-              value={bills.MeterID + ""}
-              // label="ระบุบิลครั้งก่อน"
-            //   onChange={handleChange}
-              inputProps={{
-                name: "MeterID",
-              }}
-            >
-              <option aria-label="None" value=""></option>
-              {meters.map((item: MeterInterface) => (
-                <option value={item.ID} key={item.ID}>
-                  {item.Before}
-                </option>
-              ))}
-            </Select>
-          </FormControl>
-        </Grid>
-
-        <Grid item xs={6}>
-          <FormControl fullWidth variant="outlined">
-            <p>มิเตอร์ที่จดได้</p>
-            {/* <InputLabel id="MeterID">บิลที่จดได้</InputLabel> */}
-            <Select
-              variant="outlined"
-              native
-              value={bills.MeterID + ""}
-              // label="ระบุบิลที่จดได้"
-            //   onChange={handleChange}
-              inputProps={{
-                name: "MeterID",
-              }}
-            >
-              <option aria-label="None" value=""></option>
-              {meters.map((item: MeterInterface) => (
-                <option value={item.ID} key={item.ID}>
-                  {item.After}
-                </option>
-              ))}
-            </Select>
-          </FormControl>
-        </Grid>
-
-        <Grid item xs={6}>
-          <FormControl fullWidth variant="outlined">
-            <p>มิเตอร์ที่ใช้ไป</p>
-            {/* <InputLabel id="MeterID">หน่วยที่ใช้</InputLabel> */}
-            <Select
-              native
-              variant="outlined"
-              value={bills.MeterID + ""}
-              // label="ระบุหน่วยที่ใช้ไป"
-            //   onChange={handleChange}
-              inputProps={{
-                name: "MeterID",
-              }}
-            >
-              <option aria-label="None" value=""></option>
-              {meters.map((item: MeterInterface) => (
-                <option value={item.ID} key={item.ID}>
-                  {item.Total}
-                </option>
-              ))}
-            </Select>
-          </FormControl>
-        </Grid>
-
-        <Grid item xs={6}>
-          <FormControl fullWidth variant="outlined">
-            <p>หน่วยละ</p>
-            {/* <InputLabel id="MeterID">หน่วยละ</InputLabel> */}
-            <Select
-              native
-              value={bills.MeterID + ""}
-              // label="ระบุหน่วยละ"
-            //   onChange={handleChange}
-              inputProps={{
-                name: "MeterID",
-              }}
-            >
-              <option aria-label="None" value=""></option>
-              {meters.map((item: MeterInterface) => (
-                <option value={item.ID} key={item.ID}>
-                  {item.Unit}
-                </option>
-              ))}
-            </Select>
-          </FormControl>
-        </Grid>
-
-        <Grid item xs={6}>
-          <FormControl fullWidth variant="outlined">
-            <p>ค่าไฟ</p>
-            {/* <InputLabel id="MeterID">รวมค่าไฟ</InputLabel> */}
-            <Select
-              native
-              variant="outlined"
-              value={bills.MeterID + ""}
-              // label="ระบุรวมค่าไฟ"
-            //   onChange={handleChange}
-              inputProps={{
-                name: "MeterID",
-              }}
-            >
-              <option aria-label="None" value=""></option>
-              {meters.map((item: MeterInterface) => (
-                <option value={item.ID} key={item.ID}>
-                  {item.Electric}
-                </option>
-              ))}
-            </Select>
-          </FormControl>
-        </Grid>
-
-        <Grid item xs={6}>
-          <FormControl fullWidth variant="outlined">
-            <p>ค่านํ้าเหมา</p>
-            {/* <InputLabel id="MeterID">ค่าน้ำ(เหมา)</InputLabel> */}
-            <Select
-              native
-              disabled
-              value={bills.MeterID + ""}
-              // label="ค่าน้ำ(เหมา)"
-            //   onChange={handleChange}
-              inputProps={{
-                name: "MeterID",
-              }}
-            >
-              <option aria-label="None" value=""></option>
-              {meters.map((item: MeterInterface) => (
-                <option value={item.ID} key={item.ID}>
-                  {item.Water}
-                </option>
-              ))}
-            </Select>
-          </FormControl>
-        </Grid>
-
-        <Grid item xs={5}>
-          <FormControl fullWidth variant="outlined">
-            <p>รวม</p>
-            <TextField
-              variant="outlined"
-              id="BillID"
-              onChange={(event) => setCosts(event.target.value)}
-              value = {bills.Cost}
-            />
-          </FormControl>
-        </Grid>
-
-        <Grid item xs={6}>
-          <FormControl fullWidth variant="outlined">
-            <p>วันที่</p>
-            <LocalizationProvider dateAdapter={AdapterDateFns}>
-              <DesktopDatePicker
-                // disabled
-                label="เดือน/วัน/ปี"
-                value={selectedDate}
-                onChange={(newValue) => setSelectedDate(newValue)}
-                minDate={new Date()}
-                renderInput={(params) => <TextField {...params} />}
+          <Grid item xs={6}>
+            <FormControl fullWidth variant="outlined">
+              <p>ค่าเช่าเฟอร์นิเจอร์</p>
+              {/* <InputLabel id="FurnitureID">ค่าเช่าเฟอร์นิเจอร์</InputLabel> */}
+              <TextField
+                variant="outlined"
+                id="FurnitureID"
+                inputProps={{
+                  name: "FurnitureID",
+                }}
+                value = {totalFurnitures}
+                onChange={(event) => setCosts(event.target.value)}
               />
-            </LocalizationProvider>
-          </FormControl>
-        </Grid>
+            </FormControl>
+          </Grid>
 
-        <Grid item xs={12}>
-          <Button component={RouterLink} to="/bills" variant="contained">
-            กลับ
-          </Button>
-          <Button
-            style={{ float: "right" }}
-            variant="contained"
-            onClick={update}
-            color="primary"
-          >
-            บันทึก
-          </Button>
+          <Grid item xs={6}>
+            <FormControl fullWidth variant="outlined">
+              <p>มิเตอร์ครั้งก่อน</p>
+              {/* <InputLabel id="MeterID">บิลครั้งก่อน</InputLabel> */}
+              <Select
+                variant="outlined"
+                native
+                value={bills.MeterID + ""}
+                // label="ระบุบิลครั้งก่อน"
+              //   onChange={handleChange}
+                inputProps={{
+                  name: "MeterID",
+                }}
+              >
+                <option aria-label="None" value=""></option>
+                {meters.map((item: MeterInterface) => (
+                  <option value={item.ID} key={item.ID}>
+                    {item.Before}
+                  </option>
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
+
+          <Grid item xs={6}>
+            <FormControl fullWidth variant="outlined">
+              <p>มิเตอร์ที่จดได้</p>
+              {/* <InputLabel id="MeterID">บิลที่จดได้</InputLabel> */}
+              <Select
+                variant="outlined"
+                native
+                value={bills.MeterID + ""}
+                // label="ระบุบิลที่จดได้"
+              //   onChange={handleChange}
+                inputProps={{
+                  name: "MeterID",
+                }}
+              >
+                <option aria-label="None" value=""></option>
+                {meters.map((item: MeterInterface) => (
+                  <option value={item.ID} key={item.ID}>
+                    {item.After}
+                  </option>
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
+
+          <Grid item xs={6}>
+            <FormControl fullWidth variant="outlined">
+              <p>มิเตอร์ที่ใช้ไป</p>
+              {/* <InputLabel id="MeterID">หน่วยที่ใช้</InputLabel> */}
+              <Select
+                native
+                variant="outlined"
+                value={bills.MeterID + ""}
+                // label="ระบุหน่วยที่ใช้ไป"
+              //   onChange={handleChange}
+                inputProps={{
+                  name: "MeterID",
+                }}
+              >
+                <option aria-label="None" value=""></option>
+                {meters.map((item: MeterInterface) => (
+                  <option value={item.ID} key={item.ID}>
+                    {item.Total}
+                  </option>
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
+
+          <Grid item xs={6}>
+            <FormControl fullWidth variant="outlined">
+              <p>หน่วยละ</p>
+              {/* <InputLabel id="MeterID">หน่วยละ</InputLabel> */}
+              <Select
+                native
+                value={bills.MeterID + ""}
+                // label="ระบุหน่วยละ"
+              //   onChange={handleChange}
+                inputProps={{
+                  name: "MeterID",
+                }}
+              >
+                <option aria-label="None" value=""></option>
+                {meters.map((item: MeterInterface) => (
+                  <option value={item.ID} key={item.ID}>
+                    {item.Unit}
+                  </option>
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
+
+          <Grid item xs={6}>
+            <FormControl fullWidth variant="outlined">
+              <p>ค่าไฟ</p>
+              {/* <InputLabel id="MeterID">รวมค่าไฟ</InputLabel> */}
+              <Select
+                native
+                variant="outlined"
+                value={bills.MeterID + ""}
+                // label="ระบุรวมค่าไฟ"
+              //   onChange={handleChange}
+                inputProps={{
+                  name: "MeterID",
+                }}
+              >
+                <option aria-label="None" value=""></option>
+                {meters.map((item: MeterInterface) => (
+                  <option value={item.ID} key={item.ID}>
+                    {item.Electric}
+                  </option>
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
+
+          <Grid item xs={6}>
+            <FormControl fullWidth variant="outlined">
+              <p>ค่านํ้าเหมา</p>
+              {/* <InputLabel id="MeterID">ค่าน้ำ(เหมา)</InputLabel> */}
+              <Select
+                native
+                disabled
+                value={bills.MeterID + ""}
+                // label="ค่าน้ำ(เหมา)"
+              //   onChange={handleChange}
+                inputProps={{
+                  name: "MeterID",
+                }}
+              >
+                <option aria-label="None" value=""></option>
+                {meters.map((item: MeterInterface) => (
+                  <option value={item.ID} key={item.ID}>
+                    {item.Water}
+                  </option>
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
+
+          <Grid item xs={5}>
+            <FormControl fullWidth variant="outlined">
+              <p>รวม</p>
+              <TextField
+                variant="outlined"
+                id="BillID"
+                onChange={(event) => setCosts(event.target.value)}
+                value = {bills.Cost}
+              />
+            </FormControl>
+          </Grid>
+
+          <Grid item xs={6}>
+            <FormControl fullWidth variant="outlined">
+              <p>วันที่</p>
+              <LocalizationProvider dateAdapter={AdapterDateFns}>
+                <DesktopDatePicker
+                  disabled
+                  label="เดือน/วัน/ปี"
+                  value={selectedDate}
+                  onChange={(newValue) => setSelectedDate(newValue)}
+                  minDate={new Date('2022-12-20')}
+                  renderInput={(params) => <TextField {...params} />}
+                />
+              </LocalizationProvider>
+            </FormControl>
+          </Grid>
+
+          <Grid item xs={12}>
+            <Button component={RouterLink} to="/bills" variant="contained">
+              กลับ
+            </Button>
+            <Button
+              style={{ float: "right" }}
+              variant="contained"
+              onClick={update}
+              color="primary"
+            >
+              บันทึก
+            </Button>
+          </Grid>
         </Grid>
-      </Grid>
-    </Container>
+        </Box>
+    </Box>
   );
 }
 export default BillUpdate;
