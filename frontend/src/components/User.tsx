@@ -138,7 +138,7 @@ function Users() {
           </Alert>
       </Snackbar>
 
-      <Container sx={{marginTop: 2}} maxWidth="md">
+      <Container sx={{marginTop: 10}} maxWidth="md">
         <Box display="flex">
           <Box flexGrow={1}>
             <Typography
