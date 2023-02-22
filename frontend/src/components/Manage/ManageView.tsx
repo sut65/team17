@@ -20,7 +20,7 @@ import { Card } from '@mui/material';
 
 
 
-function Manages() {
+function ManageViews() {
    let navigate = useNavigate();
    const { id } = useParams();
    const [manages, setManages] = useState<ManageInterface[]>([]);
@@ -104,8 +104,8 @@ function Manages() {
       }}>
          <Box sx={{
             mt: '70px',
-            height: 'auto',
             width: '1200px',
+            height: 'auto',
          }}>
             <Box sx={{
                mt: '10px',
@@ -143,37 +143,10 @@ function Manages() {
                      }}
                   >
                      <center>
-                        ระบบจัดการห้องพัก
+                        รายชื่อห้องพัก
                      </center>
                   </Typography>
                </Paper>
-
-
-
-               <Box sx={{
-                  display: 'flex',
-                  justifyContent: 'right',
-               }}>
-                  <Button
-                     component={RouterLink}
-                     to="/manage/create"
-                     variant="contained"
-                     color="primary"
-                     sx={{
-                        mr: '20px',
-                        width: 'auto',
-                        height: 'auto',
-                        fontFamily: "PK Krung Thep Medium",
-                        fontSize: 18,
-                        borderRadius: 15,
-                        bgcolor: '#0693e3',
-                        color: 'white',
-                        boxShadow: '20px 20px 35px #45504a',
-                     }}
-                  >
-                     จัดการห้องพัก
-                  </Button>
-               </Box>
             </Box>
 
             <Grid container spacing={2}>
@@ -187,7 +160,7 @@ function Manages() {
                      <Card
                         component="span"
                         sx={{
-                           height: '350px',
+                           height: '300px',
                            width: '380px',
                            fontFamily: "PK Krung Thep Medium",
                            fontSize: 30,
@@ -232,64 +205,6 @@ function Manages() {
                            {item.Detail}
 
                         </Typography>
-                        <div style={{
-                           display: 'flex',
-                           justifyContent: 'center',
-                           marginTop: 2,
-                           marginBottom: 'auto',
-                           marginLeft: 5,
-                           marginRight: 10,
-                        }}>
-                           <Button
-                              size="medium"
-                              sx={{
-                                 ml: 1,
-                                 fontSize: 20,
-                                 borderRadius: '0.7em',
-                                 width: 'auto',
-                                 color: 'black',
-                                 bgcolor: 'white',
-                                 border: '2px solid #ffffff',
-                                 transition: 'all 0.5s',
-                                 boxShadow: '6px 6px 12px #c5c5c5;',
-                                 '&:hover': {
-                                    bgcolor: 'white',
-                                    border: '2px solid #0693e3',
-                                 },
-                                 '&:active': {
-                                    boxShadow: '4px 4px 12px #c5c5c5, -4px -4px 12px #ffffff',
-                                 }
-                              }}
-                              onClick={() => navigate(`${item.ID}`)}
-                           >
-                              {<SaveAsOutlinedIcon />}
-                           </Button>
-                           <Button
-                              size="medium"
-                              sx={{
-                                 ml: 1,
-                                 fontSize: 20,
-                                 borderRadius: '0.7em',
-                                 width: 'auto',
-                                 color: 'black',
-                                 bgcolor: 'white',
-                                 border: '2px solid #ffffff',
-                                 transition: 'all 0.5s',
-                                 boxShadow: '6px 6px 12px #c5c5c5;',
-                                 '&:hover': {
-                                    bgcolor: 'white',
-                                    border: '2px solid #0693e3',
-                                 },
-                                 '&:active': {
-                                    boxShadow: '4px 4px 12px #c5c5c5, -4px -4px 12px #ffffff',
-                                 }
-                              }}
-                              aria-label="delete"
-                              onClick={() => DeleteManage(item.ID)}
-                           >
-                              {<DeleteIcon />}
-                           </Button>
-                        </div>
                      </Card>
                   </Grid>
                ))}
@@ -299,4 +214,4 @@ function Manages() {
       </div>
    );
 }
-export default Manages;
+export default ManageViews;

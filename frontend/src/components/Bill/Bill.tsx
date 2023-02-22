@@ -84,8 +84,14 @@ function Bills() {
   }, []);
 
   return (
-    <div>
-      <Container sx={{ marginTop: 10 }} maxWidth="md">
+    <Box sx={{
+      display: 'flex',
+      justifyContent: 'center',
+    }}>
+      <Box sx={{ 
+        marginTop: '70px',
+        width: '90%',
+      }}>
         <Box display="flex">
           <Box flexGrow={1}>
             <Typography
@@ -175,62 +181,65 @@ function Bills() {
                   <TableCell align="center">{item.Meter.Water}</TableCell>
                   <TableCell align="center">{item.Cost}</TableCell>
                   <TableCell align="center">{format((new Date(item.BillTime)), 'dd MMMM yyyy hh:mm')}</TableCell>
-                  <TableCell align="center">
-                  <Button
-                        variant="outlined"
-                        size="medium"
-                        startIcon={<SaveAsOutlinedIcon />}
-                        sx={{
-                           fontFamily: "PK Krung Thep Medium",
-                           fontSize: 20,
-                           borderRadius: 20,
-                           fontWeight: "bold",
-                           color: 'black',
-                           width: '100px',
-                           marginBottom: 1,
-                           borderColor: 'black',
-                           '&:hover': {
-                              background: 'rgba(0, 208, 132, 0.5)',
-                              borderColor: 'rgba(0, 208, 132, 0.4)',
-                           },
-                        }}
-                        onClick={() => navigate(`${item.ID}`)}
-                     >
-                        แก้ไข
-                     </Button>
+                  <Box sx={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    height: '100px'
+                  }}>
+                      <Button
+                      variant="outlined"
+                      size="small"
+                      startIcon={<SaveAsOutlinedIcon />}
+                      sx={{
+                        fontFamily: "PK Krung Thep Medium",
+                        fontSize: 18,
+                        borderRadius: 20,
+                        fontWeight: "bold",
+                        color: 'black',
+                        width: '100px',
+                        borderColor: 'black',
+                        '&:hover': {
+                            background: 'rgba(0, 208, 132, 0.5)',
+                            borderColor: 'rgba(0, 208, 132, 0.4)',
+                        },
+                      }}
+                      onClick={() => navigate(`${item.ID}`)}
+                  >
+                      แก้ไข
+                  </Button>
 
-                     <Button
-                        variant="outlined"
-                        size="medium"
-                        startIcon={<DeleteIcon />}
-                        sx={{
-                           fontFamily: "PK Krung Thep Medium",
-                           fontSize: 20,
-                           borderRadius: 20,
-                           fontWeight: "bold",
-                           marginTop: 1,
-                           width: '100px',
-                           color: 'black',
-                           borderColor: 'black',
-                           '&:hover': {
-                              background: 'rgba(0, 208, 132, 0.5)',
-                              borderColor: 'rgba(0, 208, 132, 0.4)',
-                           },
-                        }}
-                        aria-label="delete"
-                        onClick={() => DeleteBill(item.ID)}
-                     >
-                        ลบ
-                     </Button>
-                    </TableCell>
-                </TableRow>
+                  <Button
+                      variant="outlined"
+                      size="small"
+                      startIcon={<DeleteIcon />}
+                      sx={{
+                        fontFamily: "PK Krung Thep Medium",
+                        fontSize: 18,
+                        borderRadius: 20,
+                        fontWeight: "bold",
+                        width: '100px',
+                        color: 'black',
+                        borderColor: 'black',
+                        '&:hover': {
+                            background: 'rgba(0, 208, 132, 0.5)',
+                            borderColor: 'rgba(0, 208, 132, 0.4)',
+                        },
+                      }}
+                      aria-label="delete"
+                      onClick={() => DeleteBill(item.ID)}
+                  >
+                      ลบ
+                  </Button>
+                </Box>
+              </TableRow>
     
               ))}
             </TableBody>
           </Table>
         </TableContainer>
-      </Container>
-    </div>
+      </Box>
+    </Box>
 
   );
 }

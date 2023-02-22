@@ -221,7 +221,7 @@ function ManageUpdate() {
          <Box sx={{
             mt: '70px',
             mr: '10px',
-            background: 'rgba(255, 255, 255, 0.8)',
+            background: 'rgba(255, 255, 255, 0.7)',
             width: '45%',
             height: '80%',
             borderRadius: '20px',
@@ -402,7 +402,7 @@ function ManageUpdate() {
          <Box sx={{
             mt: '70px',
             ml: '10px',
-            background: 'rgba(255, 255, 255, 0.8)',
+            background: 'rgba(255, 255, 255, 0.7)',
             width: '45%',
             height: '80%',
             borderRadius: '20px',
@@ -534,7 +534,7 @@ function ManageUpdate() {
                      onClick={update}
                      variant="contained"
                   >
-                     <b>แก้ไข</b>
+                     <b>บันทึก</b>
                   </Button>
                </Grid>
             </Grid>
