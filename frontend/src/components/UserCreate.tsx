@@ -191,7 +191,7 @@ function UserCreate() {
   console.log("users", users)
 
   return (
-    <Container sx={{ marginTop: 2 }} maxWidth="md">
+    <Container sx={{ marginTop: 10 }} maxWidth="md">
       <Snackbar open={success} autoHideDuration={6000} onClose={handleClose}>
         <Alert onClose={handleClose} severity="success">
           บันทึกข้อมูลสำเร็จ
