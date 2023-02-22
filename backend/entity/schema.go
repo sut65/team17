@@ -8,6 +8,97 @@ import (
 	"github.com/asaskevich/govalidator"
 )
 
+type Banking struct {
+	gorm.Model
+	Name string
+
+	Payments []Payment `gorm:"foreignKey:BankingID"`
+}
+
+type Method struct {
+	gorm.Model
+	Name string
+
+	Payments []Payment `gorm:"foreignKey:MethodID"`
+}
+
+type Payment struct {
+	gorm.Model
+	Evidence       string	`valid:"required~Evidence cannot be blank"`
+	PaymentTime	   time.Time `valid:"past~PaymentTime not past"`
+
+	// UserID เป็น FK
+	UserID *uint
+	// ข้อมูลของ User เมื่อ join ตาราง
+	User User		`gorm:"referenes:id" valid:"-"`
+	
+	// BillID เป็น FK
+	BillID *uint
+	// ข้อมูลของ Bill เมื่อ join ตาราง
+	Bill Bill		`gorm:"referenes:id" valid:"-"`
+
+	// BankingID เป็น FK
+	BankingID *uint
+	// ข้อมูลของ Banking เมื่อ join ตาราง
+	Banking Banking	`gorm:"referenes:id" valid:"-"`
+
+	// MethodID เป็น FK
+	MethodID *uint
+	// ข้อมูลของ Method เมื่อ join ตาราง
+	Method Method	`gorm:"referenes:id" valid:"-"`
+}
+
+type Status struct {
+	gorm.Model
+	Name string
+
+	Users []User `gorm:"foreignKey:StatusID"`
+}
+type Title struct {
+	gorm.Model
+	Name string
+
+	Users []User `gorm:"foreignKey:TitleID"`
+}
+type Gender struct {
+	gorm.Model
+	Name string
+
+	Users []User `gorm:"foreignKey:GenderID"`
+}
+
+type User struct {
+	gorm.Model
+	Email        string `valid:"required~Email cannot be blank"`
+	Tel          string `valid:"required,matches(^[0]\\d{9}$)~Tel must be contain 10 numbers"`
+	Password     string `valid:"required~Password cannot be blank"`
+	Name         string `valid:"required~Name cannot be blank"`
+	Role         string
+	Address      string    `valid:"required~Address cannot be blank"`
+	Personal     string    `valid:"required,matches(^\\d{13}$)~Personal must be contain 13 numbers"`
+	BirthdayTime time.Time `valid:"past~Birthday not past"`
+
+	// StatusID เป็น FK
+	StatusID *uint
+	// ข้อมูลของ Status เมื่อ join ตาราง
+	Status Status `gorm:"referenes:id" valid:"-"`
+
+	// GenderID เป็น FK
+	GenderID *uint
+	// ข้อมูลของ Gender เมื่อ join ตาราง
+	Gender Gender `gorm:"referenes:id" valid:"-"`
+
+	// TitleID เป็น FK
+	TitleID *uint
+	// ข้อมูลของ Title เมื่อ join ตาราง
+	Title Title `gorm:"referenes:id" valid:"-"`
+
+	Payments []Payment `gorm:"foreignKey:UserID"`
+
+	Requestouts   []Requestout    `gorm:"foreignKey:UserID"`
+	Requestchange []Requestchange `gorm:"foreignKey:UserID"`
+}
+
 type Admin struct {
 	gorm.Model
 	Name     string
@@ -33,6 +124,8 @@ type Bill struct {
 
 	AdminID *uint
 	Admin   Admin `gorm:"referenes:id" valid:"-"`
+
+	Payment []Payment `gorm:"foreignKey:BillID"`
 }
 
 type Meter struct {
@@ -338,4 +431,15 @@ func init() {
 		return a >= 1
 	})
 
+	//fah
+	govalidator.CustomTypeTagMap.Set("past", func(i interface{}, o interface{}) bool {
+		t := i.(time.Time)
+		return t.Before(time.Now())
+	})
+
+	govalidator.CustomTypeTagMap.Set("past", func(i interface{}, o interface{}) bool {   //เงื่อนไขเวลาไม่เป็นอดีต
+		t := i.(time.Time)
+		return t.Before(time.Now())
+	})
 }
+
