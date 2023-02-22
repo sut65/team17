@@ -3,16 +3,16 @@ package controller
 import (
 	"net/http"
 
-	"github.com/gin-gonic/gin"
 	"github.com/asaskevich/govalidator"
+	"github.com/gin-gonic/gin"
 	"github.com/sut65/team17/entity"
 )
-
 
 // POST /payment
 func CreatePayment(c *gin.Context) {
 
 	var payment entity.Payment
+	var user entity.User
 	var banking entity.Banking
 	var method entity.Method
 	var bill entity.Bill
@@ -23,12 +23,17 @@ func CreatePayment(c *gin.Context) {
 		return
 	}
 
+	// 8: ค้นหา user ด้วย id
+	if tx := entity.DB().Where("id = ?", payment.UserID).First(&user); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "user not found"})
+		return
+	}
+
 	// 9: ค้นหา banking ด้วย id
 	if tx := entity.DB().Where("id = ?", payment.BankingID).First(&banking); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "banking not found"})
 		return
 	}
-	
 
 	// 10: ค้นหา method ด้วย id
 	if tx := entity.DB().Where("id = ?", payment.MethodID).First(&method); tx.RowsAffected == 0 {
@@ -37,19 +42,19 @@ func CreatePayment(c *gin.Context) {
 	}
 
 	// 11: ค้นหา bill ด้วย id
-	if tx := entity.DB().Where("id = ?",payment.BillID).First(&bill); tx.RowsAffected == 0 {
+	if tx := entity.DB().Where("id = ?", payment.BillID).First(&bill); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "bill not found"})
 		return
 	}
 
-
 	// 12: สร้าง Payment
 	pm := entity.Payment{
-		Banking:		banking,					// โยงความสัมพันธ์กับ Entity banking
-		Method:			method,						// โยงความสัมพันธ์กับ Entity method
-		Bill:			bill,						// โยงความสัมพันธ์กับ Entity bill
-		Evidence: 		payment.Evidence,
-		PaymentTime:	payment.PaymentTime,
+		User:        user,    // โยงความสัมพันธ์กับ Entity user
+		Banking:     banking, // โยงความสัมพันธ์กับ Entity banking
+		Method:      method,  // โยงความสัมพันธ์กับ Entity method
+		Bill:        bill,    // โยงความสัมพันธ์กับ Entity bill
+		Evidence:    payment.Evidence,
+		PaymentTime: payment.PaymentTime,
 	}
 
 	// ขั้นตอนการ validate ที่นำมาจาก unit test
@@ -70,7 +75,7 @@ func CreatePayment(c *gin.Context) {
 func GetPayment(c *gin.Context) {
 	var payment entity.Payment
 	id := c.Param("id")
-	if err := entity.DB().Preload("Banking").Preload("Method").Preload("Bill").Raw("SELECT * FROM paymentes WHERE id = ?", id).Find(&payment).Error; err != nil {
+	if err := entity.DB().Preload("User").Preload("Banking").Preload("Method").Preload("Bill").Raw("SELECT * FROM paymentes WHERE id = ?", id).Find(&payment).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -80,7 +85,7 @@ func GetPayment(c *gin.Context) {
 // GET /payment
 func ListPayments(c *gin.Context) {
 	var payment []entity.Payment
-	if err := entity.DB().Preload("Banking").Preload("Method").Preload("Bill").Raw("SELECT * FROM payments").Find(&payment).Error; err != nil {
+	if err := entity.DB().Preload("User").Preload("Banking").Preload("Method").Preload("Bill.Meter.Manage.Room").Preload("Bill.Furniture.Equipment").Raw("SELECT * FROM payments").Find(&payment).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -102,6 +107,7 @@ func DeletePayment(c *gin.Context) {
 func UpdatePayment(c *gin.Context) {
 
 	var payment entity.Payment
+	var user entity.User
 	var banking entity.Banking
 	var method entity.Method
 	var bill entity.Bill
@@ -112,12 +118,17 @@ func UpdatePayment(c *gin.Context) {
 		return
 	}
 
+	// 8: ค้นหา user ด้วย id
+	if tx := entity.DB().Where("id = ?", payment.UserID).First(&user); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "user not found"})
+		return
+	}
+
 	// 9: ค้นหา banking ด้วย id
 	if tx := entity.DB().Where("id = ?", payment.BankingID).First(&banking); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "banking not found"})
 		return
 	}
-	
 
 	// 10: ค้นหา method ด้วย id
 	if tx := entity.DB().Where("id = ?", payment.MethodID).First(&method); tx.RowsAffected == 0 {
@@ -126,19 +137,19 @@ func UpdatePayment(c *gin.Context) {
 	}
 
 	// 11: ค้นหา bill ด้วย id
-	if tx := entity.DB().Where("id = ?",payment.BillID).First(&bill); tx.RowsAffected == 0 {
+	if tx := entity.DB().Where("id = ?", payment.BillID).First(&bill); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "bill not found"})
 		return
 	}
 
-
 	// 12: สร้าง Payment
 	update := entity.Payment{
-		Banking:		banking,					// โยงความสัมพันธ์กับ Entity banking
-		Method:			method,						// โยงความสัมพันธ์กับ Entity method
-		Bill:			bill,						// โยงความสัมพันธ์กับ Entity bill
-		Evidence: 		payment.Evidence,
-		PaymentTime:	payment.PaymentTime,
+		User:        user,    // โยงความสัมพันธ์กับ Entity user
+		Banking:     banking, // โยงความสัมพันธ์กับ Entity banking
+		Method:      method,  // โยงความสัมพันธ์กับ Entity method
+		Bill:        bill,    // โยงความสัมพันธ์กับ Entity bill
+		Evidence:    payment.Evidence,
+		PaymentTime: payment.PaymentTime,
 	}
 
 	// ขั้นตอนการ validate ที่นำมาจาก unit test
