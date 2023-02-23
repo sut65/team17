@@ -224,7 +224,7 @@ function RequestoutUpdate() {
       mb: '100px',
       minHeight: '50%',
       width: '100%',
-      background: 'rgba(29, 131, 240, 0.3)',
+      background: 'rgba(29, 131, 240, 0.5)',
       
       display: 'flex',
       justifyContent: 'center',
@@ -232,14 +232,10 @@ function RequestoutUpdate() {
 
    }}>
    
-    <Box
-      sx={{
-        fontFamily: "PK Krung Thep Medium",
-        fontSize: "20px",
-         
-        
-      }}
-    >
+   <Box sx={{ width: "95%" }}>
+    
+    <Box display="flex" 
+    sx={{mt: "10px",}}>
     
 
       <Snackbar
@@ -292,6 +288,7 @@ function RequestoutUpdate() {
             </Typography>
           </Box>
         </Box>
+        </Box>
         <Divider />
         <Grid container spacing={3} sx={{ padding: 2 }}>
         <Grid item xs={6}>
@@ -300,7 +297,7 @@ function RequestoutUpdate() {
             <Select
               sx={{
                 fontFamily: "PK Krung Thep Medium",
-                fontSize: "16px",
+                fontSize: "20px",
                 
               }}
               style={{ borderRadius: "30px" }}
@@ -327,7 +324,7 @@ function RequestoutUpdate() {
               <p>ห้องพัก</p>
               <Select sx={{
                 fontFamily: "PK Krung Thep Medium",
-                fontSize: "18px",
+                fontSize: "20px",
                 
                 
               }}
@@ -357,7 +354,7 @@ function RequestoutUpdate() {
               <p>เหตุผล</p>
               <Select sx={{
                 fontFamily: "PK Krung Thep Medium",
-                fontSize: "16px"
+                fontSize: "20px"
               }}
                 style={{borderRadius: "30px"}}
                 native
@@ -369,7 +366,7 @@ function RequestoutUpdate() {
                 }}
               >
                 <option aria-label="None" value="">
-                  
+                  กรุณาเลือก
                 </option>
                 {reasons.map((item:ReasonInterface) => (
                   <option value={item.ID} key={item.ID}>
@@ -380,13 +377,14 @@ function RequestoutUpdate() {
             </FormControl>
           </Grid>
 
-          <Grid item xs={6}>
+          <Grid item xs={6} >
             <FormControl fullWidth variant="outlined">
             <p>วัน เดือน  ปี ที่ต้องการ</p>
             
             <LocalizationProvider dateAdapter={AdapterDateFns}>
                 
-            <DatePicker
+            <DatePicker 
+                
                     label="Select Date"
                     value={selectedDate}
                     onChange={(newValue) => {

@@ -114,7 +114,8 @@ function Requestout() {
       width: '100%',
       fontFamily: "PK Krung Thep Medium",
       fontSize: 20,
-      display: 'grid',
+      display: 'flex',
+      justifyContent: 'center',
    }}>
     
  
@@ -124,7 +125,7 @@ function Requestout() {
       mt: '100px',
       mb: '100px',
       minHeight: '50%',
-      width: '100%',
+      width: '80%',
       background: 'rgba(76, 122, 201, 0.3)',
       
       display: 'flex',
@@ -133,7 +134,7 @@ function Requestout() {
 
    }}>
     
-    <Box sx={{ width: "50%", marginTop: 1 }}>
+    <Box sx={{ width: "90%", marginTop: 1 }}>
     {/* <Container sx={{ marginTop: 2 }} > */}
     <Box display="flex" sx={{
       mt: "30px",
@@ -199,29 +200,29 @@ function Requestout() {
         <Table sx={{ marginTop: 1 }} aria-label="simple table" >
           <TableHead>
             <TableRow>
-            <TableCell align="center" width="2%" >
+            <TableCell align="center" width="2%" sx={{fontFamily: "PK Krung Thep Medium", fontSize: "24px", color: "#f96424"}}>
                 ลำดับ
               </TableCell>
-              <TableCell align="center" width="15%">
+              <TableCell align="center" width="15%"sx={{fontFamily: "PK Krung Thep Medium", fontSize: "24px", color: "#f96424"}}>
                 ชื่อ
               </TableCell>
-              <TableCell align="center" width="10%">
+              <TableCell align="center" width="10%"sx={{fontFamily: "PK Krung Thep Medium", fontSize: "24px", color: "#f96424"}}>
                 ห้องพัก
               </TableCell>
-              <TableCell align="center" width="20%">
+              <TableCell align="center" width="20%"sx={{fontFamily: "PK Krung Thep Medium", fontSize: "24px", color: "#f96424"}}>
                 สาเหตุ
               </TableCell>
-              <TableCell align="center" width="20%">
+              <TableCell align="center" width="20%"sx={{fontFamily: "PK Krung Thep Medium", fontSize: "24px", color: "#f96424"}}>
                 รายละเอียด
               </TableCell>
-              <TableCell align="center" width="20%">
+              <TableCell align="center" width="20%"sx={{fontFamily: "PK Krung Thep Medium", fontSize: "24px", color: "#f96424"}}>
                 วันที่ออก
               </TableCell>
 
-              <TableCell align="center" width="20%">
+              <TableCell align="center" width="20%"sx={{fontFamily: "PK Krung Thep Medium", fontSize: "24px", color: "#f96424"}}>
                 แก้ไข
               </TableCell>
-              <TableCell align="center" width="20%">
+              <TableCell align="center" width="20%"sx={{fontFamily: "PK Krung Thep Medium", fontSize: "24px", color: "#f96424"}}>
                 Delete
               </TableCell>
         
@@ -230,13 +231,13 @@ function Requestout() {
           <TableBody>
             {requestouts.map((item: RequestoutInterface) => (
               <TableRow key={item.ID}>
-              <TableCell align="center">{item.ID}</TableCell>
-                <TableCell align="center">{item.User.Name}</TableCell>
-                <TableCell align="center">{item.Room.Number}</TableCell>
-                <TableCell align="center">{item.Reason.Reason}</TableCell>
-                <TableCell align="center">{item.Detail}</TableCell>
+              <TableCell align="center" sx={{fontFamily: "PK Krung Thep Medium", fontSize: "18px", }}>{item.ID}</TableCell>
+                <TableCell align="center" sx={{fontFamily: "PK Krung Thep Medium", fontSize: "18px", }}>{item.User.Name}</TableCell>
+                <TableCell align="center" sx={{fontFamily: "PK Krung Thep Medium", fontSize: "18px", }}>{item.Room.Number}</TableCell>
+                <TableCell align="center" sx={{fontFamily: "PK Krung Thep Medium", fontSize: "18px", }}>{item.Reason.Reason}</TableCell>
+                <TableCell align="center" sx={{fontFamily: "PK Krung Thep Medium", fontSize: "18px", }}>{item.Detail}</TableCell>
                 
-                <TableCell align="center">{moment(item.Outtime).format('DD MM yyyy')}</TableCell>
+                <TableCell align="center" sx={{fontFamily: "PK Krung Thep Medium", fontSize: "18px", }}>{moment(item.Outtime).format('DD MM yyyy')}</TableCell>
 
                 <TableCell align="center">
                 <IconButton aria-label="แก้ไข" size="large" 
