@@ -205,11 +205,26 @@ function FurnitureUpdate() {
   }
 
   return (
+    <Box      sx={{
+      backgroundImage:
+        "url(https://images.hdqwalls.com/download/minimalist-monochrome-material-design-pm-1920x1080.jpg)",
+      backgroundRepeat: "no-repeat",
+      backgroundSize: "cover",
+      width: "100%",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+    }}
+  >
     <Box
-      maxWidth="md"
       sx={{
         fontFamily: "PK Krung Thep Medium",
         fontSize: "20px",
+        width: "90%",
+        mt: "70px",
+        bgcolor: "rgba(190, 190, 190, 0.8)",
+        borderRadius: "30px",
+        boxShadow: 20,
       }}
     >
       <Snackbar
@@ -229,227 +244,229 @@ function FurnitureUpdate() {
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
       >
         <Alert onClose={handleClose} severity="error">
-        {ErrorMessage}
+          {ErrorMessage}
         </Alert>
       </Snackbar>
-      
-        <Box
-          display="flex"
-          sx={{
-            marginTop: 2,
+
+      <Box
+        display="flex"
+        sx={{
+            // marginTop: 2,
           }}
-        >
-          <Box sx={{ paddingX: 2, paddingY: 1 }}>
-            <Typography
-              component="h2"
-              variant="h6"
-              color="primary"
-              gutterBottom
+      >
+        <Box sx={{ paddingX: 2, paddingY: 1 }}>
+          <Typography
+            color="primary"
+            sx={{
+              fontFamily: "PK Krung Thep Medium",
+              fontSize: "30px",
+              marginX: "30px",
+              mt: "5px",
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <b>บันทึกเบิกจ่ายอุปกรณ์ในห้องพัก</b>
+          </Typography>
+        </Box>
+      </Box>
+      {/* <Divider /> */}
+
+        <Grid container spacing={1} sx={{ paddingRight:5, paddingLeft:5, }}>
+        <Grid item xs={6}>
+          <FormControl fullWidth variant="outlined">
+            <p>ชื่อ - สกุล</p>
+            <Select
               sx={{
                 fontFamily: "PK Krung Thep Medium",
-                fontSize: "30px",
+                fontSize: "16px",
+              }}
+              style={{ borderRadius: "30px" }}
+              native
+              value={Furnitures.UserID + ""}
+              onChange={handleChange}
+              inputProps={{
+                name: "UserID",
               }}
             >
-              <b>บันทึกเบิกจ่ายอุปกรณ์ในห้องพัก</b>
-            </Typography>
-          </Box>
-        </Box>
-        <Divider />
-        <Grid container spacing={3} sx={{ padding: 2 }}>
-          <Grid item xs={6}>
-            <FormControl fullWidth variant="outlined">
-              <p>ชื่อ - สกุล</p>
-              <Select
-                sx={{
-                  fontFamily: "PK Krung Thep Medium",
-                  fontSize: "16px",
-                }}
-                style={{ borderRadius: "30px" }}
-                native
-                value={Furnitures.UserID + ""}
-                onChange={handleChange}
-                inputProps={{
-                  name: "UserID",
-                }}
-              >
-                <option aria-label="None" value=""></option>
-                {Users.map((item: UserInterface) => (
-                  <option value={item.ID} key={item.ID}>
-                    {item.Name}
-                  </option>
-                ))}
-              </Select>
-            </FormControl>
-          </Grid>
-
-          <Grid item xs={6}>
-            <FormControl fullWidth variant="outlined">
-              <p>เบอร์โทรศัพท์</p>
-              <Select
-                sx={{
-                  fontFamily: "PK Krung Thep Medium",
-                  fontSize: "16px",
-                }}
-                style={{ borderRadius: "30px" }}
-                native
-                disabled
-                value={Furnitures.UserID + ""}
-                onChange={handleChange}
-                inputProps={{
-                  name: "UserID",
-                }}
-              >
-                <option aria-label="None" value=""></option>
-                {Users.map((item: UserInterface) => (
-                  <option value={item.ID} key={item.ID}>
-                    {item.Tel}
-                  </option>
-                ))}
-              </Select>
-            </FormControl>
-          </Grid>
-
-          <Grid item xs={6}>
-            <FormControl fullWidth variant="outlined">
-              <p>เลือกห้อง</p>
-              <Select
-                sx={{
-                  fontFamily: "PK Krung Thep Medium",
-                  fontSize: "16px",
-                }}
-                style={{ borderRadius: "30px" }}
-                native
-                labelId="RoomID"
-                id="RoomID"
-                label=""
-                placeholder=""
-                value={Furnitures.RoomID + ""}
-                onChange={handleChange}
-                inputProps={{
-                  name: "RoomID",
-                }}
-              >
-                <option aria-label="None" value="">
-                  โปรดระบุ
+              <option aria-label="None" value=""></option>
+              {Users.map((item: UserInterface) => (
+                <option value={item.ID} key={item.ID}>
+                  {item.Name}
                 </option>
-                {Rooms.map((item: RoomInterface) => (
-                  <option value={item.ID} key={item.ID}>
-                    {item.Number}
-                  </option>
-                ))}
-              </Select>
-            </FormControl>
-          </Grid>
-
-          <Grid item xs={6}>
-            <FormControl fullWidth variant="outlined">
-              <p>เลือกเฟอร์นิเจอร์</p>
-              <Select
-                sx={{
-                  fontFamily: "PK Krung Thep Medium",
-                  fontSize: "16px",
-                }}
-                style={{ borderRadius: "30px" }}
-                native
-                labelId="EquipmentID"
-                id="EquipmentID"
-                placeholder=""
-                value={Furnitures.EquipmentID + ""}
-                onChange={handleChange}
-                inputProps={{
-                  name: "EquipmentID",
-                }}
-              >
-                <option aria-label="None" value="">
-                  โปรดระบุ
-                </option>
-                {Equipments.map((item: EquipmentInterface) => (
-                  <option value={item.ID} key={item.ID}>
-                    {item.Equipment}
-                  </option>
-                ))}
-              </Select>
-            </FormControl>
-          </Grid>
-
-          <Grid item xs={6}>
-            <FormControl fullWidth variant="outlined">
-              <p>เลือกจำนวน</p>
-              <Select
-                sx={{
-                  fontFamily: "PK Krung Thep Medium",
-                  fontSize: "16px",
-                }}
-                style={{ borderRadius: "30px" }}
-                native
-                value={Furnitures.AmountID + ""}
-                onChange={handleChange}
-                inputProps={{
-                  name: "AmountID",
-                }}
-              >
-                <option aria-label="None" value="">
-                  โปรดระบุ
-                </option>
-                {Amounts.map((item: AmountInterface) => (
-                  <option value={item.ID} key={item.ID}>
-                    {item.Amount}
-                  </option>
-                ))}
-              </Select>
-            </FormControl>
-          </Grid>
-
-          <Grid item xs={6}>
-            <FormControl fullWidth variant="outlined">
-              <p>ราคา</p>
-              <Select
-                sx={{
-                  fontFamily: "PK Krung Thep Medium",
-                  fontSize: "16px",
-                }}
-                style={{ borderRadius: "30px" }}
-                native
-                disabled
-                labelId="EquipmentID"
-                id="EquipmentID"
-                placeholder=""
-                value={Furnitures.EquipmentID + ""}
-                onChange={handleChange}
-                inputProps={{
-                  name: "EquipmentID",
-                }}
-              >
-                <option aria-label="None" value=""></option>
-                {Equipments.map((item: EquipmentInterface) => (
-                  <option value={item.ID} key={item.ID}>
-                    {item.Price}
-                  </option>
-                ))}
-              </Select>
-            </FormControl>
-          </Grid>
-
-          <Grid item xs={6}>
-            <FormControl fullWidth variant="outlined">
-              <p>วันที่และเวลา</p>
-              <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <DateTimePicker
-                  value={SelectedDate}
-                  onChange={(newValue) => setSelectedDate(newValue)}
-                  //  minDate={(new Date('31-12-2022T09:00'))}
-                  renderInput={(params) => <TextField {...params} />}
-                />
-              </LocalizationProvider>
-            </FormControl>
-          </Grid>
+              ))}
+            </Select>
+          </FormControl>
         </Grid>
-        <Grid container spacing={3} sx={{ padding: 2 }}>
+
+        <Grid item xs={6}>
+          <FormControl fullWidth variant="outlined">
+            <p>เบอร์โทรศัพท์</p>
+            <Select
+              sx={{
+                fontFamily: "PK Krung Thep Medium",
+                fontSize: "16px",
+              }}
+              style={{ borderRadius: "30px" }}
+              native
+              disabled
+              value={Furnitures.UserID + ""}
+              onChange={handleChange}
+              inputProps={{
+                name: "UserID",
+              }}
+            >
+              <option aria-label="None" value=""></option>
+              {Users.map((item: UserInterface) => (
+                <option value={item.ID} key={item.ID}>
+                  {item.Tel}
+                </option>
+              ))}
+            </Select>
+          </FormControl>
+        </Grid>
+
+        <Grid item xs={6}>
+          <FormControl fullWidth variant="outlined">
+            <p>เลือกห้อง</p>
+            <Select
+              sx={{
+                fontFamily: "PK Krung Thep Medium",
+                fontSize: "16px",
+              }}
+              style={{ borderRadius: "30px" }}
+              native
+              labelId="RoomID"
+              id="RoomID"
+              label=""
+              placeholder=""
+              value={Furnitures.RoomID + ""}
+              onChange={handleChange}
+              inputProps={{
+                name: "RoomID",
+              }}
+            >
+              <option aria-label="None" value="">
+                โปรดระบุ
+              </option>
+              {Rooms.map((item: RoomInterface) => (
+                <option value={item.ID} key={item.ID}>
+                  {item.Number}
+                </option>
+              ))}
+            </Select>
+          </FormControl>
+        </Grid>
+
+        <Grid item xs={6}>
+          <FormControl fullWidth variant="outlined">
+            <p>เลือกเฟอร์นิเจอร์</p>
+            <Select
+              sx={{
+                fontFamily: "PK Krung Thep Medium",
+                fontSize: "16px",
+              }}
+              style={{ borderRadius: "30px" }}
+              native
+              labelId="EquipmentID"
+              id="EquipmentID"
+              placeholder=""
+              value={Furnitures.EquipmentID + ""}
+              onChange={handleChange}
+              inputProps={{
+                name: "EquipmentID",
+              }}
+            >
+              <option aria-label="None" value="">
+                โปรดระบุ
+              </option>
+              {Equipments.map((item: EquipmentInterface) => (
+                <option value={item.ID} key={item.ID}>
+                  {item.Equipment}
+                </option>
+              ))}
+            </Select>
+          </FormControl>
+        </Grid>
+
+        <Grid item xs={6}>
+          <FormControl fullWidth variant="outlined">
+            <p>เลือกจำนวน</p>
+            <Select
+              sx={{
+                fontFamily: "PK Krung Thep Medium",
+                fontSize: "16px",
+              }}
+              style={{ borderRadius: "30px" }}
+              native
+              value={Furnitures.AmountID + ""}
+              onChange={handleChange}
+              inputProps={{
+                name: "AmountID",
+              }}
+            >
+              <option aria-label="None" value="">
+                โปรดระบุ
+              </option>
+              {Amounts.map((item: AmountInterface) => (
+                <option value={item.ID} key={item.ID}>
+                  {item.Amount}
+                </option>
+              ))}
+            </Select>
+          </FormControl>
+        </Grid>
+
+        <Grid item xs={6}>
+          <FormControl fullWidth variant="outlined">
+            <p>ราคา</p>
+            <Select
+              sx={{
+                fontFamily: "PK Krung Thep Medium",
+                fontSize: "16px",
+              }}
+              style={{ borderRadius: "30px" }}
+              native
+              disabled
+              labelId="EquipmentID"
+              id="EquipmentID"
+              placeholder=""
+              value={Furnitures.EquipmentID + ""}
+              onChange={handleChange}
+              inputProps={{
+                name: "EquipmentID",
+              }}
+            >
+              <option aria-label="None" value=""></option>
+              {Equipments.map((item: EquipmentInterface) => (
+                <option value={item.ID} key={item.ID}>
+                  {item.Price}
+                </option>
+              ))}
+            </Select>
+          </FormControl>
+        </Grid>
+
+        <Grid item xs={6}>
+          <FormControl fullWidth variant="outlined">
+            <p>วันที่และเวลา</p>
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
+              <DateTimePicker
+                value={SelectedDate}
+                onChange={(newValue) => setSelectedDate(newValue)}
+                minDate={new Date()}
+                //  minDate={(new Date('31-12-2022T09:00'))}
+                renderInput={(params) => <TextField {...params} />}
+              />
+            </LocalizationProvider>
+          </FormControl>
+        </Grid>
           <Grid item xs={12}>
             <Button
               sx={{
                 fontFamily: "PK Krung Thep Medium",
                 fontSize: 16,
+                mb: "10px",
               }}
               component={RouterLink}
               to="/furnitures"
@@ -462,6 +479,7 @@ function FurnitureUpdate() {
               sx={{
                 fontFamily: "PK Krung Thep Medium",
                 fontSize: 16,
+                mb: "10px",
               }}
               style={{ float: "right" }}
               onClick={update}
@@ -474,6 +492,8 @@ function FurnitureUpdate() {
         </Grid>
       
     </Box>
+    </Box>
+
   );
 }
 //dw
