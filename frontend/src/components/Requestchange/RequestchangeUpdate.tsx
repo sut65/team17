@@ -226,7 +226,7 @@ function RequestchangeUpdate() {
       width: '50%',
       display: 'flex',
       justifyContent: 'center',
-      background: 'rgba(29, 131, 240, 0.3)',
+      background: 'rgba(29, 131, 240, 0.5)',
       backgroundSize: "cover",
       
       borderRadius: 10,
@@ -331,7 +331,7 @@ function RequestchangeUpdate() {
                 color: '#1100ff',
                 
               }}
-                style={{borderRadius: "30px",background: 'rgba(29, 131, 240, 0.3)',}}
+                style={{borderRadius: "30px"}}
                 native
                 placeholder=""
                 value={requestchanges.RoomID + ""}

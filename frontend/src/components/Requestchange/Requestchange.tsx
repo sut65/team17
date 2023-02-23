@@ -118,8 +118,8 @@ function Requestchange() {
       width: '100%',
       fontFamily: "PK Krung Thep Medium",
       fontSize: 20,
-      display: 'grid',
-
+      display: 'flex',
+      justifyContent: 'center',
    }}>
     
  
@@ -128,7 +128,7 @@ function Requestchange() {
       
       mt: '100px',
       mb: '100px',
-      width: '100%',
+      width: '80%',
       background: 'rgba(76, 122, 201, 0.3)',   
       display: 'flex',
       justifyContent: 'center',
@@ -137,7 +137,7 @@ function Requestchange() {
 
    }}>
 
-    <Box sx={{ width: "50%", marginTop: 1 }}>
+    <Box sx={{ width: "90%", marginTop: 1 }}>
     <Box display="flex" sx={{
       mt: "30px",
     }}>
@@ -199,7 +199,7 @@ function Requestchange() {
       </Box>
     
       
-        <Table sx={{ marginTop: 1 }} aria-label="simple table">
+        <Table sx={{ marginTop: 1,  width: '100%', }} aria-label="simple table">
           <TableHead>
             <TableRow>
             <TableCell align="center" width="2%" sx={{fontFamily: "PK Krung Thep Medium", fontSize: "24px", color: "#f96424"}}>
