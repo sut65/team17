@@ -70,7 +70,7 @@ function Payments() {
     fetch(`${apiUrl}/payments`, requestOptions)
       .then((response) => response.json())
       .then((res) => {
-        console.log(res);
+        console.log("getPayments",res);
         if (res.data) {
             setPayments(res.data);
         } else {
@@ -135,7 +135,7 @@ function Payments() {
         </Alert>
       </Snackbar>
 
-      <Container sx={{marginTop: 2}} maxWidth="md">
+      <Container sx={{marginTop: 10}} maxWidth="md">
         <Box display="flex">
           <Box flexGrow={1}>
             <Typography

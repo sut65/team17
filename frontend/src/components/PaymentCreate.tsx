@@ -64,7 +64,6 @@ function PaymentCreate() {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-
   const apiUrl = "http://localhost:8080";
   const requestOptions = {
     method: "GET",
@@ -105,7 +104,7 @@ function PaymentCreate() {
         const data = res?.data
         console.log(data) //อันนี้
         if (data) {
-          payments.UserID =data.ID
+          payments.UserID = data.ID
           setUsers(data);
         } else {
           console.log("else");
@@ -127,9 +126,11 @@ function PaymentCreate() {
   };
 
   const getBill = async () => {
-    fetch(`${apiUrl}/bills`, requestOptions)
+    const uid = localStorage.getItem("uid");
+    fetch(`${apiUrl}/billByUser/${uid}`, requestOptions)
       .then((response) => response.json())
       .then((res) => {
+        console.log(res.data)
         if (res.data) {
           setBills(res.data);
         } else {
@@ -149,6 +150,7 @@ function PaymentCreate() {
         }
       });
   };
+
 
   useEffect(() => {
     getUsers();
@@ -191,14 +193,14 @@ function PaymentCreate() {
     let data = {
       BankingID: convertType(payments.BankingID),
       UserID: convertType(payments.UserID),
-      BillID: convertType(payments.BillID),
+      BillID: convertType(bills[0].ID),
       MethodID: convertType(payments.MethodID),
       PaymentTime: selectedDate,
       Evidence: evidences,
     };
 
-    console.log("Payment",data) //ประกาศชื่อให้ log
-    console.log("Payments",payments) //ประกาศชื่อให้ log
+    console.log("Payment", data) //ประกาศชื่อให้ log
+    console.log("Payments", payments) //ประกาศชื่อให้ log
 
     const requestOptionsPost = {
       method: "POST",
@@ -223,10 +225,9 @@ function PaymentCreate() {
         }
       });
   }
-  console.log("users", users)
 
   return (
-    <Container sx={{ marginTop: 2 }} maxWidth="md">
+    <Container sx={{ marginTop: 10 }} maxWidth="md">
       <Snackbar open={success} autoHideDuration={6000} onClose={handleClose}>
         <Alert onClose={handleClose} severity="success">
           บันทึกข้อมูลสำเร็จ
@@ -278,144 +279,114 @@ function PaymentCreate() {
 
           <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
-              <InputLabel id="BillID">เลขห้อง</InputLabel>
-              <Select
-                native
-                value={payments.BillID}
-                label="กรุณาเลือก..."
-                onChange={handleChange}
+              <p>เลขห้อง</p>
+              <TextField
+                variant="outlined"
+                disabled
+                id="BillID"
                 inputProps={{
                   name: "BillID",
                 }}
-              >
-                <option aria-label="None" value="">
-                </option>
-                {bills.map((item: BillInterface) => (
-                  <option value={item.ID} key={item.ID}>
-                    {item.Meter.Manage.Room.Number}
-                  </option>
+
+                value={bills.map((item: BillInterface) => (
+                  item.Meter.Manage.Room.Number
                 ))}
-              </Select>
+              />
+              
             </FormControl>
           </Grid>
 
 
           <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
-              <InputLabel id="BillID">ค่าห้องพัก</InputLabel>
-              <Select
-                native
-                value={payments.BillID}
-                label="กรุณาเลือก..."
-                onChange={handleChange}
+              <p>ค่าห้องพัก</p>
+              <TextField
+                variant="outlined"
+                disabled
+                id="BillID"
                 inputProps={{
                   name: "BillID",
                 }}
-              >
-                <option aria-label="None" value="">
-                </option>
-                {bills.map((item: BillInterface) => (
-                  <option value={item.ID} key={item.ID}>
-                    {item.Meter.Manage.Price}
-                  </option>
+
+                value={bills.map((item: BillInterface) => (
+                  item.Meter.Manage.Price
                 ))}
-              </Select>
+              />
             </FormControl>
           </Grid>
 
 
           <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
-              <InputLabel id="BillID">ค่าน้ำ</InputLabel>
-              <Select
-                native
-                value={payments.BillID}
-                label="กรุณาเลือก..."
-                onChange={handleChange}
+              <p>ค่าน้ำ</p>
+              <TextField
+                variant="outlined"
+                disabled
+                id="BillID"
                 inputProps={{
                   name: "BillID",
                 }}
-              >
-                <option aria-label="None" value="">
-                </option>
-                {bills.map((item: BillInterface) => (
-                  <option value={item.ID} key={item.ID}>
-                    {item.Meter.Water}
-                  </option>
+
+                value={bills.map((item: BillInterface) => (
+                  item.Meter.Water
                 ))}
-              </Select>
+              />
             </FormControl>
           </Grid>
 
 
           <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
-              <InputLabel id="BillID">ค่าไฟ</InputLabel>
-              <Select
-                native
-                value={payments.BillID}
-                label="กรุณาเลือก..."
-                onChange={handleChange}
+              <p>ค่าไฟ</p>
+              <TextField
+                variant="outlined"
+                disabled
+                id="BillID"
                 inputProps={{
                   name: "BillID",
                 }}
-              >
-                <option aria-label="None" value="">
-                </option>
-                {bills.map((item: BillInterface) => (
-                  <option value={item.ID} key={item.ID}>
-                    {item.Meter.Electric}
-                  </option>
+
+                value={bills.map((item: BillInterface) => (
+                  item.Meter.Electric
                 ))}
-              </Select>
+              />
             </FormControl>
           </Grid>
 
 
           <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
-              <InputLabel id="BillID">ค่าเฟอร์นิเจอร์</InputLabel>
-              <Select
-                native
-                value={payments.BillID}
-                label="กรุณาเลือก..."
-                onChange={handleChange}
+              <p>ค่าเฟอร์นิเจอร์</p>
+              <TextField
+                variant="outlined"
+                disabled
+                id="BillID"
                 inputProps={{
                   name: "BillID",
                 }}
-              >
-                <option aria-label="None" value="">
-                </option>
-                {bills.map((item: BillInterface) => (
-                  <option value={item.ID} key={item.ID}>
-                    {item.Furniture.Equipment.Price}
-                  </option>
+
+                value={bills.map((item: BillInterface) => (
+                  item.Furniture.Total
                 ))}
-              </Select>
+              />
             </FormControl>
           </Grid>
 
-
           <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
-              <InputLabel id="BillID">ยอดรวมชำระ</InputLabel>
-              <Select
-                native
-                value={payments.BillID}
-                label="กรุณาเลือก..."
-                onChange={handleChange}
+              <p>ยอดรวมชำระ</p>
+              <TextField
+                variant="outlined"
+                disabled
+                id="BillID"
                 inputProps={{
                   name: "BillID",
                 }}
-              >
-                <option aria-label="None" value="">
-                </option>
-                {bills.map((item: BillInterface) => (
-                  <option value={item.ID} key={item.ID}>
-                    {item.Cost}
-                  </option>
+
+                value={bills.map((item: BillInterface) => (
+                  item.Cost
                 ))}
-              </Select>
+              />
             </FormControl>
           </Grid>
 
@@ -473,7 +444,7 @@ function PaymentCreate() {
             <FormControl fullWidth variant="outlined">
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DateTimePicker
-                  label="เลือกวันเวลา"
+                  label="วันที่และเวลาที่บันทึก"
                   value={selectedDate}
                   onChange={(newValue) => setSelectedDate(newValue)}
                   minDate={(new Date)}   //บันทึกค่าปัจจุบัน
@@ -489,7 +460,7 @@ function PaymentCreate() {
             <FormControl fullWidth variant="outlined">
               <Button variant="contained" component="label">
                 Upload
-                <input hidden accept="image/*" multiple type="file"  onChange={onFileChange}/>
+                <input hidden accept="image/*" multiple type="file" onChange={onFileChange} />
               </Button>
             </FormControl>
           </Grid>
@@ -497,7 +468,7 @@ function PaymentCreate() {
           <Grid item xs={12}>
             <Button
               component={RouterLink}
-              to="/payment"
+              to="/payments"
               variant="contained"
             >
               กลับ

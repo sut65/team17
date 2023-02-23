@@ -44,6 +44,7 @@ func main() {
 			// doctor Routes
 			protected.GET("/bills", controller.ListBills)
 			protected.GET("/bill/:id", controller.GetBill)
+			protected.GET("/billByUser/:id", controller.GetBillByUser)
 			protected.POST("/bills", controller.CreateBill)
 			protected.PATCH("/bills", controller.UpdateBill)
 			protected.DELETE("/bills/:id", controller.DeleteBill)
