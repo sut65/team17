@@ -151,6 +151,13 @@ func UpdateUser(c *gin.Context) {
 		BirthdayTime: user.BirthdayTime,
 	}
 
+
+	// ขั้นตอนการ validate ที่นำมาจาก unit test
+	if _, err := govalidator.ValidateStruct(update); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
 	// update
 	if err := entity.DB().Where("id = ?", user.ID).Updates(&update).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})

@@ -127,6 +127,13 @@ func UpdateBill(c *gin.Context) {
 		Cost:      bill.Cost,
 		BillTime: bill.BillTime,
 	}
+
+
+	// ขั้นตอนการ validate ที่นำมาจาก unit test
+	if _, err := govalidator.ValidateStruct(update); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
 	// 13: update
 if err := entity.DB().Where("id = ?", meter.ID).Updates(&update).Error; err != nil {
 	c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
