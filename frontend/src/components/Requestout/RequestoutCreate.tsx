@@ -231,8 +231,7 @@ function RequestoutCreate() {
           <Box sx={{ paddingX: 2, paddingY: 1 }}>
             <Typography
               component="h2"
-              variant="h6"
-              
+              variant="h6"   
               gutterBottom
               sx={{
                 fontFamily: "PK Krung Thep Medium",
