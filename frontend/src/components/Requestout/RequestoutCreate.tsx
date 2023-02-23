@@ -193,7 +193,7 @@ function RequestoutCreate() {
 
    }}>
 
-    <Box sx={{ width: "100%" }}>
+    <Box sx={{ width: "95%" }}>
     
     <Box display="flex" sx={{
       mt: "30px",

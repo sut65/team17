@@ -30,7 +30,7 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props,
 });
 
 function RequestchangeCreate() {
-  
+
   const [rooms, setRooms] = useState<RoomInterface[]>([]);
   const [reasons, setReasons] = useState<ReasonInterface[]>([]);
   const [users, setUsers] = useState<UserInterface>();
@@ -42,7 +42,7 @@ function RequestchangeCreate() {
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  
+
   const apiUrl = "http://localhost:8080";
 
   const requestOptions = {
@@ -69,8 +69,8 @@ function RequestchangeCreate() {
     });
     console.log(event.target.value);
 
-   
-    
+
+
   };
 
 
@@ -81,7 +81,7 @@ function RequestchangeCreate() {
       .then((res) => {
         requestchanges.UserID = res.data.ID
         if (res.data) {
-            setUsers(res.data);
+          setUsers(res.data);
         } else {
           console.log("else");
         }
@@ -112,7 +112,7 @@ function RequestchangeCreate() {
       });
   };
 
- 
+
 
   useEffect(() => {
     getUsers();
@@ -127,10 +127,10 @@ function RequestchangeCreate() {
 
   function submit() {
     let data = {
-        RoomID: convertType(requestchanges.RoomID),
-        ReasonID: convertType(requestchanges.ReasonID),
-        UserID: convertType(requestchanges.UserID),
-        Detail: details,
+      RoomID: convertType(requestchanges.RoomID),
+      ReasonID: convertType(requestchanges.ReasonID),
+      UserID: convertType(requestchanges.UserID),
+      Detail: details,
 
     };
 
@@ -161,186 +161,217 @@ function RequestchangeCreate() {
   }
 
   return (
-    <Container maxWidth="md" sx={{
+    <div style={{
+      backgroundImage: "url(https://images.hdqwalls.com/download/material-minimal-shape-8k-lv-1920x1080.jpg)",
+      backgroundRepeat: "no-repeat",
+      backgroundSize: "cover",
+      width: '100%',
       fontFamily: "PK Krung Thep Medium",
-      fontSize: "20px"
-      // fontStyle: "bold"
+      fontSize: 20,
+      display: 'flex',
+      justifyContent: 'center',
     }}>
-      <Snackbar
-        open={success}
-        autoHideDuration={3000}
-        onClose={handleClose}
-        anchorOrigin={{ vertical: "top", horizontal: "center" }}
-      >
-        <Alert onClose={handleClose} severity="success">
-          บันทึกข้อมูลสำเร็จ
-        </Alert>
-      </Snackbar>
-      <Snackbar
-        open={error}
-        autoHideDuration={6000}
-        onClose={handleClose}
-        anchorOrigin={{ vertical: "top", horizontal: "center" }}
-      >
-        <Alert onClose={handleClose} severity="error">
-          {errorMessage}
-        </Alert>
-      </Snackbar>
-      <Paper>
-        <Box
-          display="flex"
-          sx={{
-            marginTop: 2,
-          }}
-        >
-          <Box sx={{ paddingX: 2, paddingY: 1 }}>
-            <Typography
-              component="h2"
-              variant="h6"
-              color="primary"
-              gutterBottom
+
+
+
+      <Box sx={{
+
+        mt: '100px',
+        mb: '100px',
+        minHeight: '50%',
+        width: '80%',
+        background: 'rgba(255, 255, 255, 0.3)',
+        display: 'flex',
+        justifyContent: 'center',
+        borderRadius: 10,
+
+      }}>
+
+        <Box sx={{ width: "100%" }}>
+
+          <Box display="flex" sx={{
+            mt: "30px",
+          }}>
+            <Snackbar
+              open={success}
+              autoHideDuration={3000}
+              onClose={handleClose}
+              anchorOrigin={{ vertical: "top", horizontal: "center" }}
+            >
+              <Alert onClose={handleClose} severity="success">
+                บันทึกข้อมูลสำเร็จ
+              </Alert>
+            </Snackbar>
+            <Snackbar
+              open={error}
+              autoHideDuration={6000}
+              onClose={handleClose}
+              anchorOrigin={{ vertical: "top", horizontal: "center" }}
+            >
+              <Alert onClose={handleClose} severity="error">
+                {errorMessage}
+              </Alert>
+            </Snackbar>
+
+
+            <Box
+              display="flex"
               sx={{
-                fontFamily: "PK Krung Thep Medium",
-                fontSize: "30px"
+                marginTop: 2,
               }}
             >
-              <b>แบบคำขอย้ายห้อง</b>
+              <Box sx={{ paddingX: 2, paddingY: 1 }}>
+                <Typography
+                  component="h2"
+                  variant="h6"
+                  color="primary"
+                  gutterBottom
+                  sx={{
+                    fontFamily: "PK Krung Thep Medium",
+                    fontSize: "40px",
+                    color: '#8b1fb2'
+                  }}
+                >
+                  <b>แบบคำขอย้ายห้อง</b>
 
-            </Typography>
+                </Typography>
+              </Box>
+            </Box>
           </Box>
-        </Box>
-        <Divider />
-        <Grid container spacing={3} sx={{ padding: 2 }}>
+          <Divider />
 
-         
 
-          <Grid item xs={6}>
-          <FormControl fullWidth variant="outlined">
-            <p>ชื่อ - สกุล</p>
-              <Select
-                native
-                
-                value={requestchanges.UserID + ""}
-                onChange={handleChange}
-                inputProps={{
-                  name: "UserID",
-                }}
-              >
-                <option value={users?.ID} key={users?.ID} >
+
+          <Grid container spacing={3} sx={{ padding: 2 }}>
+            <Grid item xs={6} sx={{ fontFamily: "PK Krung Thep Medium", fontSize: "20px" }}>
+              <FormControl fullWidth variant="outlined">
+                <p>ชื่อ - สกุล</p>
+                <Select
+                  sx={{
+                    fontFamily: "PK Krung Thep Medium",
+                    fontSize: "20px",
+                    color: '#990f0f',
+                  }}
+                  style={{ borderRadius: "30px" }}
+                  native
+                  value={requestchanges.UserID + ""}
+                  onChange={handleChange}
+                  inputProps={{
+                    name: "UserID",
+                  }}
+                >
+                  <option value={users?.ID} key={users?.ID} >
                     {users?.Name}
+                  </option>
+                </Select>
+              </FormControl>
+
+            </Grid>
+
+            <Grid item xs={6} sx={{ fontFamily: "PK Krung Thep Medium", fontSize: "20px" }}>
+              <FormControl fullWidth variant="outlined">
+                <p>ห้องพัก</p>
+                <Select sx={{
+                  fontFamily: "PK Krung Thep Medium",
+                  fontSize: "20px",
+                  color: '#0f3d99',
+
+                }}
+                  style={{ borderRadius: "30px" }}
+                  native
+                  placeholder=""
+                  value={requestchanges.RoomID + ""}
+                  onChange={handleChange}
+                  inputProps={{
+                    name: "RoomID",
+                  }}
+                >
+                  <option aria-label="None" value="" >
+                    โปรดระบุ
+                  </option>
+                  {rooms.map((item: RoomInterface) => (
+                    <option value={item.ID} key={item.ID}>
+                      {item.Number}
                     </option>
-              </Select>
-            </FormControl>
-              
-          </Grid>
+                  ))}
+                </Select>
+              </FormControl>
+            </Grid>
 
-          <Grid item xs={6}>
-            <FormControl fullWidth variant="outlined">
-              <p>ห้องพัก</p>
-              <Select sx={{
-                fontFamily: "PK Krung Thep Medium",
-                fontSize: "18px"
-              }}
-                style={{borderRadius: "30px"}}
-                native
-                placeholder=""
-                value={requestchanges.RoomID + ""}
-                onChange={handleChange}
-                inputProps={{
-                  name: "RoomID",
+            <Grid item xs={6} sx={{ fontFamily: "PK Krung Thep Medium", fontSize: "20px" }}>
+              <FormControl fullWidth variant="outlined">
+                <p>เหตุผล</p>
+                <Select sx={{
+                  fontFamily: "PK Krung Thep Medium",
+                  fontSize: "20px",
+                  color: '#0f3d99',
                 }}
-              >
-                <option aria-label="None" value="">
-                  โปรดระบุ
-                </option>
-                {rooms.map((item:RoomInterface) => (
-                  <option value={item.ID} key={item.ID}>
-                    {item.Number}
+                  style={{ borderRadius: "30px" }}
+                  native
+                  placeholder="โปรดระบุ"
+                  value={requestchanges.ReasonID + ""}
+                  onChange={handleChange}
+                  inputProps={{
+                    name: "ReasonID",
+                  }}
+                >
+                  <option aria-label="None" value="">
+                    กรุณาเลือก
                   </option>
-                ))}
-              </Select>
-            </FormControl>
+                  {reasons.map((item: ReasonInterface) => (
+                    <option value={item.ID} key={item.ID}>
+                      {item.Reason}
+                    </option>
+                  ))}
+                </Select>
+              </FormControl>
+            </Grid>
+
+
+            <Grid item xs={6} sx={{ color: "red", fontFamily: "PK Krung Thep Medium", fontSize: "20px" }}>
+              <p>หากอื่นๆโปรดระบุ (หากไม่ต้องการระบุใส่ -)</p>
+              <FormControl fullWidth variant="outlined">
+                <TextField
+                  id="detail"
+                  variant="outlined"
+                  type="string"
+                  size="medium"
+                  placeholder="ไม่มี"
+                  rows={4}
+                  multiline
+                  onChange={(event) => setDetail(event.target.value)}
+
+                />
+              </FormControl>
+            </Grid>
+
           </Grid>
 
-          {/* <Grid item xs={6}>
-            <FormControl fullWidth variant="outlined">
-              <p>ห้องพักที่ต้องการ</p>
-              <Select sx={{
-                fontFamily: "PK Krung Thep Medium",
-                fontSize: "18px"
-              }}
-                style={{borderRadius: "30px"}}
-                native
-                placeholder=""
-                value={requestchanges.RoomID + ""}
-                onChange={handleChange}
-                inputProps={{
-                  name: "RoomID",
-                }}
-              >
-                <option aria-label="None" value="">
-                  โปรดระบุ
-                </option>
-                {rooms.map((item:RoomInterface) => (
-                  <option value={item.ID} key={item.ID}>
-                    {item.Number}
-                  </option>
-                ))}
-              </Select>
-            </FormControl>
-          </Grid> */}
+          <Box sx={{
+            display: 'display-box',
+            // justifyContent: 'center',
+            height: "30%", 
+            width: "95%",
+            padding: "0px 20px 0px 40px"
+            
+          }}>
 
-          <Grid item xs={6}>
-            <FormControl fullWidth variant="outlined">
-              <p>เหตุผล</p>
-              <Select sx={{
-                fontFamily: "PK Krung Thep Medium",
-                fontSize: "16px"
-              }}
-                style={{borderRadius: "30px"}}
-                native
-                placeholder="โปรดระบุ"
-                value={requestchanges.ReasonID + ""}
-                onChange={handleChange}
-                inputProps={{
-                  name: "ReasonID",
-                }}
-              >
-                <option aria-label="None" value="">
-                  
-                </option>
-                {reasons.map((item:ReasonInterface) => (
-                  <option value={item.ID} key={item.ID}>
-                    {item.Reason}
-                  </option>
-                ))}
-              </Select>
-            </FormControl>
-          </Grid>
-
-
-          <Grid item xs={6}>
-            <p>หากอื่นๆโปรดระบุ (หากไม่ต้องการระบุใส่ -)</p>
-            <FormControl fullWidth variant="outlined">
-              <TextField
-                id="detail"
-                variant="outlined"
-                type="string"
-                size="medium"
-                placeholder="ไม่มี"   
-                onChange={(event) => setDetail(event.target.value)}
-                
-              />
-            </FormControl>
-          </Grid>
-
-          
-          <Grid item xs={12}>
-          
             <Button sx={{
-              fontFamily: "PK Krung Thep Medium", 
-              fontSize:17
+              
+              mt: '10%',
+              width: "30%",
+              fontFamily: "PK Krung Thep Medium",
+              fontSize: 20,
+              color: '#white',
+              background: '#f54d4d',
+              '&:hover': {
+                background: "white",
+                color: "#f54d4d",
+
+              },
+
             }}
+              style={{ borderRadius: "30px" }}
               component={RouterLink}
               to="/requestchanges"
               variant="contained"
@@ -349,27 +380,36 @@ function RequestchangeCreate() {
               <b>กลับ</b>
             </Button>
 
-            
-             
-            
-            <Button sx={{ 
-              fontFamily: "PK Krung Thep Medium", 
-              fontSize:17
 
+
+
+            <Button sx={{
+              mt: '10%',
+              width: "30%",
+              fontFamily: "PK Krung Thep Medium",
+              fontSize: 20,
+              color: 'black',
+              background: '#00b803',
+              '&:hover': {
+                background: "black",
+                color: "#00b803",
+
+              },
             }}
-              style={{ float: "right"}}
+              style={{ float: "right", borderRadius: "30px" }}
               onClick={submit}
               variant="contained"
               color="primary"
             >
               <b>บันทึก</b>
             </Button>
-            
-          </Grid>
-          
-        </Grid>
-      </Paper>
-    </Container>
+
+
+
+          </Box>
+        </Box>
+      </Box>
+    </div>
   );
 }
 

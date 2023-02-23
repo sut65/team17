@@ -178,6 +178,13 @@ func UpdateFurniture(c *gin.Context) {
 			Total:         furniture.Total,         // โยงความสัมพันธ์กับ Entity Total
 			FurnitureTime: furniture.FurnitureTime, // ตั้งค่าฟิลด์ furnitureTime
 		}
+
+
+		// ขั้นตอนการ validate ที่นำมาจาก unit test
+	if _, err := govalidator.ValidateStruct(update); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
 	
 		// 15: บันทึก
 		if err := entity.DB().Where("id = ?", furniture.ID).Updates(&update).Error; err != nil {

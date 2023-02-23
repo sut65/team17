@@ -134,7 +134,7 @@ func UpdateRequestchange(c *gin.Context) {
 		return
 	}
 
-	// 12: สร้าง Requestout
+	// 12: สร้าง Requestchange
 	update := entity.Requestchange{
 		Room:		room,					// โยงความสัมพันธ์กับ Entity Room
 		Reason:		reason,					// โยงความสัมพันธ์กับ Entity Reason
