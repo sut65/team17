@@ -162,7 +162,7 @@ function RequestchangeCreate() {
 
   return (
     <div style={{
-      backgroundImage: "url(https://images.hdqwalls.com/download/material-minimal-shape-8k-lv-1920x1080.jpg)",
+      backgroundImage: "url(https://images.pexels.com/photos/2387793/pexels-photo-2387793.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1)",
       backgroundRepeat: "no-repeat",
       backgroundSize: "cover",
       width: '100%',
@@ -180,7 +180,7 @@ function RequestchangeCreate() {
         mb: '100px',
         minHeight: '50%',
         width: '80%',
-        background: 'rgba(255, 255, 255, 0.3)',
+        background: 'rgba(255, 255, 255, 0.6)',
         display: 'flex',
         justifyContent: 'center',
         borderRadius: 10,
@@ -229,7 +229,7 @@ function RequestchangeCreate() {
                   sx={{
                     fontFamily: "PK Krung Thep Medium",
                     fontSize: "40px",
-                    color: '#8b1fb2'
+                    color: '#00000'
                   }}
                 >
                   <b>แบบคำขอย้ายห้อง</b>
@@ -243,14 +243,14 @@ function RequestchangeCreate() {
 
 
           <Grid container spacing={3} sx={{ padding: 2 }}>
-            <Grid item xs={6} sx={{ fontFamily: "PK Krung Thep Medium", fontSize: "20px" }}>
+            <Grid item xs={6} sx={{ fontFamily: "PK Krung Thep Medium", fontSize: "24px", color:"#000000" }}>
               <FormControl fullWidth variant="outlined">
                 <p>ชื่อ - สกุล</p>
                 <Select
                   sx={{
                     fontFamily: "PK Krung Thep Medium",
                     fontSize: "20px",
-                    color: '#990f0f',
+                    color: '#a81f1f',
                   }}
                   style={{ borderRadius: "30px" }}
                   native
@@ -268,7 +268,7 @@ function RequestchangeCreate() {
 
             </Grid>
 
-            <Grid item xs={6} sx={{ fontFamily: "PK Krung Thep Medium", fontSize: "20px" }}>
+            <Grid item xs={6} sx={{ fontFamily: "PK Krung Thep Medium", fontSize: "24px" }}>
               <FormControl fullWidth variant="outlined">
                 <p>ห้องพัก</p>
                 <Select sx={{
@@ -298,7 +298,7 @@ function RequestchangeCreate() {
               </FormControl>
             </Grid>
 
-            <Grid item xs={6} sx={{ fontFamily: "PK Krung Thep Medium", fontSize: "20px" }}>
+            <Grid item xs={6} sx={{ fontFamily: "PK Krung Thep Medium", fontSize: "24px" }}>
               <FormControl fullWidth variant="outlined">
                 <p>เหตุผล</p>
                 <Select sx={{
@@ -332,6 +332,7 @@ function RequestchangeCreate() {
               <p>หากอื่นๆโปรดระบุ (หากไม่ต้องการระบุใส่ -)</p>
               <FormControl fullWidth variant="outlined">
                 <TextField
+                  inputProps={{ style: {fontFamily: "PK Krung Thep Medium", fontSize: "20px"}}}
                   id="detail"
                   variant="outlined"
                   type="string"

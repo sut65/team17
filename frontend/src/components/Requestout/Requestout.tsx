@@ -126,7 +126,7 @@ function Requestout() {
       mb: '100px',
       minHeight: '50%',
       width: '80%',
-      background: 'rgba(76, 122, 201, 0.3)',
+      background: 'rgba(0, 0, 0, 0.4)',
       
       display: 'flex',
       justifyContent: 'center',
@@ -171,7 +171,9 @@ function Requestout() {
             color="primary"
             gutterBottom
             sx={{fontFamily: "PK Krung Thep Medium",
-                fontSize: "36px",}}
+                fontSize: "40px",
+                fontWeight: 'bold',
+                color:'white'}}
           >
             ข้อมูลการแจ้งออก
           </Typography>
@@ -200,29 +202,29 @@ function Requestout() {
         <Table sx={{ marginTop: 1 }} aria-label="simple table" >
           <TableHead>
             <TableRow>
-            <TableCell align="center" width="2%" sx={{fontFamily: "PK Krung Thep Medium", fontSize: "24px", color: "#f96424"}}>
+            <TableCell align="center" width="2%" sx={{fontFamily: "PK Krung Thep Medium", fontSize: "30px", color: "#a80000"}}>
                 ลำดับ
               </TableCell>
-              <TableCell align="center" width="15%"sx={{fontFamily: "PK Krung Thep Medium", fontSize: "24px", color: "#f96424"}}>
+              <TableCell align="center" width="15%"sx={{fontFamily: "PK Krung Thep Medium", fontSize: "30px", color: "#a80000"}}>
                 ชื่อ
               </TableCell>
-              <TableCell align="center" width="10%"sx={{fontFamily: "PK Krung Thep Medium", fontSize: "24px", color: "#f96424"}}>
+              <TableCell align="center" width="10%"sx={{fontFamily: "PK Krung Thep Medium", fontSize: "30px", color: "#a80000"}}>
                 ห้องพัก
               </TableCell>
-              <TableCell align="center" width="20%"sx={{fontFamily: "PK Krung Thep Medium", fontSize: "24px", color: "#f96424"}}>
+              <TableCell align="center" width="20%"sx={{fontFamily: "PK Krung Thep Medium", fontSize: "30px", color: "#a80000"}}>
                 สาเหตุ
               </TableCell>
-              <TableCell align="center" width="20%"sx={{fontFamily: "PK Krung Thep Medium", fontSize: "24px", color: "#f96424"}}>
+              <TableCell align="center" width="20%"sx={{fontFamily: "PK Krung Thep Medium", fontSize: "30px", color: "#a80000"}}>
                 รายละเอียด
               </TableCell>
-              <TableCell align="center" width="20%"sx={{fontFamily: "PK Krung Thep Medium", fontSize: "24px", color: "#f96424"}}>
+              <TableCell align="center" width="20%"sx={{fontFamily: "PK Krung Thep Medium", fontSize: "30px", color: "#a80000"}}>
                 วันที่ออก
               </TableCell>
 
-              <TableCell align="center" width="20%"sx={{fontFamily: "PK Krung Thep Medium", fontSize: "24px", color: "#f96424"}}>
+              <TableCell align="center" width="20%"sx={{fontFamily: "PK Krung Thep Medium", fontSize: "30px", color: "#a80000"}}>
                 แก้ไข
               </TableCell>
-              <TableCell align="center" width="20%"sx={{fontFamily: "PK Krung Thep Medium", fontSize: "24px", color: "#f96424"}}>
+              <TableCell align="center" width="20%"sx={{fontFamily: "PK Krung Thep Medium", fontSize: "30px", color: "#a80000"}}>
                 Delete
               </TableCell>
         
@@ -231,20 +233,20 @@ function Requestout() {
           <TableBody>
             {requestouts.map((item: RequestoutInterface) => (
               <TableRow key={item.ID}>
-              <TableCell align="center" sx={{fontFamily: "PK Krung Thep Medium", fontSize: "18px", }}>{item.ID}</TableCell>
-                <TableCell align="center" sx={{fontFamily: "PK Krung Thep Medium", fontSize: "18px", }}>{item.User.Name}</TableCell>
-                <TableCell align="center" sx={{fontFamily: "PK Krung Thep Medium", fontSize: "18px", }}>{item.Room.Number}</TableCell>
-                <TableCell align="center" sx={{fontFamily: "PK Krung Thep Medium", fontSize: "18px", }}>{item.Reason.Reason}</TableCell>
-                <TableCell align="center" sx={{fontFamily: "PK Krung Thep Medium", fontSize: "18px", }}>{item.Detail}</TableCell>
+              <TableCell align="center" sx={{fontFamily: "PK Krung Thep Medium", fontSize: "20px", color: 'white' }}>{item.ID}</TableCell>
+                <TableCell align="center" sx={{fontFamily: "PK Krung Thep Medium", fontSize: "20px", color: 'white' }}>{item.User.Name}</TableCell>
+                <TableCell align="center" sx={{fontFamily: "PK Krung Thep Medium", fontSize: "20px", color: 'white' }}>{item.Room.Number}</TableCell>
+                <TableCell align="center" sx={{fontFamily: "PK Krung Thep Medium", fontSize: "20px", color: 'white' }}>{item.Reason.Reason}</TableCell>
+                <TableCell align="center" sx={{fontFamily: "PK Krung Thep Medium", fontSize: "20px", color: 'white' }}>{item.Detail}</TableCell>
                 
-                <TableCell align="center" sx={{fontFamily: "PK Krung Thep Medium", fontSize: "18px", }}>{moment(item.Outtime).format('DD MM yyyy')}</TableCell>
+                <TableCell align="center" sx={{fontFamily: "PK Krung Thep Medium", fontSize: "20px", color: 'white' }}>{moment(item.Outtime).format('DD MM yyyy')}</TableCell>
 
                 <TableCell align="center">
                 <IconButton aria-label="แก้ไข" size="large" 
                 sx={{ 
-                  color: '#8b1fb2',
+                  color: '#2448f9',
                            '&:hover': {
-                              background: "#8b1fb2",
+                              background: "#2448f9",
                               color: "white",
                               
                            },

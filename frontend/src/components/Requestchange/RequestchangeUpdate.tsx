@@ -205,7 +205,7 @@ function RequestchangeUpdate() {
       
   
     <div style={{
-      backgroundImage: "url(https://images.hdqwalls.com/download/blue-red-material-design-8k-kf-1920x1080.jpg)",
+      backgroundImage: "url(https://images.rawpixel.com/image_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvdjQ2Mi1uLTEzMC10ZXh0dXJlaWRlYV8xLmpwZw.jpg)",
       backgroundRepeat: "no-repeat",
       backgroundSize: "cover",
       width: '100%',
@@ -222,18 +222,18 @@ function RequestchangeUpdate() {
       mt: '100px',
       mb: '100px',
       minHeight: '50%',
-      height: '60%',
-      width: '50%',
+      height: '65%',
+      width: '60%',
       display: 'flex',
       justifyContent: 'center',
-      background: 'rgba(29, 131, 240, 0.5)',
+      background: 'rgba(255, 255, 255, 0.6)',
       backgroundSize: "cover",
       
       borderRadius: 10,
 
    }}>
    
-   <Box sx={{ width: "80%" }}>
+   <Box sx={{ width: "90%" }}>
     
     <Box display="flex" 
     sx={{mt: "10px",}}>
@@ -294,14 +294,14 @@ function RequestchangeUpdate() {
 
 
         <Grid container spacing={3} sx={{ padding: 2 }}>
-          <Grid item xs={6} sx={{fontFamily: "PK Krung Thep Medium", fontSize: "20px"}}>
+          <Grid item xs={6} sx={{fontFamily: "PK Krung Thep Medium", fontSize: "24px"}}>
           <FormControl fullWidth variant="outlined">
             <p>ชื่อ - สกุล</p>
               <Select
               sx={{
                 fontFamily: "PK Krung Thep Medium",
                 fontSize: "20px",
-                color: '#1100ff',
+                color: '#000000',
               }}
               style={{ borderRadius: "30px"  }}
                 native
@@ -323,12 +323,12 @@ function RequestchangeUpdate() {
           </Grid>
 
           <Grid item xs={6}>
-            <FormControl fullWidth variant="outlined">
+            <FormControl fullWidth variant="outlined" sx={{fontFamily: "PK Krung Thep Medium", fontSize: "24px"}}>
               <p>ห้องพัก</p>
               <Select sx={{
                 fontFamily: "PK Krung Thep Medium",
                 fontSize: "20px",
-                color: '#1100ff',
+                
                 
               }}
                 style={{borderRadius: "30px"}}
@@ -353,12 +353,12 @@ function RequestchangeUpdate() {
           </Grid>
 
           <Grid item xs={6}>
-            <FormControl fullWidth variant="outlined">
+            <FormControl fullWidth variant="outlined" sx={{fontFamily: "PK Krung Thep Medium", fontSize: "24px" }}>
               <p>เหตุผล</p>
               <Select sx={{
                 fontFamily: "PK Krung Thep Medium",
                 fontSize: "20px",
-                color: '#1100ff',
+                
               }}
                 style={{borderRadius: "30px"}}
                 native
@@ -382,8 +382,8 @@ function RequestchangeUpdate() {
           </Grid>
 
 
-          <Grid item xs={6}  sx={{color: 'red'}} style={{borderRadius: "30px"}}>
-            <p>หากอื่นๆโปรดระบุ (*ไม่จำเป็น)</p>
+          <Grid item xs={6}  sx={{fontFamily: "PK Krung Thep Medium", fontSize: "24px", color: 'red'}} style={{borderRadius: "30px"}}>
+            <p>หากอื่นๆโปรดระบุ (หากไม่ต้องการระบุใส่ -)</p>
             <FormControl fullWidth variant="outlined"
             sx={{
               fontFamily: "PK Krung Thep Medium",
@@ -393,6 +393,7 @@ function RequestchangeUpdate() {
               style={{borderRadius: "30px"}}
               >
               <TextField
+                inputProps={{ style: {fontFamily: "PK Krung Thep Medium", fontSize: "20px"}}}
                 id="detail"
                 variant="outlined"
                 type="string"
