@@ -179,28 +179,54 @@ function EmergencyCreate() {
   }
 
   return (
-    <Container maxWidth="md">
-      <Snackbar
-        open={success}
-        autoHideDuration={3000}
-        onClose={handleClose}
-        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+    <Box
+      sx={{
+        backgroundImage:
+          "url(https://img.freepik.com/free-vector/elegant-white-background-with-shiny-lines_1017-17580.jpg?w=1380&t=st=1677247672~exp=1677248272~hmac=de25a4fe6866a5104de56a8459541a0dda6f1bcea0aa2d0f1cf147ba4c5602a2)",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        width: "100%",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+
+      <Box
+        sx={{
+          fontFamily: "PK Krung Thep Medium",
+          fontSize: "20px",
+          width: "80%",
+          height: '80%',
+          mt: "70px",
+          bgcolor: "rgba(190, 190, 190, 0.8)",
+          borderRadius: "30px",
+          boxShadow: 20,
+        }}
       >
-        <Alert onClose={handleClose} severity="success">
-          บันทึกข้อมูลสำเร็จ
-        </Alert>
-      </Snackbar>
-      <Snackbar
-        open={error}
-        autoHideDuration={6000}
-        onClose={handleClose}
-        anchorOrigin={{ vertical: "top", horizontal: "center" }}
-      >
-        <Alert onClose={handleClose} severity="error">
-          {errorMessage}
-        </Alert>
-      </Snackbar>
-      <Paper>
+
+
+        <Snackbar
+          open={success}
+          autoHideDuration={3000}
+          onClose={handleClose}
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        >
+          <Alert onClose={handleClose} severity="success">
+            บันทึกข้อมูลสำเร็จ
+          </Alert>
+        </Snackbar>
+        <Snackbar
+          open={error}
+          autoHideDuration={6000}
+          onClose={handleClose}
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        >
+          <Alert onClose={handleClose} severity="error">
+            {errorMessage}
+          </Alert>
+        </Snackbar>
+
         <Box
           display="flex"
           sx={{
@@ -224,11 +250,11 @@ function EmergencyCreate() {
 
           <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
-            <p>ชื่อ - สกุล</p>
+              <p>ชื่อ - สกุล</p>
               <Select
                 native
                 disabled
-                
+
                 value={emergencys.UserID + ""}
                 onChange={handleChange}
                 inputProps={{
@@ -236,15 +262,15 @@ function EmergencyCreate() {
                 }}
               >
                 <option value={users?.ID} key={users?.ID} >
-                    {users?.Name}
-                    </option>
+                  {users?.Name}
+                </option>
               </Select>
             </FormControl>
           </Grid>
 
           <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
-            <p>ห้อง</p>
+              <p>ห้อง</p>
               <Select
                 native
                 value={emergencys.ResidentID + ""}
@@ -256,9 +282,9 @@ function EmergencyCreate() {
                 <option aria-label="None" value="">
                 </option>
                 {residents.map((item: ResidentInterface) => (
-                <option value={item.ID} key={item.ID}>
+                  <option value={item.ID} key={item.ID}>
                     {item.Manage.Room.Number}
-                </option>
+                  </option>
                 ))}
               </Select>
             </FormControl>
@@ -269,19 +295,19 @@ function EmergencyCreate() {
               <p>เลือกประเภทเหตุฉุกเฉิน</p>
               <Select
                 native
-                
+
                 onChange={handleChange}
                 inputProps={{
                   name: "EmergencytypeID",
                 }}
-                
+
               >
                 <option aria-label="None" value="">
                 </option>
                 {emergencytypes.map((item: EmergencytypeInterface) => (
-                <option value={item.ID} key={item.ID}>
+                  <option value={item.ID} key={item.ID}>
                     {item.Name}
-                </option>
+                  </option>
                 ))}
               </Select>
             </FormControl>
@@ -289,23 +315,23 @@ function EmergencyCreate() {
 
           <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
-            <p>ระบุรายละเอียดเพิ่มเติม</p>
+              <p>ระบุรายละเอียดเพิ่มเติม</p>
               <TextField
-                  id="ResidentID"
-                  multiline
-                  label="ระบุรายละเอียดเพิ่มเติม"
-                  onChange={(event) => setDetails(event.target.value)}
+                id="ResidentID"
+                multiline
+                label="ระบุรายละเอียดเพิ่มเติม"
+                onChange={(event) => setDetails(event.target.value)}
               />
             </FormControl>
-            </Grid>
+          </Grid>
 
 
-            <Grid item xs={6}>
+          <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
               <p>วันที่แจ้งเหตุฉุกเฉิน</p>
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DesktopDatePicker
-                   disabled
+                  // disabled
                   label="เดือน/วัน/ปี"
                   value={selectedDate}
                   onChange={(newValue) => setSelectedDate(newValue)}
@@ -315,13 +341,8 @@ function EmergencyCreate() {
               </LocalizationProvider>
             </FormControl>
           </Grid>
-         
-          
 
 
-        
-          
-          
           <Grid item xs={12}>
             <Button
               component={RouterLink}
@@ -341,8 +362,8 @@ function EmergencyCreate() {
             </Button>
           </Grid>
         </Grid>
-      </Paper>
-    </Container>
+      </Box>
+    </Box>
   );
 }
 
