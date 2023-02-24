@@ -1,80 +1,97 @@
+import React, { useEffect, useState } from "react";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import CssBaseline from "@mui/material/CssBaseline";
+import MuiDrawer from "@mui/material/Drawer";
+import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import Divider from "@mui/material/Divider";
+import IconButton from "@mui/material/IconButton";
+import Container from "@mui/material/Container";
+import MenuIcon from "@mui/icons-material/Menu";
+import ListItem from "@mui/material/ListItem";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import Container from "@material-ui/core/Container";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import Grid from "@mui/material/Grid";
+import List from "@mui/material/List";
+
+import HomeIcon from "@mui/icons-material/Home";
+import RoomPreferencesIcon from '@mui/icons-material/RoomPreferences';
+import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
+import ChairOutlinedIcon from '@mui/icons-material/ChairOutlined';
+import ConstructionIcon from '@mui/icons-material/Construction';
+import CampaignIcon from '@mui/icons-material/Campaign';
+import ContactPageIcon from '@mui/icons-material/ContactPage';
+import PaymentIcon from '@mui/icons-material/Payment';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import CleaningServicesOutlinedIcon from '@mui/icons-material/CleaningServicesOutlined';
+import MeetingRoomIcon from '@mui/icons-material/MeetingRoom';
+import EditLocationIcon from '@mui/icons-material/EditLocation';
+
+// import './App.tsx';
 
 const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    container: {
-      marginTop: theme.spacing(2),
-    },
-    table: {
-      minWidth: 650,
-    },
-    tableSpace: {
-      marginTop: 20,
-    },
-  })
+   createStyles({
+      container: {
+         marginTop: theme.spacing(2),
+      },
+      table: {
+         minWidth: 650,
+      },
+      tableSpace: {
+         marginTop: 20,
+      },
+   })
 );
 
-function Home() {
-  const classes = useStyles();
-
-  return (
-    <div>
-      <Container className={classes.container} maxWidth="md">
-        <h1 style={{ textAlign: "center" }}>ระบบนัดหมายโรงพยาบาลมหาวิทยาลัยเทคโนโลยีสุรนารี</h1>
-        <h3>ระบบจองคิว</h3>
-        <p>
-          ระบบนัดหมายเป็นระบบที่ทำมาเพื่อให้ผู้ป่วยสามารถนัดหมายวันที่เข้ามารักษากับแพทย์ล่วงหน้า 
-          เพื่อเป็นการย่นระยะเวลาในการรอแพทย์ เมื่อเทียบกับการไปพบแพทย์โดยไม่ทำการนัดหมายล่วงหน้า 
-          ผู้ป่วยจะสามารถ login เข้าสู่ระบบเพื่อดูข้อมูลประวัติและตารางเวลางานของแพทย์แต่ละท่านได้ 
-          นอกจากนี้ผู้ป่วยจะต้องทำการกรอกประวัติส่วนตัวและเลือกวันที่จะเข้ารักษา
-	        ระบบการจองคิวของโรงพยาบาล เป็นระบบที่ผู้ใช้งานต้อง login เข้าสู่ระบบการจองคิวของโรงพยาบาล 
-          จากนั้นผู้ใช้งานระบบจะต้องทำการระบุอาการป่วยที่จะเข้ารับการวินิจฉัย หรือเข้ารับการรักษาจากหมอ 
-          นอกจากนี้ผู้ใช้งานระบบยังสามารถระบุได้ว่าต้องการเข้าพบแพทย์เฉพาะทางด้านใด 
-          จากนั้นทำการเลือกวันที่และเวลาที่ต้องการจองคิว เสร็จแล้วทำการบันทึกข้อมูลเพื่อจองคิว 
-          ระบบจะทำการบันทึกข้อมูลการจองคิวและส่งข้อมูลไปยังโรงพยาบาลเพื่อให้เจ้าหน้าที่ตรวจสอบและทำการจองคิวให้
-
-        </p>
-
-        <h3>ระบบบันทึกข้อมูลแพทย์</h3>
-        <p>
-        ระบบบันทึกข้อมูลของแพทย์ของเป็นระบบที่เจ้าหน้าที่จะทำการบันทึกข้อมูลประวัติของแพทย์ลงใน ฐานข้อมูล 
-        เพื่อให้ผู้ใช้หรือคนไข้ที่ต้องการนัดพบแพทย์สามารถ login เข้าสู่ระบบและจะสามารถดูข้อมูลพื้นฐาน ของแพทย์แต่ละคนได้ 
-        รวมทั้งระดับการศึกษาและแผนกของแพทย์ที่รับผิดชอบ ทำให้คนไข้สามารถมั่นใจใน ประวัติของแพทย์ทุกคน 
-        โดย ระบบบันทึกข้อมูลแพทย์สามารถบันทึกข้อมูลของแพทย์ ได้ โดยเจ้าหน้าที่จะ login ด้วย User ของ Admin 
-        และข้อมูลจะ update ไปที่หน้าจอการใช้งานของผู้ใช้งาน
-        </p>
-
-        <h3>ระบบขึ้นทะเบียนผู้ป่วย</h3>
-        <p>
-        ระบบขึ้นทะเบียนผู้ป่วย เป็นระบบสำหรับผู้ใช้งานระบบที่ยังไม่เคยขึ้นทะเบียนผู้ป่วยมาก่อน หากเคย ขึ้นทะเบียนไว้แล้วก็สามารถทำรายการต่อไปได้ 
-        โดยเบื้องต้นผู้ใช้งานระบบสามารถ login เข้าระบบเพื่อทำการ ขึ้นทะเบียนผู้ป่วยได้ด้วยการกรอกข้อมูลดังต่อไปนี้ ข้อมูลส่วนตัว, หมู่เลือด, โรคประจำตัว, อาการแพ้ยา ฯลฯ 
-        ให้ครบถ้วนเพื่อทำการขึ้นทะเบียนเป็นผู้ป่วย นอกจากนี้ผู้ใช้งานสามารถการปรับเปลี่ยน เพิ่ม/ลบ/แก้ไข ข้อมูล ส่วนตัวเข้าไปในระบบได้เพื่อส่งออกข้อมูลไปยังส่วนต่อไป
-        </p>
-        <h3>ระบบบันทึกอาการ</h3>
-        <p>
-        ระบบบันทึกอาการเป็นระบบที่ทามาเพื่อให้แพทย์ที่ทาการรักษาที่โรงพยาบาลจะทราบถึงข้อมูลของผู้ป่วย จะทาการบันทึกเกี่ยวกับอาการเจ็บป่วย 
-        พบว่าแพทย์ต้องทาการเขียนบันทึกลงกระดาษอาจจะทาให้เกิดเอกสารตกหล่นหรือสูญหายได้ แพทย์จึงมีความต้องการที่จะให้มีระบบบันทึกอาการของผู้ป่วยเพื่อที่จะมี 
-        ระบบแก้ปัญหาดังที่กล่าวไว้ข้างต้น เราจึงได้ออกแบบระบบบันทึกอาการของผู้ป่วยเป็นระบบที่ให้แพทย์ใช้ ระบบซึ่งเป็นแพทย์ที่ทาการรักษาในโรงพยาบาลสามารถ login เข้าระบบเพื่อกรอกข้อมูลอาการของผู้ป่วย 
-        โดยแพทย์ผู้ใช้งานแต่ละคนสามารถบันทึกอาการของคนไข้แต่ละคนเลือกบริเวณที่เจ็บป่วยได้ เลือกแผนกที่ตรวจ เลือกวันที่เวลาที่ตรวจ และสามารถที่จะกรอกอาการเพิ่มเติมได้ จึงทาให้สะดวกสบายต่อการบันทึกมากขึ้น
-        </p>
-
-        <h3>ระบบตารางการทำงานของแพทย์</h3>
-        <p>
-        ระบบตารางงานแพทย์ เป็นระบบที่เจ้าหน้าที่เป็นผู้ใช้ระบบ ซึ่งเป็นเจ้าหน้าที่สามารถ login เข้าระบบ เพื่อจัดทำข้อมูลตารางการทำงานของแพทย์ได้ 
-        โดยเจ้าหน้าที่สามารถดูและบันทึกข้อมูล ชื่อ-นามสกุล สถานที่ วัน และเวลาที่เข้าทำงานของแพทย์แต่ละคน เพื่อให้ง่ายต่อการดูตารางการทำงานว่าแพทย์คนนั้นๆว่าต้องไปทำงานที่ ห้องตรวจไหนและแผนกอะไร
-        </p>
-
-
-        <h3>ระบบนัดหมายสถานที</h3>
-        <p>
-        ระบบนัดหมายสถานที่ เป็นระบบที่จะระบุสถานที่รักษาของผู้ป่วยโดยเจ้าหน้าที่จะเป็นผู้ดำเนินการส่วนนี้ว่าผู้ป่วยแต่ละคนนั้นต้องไปรักษาที่แผนกไหน ตึกไหน 
-        เมื่อเจ้าหน้าที่สามารถเลือกสถานที่ได้แล้ว ก็จะทำการบักทึกลงใบจองคิวผู้ป่วยก็จะรู้ว่าต้องไปพบแพทย์ที่ไหน โดยจะระบุ แผนกและตึกผู้ป่วยต้องทำการรักษา
-        </p>
-
-        
-      </Container>
-    </div>
-  );
+function loadsManage() {
+   setTimeout(() => {
+      window.location.reload();
+   }, 1000);
+   window.location.href = "/manages";
 }
-export default Home;
+
+function loadsResident() {
+   setTimeout(() => {
+      window.location.reload();
+   }, 1000);
+   window.location.href = "/residents";
+}
+
+function HomeAdmin() {
+
+   return (
+
+      <Box sx={{
+         backgroundImage: "url(https://images.hdqwalls.com/download/simple-drop-white-10k-n8-1280x720.jpg)",
+         backgroundRepeat: "no-repeat",
+         backgroundSize: "cover",
+         backgroundPosition: "center",
+         width: '100%',
+         display: "flex",
+         justifyContent: "center",
+         alignItems: "center",
+      }}>
+         <Box sx={{
+            fontFamily: "PK Krung Thep Medium",
+            fontSize: 35,
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            mt: '70px',
+            mr: '10px',
+            background: 'rgba(255, 255, 255, 0.7)',
+            width: '50%',
+            height: '50%',
+            borderRadius: '20px',
+            boxShadow: 20,
+         }}>
+            <h1>Team 17 ระบบหอพัก</h1>
+         </Box>
+      </Box>
+   );
+}
+export default HomeAdmin;

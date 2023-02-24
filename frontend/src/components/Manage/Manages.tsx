@@ -1,12 +1,12 @@
-import * as React from 'react';
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Grid from '@mui/material/Unstable_Grid2';
-import Divider from '@mui/material/Divider';
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert, { AlertProps } from "@mui/material/Alert";
 import { useParams, useNavigate } from "react-router-dom";
 
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
@@ -17,7 +17,9 @@ import { ManageInterface } from "../../models/IManage";
 import { Card } from '@mui/material';
 
 
-
+const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props, ref) {
+   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 
 function Manages() {
@@ -36,6 +38,14 @@ function Manages() {
          Authorization: `Bearer ${localStorage.getItem("token")}`,
          "Content-Type": "application/json",
       },
+   };
+
+   const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
+      if (reason === "clickaway") {
+         return;
+      }
+      setSuccess(false);
+      setError(false);
    };
 
 
@@ -67,13 +77,13 @@ function Manages() {
             (res) => {
                if (res.data) {
                   setSuccess(true)
-                  console.log("ยกเลิกสำเร็จ")
+                  console.log("ลบข้อมูลสำเร็จ")
                   setErrorMessage("")
                }
                else {
                   setErrorMessage(res.error)
                   setError(true)
-                  console.log("ยกเลิกไม่สำเร็จ")
+                  console.log("ลบข้อมูลไม่สำเร็จ")
                }
                getManages();
             }
@@ -102,6 +112,16 @@ function Manages() {
          justifyContent: 'center',
          // alignItems: 'center',
       }}>
+         <Snackbar
+            open={success}
+            autoHideDuration={3000}
+            onClose={handleClose}
+            anchorOrigin={{ vertical: "top", horizontal: "center" }}
+         >
+            <Alert onClose={handleClose} severity="success">
+               ลบข้อมูลสำเร็จ
+            </Alert>
+         </Snackbar>
          <Box sx={{
             mt: '70px',
             height: 'auto',

@@ -604,7 +604,7 @@ function ResidentCreate() {
                         <CalendarPicker
                            date={selectedDate}
                            onChange={(newValue) => setSelectedDate(newValue)}
-                           minDate={(new Date)}
+                           // minDate={(new Date)}
                            maxDate={(new Date('2023-12-31'))}
                         />
                      </LocalizationProvider>
