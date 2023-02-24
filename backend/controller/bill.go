@@ -16,6 +16,7 @@ func CreateBill(c *gin.Context) {
 	var meter entity.Meter
 	var furniture entity.Furniture
 
+
 	// ผลลัพธ์ที่ได้จากขั้นตอนที่ 8 จะถูก bind เข้าตัวแปร bill
 	if err := c.ShouldBindJSON(&bill); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
