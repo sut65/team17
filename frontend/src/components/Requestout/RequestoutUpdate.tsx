@@ -225,7 +225,7 @@ function RequestoutUpdate() {
       mb: '100px',
       minHeight: '50%',
       width: '90%',
-      background: 'rgba(255, 255, 255, 0.3)',
+      background: 'rgba(255, 255, 255, 0.8)',
       
       display: 'flex',
       justifyContent: 'center',

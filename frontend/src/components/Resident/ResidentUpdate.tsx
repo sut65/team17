@@ -150,12 +150,12 @@ function ResidentUpdate() {
          .then((res) => {
             if (res.data) {
                console.log("บันทึกได้")
-               setErrorMessage("")
-               setTimeout(() => {
-                  window.location.reload();
-               }, 1000);
+               // setErrorMessage("")
+               // setTimeout(() => {
+               //    window.location.reload();
+               // }, 1000);
                setSuccess(true)
-               window.location.href = "/residents";
+               // window.location.href = "/residents";
             } else {
                console.log("บันทึกไม่ได้")
                setError(true)
@@ -583,7 +583,7 @@ function ResidentUpdate() {
                         <CalendarPicker
                            date={selectedDate}
                            onChange={(newValue) => setSelectedDate(newValue)}
-                           minDate={(new Date)}
+                           // minDate={(new Date)}
                            maxDate={(new Date('2023-12-31'))}
                         />
                      </LocalizationProvider>

@@ -31,7 +31,7 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props,
 
 
 
-function Meters(): JSX.Element {
+function Meters() {
   // const classes = useStyles();
   let navigate = useNavigate();
   const { id } = useParams();

@@ -162,7 +162,7 @@ function RequestchangeCreate() {
 
   return (
     <div style={{
-      backgroundImage: "url(https://images.pexels.com/photos/2387793/pexels-photo-2387793.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1)",
+      backgroundImage: "url(https://images.rawpixel.com/image_1000/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvcm0yODgta2F0aWUtMTcta3phdG9lYzAuanBn.jpg)",
       backgroundRepeat: "no-repeat",
       backgroundSize: "cover",
       width: '100%',
@@ -366,7 +366,7 @@ function RequestchangeCreate() {
               color: '#white',
               background: '#f54d4d',
               '&:hover': {
-                background: "white",
+                background: "black",
                 color: "#f54d4d",
 
               },
@@ -390,10 +390,10 @@ function RequestchangeCreate() {
               fontFamily: "PK Krung Thep Medium",
               fontSize: 20,
               color: 'black',
-              background: '#00b803',
+              background: '#058a07',
               '&:hover': {
                 background: "black",
-                color: "#00b803",
+                color: "#058a07",
 
               },
             }}
