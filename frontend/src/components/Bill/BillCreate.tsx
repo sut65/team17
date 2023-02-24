@@ -34,7 +34,7 @@ function BillCreate() {
   const [selectedDate, setSelectedDate] = useState<Date | null>();
   const [admins, setAdmins] = useState<AdminInterface>();
   const [furnitures, setFurnitures] = useState<FurnitureInterface[]>([]);
-  const [totalFurnitures, setTotalFurnitures] = useState<number>(0)
+  const [totalFurnitures, setTotalFurnitures] = useState<number>(0);
   const [meters, setMeters] = useState<MeterInterface[]>([]);
   const [bills, setBills] = useState<Partial<BillInterface>>({});
   const [costs, setCosts] = useState<string>("");
@@ -73,11 +73,11 @@ function BillCreate() {
   };
 
   const getAdmins = async () => {
-    const uid = localStorage.getItem("uid")
+    const uid = localStorage.getItem("uid");
     fetch(`${apiUrl}/admin/${uid}`, requestOptions)
       .then((response) => response.json())
       .then((res) => {
-        bills.AdminID = res.data.ID
+        bills.AdminID = res.data.ID;
         if (res.data) {
           setAdmins(res.data);
         } else {
@@ -98,36 +98,34 @@ function BillCreate() {
       });
   };
 
-  const getFurniture = async (value:number) => {
+  const getFurniture = async (value: number) => {
     fetch(`${apiUrl}/furniture/sum/${value}`, requestOptions)
       .then((response) => response.json())
       .then((res) => {
         if (res.sum) {
-          const datafur:FurnitureInterface[] = res.sum
-          let totalsum = 0
-          datafur.map(item => {
-            totalsum = totalsum + item.Total
-          })
-          console.log("res",res)
-          setTotalFurnitures(totalsum)
-          setFurnitures(datafur)
-          const arrFur = datafur.map(item => {
-            return item.ID
-          })
-          setBills({...bills ,FurnitureID:arrFur})
+          const datafur: FurnitureInterface[] = res.sum;
+          let totalsum = 0;
+          datafur.map((item) => {
+            totalsum = totalsum + item.Total;
+          });
+          console.log("res", res);
+          setTotalFurnitures(totalsum);
+          setFurnitures(datafur);
+          const arrFur = datafur.map((item) => {
+            return item.ID;
+          });
+          setBills({ ...bills, FurnitureID: arrFur });
         } else {
           console.log("else");
         }
       });
   };
 
-
   const totalvalue = async () => {
     const room = meters.find((item) => item.ID === Number(bills.MeterID));
-    if(room && totalFurnitures == 0){
-      await getFurniture(room?.Manage?.RoomID)
+    if (room && totalFurnitures == 0) {
+      await getFurniture(room?.Manage?.RoomID);
     }
-
   };
 
   useEffect(() => {
@@ -137,39 +135,46 @@ function BillCreate() {
   }, []);
 
   useEffect(() => {
-    if(bills?.MeterID){
-      totalvalue()
-    }else{
-      setTotalFurnitures(0)
-      setBills({...bills ,Cost:0})
+    if (bills?.MeterID) {
+      totalvalue();
+    } else {
+      setTotalFurnitures(0);
+      setBills({ ...bills, Cost: 0 });
     }
-  },[bills])
+  }, [bills]);
 
   useEffect(() => {
     const room = meters.find((item) => item.ID === Number(bills.MeterID));
-   if(room){
-    const totalcost = totalFurnitures +  Number(room?.Manage.Price) + Number(room?.Water) + Number(room?.Electric)
-    setBills({...bills ,Cost:totalcost})
-   }
-  },[totalFurnitures])
+    if (room) {
+      const totalcost =
+        totalFurnitures +
+        Number(room?.Manage.Price) +
+        Number(room?.Water) +
+        Number(room?.Electric);
+      setBills({ ...bills, Cost: totalcost });
+    }
+  }, [totalFurnitures]);
 
   const convertType = (data: string | number | undefined) => {
     let val = typeof data === "string" ? parseInt(data) : data;
     return val;
   };
-//?.map(item => convertType(item))
-//Number(costs)
+  //?.map(item => convertType(item))
+  //Number(costs)
   function submit() {
-    const arrFurnitureID = bills?.FurnitureID?.map(item => convertType(item)) || []
-    
-    arrFurnitureID.forEach(item => {
+   
+    const arrFurnitureID =
+      bills?.FurnitureID?.map((item) => convertType(item)) || [null];
+
+    arrFurnitureID.forEach((item) => {
+      
       let data = {
         MeterID: convertType(bills.MeterID),
         FurnitureID: item, //ส่งไปเป็น array จากบรรทัด 146
         Cost: bills.Cost, //คำนวณจาก 144
         BillTime: selectedDate,
       };
-  
+      
       const requestOptionsPost = {
         method: "POST",
         headers: {
@@ -178,13 +183,13 @@ function BillCreate() {
         },
         body: JSON.stringify(data),
       };
-  
+
       fetch(`${apiUrl}/bills`, requestOptionsPost)
         .then((response) => response.json())
         .then((res) => {
           if (res.data) {
             console.log("บันทึกได้");
-            console.log(res.data)
+            console.log(res.data);
             setSuccess(true);
             setErrorMessage("");
           } else {
@@ -197,21 +202,23 @@ function BillCreate() {
   }
 
   return (
-    <Box sx={{
-      backgroundImage: "url(https://images.hdqwalls.com/download/simple-drop-white-10k-n8-1280x720.jpg)",
-         backgroundRepeat: "no-repeat",
-         backgroundSize: "cover",
-         backgroundPosition: "center",
-         // background: '#e0e0e0',
-         width: '100%',
-         fontFamily: "PK Krung Thep Medium",
-         fontSize: 20,
-         display: 'flex',
-         justifyContent: 'center',
-         alignItems: 'center',
-    }}>
-
-          <Snackbar open={success} autoHideDuration={6000} onClose={handleClose}>
+    <Box
+      sx={{
+        backgroundImage:
+          "url(https://i.pinimg.com/564x/9a/a0/78/9aa0784482ad21f5b5f9604755c38d29.jpg)",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        // background: '#e0e0e0',
+        width: "100%",
+        fontFamily: "PK Krung Thep Medium",
+        fontSize: 20,
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      {/* <Snackbar open={success} autoHideDuration={6000} onClose={handleClose}>
             <Alert onClose={handleClose} severity="success">
               บันทึกข้อมูลสำเร็จ
             </Alert>
@@ -220,35 +227,57 @@ function BillCreate() {
             <Alert onClose={handleClose} severity="error">
               บันทึกข้อมูลไม่สำเร็จ: {errorMessage}
             </Alert>
-          </Snackbar>
+          </Snackbar> */}
+      <Snackbar
+        open={success}
+        autoHideDuration={3000}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      >
+        <Alert onClose={handleClose} severity="success">
+          บันทึกข้อมูลสำเร็จ
+        </Alert>
+      </Snackbar>
+      <Snackbar
+        open={error}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      >
+        <Alert onClose={handleClose} severity="error">
+          {errorMessage}
+        </Alert>
+      </Snackbar>
 
-        <Box sx={{
-          width: '90%',
-          mt: '70px',
-          mb: '20px',
+      <Box
+        sx={{
+          width: "90%",
+          mt: "70px",
+          mb: "20px",
 
-          background: 'rgba(255, 255, 255, 0.8)',
-        }}>
-          <Box display="flex">
-            <Box flexGrow={1}>
-              <Typography
-                component="h6"
-                variant="h5"
-                color="primary"
-                gutterBottom
+          background: "rgba(255, 255, 255, 0.8)",
+        }}
+      >
+        <Box display="flex">
+          <Box flexGrow={1}>
+            <Typography
+              component="h6"
+              variant="h5"
+              color="primary"
+              gutterBottom
               sx={{
-                display: 'flex',
-                justifyContent: 'center',
+                display: "flex",
+                justifyContent: "center",
+                fontFamily: "PK Krung Thep Medium",
               }}
-              >
-                <h1>บันทึกบิลชำระค่าเช่า</h1>
-              </Typography>
-            </Box>
+            >
+              <h1>บันทึกบิลชำระค่าเช่า</h1>
+            </Typography>
           </Box>
-          <Divider />
+        </Box>
+        <Divider />
         <Grid container spacing={3} sx={{ flexGrow: 1, padding: 2 }}>
-
-        <Grid item xs={6}>
+          <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
               <p>ผู้บันทึกข้อมูล</p>
               {/* <InputLabel id="MeterID">ห้อง</InputLabel> */}
@@ -266,11 +295,10 @@ function BillCreate() {
                 <option value={admins?.ID} key={admins?.ID}>
                   {admins?.Name}
                 </option>
-              
               </Select>
             </FormControl>
           </Grid>
-          
+
           <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
               <p>เลขห้อง</p>
@@ -304,7 +332,7 @@ function BillCreate() {
                 variant="outlined"
                 value={bills.MeterID + ""}
                 // label="ระบุผู้เช่า"
-              //   onChange={handleChange}
+                //   onChange={handleChange}
                 inputProps={{
                   name: "MeterID",
                 }}
@@ -328,7 +356,7 @@ function BillCreate() {
                 variant="outlined"
                 value={bills.MeterID + ""}
                 // label="ระบุเบอร์โทรศัพท์"
-              //   onChange={handleChange}
+                //   onChange={handleChange}
                 inputProps={{
                   name: "MeterID",
                 }}
@@ -352,7 +380,7 @@ function BillCreate() {
                 variant="outlined"
                 value={bills.MeterID + ""}
                 // label="ระบุค่าเช่าห้อง"
-              //   onChange={handleChange}
+                //   onChange={handleChange}
                 inputProps={{
                   name: "MeterID",
                 }}
@@ -377,7 +405,7 @@ function BillCreate() {
                 inputProps={{
                   name: "FurnitureID",
                 }}
-                value = {totalFurnitures}
+                value={totalFurnitures}
                 onChange={(event) => setCosts(event.target.value)}
               />
             </FormControl>
@@ -392,7 +420,7 @@ function BillCreate() {
                 native
                 value={bills.MeterID + ""}
                 // label="ระบุบิลครั้งก่อน"
-              //   onChange={handleChange}
+                //   onChange={handleChange}
                 inputProps={{
                   name: "MeterID",
                 }}
@@ -416,7 +444,7 @@ function BillCreate() {
                 native
                 value={bills.MeterID + ""}
                 // label="ระบุบิลที่จดได้"
-              //   onChange={handleChange}
+                //   onChange={handleChange}
                 inputProps={{
                   name: "MeterID",
                 }}
@@ -440,7 +468,7 @@ function BillCreate() {
                 variant="outlined"
                 value={bills.MeterID + ""}
                 // label="ระบุหน่วยที่ใช้ไป"
-              //   onChange={handleChange}
+                //   onChange={handleChange}
                 inputProps={{
                   name: "MeterID",
                 }}
@@ -463,7 +491,7 @@ function BillCreate() {
                 native
                 value={bills.MeterID + ""}
                 // label="ระบุหน่วยละ"
-              //   onChange={handleChange}
+                //   onChange={handleChange}
                 inputProps={{
                   name: "MeterID",
                 }}
@@ -487,7 +515,7 @@ function BillCreate() {
                 variant="outlined"
                 value={bills.MeterID + ""}
                 // label="ระบุรวมค่าไฟ"
-              //   onChange={handleChange}
+                //   onChange={handleChange}
                 inputProps={{
                   name: "MeterID",
                 }}
@@ -511,7 +539,7 @@ function BillCreate() {
                 disabled
                 value={bills.MeterID + ""}
                 // label="ค่าน้ำ(เหมา)"
-              //   onChange={handleChange}
+                //   onChange={handleChange}
                 inputProps={{
                   name: "MeterID",
                 }}
@@ -533,7 +561,7 @@ function BillCreate() {
                 variant="outlined"
                 id="BillID"
                 onChange={(event) => setCosts(event.target.value)}
-                value = {bills.Cost}
+                value={bills.Cost}
               />
             </FormControl>
           </Grid>
@@ -547,7 +575,7 @@ function BillCreate() {
                   label="เดือน/วัน/ปี"
                   value={selectedDate}
                   onChange={(newValue) => setSelectedDate(newValue)}
-                  minDate={new Date('2022-12-20')}
+                  minDate={new Date("2022-12-20")}
                   renderInput={(params) => <TextField {...params} />}
                 />
               </LocalizationProvider>
@@ -568,7 +596,7 @@ function BillCreate() {
             </Button>
           </Grid>
         </Grid>
-        </Box>
+      </Box>
     </Box>
   );
 }
