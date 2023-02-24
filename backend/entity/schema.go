@@ -180,6 +180,14 @@ type Size struct {
 	Manages []Manage `gorm:"foreignKey:SizeID"`
 }
 
+type Category struct {
+	gorm.Model
+	
+	Category			string
+	Manages			[]Manage				`gorm:"foreignKey:CategoryID"`
+
+}
+
 type Manage struct {
 	gorm.Model
 	Status string `valid:"required~Status cannot be blank"`
