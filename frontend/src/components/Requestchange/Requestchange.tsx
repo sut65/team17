@@ -112,7 +112,7 @@ function Requestchange() {
 
   return (
     <div style={{
-      backgroundImage: "url(https://images.hdqwalls.com/download/color-pages-abstract-8k-ye-1920x1080.jpg)",
+      backgroundImage: "url(https://images.pexels.com/photos/220182/pexels-photo-220182.jpeg)",
       backgroundRepeat: "no-repeat",
       backgroundSize: "cover",
       width: '100%',
@@ -129,7 +129,7 @@ function Requestchange() {
       mt: '100px',
       mb: '100px',
       width: '80%',
-      background: 'rgba(76, 122, 201, 0.3)',   
+      background: 'rgba(0, 0, 0, 0.7)',   
       display: 'flex',
       justifyContent: 'center',
       borderRadius: 10,
@@ -172,7 +172,8 @@ function Requestchange() {
             color="primary"
             gutterBottom
             sx={{fontFamily: "PK Krung Thep Medium",
-                fontSize: "36px",}}
+                fontSize: "36px",
+                fontWeight: 'bold',}}
           >
             ข้อมูลการแจ้งย้ายห้อง
           </Typography>
@@ -182,13 +183,13 @@ function Requestchange() {
             component={RouterLink}
             to="/requestchange/create"
             variant="contained"
-            color="primary"
             sx={{fontFamily: "PK Krung Thep Medium",
             fontSize: "20px",
-            background: '#2448f9',   
+            background: '#2448f9',  
+             
             '&:hover': {
-               background: '#45be3c',
-               color: "#2448f9",
+               background: '#eb6a00',
+               color: "white",
                
             },}}
           style={{borderRadius: '30px'}}
@@ -202,25 +203,25 @@ function Requestchange() {
         <Table sx={{ marginTop: 1,  width: '100%', }} aria-label="simple table">
           <TableHead>
             <TableRow>
-            <TableCell align="center" width="2%" sx={{fontFamily: "PK Krung Thep Medium", fontSize: "24px", color: "#f96424"}}>
+            <TableCell align="center" width="2%" sx={{fontFamily: "PK Krung Thep Medium", fontSize: "30px", color: "#f96424"}}>
                 ลำดับ
               </TableCell>
-              <TableCell align="center" width="15%" sx={{fontFamily: "PK Krung Thep Medium", fontSize: "24px",color: "#f96424"}}>
+              <TableCell align="center" width="15%" sx={{fontFamily: "PK Krung Thep Medium", fontSize: "30px",color: "#f96424"}}>
                 ชื่อ
               </TableCell>
-              <TableCell align="center" width="15%" sx={{fontFamily: "PK Krung Thep Medium", fontSize: "24px",color: "#f96424"}}>
+              <TableCell align="center" width="15%" sx={{fontFamily: "PK Krung Thep Medium", fontSize: "30px",color: "#f96424"}}>
                 ห้องพัก
               </TableCell>
-              <TableCell align="center" width="20%" sx={{fontFamily: "PK Krung Thep Medium", fontSize: "24px",color: "#f96424"}}>
+              <TableCell align="center" width="20%" sx={{fontFamily: "PK Krung Thep Medium", fontSize: "30px",color: "#f96424"}}>
                 สาเหตุ
               </TableCell>
-              <TableCell align="center" width="20%" sx={{fontFamily: "PK Krung Thep Medium", fontSize: "24px",color: "#f96424"}}>
+              <TableCell align="center" width="20%" sx={{fontFamily: "PK Krung Thep Medium", fontSize: "30px",color: "#f96424"}}>
                 รายละเอียด
               </TableCell>
-              <TableCell align="center" width="20%" sx={{fontFamily: "PK Krung Thep Medium", fontSize: "24px",color: "#f96424"}}>
+              <TableCell align="center" width="20%" sx={{fontFamily: "PK Krung Thep Medium", fontSize: "30px",color: "#f96424"}}>
                 แก้ไข
               </TableCell>
-              <TableCell align="center" width="20%" sx={{fontFamily: "PK Krung Thep Medium", fontSize: "24px",color: "#f96424"}}>
+              <TableCell align="center" width="20%" sx={{fontFamily: "PK Krung Thep Medium", fontSize: "30px",color: "#f96424"}}>
                 Delete
               </TableCell>
         
@@ -229,17 +230,17 @@ function Requestchange() {
           <TableBody>
             {requestchanges.map((item: RequestchangeInterface) => (
               <TableRow key={item.ID}>
-              <TableCell align="center" sx={{fontFamily: "PK Krung Thep Medium", fontSize: "18px",}} >{item.ID}</TableCell>
-                <TableCell align="center" sx={{fontFamily: "PK Krung Thep Medium", fontSize: "18px",}}>{item.User.Name}</TableCell>
-                <TableCell align="center" sx={{fontFamily: "PK Krung Thep Medium", fontSize: "18px",}}>{item.Room.Number}</TableCell>
-                <TableCell align="center" sx={{fontFamily: "PK Krung Thep Medium", fontSize: "18px",}}>{item.Reason.Reason}</TableCell>
-                <TableCell align="center" sx={{fontFamily: "PK Krung Thep Medium", fontSize: "18px",}}>{item.Detail}</TableCell>
+              <TableCell align="center" sx={{fontFamily: "PK Krung Thep Medium", fontSize: "20px",color: "white"}} >{item.ID}</TableCell>
+                <TableCell align="center" sx={{fontFamily: "PK Krung Thep Medium", fontSize: "20px",color: "white"}}>{item.User.Name}</TableCell>
+                <TableCell align="center" sx={{fontFamily: "PK Krung Thep Medium", fontSize: "20px",color: "white"}}>{item.Room.Number}</TableCell>
+                <TableCell align="center" sx={{fontFamily: "PK Krung Thep Medium", fontSize: "20px",color: "white"}}>{item.Reason.Reason}</TableCell>
+                <TableCell align="center" sx={{fontFamily: "PK Krung Thep Medium", fontSize: "20px",color: "white"}}>{item.Detail}</TableCell>
                 <TableCell align="center" >
                 <IconButton aria-label="แก้ไข" size="large" 
                 sx={{
-                  color: '#8b1fb2',
+                  color: '#209400',
                            '&:hover': {
-                            background: "#8b1fb2",
+                            background: "#209400",
                               color: "white",
                               
                            },

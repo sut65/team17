@@ -77,7 +77,7 @@ func TestTelNotnull(t *testing.T) {
 	g.Expect(err).ToNot(BeNil())
 
 	// err.Error ต้องมี error message แสดงออกมา
-	g.Expect(err.Error()).To(Equal("Tel cannot be blank"))
+	g.Expect(err.Error()).To(Equal("Tel: non zero value required"))
 
 }
 

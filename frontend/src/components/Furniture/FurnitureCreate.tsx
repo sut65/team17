@@ -174,9 +174,6 @@ function FurnitureCreate() {
           console.log("บันทึกได้");
           setSuccess(true);
           setErrorMessage("");
-          setTimeout(() => {
-            window.location.reload();
-         }, 800);
         } else {
           console.log("บันทึกไม่ได้");
           setError(true);
@@ -187,57 +184,75 @@ function FurnitureCreate() {
 
   return (
     <Box
-      maxWidth="md"
       sx={{
-        fontFamily: "PK Krung Thep Medium",
-        fontSize: "20px",
+        backgroundImage:
+          "url(https://images.hdqwalls.com/download/minimalist-monochrome-material-design-pm-1920x1080.jpg)",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        width: "100%",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
       }}
     >
-      <Snackbar
-        open={Success}
-        autoHideDuration={3000}
-        onClose={handleClose}
-        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      <Box
+        sx={{
+          fontFamily: "PK Krung Thep Medium",
+          fontSize: "20px",
+          width: "90%",
+          mt: "70px",
+          bgcolor: "rgba(190, 190, 190, 0.8)",
+          borderRadius: "30px",
+          boxShadow: 20,
+        }}
       >
-        <Alert onClose={handleClose} severity="success">
-          บันทึกข้อมูลสำเร็จ
-        </Alert>
-      </Snackbar>
-      <Snackbar
-        open={Error}
-        autoHideDuration={6000}
-        onClose={handleClose}
-        anchorOrigin={{ vertical: "top", horizontal: "center" }}
-      >
-        <Alert onClose={handleClose} severity="error">
-        {ErrorMessage}
-        </Alert>
-      </Snackbar>
-      
+        <Snackbar
+          open={Success}
+          autoHideDuration={3000}
+          onClose={handleClose}
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        >
+          <Alert onClose={handleClose} severity="success">
+            บันทึกข้อมูลสำเร็จ
+          </Alert>
+        </Snackbar>
+        <Snackbar
+          open={Error}
+          autoHideDuration={6000}
+          onClose={handleClose}
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        >
+          <Alert onClose={handleClose} severity="error">
+            {ErrorMessage}
+          </Alert>
+        </Snackbar>
+
         <Box
           display="flex"
-          sx={{
-            marginTop: 2,
-          }}
+          sx={
+            {
+              // marginTop: 2,
+            }
+          }
         >
           <Box sx={{ paddingX: 2, paddingY: 1 }}>
             <Typography
-              component="h2"
-              variant="h6"
               color="primary"
-              gutterBottom
               sx={{
                 fontFamily: "PK Krung Thep Medium",
                 fontSize: "30px",
+                marginX: "30px",
+                mt: "20px",
+                display: "flex",
+                alignItems: "center",
               }}
             >
               <b>บันทึกเบิกจ่ายอุปกรณ์ในห้องพัก</b>
             </Typography>
           </Box>
         </Box>
-        <Divider />
-        <Grid container spacing={3} sx={{ padding: 2 }}>
-          
+        {/* <Divider /> */}
+        <Grid container spacing={1} sx={{ paddingRight:5, paddingLeft:5, }}>
           <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
               <p>ชื่อ - สกุล</p>
@@ -417,23 +432,22 @@ function FurnitureCreate() {
               <p>วันที่และเวลา</p>
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DateTimePicker
-                  disabled
                   value={SelectedDate}
                   onChange={(newValue) => setSelectedDate(newValue)}
-                  minDate={(new Date)}
+                  minDate={new Date()}
                   //  minDate={(new Date('31-12-2022T09:00'))}
                   renderInput={(params) => <TextField {...params} />}
                 />
               </LocalizationProvider>
             </FormControl>
           </Grid>
-        </Grid>
-        <Grid container spacing={3} sx={{ padding: 2 }}>
+
           <Grid item xs={12}>
             <Button
               sx={{
                 fontFamily: "PK Krung Thep Medium",
-                fontSize: 16,
+                fontSize: 15,
+                mb: "10px",
               }}
               component={RouterLink}
               to="/furnitures"
@@ -445,7 +459,8 @@ function FurnitureCreate() {
             <Button
               sx={{
                 fontFamily: "PK Krung Thep Medium",
-                fontSize: 16,
+                fontSize: 15,
+                mb: "10px",
               }}
               style={{ float: "right" }}
               onClick={submit}
@@ -456,9 +471,9 @@ function FurnitureCreate() {
             </Button>
           </Grid>
         </Grid>
-      
+      </Box>
     </Box>
   );
 }
-//dw
+
 export default FurnitureCreate;
