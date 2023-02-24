@@ -1,4 +1,4 @@
-import React , { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 // import { createStyles, makeStyles, Theme } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
@@ -16,7 +16,7 @@ import { format } from 'date-fns'
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import { Link as RouterLink,useNavigate, } from "react-router-dom";
+import { Link as RouterLink, useNavigate, } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
 import Snackbar from "@mui/material/Snackbar";
@@ -55,7 +55,7 @@ function Payments() {
     setSuccess(false);
     setError(false);
   };
-  
+
   const apiUrl = "http://localhost:8080";
 
   const requestOptions = {
@@ -70,9 +70,9 @@ function Payments() {
     fetch(`${apiUrl}/payments`, requestOptions)
       .then((response) => response.json())
       .then((res) => {
-        console.log("getPayments",res);
+        console.log("getPayments", res);
         if (res.data) {
-            setPayments(res.data);
+          setPayments(res.data);
         } else {
           console.log("else");
         }
@@ -81,45 +81,55 @@ function Payments() {
 
   const DeletePayment = async (id: string | number | undefined) => {
     const requestOptions = {
-       method: "DELETE",
-       headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-          "Content-Type": "application/json",
-       },
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json",
+      },
     };
 
     fetch(`${apiUrl}/payments/${id}`, requestOptions)
-       .then((response) => response.json())
-       .then(
-          (res) => {
-             if (res.data) {
-                setSuccess(true)
-                console.log("ยกเลิกสำเร็จ")
-                setErrorMessage("")
-             }
-             else {
-                setErrorMessage(res.error)
-                setError(true)
-                console.log("ยกเลิกไม่สำเร็จ")
-             }
-             getPayments();
+      .then((response) => response.json())
+      .then(
+        (res) => {
+          if (res.data) {
+            setSuccess(true)
+            console.log("ยกเลิกสำเร็จ")
+            setErrorMessage("")
           }
-       )
- }
+          else {
+            setErrorMessage(res.error)
+            setError(true)
+            console.log("ยกเลิกไม่สำเร็จ")
+          }
+          getPayments();
+        }
+      )
+  }
 
   useEffect(() => {
     getPayments();
   }, []);
 
   return (
-    <div>
+    <Box sx={{
+      backgroundImage:"url(https://i.pinimg.com/564x/c0/4a/5f/c04a5f27b605cc21aa55420a7f83318d.jpg)",
+      backgroundRepeat: "no-repeat",
+      backgroundSize: "cover",
+      width: '100%',
+      fontFamily: "PK Krung Thep Medium",
+      fontSize: 20,
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+    }}>
 
-    <Snackbar
+      <Snackbar
         open={success}
         autoHideDuration={3000}
         onClose={handleClose}
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
-        >
+      >
         <Alert onClose={handleClose} severity="warning">
           ลบข้อมูลเรียบร้อย
         </Alert>
@@ -135,16 +145,40 @@ function Payments() {
         </Alert>
       </Snackbar>
 
-      <Container sx={{marginTop: 10}} maxWidth="md">
-        <Box display="flex">
+      <Box
+        sx={{
+          width: "90%",
+          height: "80%",
+          mt: "60px",
+          bgcolor: 'rgba(255, 255, 255, 0.5)',
+          borderRadius: "30px",
+          boxShadow: 20,
+          // display: "table-column-group",
+          // justifyContent: 'center',
+        }}
+      >
+        <Box
+          sx={{
+            mt: "30px",
+            display: "flex",
+            justifyContent: 'center',
+            alignItems: "center",
+            
+          }}
+        >
           <Box flexGrow={1}>
             <Typography
               component="h2"
               variant="h6"
               color="primary"
               gutterBottom
+              sx={{
+                fontFamily: "PK Krung Thep Medium",
+                fontSize: 30,
+                ml: '50px',
+              }}
             >
-              การชำระเงิน
+              <b>ระบบการชำระเงิน</b>
             </Typography>
           </Box>
           <Box>
@@ -153,13 +187,18 @@ function Payments() {
               to="/payment/create"
               variant="contained"
               color="primary"
+              sx={{
+                fontFamily: "PK Krung Thep Medium",
+                mr: '30px',
+              }}
             >
               บันทึกการชำระเงิน
             </Button>
           </Box>
         </Box>
-        <TableContainer component={Paper} sx={{ minWidth: 650}}>
-          <Table sx={{marginTop: 2}} aria-label="simple table">
+
+        <TableContainer>
+          <Table sx={{ marginTop: 2 }} aria-label="simple table">
             <TableHead>
               <TableRow>
                 <TableCell align="center" width="2%">
@@ -223,42 +262,42 @@ function Payments() {
                   <TableCell align="center">{format((new Date(item.PaymentTime)), 'dd MMMM yyyy hh:mm')}</TableCell>
 
                   <TableCell align="center">
-                <IconButton aria-label="แก้ไข" size="large" 
-                sx={{
-                  background: 'white',   
-                           '&:hover': {
-                              background: "#24e1f9",
-                              color: "white",
-                              
-                           },
-               
-                }} onClick={() => navigate(`${item.ID}`)} color="info">
-                <EditIcon fontSize="inherit" />
-                </IconButton>
-                </TableCell>
+                    <IconButton aria-label="แก้ไข" size="large"
+                      sx={{
+                        background: 'white',
+                        '&:hover': {
+                          background: "#24e1f9",
+                          color: "white",
 
-                <TableCell align="center">
-                <IconButton  aria-label="delete" size="large"
-                sx={{
-                  background: 'white',   
-                           '&:hover': {
-                              background: "#ff3838",
-                              color: "white",
-                              
-                           },
-               
-                }} onClick={() => DeletePayment(item.ID)} color="error">
-                <DeleteIcon fontSize="inherit" />
-                </IconButton>
-                </TableCell>
+                        },
+
+                      }} onClick={() => navigate(`${item.ID}`)} color="info">
+                      <EditIcon fontSize="inherit" />
+                    </IconButton>
+                  </TableCell>
+
+                  <TableCell align="center">
+                    <IconButton aria-label="delete" size="large"
+                      sx={{
+                        background: 'white',
+                        '&:hover': {
+                          background: "#ff3838",
+                          color: "white",
+
+                        },
+
+                      }} onClick={() => DeletePayment(item.ID)} color="error">
+                      <DeleteIcon fontSize="inherit" />
+                    </IconButton>
+                  </TableCell>
 
                 </TableRow>
               ))}
             </TableBody>
           </Table>
         </TableContainer>
-      </Container>
-    </div>
+      </Box>
+    </Box>
   );
 }
 

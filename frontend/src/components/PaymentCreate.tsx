@@ -226,265 +226,297 @@ function PaymentCreate() {
       });
   }
 
+
   return (
-    <Container sx={{ marginTop: 10 }} maxWidth="md">
-      <Snackbar open={success} autoHideDuration={6000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="success">
-          บันทึกข้อมูลสำเร็จ
-        </Alert>
-      </Snackbar>
-      <Snackbar open={error} autoHideDuration={6000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="error">
-          บันทึกข้อมูลไม่สำเร็จ: {errorMessage}
-        </Alert>
-      </Snackbar>
-      <Paper sx={{ padding: 2, color: "text.secondary" }}>
-        <Box display="flex">
-          <Box flexGrow={1}>
-            <Typography
-              component="h6"
-              variant="h5"
-              color="primary"
-              gutterBottom
 
-            >
-              บันทึกการชำระเงิน
+    <Box sx={{
+      backgroundImage:
+        "url(https://i.pinimg.com/564x/c0/4a/5f/c04a5f27b605cc21aa55420a7f83318d.jpg)",
+      backgroundRepeat: "no-repeat",
+      backgroundSize: "cover",
+      width: "100%",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+    }}>
 
-            </Typography>
+      <Box
+        sx={{
+          fontFamily: "PK Krung Thep Medium",
+          fontSize: "20px",
+          width: "90%",
+          mt: "70px",
+          bgcolor: 'rgba(255, 255, 255, 0.5)',
+          borderRadius: "30px",
+          boxShadow: 20,
+
+        }}
+      >
+
+        <Snackbar open={success} autoHideDuration={6000} onClose={handleClose}>
+          <Alert onClose={handleClose} severity="success">
+            บันทึกข้อมูลสำเร็จ
+          </Alert>
+        </Snackbar>
+        <Snackbar open={error} autoHideDuration={6000} onClose={handleClose}>
+          <Alert onClose={handleClose} severity="error">
+            บันทึกข้อมูลไม่สำเร็จ: {errorMessage}
+          </Alert>
+        </Snackbar>
+
+        <Box sx={{ padding: 2, color: "text.secondary" }}>
+          <Box display="flex">
+            <Box flexGrow={1}>
+              <Typography
+                component="h6"
+                variant="h5"
+                color="primary"
+                gutterBottom
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  
+                }}
+              >
+                <h1>บันทึกการชำระเงิน</h1>
+
+              </Typography>
+            </Box>
           </Box>
-        </Box>
-        <Divider />
-        <Grid container spacing={3} sx={{ flexGrow: 1 }}>
-
-          <Grid item xs={6}>
-            <FormControl fullWidth variant="outlined">
-              <Select
-                native
-                disabled
-                value={payments.UserID}
-                label="ชื่อ - นามสกุล"
-                onChange={handleChange}
-                inputProps={{
-                  name: "UserID",
-                }}
-              >
-                <option value={users?.ID} key={users?.ID} >
-                  {users?.Name}
-                </option>
-              </Select>
-            </FormControl>
-          </Grid>
+          <Divider />
+          <Grid container spacing={3} sx={{ flexGrow: 1 }}>
 
 
-
-          <Grid item xs={6}>
-            <FormControl fullWidth variant="outlined">
-              <p>เลขห้อง</p>
-              <TextField
-                variant="outlined"
-                disabled
-                id="BillID"
-                inputProps={{
-                  name: "BillID",
-                }}
-
-                value={bills.map((item: BillInterface) => (
-                  item.Meter.Manage.Room.Number
-                ))}
-              />
-              
-            </FormControl>
-          </Grid>
-
-
-          <Grid item xs={6}>
-            <FormControl fullWidth variant="outlined">
-              <p>ค่าห้องพัก</p>
-              <TextField
-                variant="outlined"
-                disabled
-                id="BillID"
-                inputProps={{
-                  name: "BillID",
-                }}
-
-                value={bills.map((item: BillInterface) => (
-                  item.Meter.Manage.Price
-                ))}
-              />
-            </FormControl>
-          </Grid>
-
-
-          <Grid item xs={6}>
-            <FormControl fullWidth variant="outlined">
-              <p>ค่าน้ำ</p>
-              <TextField
-                variant="outlined"
-                disabled
-                id="BillID"
-                inputProps={{
-                  name: "BillID",
-                }}
-
-                value={bills.map((item: BillInterface) => (
-                  item.Meter.Water
-                ))}
-              />
-            </FormControl>
-          </Grid>
-
-
-          <Grid item xs={6}>
-            <FormControl fullWidth variant="outlined">
-              <p>ค่าไฟ</p>
-              <TextField
-                variant="outlined"
-                disabled
-                id="BillID"
-                inputProps={{
-                  name: "BillID",
-                }}
-
-                value={bills.map((item: BillInterface) => (
-                  item.Meter.Electric
-                ))}
-              />
-            </FormControl>
-          </Grid>
-
-
-          <Grid item xs={6}>
-            <FormControl fullWidth variant="outlined">
-              <p>ค่าเฟอร์นิเจอร์</p>
-              <TextField
-                variant="outlined"
-                disabled
-                id="BillID"
-                inputProps={{
-                  name: "BillID",
-                }}
-
-                value={bills.map((item: BillInterface) => (
-                  item.Furniture.Total
-                ))}
-              />
-            </FormControl>
-          </Grid>
-
-          <Grid item xs={6}>
-            <FormControl fullWidth variant="outlined">
-              <p>ยอดรวมชำระ</p>
-              <TextField
-                variant="outlined"
-                disabled
-                id="BillID"
-                inputProps={{
-                  name: "BillID",
-                }}
-
-                value={bills.map((item: BillInterface) => (
-                  item.Cost
-                ))}
-              />
-            </FormControl>
-          </Grid>
-
-
-
-          <Grid item xs={6}>
-            <FormControl fullWidth variant="outlined">
-              <InputLabel id="MethodID">เลือกช่องทางการชำระ</InputLabel>
-              <Select
-                native
-                value={payments.MethodID}
-                label="กรุณาเลือก..."
-                onChange={handleChange}
-                inputProps={{
-                  name: "MethodID",
-                }}
-              >
-                <option aria-label="None" value="">
-                </option>
-                {methods.map((item: MethodInterface) => (
-                  <option value={item.ID} key={item.ID}>
-                    {item.Name}
+            <Grid item xs={6}>
+              <FormControl fullWidth variant="outlined">
+                <p>ชื่อ - นามสกุล</p>
+                <Select
+                  native
+                  disabled
+                  value={payments.UserID}
+                  onChange={handleChange}
+                  inputProps={{
+                    name: "UserID",
+                  }}
+                >
+                  <option value={users?.ID} key={users?.ID} >
+                    {users?.Name}
                   </option>
-                ))}
-              </Select>
-            </FormControl>
-          </Grid>
+                </Select>
+              </FormControl>
+            </Grid>
 
 
-          <Grid item xs={6}>
-            <FormControl fullWidth variant="outlined">
-              <InputLabel id="BankingID">เลือกธนาคาร</InputLabel>
-              <Select
-                native
-                value={payments.BankingID}
-                label="กรุณาเลือก..."
-                onChange={handleChange}
-                inputProps={{
-                  name: "BankingID",
-                }}
-              >
-                <option aria-label="None" value="">
-                </option>
-                {bankings.map((item: BankingInterface) => (
-                  <option value={item.ID} key={item.ID}>
-                    {item.Name}
-                  </option>
-                ))}
-              </Select>
-            </FormControl>
-          </Grid>
 
+            <Grid item xs={6}>
+              <FormControl fullWidth variant="outlined">
+                <p>เลขห้อง</p>
+                <TextField
+                  variant="outlined"
+                  disabled
+                  id="BillID"
+                  inputProps={{
+                    name: "BillID",
+                  }}
 
-          <Grid item xs={6}>
-            <FormControl fullWidth variant="outlined">
-              <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <DateTimePicker
-                  label="วันที่และเวลาที่บันทึก"
-                  value={selectedDate}
-                  onChange={(newValue) => setSelectedDate(newValue)}
-                  minDate={(new Date)}   //บันทึกค่าปัจจุบัน
-                  renderInput={(params) =>
-                    <TextField {...params} />}
+                  value={bills.map((item: BillInterface) => (
+                    item.Meter.Manage.Room.Number
+                  ))}
                 />
-              </LocalizationProvider>
-            </FormControl>
-          </Grid>
+
+              </FormControl>
+            </Grid>
 
 
-          <Grid item xs={6}>
-            <FormControl fullWidth variant="outlined">
-              <Button variant="contained" component="label">
-                Upload
-                <input hidden accept="image/*" multiple type="file" onChange={onFileChange} />
+            <Grid item xs={6}>
+              <FormControl fullWidth variant="outlined">
+                <p>ค่าห้องพัก</p>
+                <TextField
+                  variant="outlined"
+                  disabled
+                  id="BillID"
+                  inputProps={{
+                    name: "BillID",
+                  }}
+
+                  value={bills.map((item: BillInterface) => (
+                    item.Meter.Manage.Price
+                  ))}
+                />
+              </FormControl>
+            </Grid>
+
+
+            <Grid item xs={6}>
+              <FormControl fullWidth variant="outlined">
+                <p>ค่าน้ำ</p>
+                <TextField
+                  variant="outlined"
+                  disabled
+                  id="BillID"
+                  inputProps={{
+                    name: "BillID",
+                  }}
+
+                  value={bills.map((item: BillInterface) => (
+                    item.Meter.Water
+                  ))}
+                />
+              </FormControl>
+            </Grid>
+
+
+            <Grid item xs={6}>
+              <FormControl fullWidth variant="outlined">
+                <p>ค่าไฟ</p>
+                <TextField
+                  variant="outlined"
+                  disabled
+                  id="BillID"
+                  inputProps={{
+                    name: "BillID",
+                  }}
+
+                  value={bills.map((item: BillInterface) => (
+                    item.Meter.Electric
+                  ))}
+                />
+              </FormControl>
+            </Grid>
+
+
+            <Grid item xs={6}>
+              <FormControl fullWidth variant="outlined">
+                <p>ค่าเฟอร์นิเจอร์</p>
+                <TextField
+                  variant="outlined"
+                  disabled
+                  id="BillID"
+                  inputProps={{
+                    name: "BillID",
+                  }}
+
+                  value={bills.map((item: BillInterface) => (
+                    item.Furniture.Total
+                  ))}
+                />
+              </FormControl>
+            </Grid>
+
+            <Grid item xs={6}>
+              <FormControl fullWidth variant="outlined">
+                <p>ยอดรวมชำระ</p>
+                <TextField
+                  variant="outlined"
+                  disabled
+                  id="BillID"
+                  inputProps={{
+                    name: "BillID",
+                  }}
+
+                  value={bills.map((item: BillInterface) => (
+                    item.Cost
+                  ))}
+                />
+              </FormControl>
+            </Grid>
+
+
+
+            <Grid item xs={6} sx={{ mt: 'auto', }}>
+              <FormControl fullWidth variant="outlined">
+                <p>ช่องทางการชำระ</p>
+                <Select
+                  native
+                  value={payments.MethodID}
+                  onChange={handleChange}
+                  inputProps={{
+                    name: "MethodID",
+                  }}
+                >
+                  <option aria-label="None" value="">
+                    เลือก...
+                  </option>
+                  {methods.map((item: MethodInterface) => (
+                    <option value={item.ID} key={item.ID}>
+                      {item.Name}
+                    </option>
+                  ))}
+                </Select>
+              </FormControl>
+            </Grid>
+
+
+            <Grid item xs={6}>
+              <FormControl fullWidth variant="outlined">
+                <p>ธนาคาร</p>
+                <Select
+                  native
+                  value={payments.BankingID}
+                  onChange={handleChange}
+                  inputProps={{
+                    name: "BankingID",
+                  }}
+                >
+                  <option aria-label="None" value="">
+                    เลือก...
+                  </option>
+                  {bankings.map((item: BankingInterface) => (
+                    <option value={item.ID} key={item.ID}>
+                      {item.Name}
+                    </option>
+                  ))}
+                </Select>
+              </FormControl>
+            </Grid>
+
+
+            <Grid item xs={6}>
+              <FormControl fullWidth variant="outlined">
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                  <p>ช่องทางการชำระ</p>
+                  <DateTimePicker
+                    value={selectedDate}
+                    onChange={(newValue) => setSelectedDate(newValue)}
+                    minDate={(new Date)}   //บันทึกค่าปัจจุบัน
+                    renderInput={(params) =>
+                      <TextField {...params} />}
+                  />
+                </LocalizationProvider>
+              </FormControl>
+            </Grid>
+
+
+            <Grid item xs={6}>
+              <FormControl fullWidth variant="outlined">
+                <Button variant="contained" component="label">
+                  Upload
+                  <input hidden accept="image/*" multiple type="file" onChange={onFileChange} />
+                </Button>
+              </FormControl>
+            </Grid>
+
+            <Grid item xs={12}>
+              <Button
+                component={RouterLink}
+                to="/payments"
+                variant="contained"
+              >
+                กลับ
               </Button>
-            </FormControl>
+              <Button
+                style={{ float: "right" }}
+                variant="contained"
+                onClick={submit}
+                color="primary"
+              >
+                บันทึกข้อมูล
+              </Button>
+            </Grid>
           </Grid>
-
-          <Grid item xs={12}>
-            <Button
-              component={RouterLink}
-              to="/payments"
-              variant="contained"
-            >
-              กลับ
-            </Button>
-            <Button
-              style={{ float: "right" }}
-              variant="contained"
-              onClick={submit}
-              color="primary"
-            >
-              บันทึกข้อมูล
-            </Button>
-          </Grid>
-        </Grid>
-      </Paper>
-    </Container>
+        </Box>
+      </Box>
+    </Box>
   );
 }
 
