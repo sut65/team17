@@ -24,28 +24,28 @@ type Method struct {
 
 type Payment struct {
 	gorm.Model
-	Evidence       string	`valid:"required~Evidence cannot be blank"`
-	PaymentTime	   time.Time `valid:"past~PaymentTime not past"`
+	Evidence    string    `valid:"required~Evidence cannot be blank"`
+	PaymentTime time.Time `valid:"past~PaymentTime not past"`
 
 	// UserID เป็น FK
 	UserID *uint
 	// ข้อมูลของ User เมื่อ join ตาราง
-	User User		`gorm:"referenes:id" valid:"-"`
-	
+	User User `gorm:"referenes:id" valid:"-"`
+
 	// BillID เป็น FK
 	BillID *uint
 	// ข้อมูลของ Bill เมื่อ join ตาราง
-	Bill Bill		`gorm:"referenes:id" valid:"-"`
+	Bill Bill `gorm:"referenes:id" valid:"-"`
 
 	// BankingID เป็น FK
 	BankingID *uint
 	// ข้อมูลของ Banking เมื่อ join ตาราง
-	Banking Banking	`gorm:"referenes:id" valid:"-"`
+	Banking Banking `gorm:"referenes:id" valid:"-"`
 
 	// MethodID เป็น FK
 	MethodID *uint
 	// ข้อมูลของ Method เมื่อ join ตาราง
-	Method Method	`gorm:"referenes:id" valid:"-"`
+	Method Method `gorm:"referenes:id" valid:"-"`
 }
 
 type Status struct {
@@ -182,10 +182,9 @@ type Size struct {
 
 type Category struct {
 	gorm.Model
-	
-	Category			string
-	Manages			[]Manage				`gorm:"foreignKey:CategoryID"`
 
+	Category string
+	Manages  []Manage `gorm:"foreignKey:CategoryID"`
 }
 
 type Manage struct {
@@ -442,12 +441,11 @@ func init() {
 	//fah
 	govalidator.CustomTypeTagMap.Set("past", func(i interface{}, o interface{}) bool {
 		t := i.(time.Time)
-		return t.Before(time.Now())
+		return t.After(time.Now().AddDate(0, 0, -1))
 	})
 
-	govalidator.CustomTypeTagMap.Set("past", func(i interface{}, o interface{}) bool {   //เงื่อนไขเวลาไม่เป็นอดีต
-		t := i.(time.Time)
-		return t.Before(time.Now())
-	})
+	// govalidator.CustomTypeTagMap.Set("past", func(i interface{}, o interface{}) bool { //เงื่อนไขเวลาไม่เป็นอดีต
+	// 	t := i.(time.Time)
+	// 	return t.Before(time.Now())
+	// })
 }
-
