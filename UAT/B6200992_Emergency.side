@@ -1,0 +1,277 @@
+{
+  "id": "e1f9d507-4c81-45db-b62a-52b35cb27a4d",
+  "version": "2.0",
+  "name": "B6200992_Emergency",
+  "url": "http://localhost:3000",
+  "tests": [{
+    "id": "fe6f4d8b-563a-4ba2-833e-4ece11710c24",
+    "name": "Test_submit_success",
+    "commands": [{
+      "id": "90313d5d-897d-4587-a1bf-ff494cc1b018",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "ec5be102-21d3-46b8-a758-50cbf42fd293",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1936x1096",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "dc101444-c126-4e2e-9713-716a003f18c9",
+      "comment": "",
+      "command": "click",
+      "target": "css=.css-6hs37v-MuiButtonBase-root-MuiButton-root",
+      "targets": [
+        ["css=.css-6hs37v-MuiButtonBase-root-MuiButton-root", "css:finder"],
+        ["xpath=//button[@type='button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/header/div/div/ul/a/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'หน้าแรก')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "33908e9b-9890-4641-a6e2-beb4924ec643",
+      "comment": "",
+      "command": "click",
+      "target": "css=.css-1oz0d02-MuiButtonBase-root-MuiButton-root > .MuiTypography-root",
+      "targets": [
+        ["css=.css-1oz0d02-MuiButtonBase-root-MuiButton-root > .MuiTypography-root", "css:finder"],
+        ["xpath=//div[@id='root']/main/div/main/div/div/div/div[6]/button/p", "xpath:idRelative"],
+        ["xpath=//div[6]/button/p", "xpath:position"],
+        ["xpath=//p[contains(.,'แจ้งเหตุฉุกเฉิน')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "73b326ee-3a5f-4978-b7bf-3bec04eb9082",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "linkText=การแจ้งเหตุฉุกเฉิน",
+      "targets": [
+        ["linkText=การแจ้งเหตุฉุกเฉิน", "linkText"],
+        ["css=.MuiButton-contained", "css:finder"],
+        ["xpath=//a[contains(text(),'การแจ้งเหตุฉุกเฉิน')]", "xpath:link"],
+        ["xpath=//div[@id='root']/main/div/main/div/div/div/div[2]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/emergencie/create')]", "xpath:href"],
+        ["xpath=//div[2]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'การแจ้งเหตุฉุกเฉิน')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "ab99c70d-889a-43c0-ba7b-54cd9e4c725e",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=การแจ้งเหตุฉุกเฉิน",
+      "targets": [
+        ["linkText=การแจ้งเหตุฉุกเฉิน", "linkText"],
+        ["css=.MuiButton-contained", "css:finder"],
+        ["xpath=//a[contains(text(),'การแจ้งเหตุฉุกเฉิน')]", "xpath:link"],
+        ["xpath=//div[@id='root']/main/div/main/div/div/div/div[2]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/emergencie/create')]", "xpath:href"],
+        ["xpath=//div[2]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'การแจ้งเหตุฉุกเฉิน')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "01dae70d-4f43-474f-aa66-38016b877cc9",
+      "comment": "",
+      "command": "click",
+      "target": "name=ResidentID",
+      "targets": [
+        ["name=ResidentID", "name"],
+        ["css=.Mui-focused > .MuiNativeSelect-select", "css:finder"],
+        ["xpath=//select[@name='ResidentID']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/main/div/main/div/div/div[2]/div[2]/div/div/select", "xpath:idRelative"],
+        ["xpath=//div[2]/div/div/select", "xpath:position"],
+        ["xpath=//select[contains(.,'303')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "5b7c5e7b-75c4-43cb-a93a-cbd5cd7eb57e",
+      "comment": "",
+      "command": "select",
+      "target": "name=ResidentID",
+      "targets": [],
+      "value": "label=303"
+    }, {
+      "id": "fe7dc1f2-3161-4c38-9fa8-90d1c82e5ca7",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiGrid-root:nth-child(4) > .MuiFormControl-root",
+      "targets": [
+        ["css=.MuiGrid-root:nth-child(4) > .MuiFormControl-root", "css:finder"],
+        ["xpath=//div[@id='root']/main/div/main/div/div/div[2]/div[4]/div", "xpath:idRelative"],
+        ["xpath=//div[4]/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "cdb01c0c-4b3c-4ac8-a174-61a179a262b1",
+      "comment": "",
+      "command": "click",
+      "target": "name=EmergencytypeID",
+      "targets": [
+        ["name=EmergencytypeID", "name"],
+        ["css=.Mui-focused > .MuiNativeSelect-select", "css:finder"],
+        ["xpath=//select[@name='EmergencytypeID']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/main/div/main/div/div/div[2]/div[3]/div/div/select", "xpath:idRelative"],
+        ["xpath=//div[3]/div/div/select", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "a9f70147-6703-4d93-9810-c365e13dd555",
+      "comment": "",
+      "command": "select",
+      "target": "name=EmergencytypeID",
+      "targets": [],
+      "value": "label=ไฟรั่ว"
+    }, {
+      "id": "d6b46f53-b771-461e-9a8a-7291c0ed92bb",
+      "comment": "",
+      "command": "click",
+      "target": "id=ResidentID",
+      "targets": [
+        ["id=ResidentID", "id"],
+        ["css=#ResidentID", "css:finder"],
+        ["xpath=//textarea[@id='ResidentID']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/main/div/main/div/div/div[2]/div[4]/div/div/div/textarea", "xpath:idRelative"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "014ee2bd-0c3b-4f2d-ba1c-e28bea11a3ab",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "css=.MuiButton-containedPrimary",
+      "targets": [
+        ["css=.MuiButton-containedPrimary", "css:finder"],
+        ["xpath=(//button[@type='button'])[4]", "xpath:attributes"],
+        ["xpath=//div[@id='root']/main/div/main/div/div/div[2]/div[6]/button", "xpath:idRelative"],
+        ["xpath=//div[6]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'บันทึก')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "ef68b393-ada7-4bcc-bf96-d91e76b08cdf",
+      "comment": "",
+      "command": "type",
+      "target": "id=ResidentID",
+      "targets": [
+        ["id=ResidentID", "id"],
+        ["css=#ResidentID", "css:finder"],
+        ["xpath=//textarea[@id='ResidentID']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/main/div/main/div/div/div[2]/div[4]/div/div/div/textarea", "xpath:idRelative"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": "svsdvz"
+    }, {
+      "id": "5b715907-f65d-4ee7-8584-55a50ac7c4a5",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiButton-containedPrimary",
+      "targets": [
+        ["css=.MuiButton-containedPrimary", "css:finder"],
+        ["xpath=(//button[@type='button'])[4]", "xpath:attributes"],
+        ["xpath=//div[@id='root']/main/div/main/div/div/div[2]/div[6]/button", "xpath:idRelative"],
+        ["xpath=//div[6]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'บันทึก')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "6636e1c5-8319-49e0-a6cb-4e6f51512b75",
+      "comment": "",
+      "command": "mouseOut",
+      "target": "css=.MuiButton-containedPrimary",
+      "targets": [
+        ["css=.MuiButton-containedPrimary", "css:finder"],
+        ["xpath=(//button[@type='button'])[5]", "xpath:attributes"],
+        ["xpath=//div[@id='root']/main/div/main/div/div/div[3]/div[6]/button", "xpath:idRelative"],
+        ["xpath=//div[6]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'บันทึก')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "9b59f37e-c026-4449-a290-708361637114",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=.MuiAlert-message",
+      "targets": [],
+      "value": "บันทึกข้อมูลสำเร็จ"
+    }]
+  }, {
+    "id": "7dca0550-44ce-4876-a5df-3cc3bf767cee",
+    "name": "Test_Delete",
+    "commands": [{
+      "id": "06e09d6d-59a8-45f2-a40c-f86dd04e7e2e",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "c2b8e4de-0c90-499d-8c3d-54991ec5d60e",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1936x1096",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "73819607-2e9d-4ec3-bd1d-39769b8a4977",
+      "comment": "",
+      "command": "click",
+      "target": "css=.css-6hs37v-MuiButtonBase-root-MuiButton-root",
+      "targets": [
+        ["css=.css-6hs37v-MuiButtonBase-root-MuiButton-root", "css:finder"],
+        ["xpath=//button[@type='button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/header/div/div/ul/a/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'หน้าแรก')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "3b4277cd-7f72-4875-b035-b91848507a4c",
+      "comment": "",
+      "command": "click",
+      "target": "css=.css-1oz0d02-MuiButtonBase-root-MuiButton-root > .MuiTypography-root",
+      "targets": [
+        ["css=.css-1oz0d02-MuiButtonBase-root-MuiButton-root > .MuiTypography-root", "css:finder"],
+        ["xpath=//div[@id='root']/main/div/main/div/div/div/div[6]/button/p", "xpath:idRelative"],
+        ["xpath=//div[6]/button/p", "xpath:position"],
+        ["xpath=//p[contains(.,'แจ้งเหตุฉุกเฉิน')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "c082080e-3342-4b90-944d-3379f43caec9",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiTableRow-root:nth-child(1) > .css-qk83yi-MuiButtonBase-root-MuiButton-root",
+      "targets": [
+        ["css=.MuiTableRow-root:nth-child(1) > .css-qk83yi-MuiButtonBase-root-MuiButton-root", "css:finder"],
+        ["xpath=(//button[@type='button'])[4]", "xpath:attributes"],
+        ["xpath=//div[@id='root']/main/div/main/div/div/div[2]/table/tbody/tr/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'ลบ')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "4e9829bb-4882-4df8-beb1-80ec9089527a",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=.MuiAlert-message",
+      "targets": [],
+      "value": "ลบข้อมูลเรียบร้อย"
+    }]
+  }],
+  "suites": [{
+    "id": "b30c4b33-f4f4-4cbb-9ad9-b717453612f5",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["fe6f4d8b-563a-4ba2-833e-4ece11710c24"]
+  }],
+  "urls": ["http://localhost:3000/"],
+  "plugins": []
+}
