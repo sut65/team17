@@ -188,7 +188,7 @@ function MeterUpdate() {
     <Box
       sx={{
         backgroundImage:
-          "url(https://images.hdqwalls.com/download/chrome-os-on-the-breeze-39-1920x1080.jpg)",
+          "url(https://i.pinimg.com/564x/9a/a0/78/9aa0784482ad21f5b5f9604755c38d29.jpg)",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
         backgroundPosition: "center",

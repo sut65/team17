@@ -162,7 +162,7 @@ function BillUpdate() {
 //?.map(item => convertType(item))
 //Number(costs)
   function update() {
-    const arrFurnitureID = bills?.FurnitureID?.map(item => convertType(item)) || []
+    const arrFurnitureID = bills?.FurnitureID?.map(item => convertType(item)) || [null]
     
     arrFurnitureID.forEach(item => {
       let data = {
@@ -201,7 +201,7 @@ function BillUpdate() {
 
   return (
     <Box sx={{
-      backgroundImage: "url(https://images.hdqwalls.com/download/simple-drop-white-10k-n8-1280x720.jpg)",
+      backgroundImage: "url(https://i.pinimg.com/564x/9a/a0/78/9aa0784482ad21f5b5f9604755c38d29.jpg)",
          backgroundRepeat: "no-repeat",
          backgroundSize: "cover",
          backgroundPosition: "center",
