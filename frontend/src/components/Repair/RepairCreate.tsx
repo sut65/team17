@@ -37,7 +37,7 @@ function RepairCreate() {
   const [objects, setObjects] = useState<ObjectInterface[]>([]);
   const [details, setDetails] = useState<String>("");
   const [repairs, setRepairs] = useState<Partial<RepairInterface>>({});
-  
+
 
 
   const [success, setSuccess] = useState(false);
@@ -68,11 +68,11 @@ function RepairCreate() {
       [name]: event.target.value,
     });
     console.log(event.target.value);
-    
+
     // if(name == "SymptomID"){
     //   getDepartment(event.target.value)
     // }
-    
+
   };
 
   // const handleChange = (
@@ -93,7 +93,7 @@ function RepairCreate() {
       .then((res) => {
         repairs.UserID = res.data.ID
         if (res.data) {
-            setUsers(res.data);
+          setUsers(res.data);
         } else {
           console.log("else");
         }
@@ -124,13 +124,13 @@ function RepairCreate() {
       });
   };
 
-  
+
 
   useEffect(() => {
     getUsers();
     getResident();
     getObject();
-    
+
   }, []);
 
   const convertType = (data: string | number | undefined) => {
@@ -140,12 +140,12 @@ function RepairCreate() {
 
   function submit() {
     let data = {
-        UserID:     convertType(repairs.UserID),
-        ResidentID: convertType(repairs.ResidentID),
-        ObjectID:   convertType(repairs. ObjectID),
-        Detail:     details,
-        Repairtime: selectedDate
-        
+      UserID: convertType(repairs.UserID),
+      ResidentID: convertType(repairs.ResidentID),
+      ObjectID: convertType(repairs.ObjectID),
+      Detail: details,
+      Repairtime: selectedDate
+
 
     };
 
@@ -176,174 +176,194 @@ function RepairCreate() {
   }
 
   return (
-    <Container maxWidth="md">
-      <Snackbar
-        open={success}
-        autoHideDuration={3000}
-        onClose={handleClose}
-        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+    <Box
+      sx={{
+        backgroundImage:
+        "url(https://img.freepik.com/free-vector/elegant-white-background-with-shiny-lines_1017-17580.jpg?w=1380&t=st=1677247672~exp=1677248272~hmac=de25a4fe6866a5104de56a8459541a0dda6f1bcea0aa2d0f1cf147ba4c5602a2)",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        width: "100%",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+
+      <Box
+        sx={{
+          fontFamily: "PK Krung Thep Medium",
+          fontSize: "20px",
+          width: "80%",
+          height: '80%',
+          mt: "70px",
+          bgcolor: "rgba(190, 190, 190, 0.8)",
+          borderRadius: "30px",
+          boxShadow: 20,
+        }}
       >
-        <Alert onClose={handleClose} severity="success">
-          บันทึกข้อมูลสำเร็จ
-        </Alert>
-      </Snackbar>
-      <Snackbar
-        open={error}
-        autoHideDuration={6000}
-        onClose={handleClose}
-        anchorOrigin={{ vertical: "top", horizontal: "center" }}
-      >
-        <Alert onClose={handleClose} severity="error">
-          {errorMessage}
-        </Alert>
-      </Snackbar>
-      <Paper>
-        <Box
-          display="flex"
-          sx={{
-            marginTop: 2,
-          }}
+
+        <Snackbar
+          open={success}
+          autoHideDuration={3000}
+          onClose={handleClose}
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
         >
-          <Box sx={{ paddingX: 2, paddingY: 1 }}>
-            <Typography
-              component="h2"
-              variant="h6"
-              color="primary"
-              gutterBottom
-            >
-              บันทึกการแจ้งซ่อม
+          <Alert onClose={handleClose} severity="success">
+            บันทึกข้อมูลสำเร็จ
+          </Alert>
+        </Snackbar>
+        <Snackbar
+          open={error}
+          autoHideDuration={6000}
+          onClose={handleClose}
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        >
+          <Alert onClose={handleClose} severity="error">
+            {errorMessage}
+          </Alert>
+        </Snackbar>
 
-            </Typography>
+          <Box
+            display="flex"
+            sx={{
+              marginTop: 2,
+            }}
+          >
+            <Box sx={{ paddingX: 2, paddingY: 1 }}>
+              <Typography
+                component="h2"
+                variant="h6"
+                color="primary"
+                gutterBottom
+              >
+                บันทึกการแจ้งซ่อม
+
+              </Typography>
+            </Box>
           </Box>
-        </Box>
-        <Divider />
-        <Grid container spacing={3} sx={{ padding: 2 }}>
+          <Divider />
+          <Grid container spacing={3} sx={{ padding: 2 }}>
 
-          <Grid item xs={6}>
-            <FormControl fullWidth variant="outlined">
-            <p>ชื่อ - สกุล</p>
-              <Select
-                native
-                disabled
-                value={repairs.UserID + ""}
-                onChange={handleChange}
-                inputProps={{
-                  name: "UserID",
-                }}
-              >
-                <option value={users?.ID} key={users?.ID} >
+            <Grid item xs={6}>
+              <FormControl fullWidth variant="outlined">
+                <p>ชื่อ - สกุล</p>
+                <Select
+                  native
+                  disabled
+                  value={repairs.UserID + ""}
+                  onChange={handleChange}
+                  inputProps={{
+                    name: "UserID",
+                  }}
+                >
+                  <option value={users?.ID} key={users?.ID} >
                     {users?.Name}
+                  </option>
+                </Select>
+              </FormControl>
+            </Grid>
+
+            <Grid item xs={6}>
+              <FormControl fullWidth variant="outlined">
+                <p>ห้อง</p>
+                <Select
+                  native
+                  value={repairs.ResidentID + ""}
+                  onChange={handleChange}
+                  inputProps={{
+                    name: "ResidentID",
+                  }}
+                >
+                  <option aria-label="None" value="">
+                  </option>
+                  {residents.map((item: ResidentInterface) => (
+                    <option value={item.ID} key={item.ID}>
+                      {item.Manage.Room.Number}
                     </option>
-              </Select>
-            </FormControl>
-          </Grid>
+                  ))}
+                </Select>
+              </FormControl>
+            </Grid>
 
-          <Grid item xs={6}>
-            <FormControl fullWidth variant="outlined">
-            <p>ห้อง</p>
-              <Select
-                native
-                value={repairs.ResidentID + ""}
-                onChange={handleChange}
-                inputProps={{
-                  name: "ResidentID",
-                }}
-              >
-                <option aria-label="None" value="">
-                </option>
-                {residents.map((item: ResidentInterface) => (
-                <option value={item.ID} key={item.ID}>
-                    {item.Manage.Room.Number}
-                </option>
-                ))}
-              </Select>
-            </FormControl>
-          </Grid>
+            <Grid item xs={6}>
+              <FormControl fullWidth variant="outlined">
+                <p>เลือกเฟอร์นิเจอร์ที่จะแจ้งซ่อม</p>
+                <Select
+                  native
 
-          <Grid item xs={6}>
-            <FormControl fullWidth variant="outlined">
-              <p>เลือกเฟอร์นิเจอร์ที่จะแจ้งซ่อม</p>
-              <Select
-                native
-                
-                onChange={handleChange}
-                inputProps={{
-                  name: "ObjectID",
-                }}
-                
-              >
-                <option aria-label="None" value="">
-                </option>
-                {objects.map((item: ObjectInterface) => (
-                <option value={item.ID} key={item.ID}>
-                    {item.Name}
-                </option>
-                ))}
-              </Select>
-            </FormControl>
-          </Grid>
+                  onChange={handleChange}
+                  inputProps={{
+                    name: "ObjectID",
+                  }}
 
-          <Grid item xs={6}>
-            <FormControl fullWidth variant="outlined">
-            <p>ระบุรายละเอียดเพิ่มเติม</p>
-              <TextField
+                >
+                  <option aria-label="None" value="">
+                  </option>
+                  {objects.map((item: ObjectInterface) => (
+                    <option value={item.ID} key={item.ID}>
+                      {item.Name}
+                    </option>
+                  ))}
+                </Select>
+              </FormControl>
+            </Grid>
+
+            <Grid item xs={6}>
+              <FormControl fullWidth variant="outlined">
+                <p>ระบุรายละเอียดเพิ่มเติม</p>
+                <TextField
                   id="ResidentID"
                   multiline
                   label="ระบุรายละเอียดเพิ่มเติม"
                   onChange={(event) => setDetails(event.target.value)}
-              />
-            </FormControl>
+                />
+              </FormControl>
             </Grid>
 
 
             <Grid item xs={6}>
-            <FormControl fullWidth variant="outlined">
-              <p>วันที่แจ้งซ่อม</p>
-              <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <DesktopDatePicker
-                   disabled
-                  label="เดือน/วัน/ปี"
-                  value={selectedDate}
-                  onChange={(newValue) => setSelectedDate(newValue)}
-                  minDate={(new Date())}
-                  renderInput={(params) => <TextField {...params} />}
-                />
-              </LocalizationProvider>
-            </FormControl>
-          </Grid>
-         
-          
+              <FormControl fullWidth variant="outlined">
+                <p>วันที่แจ้งซ่อม</p>
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                  <DesktopDatePicker
+                    disabled
+                    label="เดือน/วัน/ปี"
+                    value={selectedDate}
+                    onChange={(newValue) => setSelectedDate(newValue)}
+                    minDate={(new Date())}
+                    renderInput={(params) => <TextField {...params} />}
+                  />
+                </LocalizationProvider>
+              </FormControl>
+            </Grid>
 
 
-        
-          
-          
-          <Grid item xs={12}>
-            <Button
-              component={RouterLink}
-              to="/repairs"
-              variant="contained"
-              color="inherit"
-            >
-              กลับ
-            </Button>
-            <Button
-              style={{ float: "right" }}
-              onClick={submit}
-              variant="contained"
-              color="primary"
-            >
-              บันทึก
-            </Button>
+
+
+
+
+
+            <Grid item xs={12}>
+              <Button
+                component={RouterLink}
+                to="/repairs"
+                variant="contained"
+                color="inherit"
+              >
+                กลับ
+              </Button>
+              <Button
+                style={{ float: "right" }}
+                onClick={submit}
+                variant="contained"
+                color="primary"
+              >
+                บันทึก
+              </Button>
+            </Grid>
           </Grid>
-        </Grid>
-      </Paper>
-    </Container>
+      </Box>
+    </Box>
   );
 }
-
 export default RepairCreate;
-
-
-
-
