@@ -69,7 +69,7 @@ type Gender struct {
 
 type User struct {
 	gorm.Model
-	Email        string `valid:"required~Email cannot be blank"`
+	Email        string `valid:"required~Email cannot be blank, email"`
 	Tel          string `valid:"required,matches(^[0]\\d{9}$)~Tel must be contain 10 numbers"`
 	Password     string `valid:"required~Password cannot be blank"`
 	Name         string `valid:"required~Name cannot be blank"`

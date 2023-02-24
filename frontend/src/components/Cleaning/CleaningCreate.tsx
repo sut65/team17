@@ -370,7 +370,7 @@ function CleaningCreate() {
                 }}
               >
                 <option aria-label="None" value="">
-                  โปรดระบุ
+                  โปรดระบุ 
                 </option>
                 {areas.map((item: AreaInterface) => (
                   <option value={item.ID} key={item.ID}>
@@ -398,7 +398,7 @@ function CleaningCreate() {
 
           <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
-              <p>เพิ่มเติม</p>
+              <p>เพิ่มเติม (*ไม่ต้องการกรุณาใส่ -)</p>
               <TextField
                 sx={{
                   fontFamily: "PK Krung Thep Medium",
