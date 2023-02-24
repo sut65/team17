@@ -185,36 +185,83 @@ function MeterUpdate() {
   }
 
   return (
-    <Container sx={{ marginTop: 2 }} maxWidth="md">
-      <Snackbar open={success} autoHideDuration={6000} onClose={handleClose}>
+    <Box
+      sx={{
+        backgroundImage:
+          "url(https://images.hdqwalls.com/download/chrome-os-on-the-breeze-39-1920x1080.jpg)",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        // background: '#e0e0e0',
+        width: "100%",
+        height: "100%",
+
+        fontFamily: "PK Krung Thep Medium",
+        fontSize: 20,
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        padding: "25px 10% ",
+      }}
+    >
+      <Snackbar
+        open={success}
+        autoHideDuration={3000}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      >
         <Alert onClose={handleClose} severity="success">
           บันทึกข้อมูลสำเร็จ
         </Alert>
       </Snackbar>
-      <Snackbar open={error} autoHideDuration={6000} onClose={handleClose}>
+      <Snackbar
+        open={error}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      >
         <Alert onClose={handleClose} severity="error">
           {errorMessage}
         </Alert>
       </Snackbar>
-      <Paper sx={{ padding: 2, color: "text.secondary" }}>
-        <Box display="flex">
-          <Box flexGrow={1}>
-            <Typography
-              component="h6"
-              variant="h5"
-              color="primary"
-              gutterBottom
-              
-            >
-              บันทึกการจดมิเตอร์
 
+      <Box
+        sx={{
+          mt: "60px",
+          mb: '10px',
+          background: "rgba(217, 227, 240, 0.8)",
+          //  width: '45%',
+          //  height: '80%',
+          padding: "25px",
+          borderRadius: "20px",
+          boxShadow: 20,
+        }}
+      >
+        <Box
+          display="flex"
+          justifyContent="center"
+          sx={{
+            height: "auto",
+          }}
+        >
+          <Box sx={{ paddingX: 2 }}>
+            <Typography
+              gutterBottom
+              sx={{
+                fontFamily: "PK Krung Thep Medium",
+                fontSize: "30px",
+                color: "#0693e3",
+              }}
+            >
+              <h1>
+                <b>บันทึกการจดมิเตอร์</b>
+              </h1>
             </Typography>
           </Box>
         </Box>
-        <Divider />
-        <Grid container spacing={3}  sx={{ flexGrow: 1 }}>
 
-            {/* <Grid item xs={6}>
+        <Grid container spacing={3} sx={{ flexGrow: 1, }}>
+          {/* <Grid item xs={6}>
                 <FormControl fullWidth variant="outlined">
                 <Select
                     native
@@ -222,7 +269,7 @@ function MeterUpdate() {
                     value={meters.AdminID}
                     // label="ชื่อ - นามสกุล"
                     onChange={handleChange}
-                    inputProps={{
+                    inputProps={{map
                     name: "AdminID",
                     }}
                 > 
@@ -235,193 +282,204 @@ function MeterUpdate() {
                 </FormControl>
             </Grid> */}
 
-            <Grid item xs={6}>
-                <FormControl fullWidth variant="outlined">
-                <InputLabel id="ManageID">ห้อง</InputLabel>
-                <Select
-                    native
-                    value={meters.ManageID}
-                    label="ระบุห้อง"
-                    onChange={handleChange}
-                    inputProps={{
-                    name: "ManageID",
-                    }}
-                >
-                    <option aria-label="None" value="">
-                    </option>
-                    {manage.map((item: ManageInterface) => (
-                    <option value={item.ID} key={item.ID}>
-                        {item.Room.Number}
-                    </option>
-                    ))}
-                </Select>
-                </FormControl>
-            </Grid>
-
-            <Grid item xs={6}>
-                <FormControl fullWidth variant="outlined">
-                <InputLabel id="UserID">ผู้เช่า</InputLabel>
-                <Select
-                    native
-                    value={meters.UserID}
-                    label="ระบุผู้เช่า"
-                    onChange={handleChange}
-                    inputProps={{
-                    name: "UserID",
-                    }}//
-                >
-                    <option aria-label="None" value="">
-                    </option>
-                    {users.map((item: UserInterface) => (
-                    <option value={item.ID} key={item.ID}>
-                        {item.Name}
-                    </option>
-                    ))}
-                </Select>
-                </FormControl>
-            </Grid>
-
-            <Grid item xs={6}>
-                <FormControl fullWidth variant="outlined">
-                <p>ค่าเช่าห้อง</p>
-                <Select
-                    native
-                    value={meters.ManageID}
-                    label="ค่าเช่าห้อง"
-                    onChange={handleChange}
-                    inputProps={{
-                    name: "ManageID",
-                    }}
-                >
-                    <option aria-label="None" value="">
-                    </option>
-                    {manage.map((item: ManageInterface) => (
-                    <option value={item.ID} key={item.ID}>
-                        {item.Price}
-                    </option>
-                    ))}
-                </Select>
-                </FormControl>
-            </Grid>
-
-            
-            <Grid item xs={5}>
-              <FormControl fullWidth variant="outlined">
-              <p>มิเตอร์ครั้งก่อน</p>
-                <TextField
-                    variant="filled"
-                    id="MeterID"
-                    // placeholder="มิเตอร์ครั้งก่อน"
-                    onChange={(event) => setBefores(event.target.value)}
-                />
-              </FormControl>
-            </Grid>
-            
-            <Grid item xs={5}>
-              <FormControl fullWidth variant="outlined">
-              <p>มิเตอร์ที่จดได้</p>
-                <TextField
-                    variant="filled"
-                    id="MeterID"
-                    placeholder="ระบุ..."
-                    onChange={(event) => setAfters(event.target.value)}
-                />
-              </FormControl>
-            </Grid>
-            
-            <Grid item xs={2}>
-              <Button
-                variant="contained"
-                onClick={() => {
-                  setTotals((Number(afters) - Number(befores)).toString())
-                }}
-              >
-                คำนวนมิเตอร์
-              </Button>
-            </Grid>
-
-            <Grid item xs={5}>
-              <FormControl fullWidth variant="outlined">
-              <p>จำนวนหน่วยที่ใช้</p>
-                <TextField
-                    variant="filled"
-                    id="MeterID"
-                    value={totals}
-                    onChange={(event) => setTotals(event.target.value)}
-                />
-              </FormControl>
-            </Grid>
-
-            <Grid item xs={5}>
-              <FormControl fullWidth variant="outlined">
-              <p>ราคาต่อหน่วย</p>
-                <TextField
-                    variant="filled"
-                    id="MeterID"
-                    defaultValue={"7"}
-                    onChange={(event) => setUnits(event.target.value)}
-                />
-              </FormControl>
-            </Grid>
-
-            <Grid item xs={2}>
-              <Button
-                variant="contained"
-                onClick={() => {
-                  setElectronics((Number(totals)*Number(units)).toString())
-                }}
-              >
-                คำนวนค่าไฟ
-              </Button>
-            </Grid>
-
-            <Grid item xs={5}>
-              <FormControl fullWidth variant="outlined">
-              <p>ค่าไฟ</p>
-                <TextField
-                    variant="filled"
-                    id="MeterID"
-                    value={electric}
-                    onChange={(event) => setElectronics(event.target.value)}
-                />
-              </FormControl>
-            </Grid>
-
-            <Grid item xs={5}>
-              <FormControl fullWidth variant="outlined">
-              <p>ค่าน้ำ(เหมาจ่าย)</p>
-                <TextField
-                    variant="filled"
-                    id="MeterID"
-                    defaultValue={"100"}
-                    onChange={(event) => setWaters(event.target.value)}
-                />
-              </FormControl>
-            </Grid>
-           
-
-            <Grid item xs={6}>
+          <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
-              <p>วันที่ทำสัญญา</p>
+              <InputLabel id="AdminID">ผู้บันทึกข้อมูล</InputLabel>
+              <Select
+                native
+                value={admins?.ID || ""}
+                label="ผู้บันทึกข้อมูล"
+                onChange={handleChange}
+                inputProps={{
+                  name: "ManageID",
+                }}
+                disabled
+              >
+                <option aria-label="None" value=""></option>
+                 <option value={admins?.ID} key={admins?.ID}>
+                    {admins?.Name}
+                  </option>
+              </Select>
+            </FormControl>
+          </Grid>
+
+          <Grid item xs={6}>
+            <FormControl fullWidth variant="outlined">
+              <InputLabel id="ManageID">ห้อง</InputLabel>
+              <Select
+                native
+                value={meters.ManageID}
+                label="ระบุห้อง"
+                onChange={handleChange}
+                inputProps={{
+                  name: "ManageID",
+                }}
+              >
+                <option aria-label="None" value=""></option>
+                {manage.map((item: ManageInterface) => (
+                  <option value={item.ID} key={item.ID}>
+                    {item.Room.Number}
+                  </option>
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
+
+          <Grid item xs={6}>
+            <FormControl fullWidth variant="outlined">
+              {/* <InputLabel id="UserID">ผู้เช่า</InputLabel> */}
+              <Typography>ผู้เช่า</Typography>
+              <Select
+                native
+                value={meters.UserID}
+                onChange={handleChange}
+                inputProps={{
+                  name: "UserID",
+                }} //
+              >
+                <option aria-label="None" value=""></option>
+                {users.map((item: UserInterface) => (
+                  <option value={item.ID} key={item.ID}>
+                    {item.Name}
+                  </option>
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
+
+          <Grid item xs={6}>
+            <FormControl fullWidth variant="outlined">
+              <Typography>ค่าเช่าห้อง</Typography>
+              <Select
+                native
+                value={meters.ManageID}
+                onChange={handleChange}
+                inputProps={{
+                  name: "ManageID",
+                }}
+              >
+                <option aria-label="None" value=""></option>
+                {manage.map((item: ManageInterface) => (
+                  <option value={item.ID} key={item.ID}>
+                    {item.Price}
+                  </option>
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
+
+          <Grid item xs={5}>
+            <FormControl fullWidth variant="outlined">
+              <Typography>มิเตอร์ครั้งก่อน</Typography>
+              <TextField
+                variant="filled"
+                id="MeterID"
+                // placeholder="มิเตอร์ครั้งก่อน"
+                onChange={(event) => setBefores(event.target.value)}
+              />
+            </FormControl>
+          </Grid>
+
+          <Grid item xs={5}>
+            <FormControl fullWidth variant="outlined">
+              <Typography>มิเตอร์ที่จดได้</Typography>
+              <TextField
+                variant="filled"
+                id="MeterID"
+                placeholder="ระบุ..."
+                onChange={(event) => setAfters(event.target.value)}
+              />
+            </FormControl>
+          </Grid>
+
+          <Grid item xs={2} sx={{ display: 'flex', alignItems: 'center' }}>
+            <Button
+              variant="contained"
+              onClick={() => {
+                setTotals((Number(afters) - Number(befores)).toString());
+              }}
+            >
+              คำนวนมิเตอร์
+            </Button>
+          </Grid>
+
+          <Grid item xs={5} >
+            <FormControl fullWidth variant="outlined">
+              <Typography>จำนวนหน่วยที่ใช้</Typography>
+              <TextField
+                variant="filled"
+                id="MeterID"
+                value={totals}
+                onChange={(event) => setTotals(event.target.value)}
+              />
+            </FormControl>
+          </Grid>
+
+          <Grid item xs={5}>
+            <FormControl fullWidth variant="outlined">
+              <Typography>ราคาต่อหน่วย</Typography>
+              <TextField
+                variant="filled"
+                id="MeterID"
+                defaultValue={"7"}
+                onChange={(event) => setUnits(event.target.value)}
+              />
+            </FormControl>
+          </Grid>
+
+          <Grid item xs={2} sx={{ display: 'flex', alignItems: 'center' }}>
+            <Button
+              variant="contained"
+              onClick={() => {
+                setElectronics((Number(totals) * Number(units)).toString());
+              }}
+            >
+              คำนวนค่าไฟ
+            </Button>
+          </Grid>
+
+          <Grid item xs={5}>
+            <FormControl fullWidth variant="outlined">
+              <Typography>ค่าไฟ</Typography>
+              <TextField
+                variant="filled"
+                id="MeterID"
+                value={electric}
+                onChange={(event) => setElectronics(event.target.value)}
+              />
+            </FormControl>
+          </Grid>
+
+          <Grid item xs={5}>
+            <FormControl fullWidth variant="outlined">
+              <Typography>ค่าน้ำ(เหมาจ่าย)</Typography>
+              <TextField
+                variant="filled"
+                id="MeterID"
+                defaultValue={"100"}
+                onChange={(event) => setWaters(event.target.value)}
+              />
+            </FormControl>
+          </Grid>
+
+          <Grid item xs={6}>
+            <FormControl fullWidth variant="outlined">
+              <Typography>วันที่</Typography>
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DesktopDatePicker
                   disabled
                   label="เดือน/วัน/ปี"
                   value={selectedDate}
                   onChange={(newValue) => setSelectedDate(newValue)}
-                  minDate={(new Date('2022-12-20'))}
+                  minDate={new Date("2022-12-20")}
                   renderInput={(params) => <TextField {...params} />}
                 />
               </LocalizationProvider>
             </FormControl>
           </Grid>
-          
+
           <Grid item xs={12}>
-            <Button
-              component={RouterLink}
-              to="/meters"
-              variant="contained"
-            >
+            <Button component={RouterLink} to="/meters" variant="contained">
               กลับ
             </Button>
             <Button
@@ -434,9 +492,8 @@ function MeterUpdate() {
             </Button>
           </Grid>
         </Grid>
-      </Paper>
-    </Container>
+      </Box>
+    </Box>
   );
 }
-
 export default MeterUpdate;

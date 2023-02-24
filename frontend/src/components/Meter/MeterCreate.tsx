@@ -180,7 +180,7 @@ function MeterCreate() {
     <Box
       sx={{
         backgroundImage:
-          "url(https://images.hdqwalls.com/download/simple-drop-white-10k-n8-1280x720.jpg)",
+          "url(https://images.hdqwalls.com/download/chrome-os-on-the-breeze-39-1920x1080.jpg)",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
         backgroundPosition: "center",
@@ -219,9 +219,9 @@ function MeterCreate() {
 
       <Box
         sx={{
-          mt: "70px",
-          mr: "10px",
-          background: "rgba(255, 255, 255, 0.8)",
+          mt: "60px",
+          mb: '10px',
+          background: "rgba(217, 227, 240, 0.8)",
           //  width: '45%',
           //  height: '80%',
           padding: "25px",
@@ -238,8 +238,6 @@ function MeterCreate() {
         >
           <Box sx={{ paddingX: 2 }}>
             <Typography
-              component="h2"
-              variant="h6"
               gutterBottom
               sx={{
                 fontFamily: "PK Krung Thep Medium",
@@ -253,9 +251,8 @@ function MeterCreate() {
             </Typography>
           </Box>
         </Box>
-        <Divider />
 
-        <Grid container spacing={3} sx={{ flexGrow: 1 }}>
+        <Grid container spacing={3} sx={{ flexGrow: 1, }}>
           {/* <Grid item xs={6}>
                 <FormControl fullWidth variant="outlined">
                 <Select
@@ -277,7 +274,7 @@ function MeterCreate() {
                 </FormControl>
             </Grid> */}
 
-          <Grid item xs={12}>
+          <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
               <InputLabel id="AdminID">ผู้บันทึกข้อมูล</InputLabel>
               <Select
@@ -322,11 +319,11 @@ function MeterCreate() {
 
           <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
-              <InputLabel id="UserID">ผู้เช่า</InputLabel>
+              {/* <InputLabel id="UserID">ผู้เช่า</InputLabel> */}
+              <Typography>ผู้เช่า</Typography>
               <Select
                 native
                 value={meters.UserID}
-                label="ระบุผู้เช่า"
                 onChange={handleChange}
                 inputProps={{
                   name: "UserID",
@@ -344,7 +341,7 @@ function MeterCreate() {
 
           <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
-              <p>ค่าเช่าห้อง</p>
+              <Typography>ค่าเช่าห้อง</Typography>
               <Select
                 native
                 value={meters.ManageID}
@@ -365,7 +362,7 @@ function MeterCreate() {
 
           <Grid item xs={5}>
             <FormControl fullWidth variant="outlined">
-              <p>มิเตอร์ครั้งก่อน</p>
+              <Typography>มิเตอร์ครั้งก่อน</Typography>
               <TextField
                 variant="filled"
                 id="MeterID"
@@ -377,7 +374,7 @@ function MeterCreate() {
 
           <Grid item xs={5}>
             <FormControl fullWidth variant="outlined">
-              <p>มิเตอร์ที่จดได้</p>
+              <Typography>มิเตอร์ที่จดได้</Typography>
               <TextField
                 variant="filled"
                 id="MeterID"
@@ -387,7 +384,7 @@ function MeterCreate() {
             </FormControl>
           </Grid>
 
-          <Grid item xs={2}>
+          <Grid item xs={2} sx={{ display: 'flex', alignItems: 'center' }}>
             <Button
               variant="contained"
               onClick={() => {
@@ -398,9 +395,9 @@ function MeterCreate() {
             </Button>
           </Grid>
 
-          <Grid item xs={5}>
+          <Grid item xs={5} >
             <FormControl fullWidth variant="outlined">
-              <p>จำนวนหน่วยที่ใช้</p>
+              <Typography>จำนวนหน่วยที่ใช้</Typography>
               <TextField
                 variant="filled"
                 id="MeterID"
@@ -412,7 +409,7 @@ function MeterCreate() {
 
           <Grid item xs={5}>
             <FormControl fullWidth variant="outlined">
-              <p>ราคาต่อหน่วย</p>
+              <Typography>ราคาต่อหน่วย</Typography>
               <TextField
                 variant="filled"
                 id="MeterID"
@@ -422,7 +419,7 @@ function MeterCreate() {
             </FormControl>
           </Grid>
 
-          <Grid item xs={2}>
+          <Grid item xs={2} sx={{ display: 'flex', alignItems: 'center' }}>
             <Button
               variant="contained"
               onClick={() => {
@@ -435,7 +432,7 @@ function MeterCreate() {
 
           <Grid item xs={5}>
             <FormControl fullWidth variant="outlined">
-              <p>ค่าไฟ</p>
+              <Typography>ค่าไฟ</Typography>
               <TextField
                 variant="filled"
                 id="MeterID"
@@ -447,7 +444,7 @@ function MeterCreate() {
 
           <Grid item xs={5}>
             <FormControl fullWidth variant="outlined">
-              <p>ค่าน้ำ(เหมาจ่าย)</p>
+              <Typography>ค่าน้ำ(เหมาจ่าย)</Typography>
               <TextField
                 variant="filled"
                 id="MeterID"
@@ -459,7 +456,7 @@ function MeterCreate() {
 
           <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
-              <p>วันที่ทำสัญญา</p>
+              <Typography>วันที่</Typography>
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DesktopDatePicker
                   disabled
