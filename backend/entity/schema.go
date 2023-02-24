@@ -76,7 +76,7 @@ type User struct {
 	Role         string
 	Address      string    `valid:"required~Address cannot be blank"`
 	Personal     string    `valid:"required,matches(^\\d{13}$)~Personal must be contain 13 numbers"`
-	BirthdayTime time.Time `valid:"past~Birthday not past"`
+	BirthdayTime time.Time `valid:"timenotfuture~Birthday must be in the past"`
 
 	// StatusID เป็น FK
 	StatusID *uint
@@ -442,6 +442,12 @@ func init() {
 	govalidator.CustomTypeTagMap.Set("past", func(i interface{}, o interface{}) bool {
 		t := i.(time.Time)
 		return t.After(time.Now().AddDate(0, 0, -1))
+	})
+
+	govalidator.CustomTypeTagMap.Set("timenotfuture", func(i interface{}, o interface{}) bool {
+		t := i.(time.Time)
+		// ห้ามเป็นอนาคต
+		return t.Before(time.Now())
 	})
 
 	// govalidator.CustomTypeTagMap.Set("past", func(i interface{}, o interface{}) bool { //เงื่อนไขเวลาไม่เป็นอดีต
