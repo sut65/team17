@@ -183,13 +183,13 @@ function Requestchange() {
             component={RouterLink}
             to="/requestchange/create"
             variant="contained"
-            color="primary"
             sx={{fontFamily: "PK Krung Thep Medium",
             fontSize: "20px",
-            background: '#2448f9',   
+            background: '#2448f9',  
+             
             '&:hover': {
-               background: '#45be3c',
-               color: "#2448f9",
+               background: '#eb6a00',
+               color: "white",
                
             },}}
           style={{borderRadius: '30px'}}
