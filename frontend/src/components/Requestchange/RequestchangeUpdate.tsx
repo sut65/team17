@@ -25,6 +25,7 @@ import { RequestchangeInterface } from "../../models/IRequestchange";
 import { ReasonInterface } from "../../models/IReason";
 import { UserInterface } from "../../models/IUser";
 import { RoomInterface } from "../../models/IRoom";
+import { BorderBottom } from "@material-ui/icons";
 
 
 
@@ -203,7 +204,39 @@ function RequestchangeUpdate() {
     
       
   
-      <Grid container component="main"   sx={{ height: "100vh", width: "100vh" }}>
+    <div style={{
+      backgroundImage: "url(https://images.rawpixel.com/image_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvdjQ2Mi1uLTEzMC10ZXh0dXJlaWRlYV8xLmpwZw.jpg)",
+      backgroundRepeat: "no-repeat",
+      backgroundSize: "cover",
+      width: '100%',
+      fontFamily: "PK Krung Thep Medium",
+      fontSize: 20,
+      display: 'flex',
+      justifyContent: 'center',
+   }}>
+    
+ 
+
+    <Box sx={{
+      
+      mt: '100px',
+      mb: '100px',
+      minHeight: '50%',
+      height: '65%',
+      width: '60%',
+      display: 'flex',
+      justifyContent: 'center',
+      background: 'rgba(255, 255, 255, 0.6)',
+      backgroundSize: "cover",
+      
+      borderRadius: 10,
+
+   }}>
+   
+   <Box sx={{ width: "90%" }}>
+    
+    <Box display="flex" 
+    sx={{mt: "10px",}}>
 
       <Snackbar
         open={success}
@@ -228,32 +261,26 @@ function RequestchangeUpdate() {
 
      
     
-    <Grid  component={Paper} elevation={6} square >
+    
 
         <Box
           display="flex"
           sx={{
-            
-              my: 8,
-              mx: 4,
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              alignSelf: "center",
-            
             marginTop: 2,
             
+          
           }}
         >
           <Box sx={{ paddingX: 2, paddingY: 1 }}>
             <Typography
               component="h2"
               variant="h6"
-              color="primary"
               gutterBottom
               sx={{
                 fontFamily: "PK Krung Thep Medium",
-                fontSize: "30px"
+                fontSize: "40px",
+                color: '#000000'
+                
                 
               }}
             >
@@ -262,26 +289,31 @@ function RequestchangeUpdate() {
             </Typography>
           </Box>
         </Box>
+        </Box>
         <Divider />
+
+
         <Grid container spacing={3} sx={{ padding: 2 }}>
-
-         
-
-          <Grid item xs={6}>
+          <Grid item xs={6} sx={{fontFamily: "PK Krung Thep Medium", fontSize: "24px"}}>
           <FormControl fullWidth variant="outlined">
             <p>ชื่อ - สกุล</p>
               <Select
+              sx={{
+                fontFamily: "PK Krung Thep Medium",
+                fontSize: "20px",
+                color: '#000000',
+              }}
+              style={{ borderRadius: "30px"  }}
                 native
-                
                 value={requestchanges.UserID + ""}
                 onChange={handleChange}
                 inputProps={{
                   name: "UserID",
                 }}
               >
-                {/* <option aria-label="None" value="">
+                <option aria-label="None" value="">
                     กรุณาเลือกชื่อ
-                </option> */}
+                </option>
                 <option value={users?.ID} key={users?.ID} >
                     {users?.Name}
                 </option>
@@ -291,11 +323,13 @@ function RequestchangeUpdate() {
           </Grid>
 
           <Grid item xs={6}>
-            <FormControl fullWidth variant="outlined">
+            <FormControl fullWidth variant="outlined" sx={{fontFamily: "PK Krung Thep Medium", fontSize: "24px"}}>
               <p>ห้องพัก</p>
               <Select sx={{
                 fontFamily: "PK Krung Thep Medium",
-                fontSize: "18px"
+                fontSize: "20px",
+                
+                
               }}
                 style={{borderRadius: "30px"}}
                 native
@@ -319,11 +353,12 @@ function RequestchangeUpdate() {
           </Grid>
 
           <Grid item xs={6}>
-            <FormControl fullWidth variant="outlined">
+            <FormControl fullWidth variant="outlined" sx={{fontFamily: "PK Krung Thep Medium", fontSize: "24px" }}>
               <p>เหตุผล</p>
               <Select sx={{
                 fontFamily: "PK Krung Thep Medium",
-                fontSize: "16px"
+                fontSize: "20px",
+                
               }}
                 style={{borderRadius: "30px"}}
                 native
@@ -347,17 +382,26 @@ function RequestchangeUpdate() {
           </Grid>
 
 
-          <Grid item xs={6}>
-            <p>หากอื่นๆโปรดระบุ (*ไม่จำเป็น)</p>
-            <FormControl fullWidth variant="outlined">
+          <Grid item xs={6}  sx={{fontFamily: "PK Krung Thep Medium", fontSize: "24px", color: 'red'}} style={{borderRadius: "30px"}}>
+            <p>หากอื่นๆโปรดระบุ (หากไม่ต้องการระบุใส่ -)</p>
+            <FormControl fullWidth variant="outlined"
+            sx={{
+              fontFamily: "PK Krung Thep Medium",
+              fontSize: "20px",
+              color: '#1100ff',
+            }}
+              style={{borderRadius: "30px"}}
+              >
               <TextField
+                inputProps={{ style: {fontFamily: "PK Krung Thep Medium", fontSize: "20px"}}}
                 id="detail"
                 variant="outlined"
                 type="string"
                 size="medium"
                 placeholder="ไม่มี"   
+                rows={4}
+                multiline
                 onChange={(event) => setDetail(event.target.value)}
-                
                 />
             </FormControl>
           </Grid>
@@ -372,9 +416,21 @@ function RequestchangeUpdate() {
           <Grid item xs={12}>
           
             <Button sx={{
+              
               fontFamily: "PK Krung Thep Medium", 
-              fontSize:17
+              fontSize:20,
+              fontStyle: 'Bold',
+              color: '#white',
+              background: '#f54d4d',   
+                         '&:hover': {
+                            background: "white",
+                            color: "#f54d4d",
+                            
+                         },
             }}
+            style={{ 
+              borderRadius: "30px",
+              }}
             component={RouterLink}
               to="/requestchanges"
               variant="contained"
@@ -388,10 +444,19 @@ function RequestchangeUpdate() {
             
             <Button sx={{ 
               fontFamily: "PK Krung Thep Medium", 
-              fontSize:17
-
+              fontSize:20 ,
+              fontStyle: 'Bold',
+              color: '#white',
+              background: '#584df5',   
+                         '&:hover': {
+                            background: "white",
+                            color: "#5842ff",
+                            
+                         },
             }}
-              style={{ float: "right"}}
+              style={{ float: "right",
+              borderRadius: "30px",
+              }}
               onClick={update}
               variant="contained"
               color="primary"
@@ -402,9 +467,10 @@ function RequestchangeUpdate() {
           </Grid>
           
         </Grid>
-      
-              </Grid>
-              </Grid>
+
+  </Box>
+   </Box>
+   </div>
           
 
             
