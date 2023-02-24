@@ -141,6 +141,15 @@ func UpdateResident(c *gin.Context) {
 		LeaseTime:		resident.LeaseTime,
 	}
 
+
+
+	// ขั้นตอนการ validate ที่นำมาจาก unit test
+	if _, err := govalidator.ValidateStruct(update); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	
+
 	// 13: บันทึก
 	if err := entity.DB().Where("id = ?", resident.ID).Updates(&update).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})

@@ -168,13 +168,14 @@ function RequestoutCreate() {
   return (
 
     <div style={{
-      backgroundImage: "url(https://images.hdqwalls.com/download/material-minimal-shape-8k-lv-1920x1080.jpg)",
+      backgroundImage: "url(https://images.rawpixel.com/image_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvdjQ3NS1rYXRpZS0xMDEtYWJzdHJhY3RibGFja2FuZHdoaXRlYmdfMS5qcGc.jpg)",
       backgroundRepeat: "no-repeat",
       backgroundSize: "cover",
       width: '100%',
       fontFamily: "PK Krung Thep Medium",
       fontSize: 20,
-      display: 'grid',
+      display: 'flex',
+      justifyContent: 'center',
    }}>
     
  
@@ -184,8 +185,8 @@ function RequestoutCreate() {
       mt: '100px',
       mb: '100px',
       minHeight: '50%',
-      width: '100%',
-      background: 'rgba(255, 255, 255, 0.3)',
+      width: '90%',
+      background: 'rgba(255, 255, 255, 0.4)',
       
       display: 'flex',
       justifyContent: 'center',
@@ -193,10 +194,10 @@ function RequestoutCreate() {
 
    }}>
 
-    <Box sx={{ width: "100%" }}>
+    <Box sx={{ width: "90%" }}>
     
     <Box display="flex" sx={{
-      mt: "30px",
+      mt: "10px",
     }}>
 
       <Snackbar
@@ -237,7 +238,6 @@ function RequestoutCreate() {
               sx={{
                 fontFamily: "PK Krung Thep Medium",
                 fontSize: "40px",
-                color: '#8b1fb2'
               }}
             >
               <b>แบบคำขอออก</b>
@@ -248,13 +248,13 @@ function RequestoutCreate() {
         </Box>
         <Divider />
         <Grid container spacing={3} sx={{ padding: 2 }}>
-        <Grid item xs={6} sx={{fontFamily: "PK Krung Thep Medium", fontSize: "20px"}}>
+        <Grid item xs={6} sx={{fontFamily: "PK Krung Thep Medium", fontSize: "24px"}}>
           <FormControl fullWidth variant="outlined">
             <p>ชื่อ - สกุล</p>
             <Select
               sx={{
                 fontFamily: "PK Krung Thep Medium",
-                fontSize: "16px",
+                fontSize: "20px",
               }}
               style={{ borderRadius: "30px" }}
               native
@@ -272,12 +272,12 @@ function RequestoutCreate() {
           </FormControl>
         </Grid>
 
-          <Grid item xs={6} sx={{fontFamily: "PK Krung Thep Medium", fontSize: "20px"}}>
+          <Grid item xs={6} sx={{fontFamily: "PK Krung Thep Medium", fontSize: "24px"}}>
             <FormControl fullWidth variant="outlined">
               <p>ห้องพัก</p>
               <Select sx={{
                 fontFamily: "PK Krung Thep Medium",
-                fontSize: "18px",
+                fontSize: "20px",
               }}
                 style={{borderRadius: "30px"}}
                 native
@@ -300,12 +300,12 @@ function RequestoutCreate() {
             </FormControl>
           </Grid>
 
-          <Grid item xs={6} sx={{fontFamily: "PK Krung Thep Medium", fontSize: "20px"}}>
+          <Grid item xs={6} sx={{fontFamily: "PK Krung Thep Medium", fontSize: "24px"}}>
             <FormControl fullWidth variant="outlined">
               <p>เหตุผล</p>
               <Select sx={{
                 fontFamily: "PK Krung Thep Medium",
-                fontSize: "16px"
+                fontSize: "20px"
               }}
                 style={{borderRadius: "30px"}}
                 native
@@ -328,7 +328,7 @@ function RequestoutCreate() {
             </FormControl>
           </Grid>
 
-          <Grid item xs={6} sx={{fontFamily: "PK Krung Thep Medium", fontSize: "20px"}}>
+          <Grid item xs={6} sx={{fontFamily: "PK Krung Thep Medium", fontSize: "24px"}}>
             <FormControl fullWidth variant="outlined" >
             <p>วัน เดือน  ปี ที่ต้องการ</p>
             
@@ -351,10 +351,11 @@ function RequestoutCreate() {
             </FormControl>
           </Grid>
 
-          <Grid item xs={6} sx={{color: "red", fontFamily: "PK Krung Thep Medium", fontSize: "20px"}}>
+          <Grid item xs={6} sx={{color: "red", fontFamily: "PK Krung Thep Medium", fontSize: "24px"}}>
             <p>เหตุผลเพิ่มเติม (*ไม่ต้องการกรุณาใส่ -)</p>
             <FormControl fullWidth variant="outlined">
               <TextField  
+                inputProps={{ style: {fontFamily: "PK Krung Thep Medium", fontSize: "20px"}}}
                 id="detail"
                 variant="outlined"
                 type="string"
@@ -375,7 +376,8 @@ function RequestoutCreate() {
           
           <Grid item xs={12}>
           
-            <Button sx={{
+            <Button
+             sx={{ 
               fontFamily: "PK Krung Thep Medium", 
               fontSize:20,
               color: '#white',

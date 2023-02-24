@@ -114,7 +114,17 @@ function Users() {
   }, []);
 
   return (
-    <div>
+    <Box sx={{
+      backgroundImage:"url(https://i.pinimg.com/564x/c0/4a/5f/c04a5f27b605cc21aa55420a7f83318d.jpg)",
+      backgroundRepeat: "no-repeat",
+      backgroundSize: "cover",
+      width: '100%',
+      fontFamily: "PK Krung Thep Medium",
+      fontSize: 20,
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+    }}>
 
 
       <Snackbar
@@ -138,16 +148,42 @@ function Users() {
           </Alert>
       </Snackbar>
 
-      <Container sx={{marginTop: 10}} maxWidth="md">
-        <Box display="flex">
+      <Box
+        sx={{
+          width: "90%",
+          height: "80%",
+          mt: "60px",
+          bgcolor: 'rgba(255, 255, 255, 0.5)',
+          borderRadius: "30px",
+          boxShadow: 20,
+          // display: "table-column-group",
+          // justifyContent: 'center',
+        }}
+      >
+        <Box
+          sx={{
+            mt: "30px",
+            display: "flex",
+            justifyContent: 'center',
+            alignItems: "center",
+            
+          }}
+        >
+
           <Box flexGrow={1}>
             <Typography
               component="h2"
               variant="h6"
               color="primary"
               gutterBottom
+              sx={{
+                fontFamily: "PK Krung Thep Medium",
+                fontWeight: "bold",
+                fontSize: 30,
+                ml: '50px',
+              }}
             >
-              บันทึกข้อมูลผู้เช่า
+              <p>ระบบบันทึกข้อมูลผู้เช่า</p>
             </Typography>
           </Box>
           <Box>
@@ -156,12 +192,17 @@ function Users() {
               to="/user/create"
               variant="contained"
               color="primary"
+              sx={{
+                fontFamily: "PK Krung Thep Medium",
+                mr: '30px',
+              }}
             >
               บันทึกข้อมูลผู้เช่า
             </Button>
           </Box>
         </Box>
-        <TableContainer component={Paper} sx={{ minWidth: 650}}>
+
+        <TableContainer>
           <Table sx={{marginTop: 2}} aria-label="simple table">
             <TableHead>
               <TableRow>
@@ -206,7 +247,7 @@ function Users() {
                   <TableCell align="center">{item.ID}</TableCell>
                   <TableCell align="center">{item.Title.Name}</TableCell>
                   <TableCell align="center">{item.Name}</TableCell>
-                  <TableCell align="center">{moment(item.BirthdayTime).format('DD MM yyyy')}</TableCell>
+                  <TableCell align="center">{moment(item.BirthdayTime).format('DD/MM/yyyy')}</TableCell>
                   <TableCell align="center">{item.Gender.Name}</TableCell>
                   <TableCell align="center">{item.Status.Name}</TableCell>
                   <TableCell align="center">{item.Email}</TableCell>
@@ -249,8 +290,8 @@ function Users() {
             </TableBody>
           </Table>
         </TableContainer>
-      </Container>
-    </div>
+      </Box>
+    </Box>
   );
 }
 

@@ -149,7 +149,7 @@ function UserCreate() {
   };
 
   function submit() {
-      let data = {
+    let data = {
       Role: "user",
       StatusID: convertType(users.StatusID),
       GenderID: convertType(users.GenderID),
@@ -191,211 +191,241 @@ function UserCreate() {
   console.log("users", users)
 
   return (
-    <Container sx={{ marginTop: 10 }} maxWidth="md">
-      <Snackbar open={success} autoHideDuration={6000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="success">
-          บันทึกข้อมูลสำเร็จ
-        </Alert>
-      </Snackbar>
-      <Snackbar open={error} autoHideDuration={6000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="error">
-          บันทึกข้อมูลไม่สำเร็จ: {errorMessage}
-        </Alert>
-      </Snackbar>
-      <Paper sx={{ padding: 2, color: "text.secondary" }}>
-        <Box display="flex">
-          <Box flexGrow={1}>
-            <Typography
-              component="h6"
-              variant="h5"
-              color="primary"
-              gutterBottom
 
-            >
-              บันทึกข้อมูลผู้เช่า
+    <Box sx={{
+      backgroundImage:
+        "url(https://i.pinimg.com/564x/c0/4a/5f/c04a5f27b605cc21aa55420a7f83318d.jpg)",
+      backgroundRepeat: "no-repeat",
+      backgroundSize: "cover",
+      width: "100%",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+    }}>
 
-            </Typography>
+      <Box
+        sx={{
+          fontFamily: "PK Krung Thep Medium",
+          fontSize: "20px",
+          width: "90%",
+          mt: "70px",
+          bgcolor: 'rgba(255, 255, 255, 0.5)',
+          borderRadius: "30px",
+          boxShadow: 20,
+
+        }}
+      >
+
+        <Snackbar open={success} autoHideDuration={6000} onClose={handleClose}>
+          <Alert onClose={handleClose} severity="success">
+            บันทึกข้อมูลสำเร็จ
+          </Alert>
+        </Snackbar>
+        <Snackbar open={error} autoHideDuration={6000} onClose={handleClose}>
+          <Alert onClose={handleClose} severity="error">
+            บันทึกข้อมูลไม่สำเร็จ: {errorMessage}
+          </Alert>
+        </Snackbar>
+
+        <Box sx={{ padding: 2, color: "text.secondary" }}>
+          <Box display="flex">
+            <Box flexGrow={1}>
+              <Typography
+                component="h6"
+                variant="h5"
+                color="primary"
+                gutterBottom
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'center',
+
+                }}
+              >
+                <h1>บันทึกข้อมูลผู้เช่า</h1>
+
+              </Typography>
+            </Box>
           </Box>
-        </Box>
-        <Divider />
-        <Grid container spacing={3} sx={{ flexGrow: 1 }}>
+          
+          <Grid container spacing={3} sx={{ flexGrow: 1 }}>
 
-          <Grid item xs={6}>
-            <FormControl fullWidth variant="outlined">
-              <InputLabel id="TitleID">เลือกคำนำหน้า</InputLabel>
-              <Select
-                native
-                value={users.TitleID}
-                label="กรุณาเลือก..."
-                onChange={handleChange}
-                inputProps={{
-                  name: "TitleID",
-                }}
-              >
-                <option aria-label="None" value="">
-                </option>
-                {titles.map((item: TitleInterface) => (
-                  <option value={item.ID} key={item.ID}>
-                    {item.Name}
+            <Grid item xs={6}>
+              <FormControl fullWidth variant="outlined">
+                <InputLabel id="TitleID">เลือกคำนำหน้า</InputLabel>
+                <Select
+                  native
+                  value={users.TitleID}
+                  label="กรุณาเลือก..."
+                  onChange={handleChange}
+                  inputProps={{
+                    name: "TitleID",
+                  }}
+                >
+                  <option aria-label="None" value="">
                   </option>
-                ))}
-              </Select>
-            </FormControl>
-          </Grid>
+                  {titles.map((item: TitleInterface) => (
+                    <option value={item.ID} key={item.ID}>
+                      {item.Name}
+                    </option>
+                  ))}
+                </Select>
+              </FormControl>
+            </Grid>
 
-          <Grid item xs={6}>
-            <FormControl fullWidth variant="standard">
-              <TextField
-                label="กรอกชื่อ-สกุล"
-                required
-                id="outlined-required"
+            <Grid item xs={6}>
+              <FormControl fullWidth variant="standard">
+                <TextField
+                  label="กรอกชื่อ-สกุล"
+                  required
+                  id="outlined-required"
 
-                onChange={(event) => setName(event.target.value)}
-              />
-            </FormControl>
-          </Grid>
-
-          <Grid item xs={6}>
-            <FormControl fullWidth variant="standard">
-              <TextField
-                label="กรอกเลขบัตรประชาชน"
-                required
-                id="outlined-required"
-
-                onChange={(event) => setPersonal(event.target.value)}
-              />
-            </FormControl>
-          </Grid>
-
-          <Grid item xs={6}>
-            <FormControl fullWidth variant="outlined">
-              <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <DatePicker
-                  label="เลือกวัน/เดือน/ปีเกิด"
-                  value={selectedDate}
-                  onChange={(newValue) => setSelectedDate(newValue)}
-                  // minDate={(new Date)}
-                  renderInput={(params) =>
-                    <TextField {...params} />}
+                  onChange={(event) => setName(event.target.value)}
                 />
-              </LocalizationProvider>
-            </FormControl>
-          </Grid>
+              </FormControl>
+            </Grid>
 
-          <Grid item xs={6}>
-            <FormControl fullWidth variant="outlined">
-              <InputLabel id="GenderID">เลือกเพศ</InputLabel>
-              <Select
-                native
-                value={users.GenderID}
-                label="กรุณาเลือก..."
-                onChange={handleChange}
-                inputProps={{
-                  name: "GenderID",
-                }}
-              >
-                <option aria-label="None" value="">
-                </option>
-                {genders.map((item: GenderInterface) => (
-                  <option value={item.ID} key={item.ID}>
-                    {item.Name}
+            <Grid item xs={6}>
+              <FormControl fullWidth variant="standard">
+                <TextField
+                  label="กรอกเลขบัตรประชาชน"
+                  required
+                  id="outlined-required"
+
+                  onChange={(event) => setPersonal(event.target.value)}
+                />
+              </FormControl>
+            </Grid>
+
+            <Grid item xs={6}>
+              <FormControl fullWidth variant="outlined">
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                  <DatePicker
+                    label="เลือกวัน/เดือน/ปีเกิด"
+                    value={selectedDate}
+                    onChange={(newValue) => setSelectedDate(newValue)}
+                    // minDate={(new Date)}
+                    renderInput={(params) =>
+                      <TextField {...params} />}
+                  />
+                </LocalizationProvider>
+              </FormControl>
+            </Grid>
+
+            <Grid item xs={6}>
+              <FormControl fullWidth variant="outlined">
+                <InputLabel id="GenderID">เลือกเพศ</InputLabel>
+                <Select
+                  native
+                  value={users.GenderID}
+                  label="กรุณาเลือก..."
+                  onChange={handleChange}
+                  inputProps={{
+                    name: "GenderID",
+                  }}
+                >
+                  <option aria-label="None" value="">
                   </option>
-                ))}
-              </Select>
-            </FormControl>
-          </Grid>
+                  {genders.map((item: GenderInterface) => (
+                    <option value={item.ID} key={item.ID}>
+                      {item.Name}
+                    </option>
+                  ))}
+                </Select>
+              </FormControl>
+            </Grid>
 
-          <Grid item xs={6}>
-            <FormControl fullWidth variant="outlined">
-              <InputLabel id="StatusID">เลือกสถานภาพการสมรส</InputLabel>
-              <Select
-                native
-                value={users.StatusID}
-                label="กรุณาเลือก..."
-                onChange={handleChange}
-                inputProps={{
-                  name: "StatusID",
-                }}
-              >
-                <option aria-label="None" value="">
-                </option>
-                {status.map((item: StatusInterface) => (
-                  <option value={item.ID} key={item.ID}>
-                    {item.Name}
+            <Grid item xs={6}>
+              <FormControl fullWidth variant="outlined">
+                <InputLabel id="StatusID">เลือกสถานภาพการสมรส</InputLabel>
+                <Select
+                  native
+                  value={users.StatusID}
+                  label="กรุณาเลือก..."
+                  onChange={handleChange}
+                  inputProps={{
+                    name: "StatusID",
+                  }}
+                >
+                  <option aria-label="None" value="">
                   </option>
-                ))}
-              </Select>
-            </FormControl>
-          </Grid>
+                  {status.map((item: StatusInterface) => (
+                    <option value={item.ID} key={item.ID}>
+                      {item.Name}
+                    </option>
+                  ))}
+                </Select>
+              </FormControl>
+            </Grid>
 
-          <Grid item xs={6}>
-            <FormControl fullWidth variant="standard">
-              <TextField
-                label="กรอกอีเมล"
-                required
-                id="outlined-required"
+            <Grid item xs={6}>
+              <FormControl fullWidth variant="standard">
+                <TextField
+                  label="กรอกอีเมล"
+                  required
+                  id="outlined-required"
 
-                onChange={(event) => setEmail(event.target.value)}
-              />
-            </FormControl>
-          </Grid>
-          
-          <Grid item xs={6}>
-            <FormControl fullWidth variant="standard">
-              <TextField
-                label="กรอกรหัสผ่าน"
-                required
-                id="outlined-required"
+                  onChange={(event) => setEmail(event.target.value)}
+                />
+              </FormControl>
+            </Grid>
 
-                onChange={(event) => setPassword(event.target.value)}
-              />
-            </FormControl>
-          </Grid>
+            <Grid item xs={6}>
+              <FormControl fullWidth variant="standard">
+                <TextField
+                  label="กรอกรหัสผ่าน"
+                  required
+                  id="outlined-required"
 
-          <Grid item xs={6}>
-            <FormControl fullWidth variant="standard">
-              <TextField
-                label="กรอกเบอร์โทรศัพท์"
-                required
-                id="outlined-required"
+                  onChange={(event) => setPassword(event.target.value)}
+                />
+              </FormControl>
+            </Grid>
 
-                onChange={(event) => setTel(event.target.value)}
-              />
-            </FormControl>
-          </Grid>
-          
-          <Grid item xs={6}>
-            <FormControl fullWidth variant="standard">
-              <TextField
-                label="กรอกที่อยู่ตามทะเบียนบ้าน"
-                required
-                id="outlined-required"
+            <Grid item xs={6}>
+              <FormControl fullWidth variant="standard">
+                <TextField
+                  label="กรอกเบอร์โทรศัพท์"
+                  required
+                  id="outlined-required"
 
-                onChange={(event) => setAddress(event.target.value)}
-              />
-            </FormControl>
+                  onChange={(event) => setTel(event.target.value)}
+                />
+              </FormControl>
+            </Grid>
+
+            <Grid item xs={6}>
+              <FormControl fullWidth variant="standard">
+                <TextField
+                  label="กรอกที่อยู่ตามทะเบียนบ้าน"
+                  required
+                  id="outlined-required"
+
+                  onChange={(event) => setAddress(event.target.value)}
+                />
+              </FormControl>
+            </Grid>
+
+            <Grid item xs={12}>
+              <Button
+                component={RouterLink}
+                to="/users"
+                variant="contained"
+              >
+                กลับ
+              </Button>
+              <Button
+                style={{ float: "right" }}
+                variant="contained"
+                onClick={submit}
+                color="primary"
+              >
+                บันทึกข้อมูล
+              </Button>
+            </Grid>
           </Grid>
-          
-          <Grid item xs={12}>
-            <Button
-              component={RouterLink}
-              to="/users"
-              variant="contained"
-            >
-              กลับ
-            </Button>
-            <Button
-              style={{ float: "right" }}
-              variant="contained"
-              onClick={submit}
-              color="primary"
-            >
-              บันทึกข้อมูล
-            </Button>
-          </Grid>
-        </Grid>
-      </Paper>
-    </Container>
+        </Box>
+      </Box>
+    </Box>
 
   );
 }

@@ -29,6 +29,35 @@ func TestUsercorrect(t *testing.T) {
 
 }
 
+
+func TestEmailisvalid(t *testing.T) {
+	g := NewGomegaWithT(t)
+
+	user := User{
+		Email:        "miss", //ว่าง
+		Tel:          "0988888888",
+		Password:     "123456789",
+		Name:         "nameA",
+		Address:      "bangkok",
+		Personal:     "1306666666666",
+		BirthdayTime: time.Date(1999, 5, 12, 0, 0, 0, 0, time.Local),
+	}
+	// ตรวจสอบด้วย govalidator
+	ok, err := govalidator.ValidateStruct(user)
+
+	// ok ต้องไม่เป็นค่า true แปลว่าต้องจับ error ได้
+	g.Expect(ok).ToNot(BeTrue())
+
+	// err ต้องไม่เป็นค่า nil แปลว่าต้องจับ error ได้
+	g.Expect(err).ToNot(BeNil())
+
+	// err.Error ต้องมี error message แสดงออกมา
+	g.Expect(err.Error()).To(Equal("Email: miss does not validate as email"))
+
+}
+
+
+
 func TestEmailNotnull(t *testing.T) {
 	g := NewGomegaWithT(t)
 
@@ -77,7 +106,7 @@ func TestTelNotnull(t *testing.T) {
 	g.Expect(err).ToNot(BeNil())
 
 	// err.Error ต้องมี error message แสดงออกมา
-	g.Expect(err.Error()).To(Equal("Tel cannot be blank"))
+	g.Expect(err.Error()).To(Equal("Tel: non zero value required"))
 
 }
 

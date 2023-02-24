@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
+import { Link as RouterLink } from "react-router-dom";
 import MuiDrawer from "@mui/material/Drawer";
 import Box from "@mui/material/Box";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
@@ -32,6 +33,8 @@ import ReceiptIcon from '@mui/icons-material/Receipt';
 import MeetingRoomIcon from '@mui/icons-material/MeetingRoom';
 import EditLocationIcon from '@mui/icons-material/EditLocation';
 
+import HomeAdmin from "./components/HomeAdmin";
+import HomeUser from "./components/HomeUser";
 import Home from "./components/Home";
 import Manages from "../../frontend/src/components/Manage/Manages";
 import ManageView from "../../frontend/src/components/Manage/ManageView";
@@ -79,8 +82,6 @@ import UserUpdate from "./components/UserUpdate";
 
 import { UserInterface } from "./models/IUser";
 import { AdminInterface } from "./models/IAdmin";
-
-
 
 const drawerWidth = 240;
 
@@ -135,44 +136,38 @@ const Drawer = styled(MuiDrawer, {
 const mdTheme = createTheme();
 
 const menu = [
-   { name: "หน้าแรก", icon: <HomeIcon />, path: "/", role: 'user' },
-   { name: "หน้าแรก", icon: <HomeIcon />, path: "/", role: 'admin' },
+   { name: "หน้าแรก", icon: <HomeIcon />, path: "/home-admin", role: 'admin' },
+   { name: "หน้าแรก", icon: <HomeIcon />, path: "/home-user", role: 'user' },
+   // { name: "หน้าแรก", icon: <HomeIcon />, path: "/", role: 'admin' },
 
-   { name: "จัดการห้องพัก", icon: <RoomPreferencesIcon />, path: "/manages", role: 'admin' },
-   { name: "ห้องพัก", icon: <MeetingRoomIcon />, path: "/manage-view", role: 'user' },
-   { name: "สัญญาเช่า", icon: <ContactPageIcon />, path: "/residents", role: 'admin' },
+   // { name: "จัดการห้องพัก", icon: <RoomPreferencesIcon />, path: "/manages", role: 'admin' },
+   // { name: "ห้องพัก", icon: <MeetingRoomIcon />, path: "/manage-view", role: 'user' },
+   // { name: "สัญญาเช่า", icon: <ContactPageIcon />, path: "/residents", role: 'admin' },
 
-   { name: "แจ้งออก", icon: <RemoveCircleOutlineIcon />, path: "/requestouts", role: 'user' },
-   { name: "แจ้งย้ายห้อง", icon: <EditLocationIcon />, path: "/requestchanges", role: 'user' },
+   // { name: "แจ้งออก", icon: <RemoveCircleOutlineIcon />, path: "/requestouts", role: 'user' },
+   // { name: "แจ้งย้ายห้อง", icon: <EditLocationIcon />, path: "/requestchanges", role: 'user' },
 
-   { name: "จองทำความสะอาด", icon: <CleaningServicesOutlinedIcon />, path: "/cleanings", role: 'user' },
-   { name: "เบิกจ่ายอุปกรณ์ในห้องพัก", icon: <ChairOutlinedIcon />, path: "/furnitures", role: 'admin' },
+   // { name: "จองทำความสะอาด", icon: <CleaningServicesOutlinedIcon />, path: "/cleanings", role: 'user' },
+   // { name: "เบิกจ่ายอุปกรณ์ในห้องพัก", icon: <ChairOutlinedIcon />, path: "/furnitures", role: 'admin' },
 
-   { name: "มิเตอร์", icon: <ChairOutlinedIcon />, path: "/meters", role: 'admin' },
-   { name: "บิลชำระ", icon: <ChairOutlinedIcon />, path: "/bills", role: 'admin' },
+   // { name: "มิเตอร์", icon: <ChairOutlinedIcon />, path: "/meters", role: 'admin' },
+   // { name: "บิลชำระ", icon: <ChairOutlinedIcon />, path: "/bills", role: 'admin' },
 
-   { name: "การชำระเงิน", icon: <PaymentIcon />, path: "/payments", role: 'user' },
-   { name: "บันทึกข้อมูลผู้เช่า", icon: <AccountCircleIcon />, path: "/users", role: 'user' },
-   { name: "บันทึกข้อมูลผู้เช่า", icon: <AccountCircleIcon />, path: "/users", role: 'admin' },
-   
-   { name: "แจ้งเหตุฉุกเฉิน", icon: <CampaignIcon />, path: "/emergencies", role: 'user' },
-   { name: "แจ้งซ่อม", icon: <ConstructionIcon />, path: "/repairs", role: 'user' },
+   // { name: "การชำระเงิน", icon: <PaymentIcon />, path: "/payments", role: 'user' },
+   // { name: "บันทึกข้อมูลผู้เช่า", icon: <AccountCircleIcon />, path: "/users", role: 'user' },
+   // { name: "บันทึกข้อมูลผู้เช่า", icon: <AccountCircleIcon />, path: "/users", role: 'admin' },
 
-
-
+   // { name: "แจ้งเหตุฉุกเฉิน", icon: <CampaignIcon />, path: "/emergencies", role: 'user' },
+   // { name: "แจ้งซ่อม", icon: <ConstructionIcon />, path: "/repairs", role: 'user' },
 ];
 
 
 
 function App() {
-   const [users, setUsers] = useState<UserInterface>();
-   const [admins, setAdmins] = useState<AdminInterface>();
    const [token, setToken] = useState<String>("");
    const [role, setRole] = useState<String | null>("");
    const [open, setOpen] = React.useState(false);
-   const toggleDrawer = () => {
-      setOpen(!open);
-   };
+
 
    useEffect(() => {
       const token = localStorage.getItem("token");
@@ -197,16 +192,13 @@ function App() {
       <Router>
          <Box>
             <AppBar position="absolute" open={open}
-            // sx={{
-            //    width: '95%',
-            //    bgcolor: 'lightgrey',
-            // }}
+               sx={{
+                  backgroundImage: "url(https://i.pinimg.com/564x/1f/bd/09/1fbd099373654c350065d81d48c213e2.jpg)",
+               }}
             >
                <Toolbar
                   sx={{
-                     // bgcolor: '#194D33',
-                     pr: "24px",
-                     height: '50px',
+                     height: 'auto',
                   }}
                >
 
@@ -216,7 +208,7 @@ function App() {
                      ml: '20px',
                      width: '100%',
                      display: 'flex',
-                     justifyContent: 'left',
+                     justifyContent: 'right',
                      alignItems: 'center',
 
                   }}>
@@ -232,31 +224,28 @@ function App() {
                                     <Button
                                        variant="outlined"
                                        sx={{
+                                          mr: '5px',
                                           fontFamily: "PK Krung Thep Medium",
-                                          fontSize: "18px",
+                                          fontSize: "20px",
+                                          fontWeight: "bold",
                                           height: 'auto',
-                                          width: 'auto',
-                                          color: 'white',
+                                          width: '150px',
+                                          color: 'black',
                                           borderRadius: "20px",
+                                          boxShadow: '5',
                                           transition: 'all 0.5s',
                                           '&:hover': {
-                                             bgcolor: 'white',
-                                             color: 'black',
+                                             transition: 'all 0.5s',
+                                             borderColor: '#d3d3d3',
+                                             bgcolor: '#d3d3d3',
+                                             borderWidth: '2px',
                                              borderRadius: "20px",
                                           },
-                                          '&:active': {
-                                             boxShadow: '4px 4px 12px #c5c5c5, -4px -4px 12px #ffffff',
-                                          }
                                        }}
                                     >
-                                       <Typography sx={{
-                                          fontFamily: "PK Krung Thep Medium",
-                                          display: 'flex',
-                                          justifyContent: 'center',
-                                          alignItems: 'center',
-                                       }}>
-                                          {item.icon} {item.name}
-                                       </Typography>
+
+                                       {/* {item.icon} */}
+                                       {item.name}
 
                                     </Button>
                                  </Link>
@@ -265,29 +254,43 @@ function App() {
                      </List>
                   </Box>
 
-                  <Button variant="outlined" onClick={signout}
-                     sx={{
-                        mr: '5px',
-                        fontFamily: "PK Krung Thep Medium",
-                        fontSize: "20px",
-                        height: 'auto',
-                        width: '200px',
-                        color: 'white',
-                        borderRadius: "20px",
-                        '&:hover': {
-                           borderColor: 'white',
-                           borderWidth: '2px',
+                  <Box sx={{
+                     ml: '20px',
+                     width: 'auto',
+                     display: 'flex',
+                     justifyContent: 'right',
+                     alignItems: 'center',
+                  }}>
+
+                     <Button variant="outlined" onClick={signout}
+                        sx={{
+                           mr: '5px',
+                           fontFamily: "PK Krung Thep Medium",
+                           fontSize: "20px",
+                           fontWeight: "bold",
+                           height: 'auto',
+                           width: '200px',
+                           color: 'black',
                            borderRadius: "20px",
-                        },
-                     }}
-                  >
-                     ออกจากระบบ
-                  </Button>
+                           boxShadow: '5',
+                           transition: 'all 0.5s',
+                           '&:hover': {
+                              transition: 'all 0.5s',
+                              borderColor: '#d3d3d3',
+                              bgcolor: '#d3d3d3',
+                              borderWidth: '2px',
+                              borderRadius: "20px",
+                           },
+                        }}
+                     >
+                        ออกจากระบบ
+                     </Button>
+                  </Box>
                </Toolbar>
             </AppBar>
          </Box>
 
-         <Grid container component="main" sx={{ height: "100vh" }}>
+         <Grid container component="main" sx={{ height: "100vh", bgcolor: 'skyblue' }}>
             <Grid
                item
                xs={12}
@@ -316,6 +319,8 @@ function App() {
                   }}>
                   <Routes>
                      <Route path="/" element={<Home />} />
+                     <Route path="/home-admin" element={<HomeAdmin />} />
+                     <Route path="/home-user" element={<HomeUser />} />
                      <Route path="/manages" element={<Manages />} />
                      <Route path="/manage-view" element={<ManageView />} />
                      <Route path="/manage/create" element={<ManageCreate />} />

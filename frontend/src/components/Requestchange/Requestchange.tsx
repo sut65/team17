@@ -111,7 +111,37 @@ function Requestchange() {
   }, []);
 
   return (
-    <div>
+    <div style={{
+      backgroundImage: "url(https://images.pexels.com/photos/220182/pexels-photo-220182.jpeg)",
+      backgroundRepeat: "no-repeat",
+      backgroundSize: "cover",
+      width: '100%',
+      fontFamily: "PK Krung Thep Medium",
+      fontSize: 20,
+      display: 'flex',
+      justifyContent: 'center',
+   }}>
+    
+ 
+
+    <Box sx={{
+      
+      mt: '100px',
+      mb: '100px',
+      width: '80%',
+      background: 'rgba(0, 0, 0, 0.7)',   
+      display: 'flex',
+      justifyContent: 'center',
+      borderRadius: 10,
+      
+
+   }}>
+
+    <Box sx={{ width: "90%", marginTop: 1 }}>
+    <Box display="flex" sx={{
+      mt: "30px",
+    }}>
+    
 
 <Snackbar
     open={success}
@@ -134,14 +164,16 @@ function Requestchange() {
     </Alert>
   </Snackbar>
 
-    <Container sx={{ marginTop: 2 }} maxWidth="md">
-      <Box display="flex">
-        <Box flexGrow={1}>
+
+        <Box flexGrow={1} >
           <Typography
             component="h2"
             variant="h6"
             color="primary"
             gutterBottom
+            sx={{fontFamily: "PK Krung Thep Medium",
+                fontSize: "36px",
+                fontWeight: 'bold',}}
           >
             ข้อมูลการแจ้งย้ายห้อง
           </Typography>
@@ -151,36 +183,45 @@ function Requestchange() {
             component={RouterLink}
             to="/requestchange/create"
             variant="contained"
-            color="primary"
+            sx={{fontFamily: "PK Krung Thep Medium",
+            fontSize: "20px",
+            background: '#2448f9',  
+             
+            '&:hover': {
+               background: '#eb6a00',
+               color: "white",
+               
+            },}}
+          style={{borderRadius: '30px'}}
           >
             เพิ่มข้อมูล
           </Button>
         </Box>
       </Box>
-      <TableContainer component={Paper} sx={{ minWidth: 650 }}>
-        <Table sx={{ marginTop: 2 }} aria-label="simple table">
+    
+      
+        <Table sx={{ marginTop: 1,  width: '100%', }} aria-label="simple table">
           <TableHead>
             <TableRow>
-            <TableCell align="center" width="2%">
+            <TableCell align="center" width="2%" sx={{fontFamily: "PK Krung Thep Medium", fontSize: "30px", color: "#f96424"}}>
                 ลำดับ
               </TableCell>
-              <TableCell align="center" width="15%">
+              <TableCell align="center" width="15%" sx={{fontFamily: "PK Krung Thep Medium", fontSize: "30px",color: "#f96424"}}>
                 ชื่อ
               </TableCell>
-              <TableCell align="center" width="10%">
+              <TableCell align="center" width="15%" sx={{fontFamily: "PK Krung Thep Medium", fontSize: "30px",color: "#f96424"}}>
                 ห้องพัก
               </TableCell>
-              <TableCell align="center" width="20%">
+              <TableCell align="center" width="20%" sx={{fontFamily: "PK Krung Thep Medium", fontSize: "30px",color: "#f96424"}}>
                 สาเหตุ
               </TableCell>
-              <TableCell align="center" width="20%">
+              <TableCell align="center" width="20%" sx={{fontFamily: "PK Krung Thep Medium", fontSize: "30px",color: "#f96424"}}>
                 รายละเอียด
               </TableCell>
-              
-              <TableCell align="center" width="20%">
+              <TableCell align="center" width="20%" sx={{fontFamily: "PK Krung Thep Medium", fontSize: "30px",color: "#f96424"}}>
                 แก้ไข
               </TableCell>
-              <TableCell align="center" width="20%">
+              <TableCell align="center" width="20%" sx={{fontFamily: "PK Krung Thep Medium", fontSize: "30px",color: "#f96424"}}>
                 Delete
               </TableCell>
         
@@ -189,17 +230,17 @@ function Requestchange() {
           <TableBody>
             {requestchanges.map((item: RequestchangeInterface) => (
               <TableRow key={item.ID}>
-              <TableCell align="center">{item.ID}</TableCell>
-                <TableCell align="center">{item.User.Name}</TableCell>
-                <TableCell align="center">{item.Room.Number}</TableCell>
-                <TableCell align="center">{item.Reason.Reason}</TableCell>
-                <TableCell align="center">{item.Detail}</TableCell>
-                <TableCell align="center">
+              <TableCell align="center" sx={{fontFamily: "PK Krung Thep Medium", fontSize: "20px",color: "white"}} >{item.ID}</TableCell>
+                <TableCell align="center" sx={{fontFamily: "PK Krung Thep Medium", fontSize: "20px",color: "white"}}>{item.User.Name}</TableCell>
+                <TableCell align="center" sx={{fontFamily: "PK Krung Thep Medium", fontSize: "20px",color: "white"}}>{item.Room.Number}</TableCell>
+                <TableCell align="center" sx={{fontFamily: "PK Krung Thep Medium", fontSize: "20px",color: "white"}}>{item.Reason.Reason}</TableCell>
+                <TableCell align="center" sx={{fontFamily: "PK Krung Thep Medium", fontSize: "20px",color: "white"}}>{item.Detail}</TableCell>
+                <TableCell align="center" >
                 <IconButton aria-label="แก้ไข" size="large" 
                 sx={{
-                  background: 'white',   
+                  color: '#209400',
                            '&:hover': {
-                              background: "#24e1f9",
+                            background: "#209400",
                               color: "white",
                               
                            },
@@ -212,7 +253,7 @@ function Requestchange() {
                 <TableCell align="center">
                 <IconButton  aria-label="delete" size="large"
                 sx={{
-                  background: 'white',   
+                 
                            '&:hover': {
                               background: "#ff3838",
                               color: "white",
@@ -228,8 +269,11 @@ function Requestchange() {
             ))}
           </TableBody>
         </Table>
-      </TableContainer>
-    </Container>
+       
+     
+    
+    </Box>
+    </Box>
   </div>
   );
 }

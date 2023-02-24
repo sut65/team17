@@ -207,13 +207,14 @@ function RequestoutUpdate() {
   return (
 
     <div style={{
-      backgroundImage: "url(https://images.hdqwalls.com/download/blue-red-material-design-8k-kf-1920x1080.jpg)",
+      backgroundImage: "url(https://images.rawpixel.com/image_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvdjY5MC1zYXNpLTEwXzEuanBn.jpg)",
       backgroundRepeat: "no-repeat",
       backgroundSize: "cover",
       width: '100%',
       fontFamily: "PK Krung Thep Medium",
       fontSize: 20,
-      display: 'grid',
+      display: 'flex',
+      justifyContent: 'center',
    }}>
     
  
@@ -223,8 +224,8 @@ function RequestoutUpdate() {
       mt: '100px',
       mb: '100px',
       minHeight: '50%',
-      width: '100%',
-      background: 'rgba(29, 131, 240, 0.3)',
+      width: '90%',
+      background: 'rgba(255, 255, 255, 0.8)',
       
       display: 'flex',
       justifyContent: 'center',
@@ -232,14 +233,10 @@ function RequestoutUpdate() {
 
    }}>
    
-    <Box
-      sx={{
-        fontFamily: "PK Krung Thep Medium",
-        fontSize: "20px",
-         
-        
-      }}
-    >
+   <Box sx={{ width: "95%" }}>
+    
+    <Box display="flex" 
+    sx={{mt: "10px",}}>
     
 
       <Snackbar
@@ -281,10 +278,7 @@ function RequestoutUpdate() {
               gutterBottom
               sx={{
                 fontFamily: "PK Krung Thep Medium",
-                fontSize: "48px",
-                color: '#000000'
-                
-                
+                fontSize: "48px",  
               }}
             >
               <b>แบบคำขอออก</b>
@@ -292,15 +286,17 @@ function RequestoutUpdate() {
             </Typography>
           </Box>
         </Box>
+        </Box>
         <Divider />
         <Grid container spacing={3} sx={{ padding: 2 }}>
         <Grid item xs={6}>
-          <FormControl fullWidth variant="outlined">
+          <FormControl fullWidth variant="outlined"  sx={{ fontFamily: "PK Krung Thep Medium", fontSize: "24px" }}>
             <p>ชื่อ - สกุล</p>
             <Select
               sx={{
                 fontFamily: "PK Krung Thep Medium",
-                fontSize: "16px",
+                fontSize: "20px",
+                
                 
               }}
               style={{ borderRadius: "30px" }}
@@ -323,11 +319,11 @@ function RequestoutUpdate() {
         </Grid>
 
           <Grid item xs={6}>
-            <FormControl fullWidth variant="outlined">
+            <FormControl fullWidth variant="outlined" sx={{ fontFamily: "PK Krung Thep Medium", fontSize: "24px"}}>
               <p>ห้องพัก</p>
               <Select sx={{
                 fontFamily: "PK Krung Thep Medium",
-                fontSize: "18px",
+                fontSize: "20px",
                 
                 
               }}
@@ -357,7 +353,7 @@ function RequestoutUpdate() {
               <p>เหตุผล</p>
               <Select sx={{
                 fontFamily: "PK Krung Thep Medium",
-                fontSize: "16px"
+                fontSize: "20px"
               }}
                 style={{borderRadius: "30px"}}
                 native
@@ -369,7 +365,7 @@ function RequestoutUpdate() {
                 }}
               >
                 <option aria-label="None" value="">
-                  
+                  กรุณาเลือก
                 </option>
                 {reasons.map((item:ReasonInterface) => (
                   <option value={item.ID} key={item.ID}>
@@ -380,13 +376,14 @@ function RequestoutUpdate() {
             </FormControl>
           </Grid>
 
-          <Grid item xs={6}>
+          <Grid item xs={6} >
             <FormControl fullWidth variant="outlined">
             <p>วัน เดือน  ปี ที่ต้องการ</p>
             
             <LocalizationProvider dateAdapter={AdapterDateFns}>
                 
-            <DatePicker
+            <DatePicker 
+                
                     label="Select Date"
                     value={selectedDate}
                     onChange={(newValue) => {
@@ -410,6 +407,7 @@ function RequestoutUpdate() {
             
             <FormControl fullWidth variant="outlined">
               <TextField
+                inputProps={{ style: {fontFamily: "PK Krung Thep Medium", fontSize: "20px"}}}
                 id="detail"
                 variant="outlined"
                 type="string"
