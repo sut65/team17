@@ -195,7 +195,6 @@ function MeterUpdate() {
         // background: '#e0e0e0',
         width: "100%",
         height: "100%",
-
         fontFamily: "PK Krung Thep Medium",
         fontSize: 20,
         display: "flex",
