@@ -84,6 +84,18 @@ func ListBills(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"data": bills})
 }
 
+
+// GET /billByUser/:id
+func GetBillByUser(c *gin.Context) {
+	var bill []entity.Bill
+	id := c.Param("id")
+	if err := entity.DB().Preload("Meter.Manage.Room").Preload("Meter.User").Preload("Furniture").Raw("SELECT * FROM bills a JOIN meters b on a.meter_id = b.id JOIN manages c on b.manage_id = c.id  JOIN rooms d on c.room_id =  d.id WHERE b.user_id = ?", id).Find(&bill).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"data": bill})
+}
+
 // DELETE /bills/:id
 func DeleteBill(c *gin.Context) {
 	id := c.Param("id")
