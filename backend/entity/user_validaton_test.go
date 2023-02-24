@@ -22,13 +22,11 @@ func TestUsercorrect(t *testing.T) {
 	}
 
 	ok, err := govalidator.ValidateStruct(user)
-
 	g.Expect(ok).To(BeTrue())
 
 	g.Expect(err).To(BeNil())
 
 }
-
 
 func TestEmailisvalid(t *testing.T) {
 	g := NewGomegaWithT(t)
@@ -55,8 +53,6 @@ func TestEmailisvalid(t *testing.T) {
 	g.Expect(err.Error()).To(Equal("Email: miss does not validate as email"))
 
 }
-
-
 
 func TestEmailNotnull(t *testing.T) {
 	g := NewGomegaWithT(t)
@@ -291,7 +287,7 @@ func TestBirthdayTimeIncorrect(t *testing.T) {
 		Name:         "nameA",
 		Address:      "bangkok",
 		Personal:     "1306666666666",
-		BirthdayTime: time.Now().Add(2 * time.Minute), //เช็คเวลาที่ผิด นาที
+		BirthdayTime: time.Now().AddDate(0, 0, 2), //เช็คเวลาที่ผิด 1 วัน
 	}
 	// ตรวจสอบด้วย govalidator
 	ok, err := govalidator.ValidateStruct(user)
@@ -303,6 +299,6 @@ func TestBirthdayTimeIncorrect(t *testing.T) {
 	g.Expect(err).ToNot(BeNil())
 
 	// err.Error ต้องมี error message แสดงออกมา
-	g.Expect(err.Error()).To(Equal("Birthday not past"))
+	g.Expect(err.Error()).To(Equal("Birthday must be in the past"))
 
 }
